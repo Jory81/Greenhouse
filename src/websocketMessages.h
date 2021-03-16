@@ -248,7 +248,7 @@ void sendAllTempToClient (){
 }
 
 void sendAllHumidityToClient(){
-             String mergedString = "H" + String(humidity[0]) + "+" + String(humidity[1]) + "+" + String(humidity[2]) + "+";
+             String mergedString = "H" + String(humidity[0]) + "+" + String(dhtTemp[0]) + "+" + String(humidity[1]) + "+" + String(dhtTemp[1]) + "+" + String(humidity[2]) + "+" + String(dhtTemp[2]) + "+";
             ws.textAll(mergedString);  
 }
 
@@ -286,10 +286,10 @@ void updateGraph2 (float temp){
             ws.textAll(mergedString);                
 }
 
-void sendHumidityToClient (float humidity){
-            String mergedString = "SH"+String(humidity);
-            ws.textAll(mergedString);                
-}
+// void sendHumidityToClient (float humidity){
+//             String mergedString = "SH"+String(humidity);
+//             ws.textAll(mergedString);                
+// }
 
 // void sendTimeToClient1 (uint16_t Time){             
 // }

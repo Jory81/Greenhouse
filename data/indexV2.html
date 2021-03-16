@@ -609,6 +609,11 @@ var offsetFromTargetTempMin2=0;
 var fanSpeed=0;
 var humidity=0;
 var humidity2=0;
+
+var groundtemp2=0;
+
+var airtemp=0;
+var airtemp2=0;
 //var alarmActiveTimer1=false;
 //var alarmActiveTimer2=false;
 
@@ -1000,7 +1005,7 @@ else if (string.charAt(0) == 'H'){
 	var numArgs = 0;
 	var pos1 = 1;
 	var pos2 = 0;
-	var humid_values = new Array(3)
+	var humid_values = new Array(6)
 	var fullString = string.slice(1, string.length);
 	for( var t = 0; t < string.length; t++ ){
 		if (string[t] == '+'){
@@ -1015,6 +1020,7 @@ else if (string.charAt(0) == 'H'){
 	for (var x = 0; x < numArgs; x ++){
 	residu = humid_values[x]
 		if (x == 0){
+		humidity = residu;
 		document.getElementById("humid1").innerHTML = residu;
 			if ((residu < humidmin-10 && document.getElementById("1G1").checked == true) || (residu > humidmax+10 && document.getElementById("1G1").checked == true)){ //;tempOffsetAlarm == true){  // alarmActiveTemp1
 			//tempOffsetAlarm = false; // alarmActiveTemp1
@@ -1029,6 +1035,10 @@ else if (string.charAt(0) == 'H'){
 		
 		}
 		else if (x == 1){
+		document.getElementById("DHTtemperature1").innerHTML = residu;
+		}
+		else if (x == 2){
+		humidity2 = residu;
 		document.getElementById("humid2").innerHTML = residu;
 			if (document.getElementById("operation_mode").value == "2"){
 				if ((residu < humidmin2-10 && document.getElementById("1G3").checked == true) || (residu > humidmax2+10 && document.getElementById("1G4").checked == true)){ //;tempOffsetAlarm == true){  // alarmActiveTemp1
@@ -1042,8 +1052,14 @@ else if (string.charAt(0) == 'H'){
 				//playSound1(100);	
 				}
 		}
-		else if (x == 2){
+		else if (x == 3){
+		document.getElementById("DHTtemperature2").innerHTML = residu;
+		}		
+		else if (x == 4){
 		document.getElementById("humid3").innerHTML = residu;
+		}
+		else if (x == 5){
+		document.getElementById("DHTtemperature3").innerHTML = residu;
 		}		
 	}	
 }
@@ -1095,6 +1111,7 @@ else if (string.charAt(0) == 'T'){
 		}
 		else if (x == 2){
 		document.getElementById("temperature3").innerHTML = residu;
+		groundtemp2=residu;
 			if (targetCelsius3 > 0 && document.getElementById("operation_mode").value == "2"){
 				if (offsetFromTargetTempMax2 > 1){
 					if ((residu > targetCelsius3 + offsetFromTargetTempMax2 || residu < targetCelsius3 - offsetFromTargetTempMax2) && document.getElementById("1M2").checked == true){ //;tempOffsetAlarm == true){  // alarmActiveTemp1
@@ -1133,11 +1150,13 @@ else if (string.charAt(0) == 'S'){
 		var residuFloat = parseFloat(residu).toFixed(2);
 		drawChart(residuFloat);
 	}
+	/*
 	else if (string.charAt(1) == 'D'){
 		var residu = string.slice(2, string.length);	
 		var residuFloat = parseFloat(residu).toFixed(2);
 		drawChart1(residuFloat);
 	}	
+	*/
 
     else if (string.charAt(1) == 'I'){
 		var residu = string.slice(2, string.length);
@@ -1210,6 +1229,30 @@ function doSend(message) {
                     name: 'humidity %',
                     data: [], 
                     color: '#00ffff'
+                },
+				{
+                    showInLegend: true,
+                    name: 'Ground temp2',
+                    data: [],
+                    color: '#ff0000'
+                }, 
+                {
+                    showInLegend: true,
+                    name: 'target Temp2',
+                    data: [], 
+                    color: '#0000ff'
+                },
+				{
+                    showInLegend: true,
+                    name: 'Air temp2',
+                    data: [],
+                    color: '#ffff00'
+                },
+				{
+                    showInLegend: true,
+                    name: 'humidity2 %',
+                    data: [], 
+                    color: '#00ffff'
                 }
 
             ],
@@ -1252,14 +1295,17 @@ function doSend(message) {
 function drawChart(temp){
             var x = (new Date()).getTime();
 			var currentCelsius = parseFloat(temp);
+			var currentAirCelsius = parseFloat(airtemp);
 			var currentFanSpeed = parseFloat(fanSpeed);
 			var currentHumidity = parseFloat(humidity);
 			if(chartT.series[0].data.length > 1440) {
 				chartT.series[0].addPoint([x, currentCelsius], true, true, true);
+				chartT.series[2].addPoint([x, currentAirCelsius], true, true, true);
 				chartT.series[3].addPoint([x, currentFanSpeed], true, true, true);
 				chartT.series[4].addPoint([x, currentHumidity], true, true, true);
 			} else {
 				chartT.series[0].addPoint([x, currentCelsius], true, false, true);
+				chartT.series[2].addPoint([x, currentAirCelsius], true, true, true);
 				chartT.series[3].addPoint([x, currentFanSpeed], true, false, true);
 				chartT.series[4].addPoint([x, currentHumidity], true, false, true);
 			}
@@ -1270,7 +1316,36 @@ function drawChart(temp){
                     chartT.series[1].addPoint([x, targetCelsius1], true, false, true);
                 }
             }
+			
+//function drawChart1(temp){
+if (document.getElementById("operation_mode").value == "2"){
+			//var x = (new Date()).getTime();
+			var currentCelsius = parseFloat(groundtemp2);
+			var currentAirCelsius = parseFloat(airtemp2);
+			//var currentFanSpeed = parseFloat(fanSpeed);
+			var currentHumidity = parseFloat(humidity2);
+			if(chartT.series[5].data.length > 1440) {
+				chartT.series[5].addPoint([x, currentCelsius], true, true, true);
+				chartT.series[7].addPoint([x, currentAirCelsius], true, true, true);
+				//chartT.series[8].addPoint([x, currentFanSpeed], true, true, true);
+				chartT.series[8].addPoint([x, currentHumidity], true, true, true);
+			} else {
+				chartT.series[5].addPoint([x, currentCelsius], true, false, true);
+				chartT.series[7].addPoint([x, currentAirCelsius], true, true, true);
+				//chartT.series[3].addPoint([x, currentFanSpeed], true, false, true);
+				chartT.series[8].addPoint([x, currentHumidity], true, false, true);
+			}
+            if (targetCelsius3 > 0) {
+                if(chartT.series[6].data.length > 1440) {
+                    chartT.series[6].addPoint([x, targetCelsius3], true, true, true);
+                } else {
+                    chartT.series[6].addPoint([x, targetCelsius3], true, false, true);
+                }
+            }	
+}
 };
+
+/*
 function drawChart1(temp){
             var x = (new Date()).getTime();
 			var currentCelsius = parseFloat(temp);
@@ -1280,6 +1355,7 @@ function drawChart1(temp){
 				chartT.series[2].addPoint([x, currentCelsius], true, false, true);
 			}
 };
+*/
 </script>
 
 <script>
