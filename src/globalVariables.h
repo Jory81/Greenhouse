@@ -67,7 +67,7 @@ uint8_t humidmin = 30;
 uint8_t humidmax = 80;
 
 uint16_t targetTemperature2=60;
-uint8_t alarmMessage=0;
+uint8_t  alarmMessage=0;
 //boolean timer2 = false;
 
 

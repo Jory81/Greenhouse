@@ -276,11 +276,6 @@ void updateGraph (float temp){
             ws.textAll(mergedString);                
 }
 
-void updateFanSpeed(byte fanSpeed){
-            String mergedString = "SI"+String(fanSpeed);
-            ws.textAll(mergedString);                
-}
-
 void updateGraph2 (float temp){
             String mergedString = "SD"+String(temp);
             ws.textAll(mergedString);                

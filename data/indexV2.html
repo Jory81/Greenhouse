@@ -24,261 +24,297 @@
 	</div>
 	
 	<div>	
+	<h3>settings:</h3>
+	</div>
+	<div>	
+	<span class="dht-labels">temperature</span>
+	<span class="tab">
+	<span id="checkbox3">
+	<input class="ckeckbox-element" type="checkbox" id="1Z1" onclick="openTab('1Z1', event, 'tempcontrol')"/>  
+	<i class="glyphicon glyphicon-pencil"></i>
+	</span>
+
+	<span class="dht-labels">humidty</span>
+	<span class="tab">
+	<span id="checkbox3">
+	<input class="ckeckbox-element" type="checkbox" id="1Z2" onclick="openTab('1Z2', event, 'humidcontrol')"/>  
+	<i class="glyphicon glyphicon-pencil"></i>
+	</span>	
+		
+	<span class="dht-labels">air flow</span>
+	<span class="tab">
+	<span id="checkbox3">
+	<input class="ckeckbox-element" type="checkbox" id="1Z3" onclick="openTab('1Z3', event, 'fancontrol')"/>  
+	<i class="glyphicon glyphicon-pencil"></i>
+	</span>	
+	
+	<span class="dht-labels">lights</span>
+	<span class="tab">
+	<span id="checkbox3">
+	<input class="ckeckbox-element" type="checkbox" id="1Z4" onclick="openTab('1Z4', event, 'lightcontrol')"/>  
+	<i class="glyphicon glyphicon-pencil"></i>
+	</span>	
+	<div>
+	
+	<span class="dht-labels">relay control</span>
+	<span class="tab">
+	<span id="checkbox3">
+	<input class="ckeckbox-element" type="checkbox" id="1Z5" onclick="openTab('1Z5', event, 'relaycontrol')"/>  
+	<i class="glyphicon glyphicon-pencil"></i>
+	</span>	
+	
 	<span class="dht-labels">system settings</span>
 	<span class="tab">
 	<span id="checkbox3">
-	<input class="ckeckbox-element" type="checkbox" id="1Z2" onclick="openTab('1Z2', event, 'Systemsettings')"/>  
-	&nbsp;
+	<input class="ckeckbox-element" type="checkbox" id="1Z6" onclick="openTab('1Z6', event, 'systemsettings')"/>  
 	<i class="glyphicon glyphicon-pencil"></i>
 	</span>
 	
-	<span class="dht-labels">calibration settings</span>
+	<span class="dht-labels">calibration</span>
 	<span class="tab">
 	<span id="checkbox3">
-	<input class="ckeckbox-element" type="checkbox" id="1Z3" onclick="openTab('1Z3', event, 'Calsettings')"/>  
-	&nbsp;
+	<input class="ckeckbox-element" type="checkbox" id="1Z7" onclick="openTab('1Z7', event, 'calsettings')"/>  
 	<i class="glyphicon glyphicon-pencil"></i>
 	</span>
+
 	</div>
 </div>
 <hr>
 <div id="tempcontrol" class="tabcontent">
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 
-	<h4>ground probe 1</h4>
+	<h4>Soil temp.1</h4>
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input Temp 1" class="form-controlx input-sl" id="A1" value=""></span> <span><button onclick="updateTemp('1A1')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-		<span class="dht-labels"></span> 
-		<span id="targetTemperature1"></span>
-		<sup class="units">&deg;C</sup>
-		
-	</div>	
-
-	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="temp range 1" class="form-controlx input-sl" id="K2" value=""></span> <span><button onclick="updateTemp('1K2')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-		<span class="dht-labels"></span> 
-		<span id="offsetFromTargetTempMin"></span>
-		<sup class="units">&deg;C</sup>
-		
+	<span class="inputparam"> <input type="number" placeholder="input Soil Temp 1" class="form-controlx input-sl" id="targetSoilTemp1" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('targetSoilTemp1', targetSoilTemp1.value)" class="btnx btn-primary">_targetSoilTemp1</button> </span>
 	</div>
-	
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="alarm range 1" class="form-controlx input-sl" id="K1" value=""></span> <span><button onclick="updateTemp('1K1')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;    
-		<span class="dht-labels"></span> 
-        <span id="offsetFromTargetTempMax"></span>
-        <sup class="units">&deg;C</sup>
-		
-		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1M1" onclick="updateButton('1M1')"/>  
-		<i class="glyphicon glyphicon-bell"></i>
-		</span>
-	
-	</div>	
-	
-	<h4>ground probe 2</h4>
-	
-	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input Temp 2" class="form-controlx input-sl" id="A3" value=""></span> <span><button onclick="updateTemp('1A3')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-		<span class="dht-labels"></span> 
-		<span id="targetTemperature3"></span>
-		<sup class="units">&deg;C</sup>
-		
-	</div>	
-
-	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="temp range 2" class="form-controlx input-sl" id="K4" value=""></span> <span><button onclick="updateTemp('1K4')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-		<span class="dht-labels"></span> 
-		<span id="offsetFromTargetTempMin2"></span>
-		<sup class="units">&deg;C</sup>
-		
+	<span class="inputparam"> <input type="number" placeholder="temp range 1" class="form-controlx input-sl" id="tempRange1" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('tempRange1', tempRange1.value)" class="btnx btn-primary">_tempRange1</button> </span>
 	</div>
-	
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="alarm range 2" class="form-controlx input-sl" id="K3" value=""></span> <span><button onclick="updateTemp('1K3')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;    
-		<span class="dht-labels"></span> 
-        <span id="offsetFromTargetTempMax2"></span>
-        <sup class="units">&deg;C</sup>
-		
-		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1M2" onclick="updateButton('1M2')"/>  
-		<i class="glyphicon glyphicon-bell"></i>
-		</span>
-	
+	<span class="inputparam"> <input type="number" placeholder="alarm range 1" class="form-controlx input-sl" id="alarmRange1" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('alarmRange1', alarmRange1.value)" class="btnx btn-primary">_alarmRange1</button> </span>
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="soilAlarm1" onclick="updateButton(this.id, this.checked)"/>  
+	<i class="glyphicon glyphicon-bell"></i>	
+	</span>
 	</div>	
 	
+	<h4>Air temp 1</h4>
+	<div class="inputcontainer">
+	<span class="inputparam"> <input type="number" placeholder="input Air Temp 1" class="form-controlx input-sl" id="targetAirTemp1" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('targetAirTemp1', targetAirTemp1.value)" class="btnx btn-primary">_targetAirTemp1</button> </span>
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="airAlarm1" onclick="updateButton(this.id, this.checked)"/>  
+	<i class="glyphicon glyphicon-bell"></i>	
+	</span>
+	</div>
 	<br>
 	
-	<h4>Air probe 1</h4>	
+	<h4>Soil temp.2</h4>
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input Temp 1" class="form-controlx input-sl" id="A2" value=""></span> <span><button onclick="updateTemp('1A2')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-		<span class="dht-labels"></span> 
-		<span id="targetTemperature2"></span>
-		<sup class="units">&deg;C</sup>
-		
-		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1J2" onclick="updateButton('1J2')"/>  
-		<i class="glyphicon glyphicon-bell"></i>
-		</span> 
-		
+	<span class="inputparam"> <input type="number" placeholder="input Soil Temp 2" class="form-controlx input-sl" id="targetSoilTemp2" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('targetSoilTemp2', targetSoilTemp2.value)" class="btnx btn-primary">_targetSoilTemp2</button> </span>
 	</div>
-	
-	<h4>Air probe 2</h4>
+	<div class="inputcontainer">
+	<span class="inputparam"> <input type="number" placeholder="temp range 2" class="form-controlx input-sl" id="tempRange2" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('tempRange2', tempRange2.value)" class="btnx btn-primary">_tempRange2</button> </span>
+	</div>
+	<div class="inputcontainer">
+	<span class="inputparam"> <input type="number" placeholder="alarm range 2" class="form-controlx input-sl" id="alarmRange2" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('alarmRange2', alarmRange2.value)" class="btnx btn-primary">_alarmRange2</button> </span>
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="soilAlarm2" onclick="updateButton(this.id, this.checked)"/>  
+	<i class="glyphicon glyphicon-bell"></i>	
+	</span>
+	</div>	
 
+	<h4>Air temp 2</h4>
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input Temp 2" class="form-controlx input-sl" id="A4" value=""></span> <span><button onclick="updateTemp('1A4')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-		<span class="dht-labels"></span> 
-		<span id="targetTemperature4"></span>
-		<sup class="units">&deg;C</sup>
-		
-		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1J1" onclick="updateButton('1J1')"/>  
-		<i class="glyphicon glyphicon-bell"></i>
-		</span> 
-		
+	<span class="inputparam"> <input type="number" placeholder="input Air Temp 2" class="form-controlx input-sl" id="targetAirTemp2" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('targetAirTemp2', targetAirTemp2.value)" class="btnx btn-primary">_targetAirTemp2</button> </span>
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="airAlarm2" onclick="updateButton(this.id, this.checked)"/>  
+	<i class="glyphicon glyphicon-bell"></i>	
+	</span>
 	</div>
-	
 	<hr>
+</div>
+
+<div id="fancontrol" class="tabcontent">
+  <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
+
+		<h4>fan</h4>
+			
+			<div>
+			<span class="textinfo">manual mosfet control (1)</span>
+			<input type="checkbox" id="manualMosfet1" onclick="updateButton(this.id, this.checked)"> 
+			</div>
+			
+			<div>
+			<label class="slidercontainerx">	
+			<input id="manualFanspeed1" type="range" class="slider" min="0" max="255" step="1" value="128" onchange="updateSlider(this.id, this.value)">
+			</label>
+			</div>
+
+			<div>
+			<span class="textinfo">manual mosfet control (2)</span>
+			<input type="checkbox" id="manualMosfet2" onclick="updateButton(this.id, this.checked)"> 
+			</div>
+			
+			<div>
+			<label class="slidercontainerx">	
+			<input id="manualFanspeed2" type="range" class="slider" min="0" max="255" step="1" value="128" onchange="updateSlider(this.id, this.value)">
+			</label>
+			</div> 
+
+  
+  	<hr>
+</div>
+
+<div id="relaycontrol" class="tabcontent">
+  <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
+  
+  <h4>manual relay control</h4>
+  			<div>
+			<span class="textinfo">relay 1: soil 1</span>
+			<input type="checkbox" id="manualRelay1" onclick="updateButton(this.id, this.checked)"> 
+			</div>
+			<div>
+			<span class="textinfo">relay 2: soil 2</span>
+			<input type="checkbox" id="manualRelay2" onclick="updateButton(this.id, this.checked)"> 
+			</div>
+			<div>
+			<span class="textinfo">relay 3: lights 1</span>
+			<input type="checkbox" id="manualRelay3" onclick="updateButton(this.id, this.checked)"> 
+			</div>
+			<div>
+			<span class="textinfo">relay 4: lights 2</span>
+			<input type="checkbox" id="manualRelay4" onclick="updateButton(this.id, this.checked)"> 
+			</div>
+			<div>
+			<span class="textinfo">relay 5: humidty /optional</span>
+			<input type="checkbox" id="manualRelay5" onclick="updateButton(this.id, this.checked)"> 
+			</div>
+			<div>
+			<span class="textinfo">relay 6: humidty /optional</span>
+			<input type="checkbox" id="manualRelay6" onclick="updateButton(this.id, this.checked)"> 
+			</div>
+					
+  	<hr>
+</div>
+
+<div id="lightcontrol" class="tabcontent">
+  <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
+  
+  	<h4>Lights:</h4>
+	<p>
+	Light 1 on: <input class="timeMakeup" type="time" id="lights1on">
+	Light 1 off: <input class="timeMakeup" type="time" id="lights1off">
+	&nbsp
+	<span><button onclick="updateTime('lights1ON', lights1on.value,'lights1OFF', lights1off.value)" class="btnx btn-primary">_LightSchedule1</button></span>
+	</p>
+	<p>
+	Light 2 on: <input class="timeMakeup" type="time" id="lights2on">
+	Light 2 off: <input class="timeMakeup" type="time" id="lights2off">
+	&nbsp
+	<span><button onclick="updateTime('lights2ON', lights2on.value,'lights2OFF', lights2off.value)" class="btnx btn-primary">_LightSchedule2</button></span>
+	</p>	
+  
+  	<hr>
 </div>
 
 <div id="humidcontrol" class="tabcontent">
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 
-	<h4>Lights:</h4>
-	
-	<p>
-	Light 1 on: <input class="timeMakeup" type="time" id="lightsON">
-	Light 1 off: <input class="timeMakeup" type="time" id="lightsOFF">
-	<br>
-	<br>
-	<button onclick="updateTemp('L')" class="btnx btn-primary">_submit light 1 schedule</button>
-	<br>
-	</p>
-	<p>
-	Light 2 on: <input class="timeMakeup" type="time" id="lightsON2">
-	Light 2 off: <input class="timeMakeup" type="time" id="lightsOFF2">
-	<br>
-	<br>
-	<button onclick="updateTemp('M')" class="btnx btn-primary">_submit light 2 schedule</button>
-	<br>
-	</p>	
-
-
 <h4>humid probes</h4>
-	
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input humidity min." class="form-controlx input-sl" id="C1" value=""></span> <span><button onclick="updateTemp('1C1')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-		<span class="dht-labels"></span> 
-		<span id="targetHumidMin"></span>
-		<sup class="units">%</sup>
-		
-		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1G1" onclick="updateButton('1G1')"/>  
-		<i class="glyphicon glyphicon-bell"></i>
-		</span> 
-		
+		<span class="inputparam"> <input type="number" placeholder="input humidity min. 1" class="form-controlx input-sl" id="humidMin1" value=""></span><span class="units">(%)</span>
+		<span><button onclick="updateNumber('_humidMin1', humidMin1.value)" class="btnx btn-primary">_humidMin1</button> </span>
 	</div>
-	
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input humidity max." class="form-controlx input-sl" id="C2" value=""></span> <span><button onclick="updateTemp('1C2')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-		<span class="dht-labels"></span> 
-		<span id="targetHumidMax"></span>
-		<span class="units">%</span>
-		
-		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1G2" onclick="updateButton('1G2')"/>  
-		<i class="glyphicon glyphicon-bell"></i>
-		</span> 
-	</div>
+		<span class="inputparam"> <input type="number" placeholder="input humidity max. 1" class="form-controlx input-sl" id="humidMax1" value=""></span><span class="units">(%)</span>
+		<span><button onclick="updateNumber('_humidMax1', humidMax1.value)" class="btnx btn-primary">_humidMax1</button> </span>
+	</div>	
 	<br>
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input humidity min.2" class="form-controlx input-sl" id="C3" value=""></span> <span><button onclick="updateTemp('1C3')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-		<span class="dht-labels"></span> 
-		<span id="targetHumidMin2"></span>
-		<sup class="units">%</sup>
-		
-		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1G3" onclick="updateButton('1G1')"/>  
-		<i class="glyphicon glyphicon-bell"></i>
-		</span> 
-		
-	</div>
-	
-	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input humidity max.2" class="form-controlx input-sl" id="C4" value=""></span> <span><button onclick="updateTemp('1C4')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-		<span class="dht-labels"></span> 
-		<span id="targetHumidMax2"></span>
-		<span class="units">%</span>
-		
-		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1G4" onclick="updateButton('1G2')"/>  
-		<i class="glyphicon glyphicon-bell"></i>
-		</span> 
+		<span class="inputparam"> <input type="number" placeholder="input humidity min. 2" class="form-controlx input-sl" id="humidMin2" value=""></span><span class="units">(%)</span>
+		<span><button onclick="updateNumber('_humidMin2', humidMin2.value)" class="btnx btn-primary">_humidMin2</button> </span>
 	</div>	
+	<div class="inputcontainer">
+		<span class="inputparam"> <input type="number" placeholder="input humidity max. 2" class="form-controlx input-sl" id="humidMax2" value=""></span><span class="units">(%)</span>
+		<span><button onclick="updateNumber('_humidMax2', humidMax2.value)" class="btnx btn-primary">_humidMax2</button> </span>
+	</div>		
 	<hr>
 </div>
 
-
-<div id="Calsettings" class="tabcontent">
+<div id="calsettings" class="tabcontent">
 <h4>calibration settings:</h4>
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input cal. 1" class="form-controlx input-sl" id="cv1" value=""></span> <span><button onclick="updateText('cv1')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i>
-			<span class="dht-labels"></span> 
-			<span id="cal_val1"></span>
-			<sup class="units">&deg;C</sup>
+			<span class="inputparam"> <input type="number" placeholder="input cal. 1" class="form-controlx input-sl" id="calValue1" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue1', calValue1.value)" class="btnx btn-primary">_calValue1</button> </span>
 		</div>
 		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input cal. 2" class="form-controlx input-sl" id="cv2" value=""></span> <span><button onclick="updateText('cv2')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels"></span> 
-			<span id="cal_val2"></span>
-			<sup class="units">&deg;C</sup>
+			<span class="inputparam"> <input type="number" placeholder="input cal. 2" class="form-controlx input-sl" id="calValue2" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue2', calValue2.value)" class="btnx btn-primary">_calValue2</button> </span>
 		</div>
 		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input cal. 3" class="form-controlx input-sl" id="cv3" value=""></span> <span><button onclick="updateText('cv3')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i>
-			<span class="dht-labels"></span> 
-			<span id="cal_val3"></span>
-			<sup class="units">&deg;C</sup>
+			<span class="inputparam"> <input type="number" placeholder="input cal. 3" class="form-controlx input-sl" id="calValue3" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue3', calValue3.value)" class="btnx btn-primary">_calValue3</button> </span>
 		</div>
 		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input cal. 4" class="form-controlx input-sl" id="cv4" value=""></span> <span><button onclick="updateText('cv4')"  class="btnx btn-primary">_submit</button> </span>      	&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i>
-			<span class="dht-labels"></span> 
-			<span id="cal_val4"></span>
-			<sup class="units">&deg;C</sup>
+			<span class="inputparam"> <input type="number" placeholder="input cal. 4" class="form-controlx input-sl" id="calValue4" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue4', calValue4.value)" class="btnx btn-primary">_calValue4</button> </span>
 		</div>
 		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input cal. 5" class="form-controlx input-sl" id="cv5" value=""></span> <span><button onclick="updateText('cv5')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels"></span> 
-			<span id="cal_val5"></span>
-			<sup class="units">&deg;C</sup>	
+			<span class="inputparam"> <input type="number" placeholder="input cal. 5" class="form-controlx input-sl" id="calValue5" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue5', calValue1.value)" class="btnx btn-primary">_calValue5</button> </span>
+		</div>
+		<br><h4>DHT temp sensor (temperature)</h4>
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 6" class="form-controlx input-sl" id="calValue6" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue6', calValue6.value)" class="btnx btn-primary">_calValue6</button> </span>
+		</div>
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 7" class="form-controlx input-sl" id="calValue7" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue7', calValue7.value)" class="btnx btn-primary">_calValue7</button> </span>
+		</div>
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 8" class="form-controlx input-sl" id="calValue8" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue8', calValue8.value)" class="btnx btn-primary">_calValue8</button> </span>
+		</div>
+		<br><h4>DHT temp sensor (humidity)</h4>
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 9" class="form-controlx input-sl" id="calValue9" value=""></span><span class="units">(%)</span>
+			<span><button onclick="updateNumber('calValue9', calValue9.value)" class="btnx btn-primary">_calValue9</button> </span>
+		</div>
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 10" class="form-controlx input-sl" id="calValue10" value=""></span><span class="units">(%)</span>
+			<span><button onclick="updateNumber('calValue10', calValue10.value)" class="btnx btn-primary">_calValue10</button> </span>
+		</div>
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 11" class="form-controlx input-sl" id="calValue11" value=""></span><span class="units">(%)</span>
+			<span><button onclick="updateNumber('calValue11', calValue11.value)" class="btnx btn-primary">_calValue11</button> </span>
+		</div>
+        <br><h4>PID parameters</h4>	
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input KP or MIN" class="form-controlx input-sl" id="calValue12" value=""></span>
+			<span><button onclick="updateNumber('calValue12', calValue12.value)" class="btnx btn-primary">_input KP or MIN Fanspeed%</button> </span>
+		</div>
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input KI or MAX" class="form-controlx input-sl" id="calValue13" value=""></span>
+			<span><button onclick="updateNumber('calValue13', calValue13.value)" class="btnx btn-primary">_input KI or MAX Fanspeed%</button> </span>
+		</div>
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input KD (-)" class="form-controlx input-sl" id="calValue14" value=""></span>
+			<span><button onclick="updateNumber('calValue14', calValue14.value)" class="btnx btn-primary">_input KD (-)</button> </span>
 		</div>	
-        <br>		
-		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input KP or MIN" class="form-controlx input-sl" id="pv1" value=""></span> <span><button onclick="updateText('pv1')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels"></span>
-			<span id="pid_val1"></span>
-		</div>			
-		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input KI or MAX" class="form-controlx input-sl" id="pv2" value=""></span> <span><button onclick="updateText('pv2')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels"></span> 
-			<span id="pid_val2"></span>
-		</div>			
-		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input KD (-)" class="form-controlx input-sl" id="pv3" value=""></span> <span><button onclick="updateText('pv3')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels"></span> 
-			<span id="pid_val3"></span>
-		</div>
 		<hr>
 </div>
 
-<div id="Systemsettings" class="tabcontent">
+<div id="systemsettings" class="tabcontent">
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 	<h4>system settings:</h4>	
 	<p>	
@@ -372,205 +408,130 @@
 </div>
 
 	<div class="inline">
-
-		<h4>temperature
-		&nbsp
-		<span class="tab">
-		<span id="checkbox3">
-		<input class="ckeckbox-element" id="1Z1" type="checkbox" onclick="openTab('1Z1', event, 'tempcontrol')"/>  
-		<i class="glyphicon glyphicon-pencil"></i>
-		</span> 
-		</h4>
+		<h3>climate 1</h3>
 		
 		<p>
-		<i class="fas fa-thermometer-half" style="color:#62BD69;"></i> 
-		<span class="dht-labels">Ground 1</span> 
+		<span class="dht-labels">Soil temp:</span> 
 		<span id="temperature1"></span>
 		<sup class="units">&deg;C</sup>
-		
 		<span id="checkbox4">
-		<input class="ckeckbox-element" type="checkbox" id="1L4" />  
+		<input class="ckeckbox-element" type="checkbox" id="heater1" onclick="updateButton(this.id, this.checked)" />  
 		&nbsp;
-		<i class="glyphicon glyphicon-fire"></i>
+		<i class="fas fa-thermometer-half"></i>
 		</span> 
-		
 		</p>	
 		
 		<p>
-			<i class="fas fa-thermometer-half" style="color:#a6e7ff;"></i> 
-			<span class="dht-labels">Air 1</span> 
-			<span id="temperature2"></span>
-			<sup class="units">&deg;C</sup>
-	
-			
+		<span class="dht-labels">Air temp:</span> 
+		<span id="temperature6"></span>
+		<sup class="units">&deg;C</sup>	
 		</p>
-
+		
+		<p>		
+		<span class="dht-labels">Fanspeed</span> 		
+		<span id="fanspeed1"></span>
+		<span class="dht-labels">%</span> 	
+		<span id="checkbox2">
+		<input class="ckeckbox-element" type="checkbox" id="fan1" onclick="updateButton(this.id, this.checked)"/>  
+		&nbsp;
+		<i class="fas fa-atom"></i>
+		</span> 
+		</p>
+		
 		<p>
-		<i class="fas fa-thermometer-half" style="color:#62BD69;"></i> 
-		<span class="dht-labels">Ground 2</span> 
+		<span class="dht-labels">Rel. humidity: </span> 
+		<span id="humidity1"></span>
+		<span class="units">(%)</span>	
+		<span id="checkbox1">
+		<input class="ckeckbox-element" type="checkbox" id="humidifier1" onclick="updateButton(this.id, this.checked)"/>  
+		&nbsp
+		<i class="glyphicon glyphicon-leaf"></i>
+		</span> 
+		</p>
+		
+		<p>
+		<span class="dht-labels">light schedule: </span>
+		<span><input class="timeMakeup" type="time"id="lights1ON"></span><span><input class="timeMakeup" type="time" id="lights1OFF"></span>
+		<span id="checkbox5">
+		<input class="ckeckbox-element" type="checkbox" id="lights1" onclick="updateButton(this.id, this.checked)"/>  
+		&nbsp;
+		<i class="glyphicon glyphicon-asterisk"></i>
+		</span> 
+		</p>
+		<br>
+		
+		<p>
+		<span class="dht-labels">additional temp. sensor 2:</span> 
+		<span id="temperature2"></span>
+		<sup class="units">&deg;C</sup>	
+		</p>
+	</div>
+
+	<div class="inline">
+		<h3>climate 2</h3>
+		
+		<p>
+		<span class="dht-labels">Soil temp:</span> 
 		<span id="temperature3"></span>
 		<sup class="units">&deg;C</sup>
-		
 		<span id="checkbox4">
-		<input class="ckeckbox-element" type="checkbox" id="1L5" />  
+		<input class="ckeckbox-element" type="checkbox" id="heater2" onclick="updateButton(this.id, this.checked)"/>  
 		&nbsp;
-		<i class="glyphicon glyphicon-fire"></i>
-		</span>  
-		
+		<i class="fas fa-thermometer-half"></i>
+		</span> 
 		</p>	
 		
 		<p>
-			<i class="fas fa-thermometer-half" style="color:#a6e7ff;"></i> 
-			<span class="dht-labels">Air 2</span> 
-			<span id="temperature4"></span>
-			<sup class="units">&deg;C</sup>
+		<span class="dht-labels">Air temp:</span> 
+		<span id="temperature7"></span>
+		<sup class="units">&deg;C</sup>
 			
 		</p>
-		
-		<span class="dht-labels">more probes:</span>
-		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1N1" onclick="setTab('SetTab2')"/>  
-		<i class="glyphicon glyphicon-menu-down"></i>
+		<p>		
+		<span class="dht-labels">Fanspeed</span> 		
+		<span id="fanspeed2"></span>
+		<span class="dht-labels">%</span> 		
+		<span id="checkbox2">
+		<input class="ckeckbox-element" type="checkbox" id="fan2" onclick="updateButton(this.id, this.checked)"/>  
+		&nbsp;
+		<i class="fas fa-atom"></i>
 		</span> 
-
-		<div id="SetTab2">
-		<p>	
-		<span>
-			<span class="dht-labels">t5</span> 
-			<span id="temperature5"></span>
-			<sup class="units">&deg;C</sup>
-			
-			<span class="dht-labels">t6</span> 
-			<span id="DHTtemperature1"></span>
-			<sup class="units">&deg;C</sup>
-
-			<span class="dht-labels">t7</span> 
-			<span id="DHTtemperature2"></span>
-			<sup class="units">&deg;C</sup>
-
-			<span class="dht-labels">t8</span> 
-			<span id="DHTtemperature3"></span>
-			<sup class="units">&deg;C</sup>
-		</span>
 		</p>
-		</div>
-
-	</div>
-	<div class="inline">
-		<h4>fan</h4>
-
-			<span id="checkbox2">
-			<input class="ckeckbox-element" type="checkbox" id="1L1" onclick="updateButton('1L1')"/>  
-			&nbsp;
-			<i class="glyphicon glyphicon-refresh"></i>
-			</span> 
 		
-			<span>
-				<span class="dht-labels">Speed</span> 		
-				<span id="fanSpeed"></span>
-				<span class="dht-labels">%</span> 	
-			</span>
-
-			
-			<div>
-			<span class="textinfo">manual control</span>
-			<input type="checkbox" id="1T1" onclick="updateButton('1T1')"> 
-			</div>
+		<p>
+		<span class="dht-labels">Rel. humidity: </span> 
+		<span id="humid1"></span>
+		<span class="units">(%)</span>	
+		<span id="checkbox1">
+		<input class="ckeckbox-element" type="checkbox" id="humidifier2" onclick="updateButton(this.id, this.checked)"/>  
+		&nbsp
+		<i class="glyphicon glyphicon-leaf"></i>
+		</span> 
+		</p>
 		
-			<div>
-			<label class="slidercontainerx">	
-			<input id="1Y1" type="range" class="slider" min="0" max="255" step="1" value="128" onchange="updateSlider('1Y1', this.value)">
-			</label>
-			</div>
-
-	</div>
-	
-	<div class="inline">
-	
-	<h4>humidity / light
-	
-	&nbsp
-	<span class="tab">
-	<span id="checkbox3">
-	<input class="ckeckbox-element" id="1Z4" type="checkbox" onclick="openTab('1Z4', event, 'humidcontrol')"/>  
-	<i class="glyphicon glyphicon-pencil"></i>
-	</span> 
-	
-	</h4>
-	<p>
-	<span class="dht-labels">light 1: </span>
-	<span id="checkbox5">
-	<input class="ckeckbox-element" type="checkbox" id="1L2"/>  
-	&nbsp;
-	<i class="glyphicon glyphicon-asterisk"></i>
-	</span> 
-	
-	&nbsp;
-	<span class="dht-labels">light 2: </span>
-	<span id="checkbox5">
-	<input class="ckeckbox-element" type="checkbox" id="1L6"/>  
-	&nbsp;
-	<i class="glyphicon glyphicon-asterisk"></i>
-	</span> 
-	</p>
-	
-	<p>
-	<span class="dht-labels">Humi 1: </span>
-	<span id="checkbox1">
-	<input class="ckeckbox-element" type="checkbox" id="1L3"/>  
-	&nbsp;
-	<i class="glyphicon glyphicon-leaf"></i>
-	</span> 	
-	
-	<span class="dht-labels">Humi 2: </span>
-	<span id="checkbox1">
-	<input class="ckeckbox-element" type="checkbox" id="1L7"/>  
-	&nbsp;
-	<i class="glyphicon glyphicon-leaf"></i>
-	</span> 	
+		<p>
+		<span class="dht-labels">light schedule: </span>
+		<span><input class="timeMakeup" type="time"id="lights2ON"></span><span><input class="timeMakeup" type="time" id="lights2OFF"></span>
+		<span id="checkbox5">
+		<input class="ckeckbox-element" type="checkbox" id="lights2" onclick="updateButton(this.id, this.checked)"/>  
+		&nbsp;
+		<i class="glyphicon glyphicon-asterisk"></i>
+		</span> 
+		</p>
+		<br>
 		
-	
-	</p>
-	
-	<div>
-	<span class="dht-labels">RH 1: </span> 
-	<span id="humid1"></span>
-	<span class="units">(%)</span>	
-	</div>
-	
-	<div>
-	<span class="dht-labels">RH 2: </span> 
-	<span id="humid2"></span>
-	<span class="units">(%)</span>	
-	</div>
-
-	<div>
-	<span class="dht-labels">RH 3: </span> 
-	<span id="humid3"></span>
-	<span class="units">(%)</span>	
-	</div>		
+		<p>
+		<span class="dht-labels">additional temp. sensor 2:</span> 
+		<span id="temperature4"></span>
+		<sup class="units">&deg;C</sup>			
+		</p>
 
 	</div>
 
     <div id="chart-temperature" class="container">
 	</div>
-	
 	<hr>
-  
-<script>
-/*
-function myFunction() {
-document.getElementById("demo").innerHTML = "choose"
-if (document.getElementById("GGG").checked == true) {  
-document.getElementById("demo").innerHTML = "hello";
-}
-else if (document.getElementById("GGG").checked == false){
-document.getElementById("demo").innerHTML = "hi";   
-}  
-} 
-*/ 
-</script> 
-
+	
 <script>	
 
 var gateway = `ws://${window.location.hostname}/ws`;
@@ -600,24 +561,23 @@ var targetCelsius1=0;
 var targetCelsius2=0;
 var targetCelsius3=0;
 var targetCelsius4=0;
+
 var offsetFromTargetTempMax=0;
 var offsetFromTargetTempMin=0;
 var offsetFromTargetTempMax2=0;
 var offsetFromTargetTempMin2=0;
-//var tempOffsetAlarm=false;
 
-var fanSpeed=0;
-var humidity=0;
+var fanSpeed1=0;
+var fanSpeed2=0;
+
+var humidity1=0;
 var humidity2=0;
 
-var groundtemp2=0;
+var soiltemp1=0;
+var soiltemp2=0;
 
-var airtemp=0;
+var airtemp1=0;
 var airtemp2=0;
-//var alarmActiveTimer1=false;
-//var alarmActiveTimer2=false;
-
-//var alarmActiveTemp1=false;
 
 var timer1Counter=0;
 var timer2Counter=0;
@@ -625,12 +585,6 @@ var numberofRingsAlarm1=0;
 var numberofRingsAlarm2=0;
 var refreshIntervalId1=0;
 var refreshIntervalId2=0;
-//var alarmReachTemp1=false;
-//var alarmReachTemp2=false;
-
-// ----------------------------------------------------------------------------
-// Initialization
-// ----------------------------------------------------------------------------
 
 window.addEventListener('load', onLoad);
 
@@ -658,7 +612,7 @@ function onOpen(event) {
  
     // Log connection state
     console.log("Connected");
-	document.getElementById("SetTab2").style.display = "none";	
+	//document.getElementById("SetTab2").style.display = "none";	
 	document.getElementById("1U1").checked = true;
 	k = 0;
 	doSend("GGG"+k);
@@ -671,16 +625,65 @@ function onClose(event) {
     setTimeout(initWebSocket, 2000);
 }
 
+function updateNumber(key, value) {
+	var field = key;
+	var obj = {};
+	obj[field] = value;
+	var myJSON = JSON.stringify(obj);
+	websocket.send(myJSON);  
+	//console.log(myJSON);
+}
+
+function updateSlider(key, value){
+	document.getElementById(key).innerHTML = value;
+	var field = key;
+	var obj = {};
+	obj[field] = value;
+	var myJSON = JSON.stringify(obj);
+	websocket.send(myJSON);
+	//console.log(myJSON);	
+}
+
+function updateButton(key, value) {
+	var field = key;
+	var obj = {};
+	obj[field] = value;
+	var myJSON = JSON.stringify(obj);
+	websocket.send(myJSON);
+	//console.log(myJSON);
+}
+
+function updateTime(key1, value1, key2, value2) {
+	var field = key1;
+	var field2 = key2;
+	var obj = {};
+	var obj2 = {};
+	
+	document.getElementById(key1).innerHTML = value1;
+	document.getElementById(key2).innerHTML = value2;
+
+	obj[field] = value1;
+	obj2[field2] = value2;
+	Object.assign(obj, obj2);
+
+	var myJSON = JSON.stringify(obj);
+	websocket.send(myJSON); 
+	//console.log(myJSON); 
+}
+
  
 // Called when a message is received from the server
 function onMessage(event) {
+
  
     // Print out our received message
     // console.log("Received: " + event.data);
-
-	var string = event.data;
+let data = JSON.parse(event.data);
+//var string = event.data;
+console.log(data);
 	
 //  console.log(k);
+/*
 if (string.charAt(0) == 'G'){
 	
 	if (string.charAt(1) == 'C'){// receive targetCelsius1 parameter
@@ -1111,7 +1114,7 @@ else if (string.charAt(0) == 'T'){
 		}
 		else if (x == 2){
 		document.getElementById("temperature3").innerHTML = residu;
-		groundtemp2=residu;
+		soiltemp2=residu;
 			if (targetCelsius3 > 0 && document.getElementById("operation_mode").value == "2"){
 				if (offsetFromTargetTempMax2 > 1){
 					if ((residu > targetCelsius3 + offsetFromTargetTempMax2 || residu < targetCelsius3 - offsetFromTargetTempMax2) && document.getElementById("1M2").checked == true){ //;tempOffsetAlarm == true){  // alarmActiveTemp1
@@ -1150,13 +1153,13 @@ else if (string.charAt(0) == 'S'){
 		var residuFloat = parseFloat(residu).toFixed(2);
 		drawChart(residuFloat);
 	}
-	/*
-	else if (string.charAt(1) == 'D'){
-		var residu = string.slice(2, string.length);	
-		var residuFloat = parseFloat(residu).toFixed(2);
-		drawChart1(residuFloat);
-	}	
-	*/
+	
+	//else if (string.charAt(1) == 'D'){
+	//	var residu = string.slice(2, string.length);	
+	//	var residuFloat = parseFloat(residu).toFixed(2);
+	//	drawChart1(residuFloat);
+	//}	
+	
 
     else if (string.charAt(1) == 'I'){
 		var residu = string.slice(2, string.length);
@@ -1180,12 +1183,13 @@ else if (string.charAt(0) == 'R'){
 }	
  
 // Sends a message to the server (and prints it to the console)
-function doSend(message) {
-	String(message);
-    //console.log("Sending: " + message);
-    websocket.send(message);
+
+//function doSend(message) {
+//	String(message);
+//   //console.log("Sending: " + message);
+//   websocket.send(message);
 }
-	
+*/	
 	
 </script>	
 
@@ -1202,7 +1206,7 @@ function doSend(message) {
             series: [
                 {
                     showInLegend: true,
-                    name: 'Ground temp',
+                    name: 'Soil temp',
                     data: [],
                     color: '#ff0000'
                 }, 
@@ -1232,7 +1236,7 @@ function doSend(message) {
                 },
 				{
                     showInLegend: true,
-                    name: 'Ground temp2',
+                    name: 'Soil temp2',
                     data: [],
                     color: '#ff0000'
                 }, 
@@ -1320,7 +1324,7 @@ function drawChart(temp){
 //function drawChart1(temp){
 if (document.getElementById("operation_mode").value == "2"){
 			//var x = (new Date()).getTime();
-			var currentCelsius = parseFloat(groundtemp2);
+			var currentCelsius = parseFloat(soiltemp2);
 			var currentAirCelsius = parseFloat(airtemp2);
 			//var currentFanSpeed = parseFloat(fanSpeed);
 			var currentHumidity = parseFloat(humidity2);
@@ -1420,116 +1424,6 @@ function updateButton(fixedVariable) {
 	}
 	}
 
-function updateText(fixedVariable) {
-	if (fixedVariable == 'cv1'){
-	 doSend('1V1'+cv1.value);
-	}
-	else if (fixedVariable == 'cv2'){
-	 doSend('1V2'+cv2.value);
-	}
-	else if (fixedVariable == 'cv3'){
-	doSend('1V3'+cv3.value);
-	}
-	else if (fixedVariable == 'cv4'){
-	doSend('1V4'+cv4.value);
-	}
-	else if (fixedVariable == 'cv5'){
-	doSend('1V5'+cv5.value);
-	}
-	else if (fixedVariable == 'pv1'){
-	doSend('1W1'+pv1.value);
-	}
-	else if (fixedVariable == 'pv2'){
-	doSend('1W2'+pv2.value);
-	}
-	else if (fixedVariable == 'pv3'){
-	doSend('1W3'+pv3.value);
-	}	
-}
-
-function updateTemp(fixedVariable) {
-	if (fixedVariable == '1A1'){
-	 doSend('1A1'+A1.value);
-	}
-	else if (fixedVariable == '1A2'){
-	 doSend('1A2'+A2.value);
-	}
-
-	else if (fixedVariable == '1A3'){
-	 doSend('1A3'+A3.value);
-	}
-	else if (fixedVariable == '1A4'){
-	 doSend('1A4'+A4.value);
-	}	
-	
-	else if (fixedVariable == '1C1'){
-	 doSend('1C1'+C1.value);
-	}
-	else if (fixedVariable == '1C2'){
-	 doSend('1C2'+C2.value);
-	}
-	
-	else if (fixedVariable == '1C3'){
-	 doSend('1C3'+C1.value);
-	}
-	else if (fixedVariable == '1C4'){
-	 doSend('1C4'+C2.value);
-	}	
-	
-	else if (fixedVariable == '1K1'){
-	 doSend('1K1'+K1.value);
-	 offsetFromTargetTempMax = targetValue;
-	}
-	else if (fixedVariable == '1K2'){
-	 doSend('1K2'+K2.value);
-	 offsetFromTargetTempMin = targetValue;
-	}
-
-	else if (fixedVariable == '1K3'){
-	 doSend('1K3'+K3.value);
-	 offsetFromTargetTempMax2 = targetValue;
-	}
-	else if (fixedVariable == '1K4'){
-	 doSend('1K4'+K4.value);
-	 offsetFromTargetTempMin2 = targetValue;
-	}	
-
-	else if (fixedVariable == 'I'){
-	 doSend('I'+ssid.value);
-	}
-	else if (fixedVariable == 'P'){
-	 doSend('P'+pass.value);
-	}
-	else if (fixedVariable == 'L'){
-	
-		var timeON = document.getElementById("lightsON").value;
-		var timeOFF = document.getElementById("lightsOFF").value;
-		hourStart = timeON.slice(0, 2);	
-		minuteStart = timeON.slice(3, 5);
-		hourStop = timeOFF.slice(0, 2);
-		minuteStop = timeOFF.slice(3, 5);
-		//console.log("L"+hourStart+minuteStart+hourStop+minuteStop);
-		doSend("L"+hourStart+minuteStart+hourStop+minuteStop);
-	}	
-
-	else if (fixedVariable == 'M'){
-	
-		var timeON = document.getElementById("lightsON2").value;
-		var timeOFF = document.getElementById("lightsOFF2").value;
-		hourStart2 = timeON.slice(0, 2);	
-		minuteStart2 = timeON.slice(3, 5);
-		hourStop2 = timeOFF.slice(0, 2);
-		minuteStop2 = timeOFF.slice(3, 5);
-		//console.log("L"+hourStart+minuteStart+hourStop+minuteStop);
-		doSend("M"+hourStart2+minuteStart2+hourStop2+minuteStop2);
-	}	
-}
-
-function updateSlider(fixedVariable, slideAmount){
-		document.getElementById(fixedVariable).innerHTML = slideAmount;
-		doSend(fixedVariable+slideAmount);
-	}
-
 function playSound1(repeats){
 		numberofRingsAlarm1=repeats;
 		var sound = new Audio('/alarm.mp3');
@@ -1557,16 +1451,6 @@ function playSound1(repeats){
 
 <script>
 /*
-function setTab() {
-  var x = document.getElementById("SetTab");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-*/
-
 function setTab(fixedVariable) {
   var x = document.getElementById(fixedVariable);
   if (x.style.display === "none") {
@@ -1575,6 +1459,7 @@ function setTab(fixedVariable) {
     x.style.display = "none";
   }
 }
+*/
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
@@ -1630,34 +1515,58 @@ if (fixedVariable == '1Z1'){
 document.getElementById('1Z2').checked = false;
 document.getElementById('1Z3').checked = false;
 document.getElementById('1Z4').checked = false;
-//document.getElementById('1Z5').checked = false;
+document.getElementById('1Z5').checked = false;
+document.getElementById('1Z6').checked = false;
+document.getElementById('1Z7').checked = false;
 }
 else if (fixedVariable == '1Z2'){
 document.getElementById('1Z1').checked = false;
 document.getElementById('1Z3').checked = false;
 document.getElementById('1Z4').checked = false;
-//document.getElementById('1Z5').checked = false;
+document.getElementById('1Z5').checked = false;
+document.getElementById('1Z6').checked = false;
+document.getElementById('1Z7').checked = false;
 }
 else if (fixedVariable == '1Z3'){
-document.getElementById('1Z2').checked = false;
 document.getElementById('1Z1').checked = false;
+document.getElementById('1Z2').checked = false;
 document.getElementById('1Z4').checked = false;
-//document.getElementById('1Z5').checked = false;
+document.getElementById('1Z5').checked = false;
+document.getElementById('1Z6').checked = false;
+document.getElementById('1Z7').checked = false;
 }
 else if (fixedVariable == '1Z4'){
+document.getElementById('1Z1').checked = false;
 document.getElementById('1Z2').checked = false;
 document.getElementById('1Z3').checked = false;
-document.getElementById('1Z1').checked = false;
-//document.getElementById('1Z5').checked = false;
+document.getElementById('1Z5').checked = false;
+document.getElementById('1Z6').checked = false;
+document.getElementById('1Z7').checked = false;
 }
-/*
 else if (fixedVariable == '1Z5'){
+document.getElementById('1Z1').checked = false;
 document.getElementById('1Z2').checked = false;
 document.getElementById('1Z3').checked = false;
-document.getElementById('1Z1').checked = false;
 document.getElementById('1Z4').checked = false;
+document.getElementById('1Z6').checked = false;
+document.getElementById('1Z7').checked = false;
 }
-*/
+else if (fixedVariable == '1Z6'){
+document.getElementById('1Z1').checked = false;
+document.getElementById('1Z2').checked = false;
+document.getElementById('1Z3').checked = false;
+document.getElementById('1Z4').checked = false;
+document.getElementById('1Z5').checked = false;
+document.getElementById('1Z7').checked = false;
+}
+else if (fixedVariable == '1Z7'){
+document.getElementById('1Z1').checked = false;
+document.getElementById('1Z2').checked = false;
+document.getElementById('1Z3').checked = false;
+document.getElementById('1Z4').checked = false;
+document.getElementById('1Z5').checked = false;
+document.getElementById('1Z6').checked = false;
+}
 
 if (document.getElementById(fixedVariable).checked == true){
   var i, tabcontent, tablinks;
@@ -1679,18 +1588,16 @@ if (document.getElementById(fixedVariable).checked == true){
 }
 
 function toggleoff(parentElement){
-
 parentElement.style.display='none';
 document.getElementById('1Z1').checked = false;
 document.getElementById('1Z2').checked = false;
 document.getElementById('1Z3').checked = false;
 document.getElementById('1Z4').checked = false;
 document.getElementById('1Z5').checked = false;
-
+document.getElementById('1Z6').checked = false;
+document.getElementById('1Z7').checked = false;
 }
 
-// Get the element with id="defaultOpen" and click on it
-//document.getElementById("defaultOpen").click();
 </script>
   
 </body>
