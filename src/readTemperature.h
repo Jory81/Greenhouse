@@ -23,17 +23,27 @@ double modifiedMap(double x, double in_min, double in_max, double out_min, doubl
  return (double) temp/4;
 }
 
-void updateTimeAndGraph ()
-{   
-      if (millis()-previousMillis >= updateTimeGraph){
-        updateGraph (oldtemp[0]);
-        if (sensorAmount > 1){
-        updateGraph2 (oldtemp[1]);
-        }
-        previousMillis = millis();
-    }  
+// void updateTimeAndGraph ()
+// {   
+//       if (millis()-previousMillis >= graphUpdate){
+//         updateGraph (oldtemp[0]);
+//         if (probeCountT > 1){
+//         updateGraph2 (oldtemp[1]);
+//         }
+//         previousMillis = millis();
+//     }  
       
-      if (millis() - alarmMessageTimer >= 15000){
-      alarmMessage = 0;
-      }
-}
+//       // if (millis() - alarmMessageTimer >= 15000){
+//       // alarmMessage = 0;
+//       // }
+// }
+
+// void updateGraph (float temp){
+//             String mergedString = "SC"+String(temp);
+//             ws.textAll(mergedString);                
+// }
+
+// void updateGraph2 (float temp){
+//             String mergedString = "SD"+String(temp);
+//             ws.textAll(mergedString);                
+// }

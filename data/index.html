@@ -20,197 +20,370 @@
 	<input class="ckeckbox-element" type="checkbox" id="1I1" onclick="updateButton('1I1')"/>  
 	<i class="glyphicon glyphicon-volume-off"></i>
 	</span>  
-	
+
+	<span id="checkbox6">
+		<input class="ckeckbox-element" type="checkbox" id="recMsg"/>  
+		<i class="glyphicon glyphicon-ok"></i>
+		</span>  
 	</div>
+</div>
 	
 	<div>	
+	<h3>settings:</h3>
+	</div>
+	<div>	
+	<span class="dht-labels">temperature</span>
+	<span class="tab">
+	<span id="checkbox3">
+	<input class="ckeckbox-element" type="checkbox" id="1Z1" onclick="openTab('1Z1', event, 'tempcontrol')"/>  
+	<i class="glyphicon glyphicon-pencil"></i>
+	</span>
+	</span>
+
+	<span class="dht-labels">humidty</span>
+	<span class="tab">
+	<span id="checkbox3">
+	<input class="ckeckbox-element" type="checkbox" id="1Z2" onclick="openTab('1Z2', event, 'humidcontrol')"/>  
+	<i class="glyphicon glyphicon-pencil"></i>
+	</span>
+	</span>	
+		
+	<span class="dht-labels">air flow</span>
+	<span class="tab">
+	<span id="checkbox3">
+	<input class="ckeckbox-element" type="checkbox" id="1Z3" onclick="openTab('1Z3', event, 'fancontrol')"/>  
+	<i class="glyphicon glyphicon-pencil"></i>
+	</span>	
+	</span>
+	
+	<span class="dht-labels">lights</span>
+	<span class="tab">
+	<span id="checkbox3">
+	<input class="ckeckbox-element" type="checkbox" id="1Z4" onclick="openTab('1Z4', event, 'lightcontrol')"/>  
+	<i class="glyphicon glyphicon-pencil"></i>
+	</span>
+	</span>
+	</div>
+
+	<div>	
+	<span class="dht-labels">relay control</span>
+	<span class="tab">
+	<span id="checkbox3">
+	<input class="ckeckbox-element" type="checkbox" id="1Z5" onclick="openTab('1Z5', event, 'relaycontrol')"/>  
+	<i class="glyphicon glyphicon-pencil"></i>
+	</span>	
+	
 	<span class="dht-labels">system settings</span>
 	<span class="tab">
 	<span id="checkbox3">
-	<input class="ckeckbox-element" type="checkbox" id="1Z3" onclick="openTab('1Z3', event, 'Systemsettings')"/>  
-	&nbsp;
+	<input class="ckeckbox-element" type="checkbox" id="1Z6" onclick="openTab('1Z6', event, 'systemsettings')"/>  
 	<i class="glyphicon glyphicon-pencil"></i>
 	</span>
 	
-	<span class="dht-labels">calibration settings</span>
+	<span class="dht-labels">calibration</span>
 	<span class="tab">
 	<span id="checkbox3">
-	<input class="ckeckbox-element" type="checkbox" id="1Z4" onclick="openTab('1Z4', event, 'Calsettings')"/>  
-	&nbsp;
+	<input class="ckeckbox-element" type="checkbox" id="1Z7" onclick="openTab('1Z7', event, 'calsettings')"/>  
 	<i class="glyphicon glyphicon-pencil"></i>
 	</span>
 	</div>
-</div>
 <hr>
 <div id="tempcontrol" class="tabcontent">
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 
-    <h4>Ground probe</h4>
+	<h4>Soil temp.1</h4>
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input Temp 1" class="form-controlx input-sl" id="A1" value=""></span> <span><button onclick="updateTemp('1A1')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-		<span class="dht-labels"></span> 
-		<span id="targetTemperature1"></span>
-		<sup class="units">&deg;C</sup>
-		
+	<span class="inputparam"> <input type="number" placeholder="input Soil Temp 1" class="form-controlx input-sl" id="targetSoilTemp1" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('targetSoilTemp1', targetSoilTemp1.value)" class="btnx btn-primary">_targetSoilTemp1</button> </span>
+	</div>
+	<div class="inputcontainer">
+	<span class="inputparam"> <input type="number" placeholder="temp range 1" class="form-controlx input-sl" id="tempRange1" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('tempRange1', tempRange1.value)" class="btnx btn-primary">_tempRange1</button> </span>
+	</div>
+	<div class="inputcontainer">
+	<span class="inputparam"> <input type="number" placeholder="alarm range 1" class="form-controlx input-sl" id="alarmRange1" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('alarmRange1', alarmRange1.value)" class="btnx btn-primary">_alarmRange1</button> </span>
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="soilAlarm1" onclick="updateButton(this.id, this.checked)"/>  
+	<i class="glyphicon glyphicon-bell"></i>	
+	</span>
+	</div>	
+	
+	<h4>Air temp 1</h4>
+	<div class="inputcontainer">
+	<span class="inputparam"> <input type="number" placeholder="input Air Temp 1" class="form-controlx input-sl" id="targetAirTemp1" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('targetAirTemp1', targetAirTemp1.value)" class="btnx btn-primary">_targetAirTemp1</button> </span>
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="airAlarm1" onclick="updateButton(this.id, this.checked)"/>  
+	<i class="glyphicon glyphicon-bell"></i>	
+	</span>
+	</div>
+	<br>
+	
+	<h4>Soil temp.2</h4>
+	<div class="inputcontainer">
+	<span class="inputparam"> <input type="number" placeholder="input Soil Temp 2" class="form-controlx input-sl" id="targetSoilTemp2" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('targetSoilTemp2', targetSoilTemp2.value)" class="btnx btn-primary">_targetSoilTemp2</button> </span>
+	</div>
+	<div class="inputcontainer">
+	<span class="inputparam"> <input type="number" placeholder="temp range 2" class="form-controlx input-sl" id="tempRange2" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('tempRange2', tempRange2.value)" class="btnx btn-primary">_tempRange2</button> </span>
+	</div>
+	<div class="inputcontainer">
+	<span class="inputparam"> <input type="number" placeholder="alarm range 2" class="form-controlx input-sl" id="alarmRange2" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('alarmRange2', alarmRange2.value)" class="btnx btn-primary">_alarmRange2</button> </span>
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="soilAlarm2" onclick="updateButton(this.id, this.checked)"/>  
+	<i class="glyphicon glyphicon-bell"></i>	
+	</span>
 	</div>	
 
+	<h4>Air temp 2</h4>
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="temp range" class="form-controlx input-sl" id="K2" value=""></span> <span><button onclick="updateTemp('1K2')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-		<span class="dht-labels"></span> 
-		<span id="offsetFromTargetTempMin"></span>
-		<sup class="units">&deg;C</sup>
-		
+	<span class="inputparam"> <input type="number" placeholder="input Air Temp 2" class="form-controlx input-sl" id="targetAirTemp2" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('targetAirTemp2', targetAirTemp2.value)" class="btnx btn-primary">_targetAirTemp2</button> </span>
+	<span id="checkbox1">
+	<input class="ckeckbox-element" type="checkbox" id="airAlarm2" onclick="updateButton(this.id, this.checked)"/>  
+	<i class="glyphicon glyphicon-bell"></i>	
+	</span>
 	</div>
-	
-	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="alarm range" class="form-controlx input-sl" id="K1" value=""></span> <span><button onclick="updateTemp('1K1')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;    
-		<span class="dht-labels"></span> 
-        <span id="offsetFromTargetTempMax"></span>
-        <sup class="units">&deg;C</sup>
-		
-		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1M1" onclick="updateButton('1M1')"/>  
-		<i class="glyphicon glyphicon-bell"></i>
-		</span>
-	
-	</div>	
-	
-	
 	<hr>
 </div>
 
-<div id="tempcontrol2" class="tabcontent">
+<div id="fancontrol" class="tabcontent">
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
-<h4>Air probe</h4>
-	
-	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input Temp 2" class="form-controlx input-sl" id="A2" value=""></span> <span><button onclick="updateTemp('1A2')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-		<span class="dht-labels"></span> 
-		<span id="targetTemperature2"></span>
-		<sup class="units">&deg;C</sup>
-		
-		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1J2" onclick="updateButton('1J2')"/>  
-		<i class="glyphicon glyphicon-bell"></i>
-		</span> 
-		
-	</div>
-	
-	<hr>
+
+		<h4>fan</h4>
+			<div>
+			<span class="textinfo">fan1 connected:</span>
+			<input type="checkbox" id="fan1Connected" onclick="updateButton(this.id, this.checked)">
+			</div>
+			
+			<div>
+			<span class="textinfo">manual mosfet control (1)</span>
+			<input type="checkbox" id="manualMosfet1" onclick="updateButton(this.id, this.checked)"> 
+			</div>
+			
+			<div>
+			<label class="slidercontainerx">	
+			<input id="manualFanspeed1" type="range" class="slider" min="0" max="255" step="1" value="128" onchange="updateSlider(this.id, this.value)">
+			</label>
+			</div>
+
+			<br>
+			<div>
+			<span class="textinfo">fan2 connected:</span>
+			<input type="checkbox" id="fan2Connected" onclick="updateButton(this.id, this.checked)">
+			</div>
+			<div>
+			<span class="textinfo">manual mosfet control (2)</span>
+			<input type="checkbox" id="manualMosfet2" onclick="updateButton(this.id, this.checked)"> 
+			</div>
+			
+			<div>
+			<label class="slidercontainerx">	
+			<input id="manualFanspeed2" type="range" class="slider" min="0" max="255" step="1" value="128" onchange="updateSlider(this.id, this.value)">
+			</label>
+			</div> 
+
+			<br><h4>FAN parameters</h4>	
+			<div class="inputcontainer">
+				<span class="inputparam"> <input type="number" placeholder="Fan1 min" class="form-controlx input-sl" id="OUTPUT_MIN1" value=""></span>
+				<span><button onclick="updateNumber('OUTPUT_MIN1', OUTPUT_MIN1.value)" class="btnx btn-primary">_Fan1 capped min</button> </span>
+			</div>
+			<div class="inputcontainer">
+				<span class="inputparam"> <input type="number" placeholder="Fan1 min" class="form-controlx input-sl" id="OUTPUT_MAX1" value=""></span>
+				<span><button onclick="updateNumber('OUTPUT_MAX1', OUTPUT_MAX1.value)" class="btnx btn-primary">_Fan1 capped max</button> </span>
+			</div>
+			<div class="inputcontainer">
+				<span class="inputparam"> <input type="number" placeholder="Fan2 min" class="form-controlx input-sl" id="OUTPUT_MIN2" value=""></span>
+				<span><button onclick="updateNumber('OUTPUT_MIN2', OUTPUT_MIN2.value)" class="btnx btn-primary">_Fan2 capped min</button> </span>
+			</div>	
+			<div class="inputcontainer">
+				<span class="inputparam"> <input type="number" placeholder="Fan2 maxspeed" class="form-controlx input-sl" id="OUTPUT_MAX2" value=""></span>
+				<span><button onclick="updateNumber('OUTPUT_MAX2', OUTPUT_MAX2.value)" class="btnx btn-primary">_Fan2 capped max</button> </span>
+			</div>
+  	<hr>
+</div>
+
+<div id="relaycontrol" class="tabcontent">
+  <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
+  
+  <h4>Relay control</h4>
+  			<div>
+			<span class="textinfo">relay 1 - heater 1:</span> &nbsp
+			<span class="textinfo">connected</span>
+			<input type="checkbox" id="relay1Connected" onclick="updateButton(this.id, this.checked)">
+			&nbsp &nbsp 
+			<span class="textinfo">manual control:</span>
+			<input type="checkbox" id="manualRelay1" onclick="updateButton(this.id, this.checked)">
+			</div>
+
+			<div>
+			<span class="textinfo">relay 2 - heater 2:</span> &nbsp
+			<span class="textinfo">connected</span>
+			<input type="checkbox" id="relay2Connected" onclick="updateButton(this.id, this.checked)">
+			&nbsp &nbsp 
+			<span class="textinfo">manual control:</span>
+			<input type="checkbox" id="manualRelay2" onclick="updateButton(this.id, this.checked)">
+			</div>
+
+			<div>
+			<span class="textinfo">relay 3 - lights 1:</span> &nbsp
+			<span class="textinfo">connected</span>
+			<input type="checkbox" id="relay3Connected" onclick="updateButton(this.id, this.checked)">
+			&nbsp &nbsp 
+			<span class="textinfo">manual control:</span>
+			<input type="checkbox" id="manualRelay3" onclick="updateButton(this.id, this.checked)">
+			</div>
+
+			<div>
+			<span class="textinfo">relay 4 - lights 2:</span> &nbsp
+			<span class="textinfo">connected</span>
+			<input type="checkbox" id="relay4Connected" onclick="updateButton(this.id, this.checked)">
+			&nbsp &nbsp 
+			<span class="textinfo">manual control:</span>
+			<input type="checkbox" id="manualRelay4" onclick="updateButton(this.id, this.checked)">
+			</div>
+
+			<div>
+			<span class="textinfo">relay 5 - optional:</span> &nbsp
+			<span class="textinfo">connected</span>
+			<input type="checkbox" id="relay5Connected" onclick="updateButton(this.id, this.checked)">
+			&nbsp &nbsp 
+			<span class="textinfo">manual control:</span>
+			<input type="checkbox" id="manualRelay5" onclick="updateButton(this.id, this.checked)">
+			</div>
+
+			<div>
+			<span class="textinfo">relay 6 - optional:</span>
+			<span class="textinfo">connected</span>
+			<input type="checkbox" id="relay6Connected" onclick="updateButton(this.id, this.checked)">
+			&nbsp &nbsp 
+			<span class="textinfo">manual control:</span>
+			<input type="checkbox" id="manualRelay6" onclick="updateButton(this.id, this.checked)">
+			</div>	
+			<br>
+			<div>
+			<span class="textinfo">If relays are newly connected (saved to EEPROM) reboot to initialize</span>
+			</div>	
+  	<hr>
+</div>
+
+<div id="lightcontrol" class="tabcontent">
+  <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
+  
+  	<h4>Lights:</h4>
+	<p>
+	Light 1 on: <input class="timeMakeup" type="time" id="lights1on">
+	Light 1 off: <input class="timeMakeup" type="time" id="lights1off">
+	&nbsp
+	<span><button onclick="updateLightSchedule('lights1ON', lights1on.value,'lights1OFF', lights1off.value)" class="btnx btn-primary">_LightSchedule1</button></span>
+	</p>
+	<p>
+	Light 2 on: <input class="timeMakeup" type="time" id="lights2on">
+	Light 2 off: <input class="timeMakeup" type="time" id="lights2off">
+	&nbsp
+	<span><button onclick="updateLightSchedule('lights2ON', lights2on.value,'lights2OFF', lights2off.value)" class="btnx btn-primary">_LightSchedule2</button></span>
+	</p>	
+  	<hr>
 </div>
 
 <div id="humidcontrol" class="tabcontent">
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 
-	<h4>Lights:</h4>
-	
-	<p>
-	Lights on: <input class="timeMakeup" type="time" id="lightsON">
-	Lights off: <input class="timeMakeup" type="time" id="lightsOFF">
-	<br>
-	<br>
-	<button onclick="updateTemp('L')" class="btnx btn-primary">_submit light schedule</button> </span>
-	<br>
-	<br>
-	<br>
-	</p>
-
 <h4>humid probes</h4>
-	
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input humidity min." class="form-controlx input-sl" id="C1" value=""></span> <span><button onclick="updateTemp('1C1')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-		<span class="dht-labels"></span> 
-		<span id="targetHumidMin"></span>
-		<sup class="units">%</sup>
-		
-		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1G1" onclick="updateButton('1G1')"/>  
-		<i class="glyphicon glyphicon-bell"></i>
-		</span> 
-		
+		<span class="inputparam"> <input type="number" placeholder="input humidity min. 1" class="form-controlx input-sl" id="humidMin1" value=""></span><span class="units">(%)</span>
+		<span><button onclick="updateNumber('humidMin1', humidMin1.value)" class="btnx btn-primary">_humidMin1</button> </span>
 	</div>
-	
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input humidity max." class="form-controlx input-sl" id="C2" value=""></span> <span><button onclick="updateTemp('1C2')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-		<span class="dht-labels"></span> 
-		<span id="targetHumidMax"></span>
-		<span class="units">%</span>
-		
-		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1G2" onclick="updateButton('1G2')"/>  
-		<i class="glyphicon glyphicon-bell"></i>
-		</span> 
-	</div>
+		<span class="inputparam"> <input type="number" placeholder="input humidity max. 1" class="form-controlx input-sl" id="humidMax1" value=""></span><span class="units">(%)</span>
+		<span><button onclick="updateNumber('humidMax1', humidMax1.value)" class="btnx btn-primary">_humidMax1</button> </span>
+	</div>	
+	<br>
+	<div class="inputcontainer">
+		<span class="inputparam"> <input type="number" placeholder="input humidity min. 2" class="form-controlx input-sl" id="humidMin2" value=""></span><span class="units">(%)</span>
+		<span><button onclick="updateNumber('humidMin2', humidMin2.value)" class="btnx btn-primary">_humidMin2</button> </span>
+	</div>	
+	<div class="inputcontainer">
+		<span class="inputparam"> <input type="number" placeholder="input humidity max. 2" class="form-controlx input-sl" id="humidMax2" value=""></span><span class="units">(%)</span>
+		<span><button onclick="updateNumber('humidMax2', humidMax2.value)" class="btnx btn-primary">_humidMax2</button> </span>
+	</div>		
 	<hr>
 </div>
 
-
-<div id="Calsettings" class="tabcontent">
+<div id="calsettings" class="tabcontent">
 <h4>calibration settings:</h4>
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input cal. 1" class="form-controlx input-sl" id="cv1" value=""></span> <span><button onclick="updateText('cv1')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i>
-			<span class="dht-labels"></span> 
-			<span id="cal_val1"></span>
-			<sup class="units">&deg;C</sup>
+			<span class="inputparam"> <input type="number" placeholder="input cal. 1" class="form-controlx input-sl" id="calValue1" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue1', calValue1.value)" class="btnx btn-primary">_calValue1</button> </span>
 		</div>
 		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input cal. 2" class="form-controlx input-sl" id="cv2" value=""></span> <span><button onclick="updateText('cv2')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels"></span> 
-			<span id="cal_val2"></span>
-			<sup class="units">&deg;C</sup>
+			<span class="inputparam"> <input type="number" placeholder="input cal. 2" class="form-controlx input-sl" id="calValue2" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue2', calValue2.value)" class="btnx btn-primary">_calValue2</button> </span>
 		</div>
 		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input cal. 3" class="form-controlx input-sl" id="cv3" value=""></span> <span><button onclick="updateText('cv3')" class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i>
-			<span class="dht-labels"></span> 
-			<span id="cal_val3"></span>
-			<sup class="units">&deg;C</sup>
+			<span class="inputparam"> <input type="number" placeholder="input cal. 3" class="form-controlx input-sl" id="calValue3" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue3', calValue3.value)" class="btnx btn-primary">_calValue3</button> </span>
 		</div>
 		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input cal. 4" class="form-controlx input-sl" id="cv4" value=""></span> <span><button onclick="updateText('cv4')"  class="btnx btn-primary">_submit</button> </span>      	&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i>
-			<span class="dht-labels"></span> 
-			<span id="cal_val4"></span>
-			<sup class="units">&deg;C</sup>
+			<span class="inputparam"> <input type="number" placeholder="input cal. 4" class="form-controlx input-sl" id="calValue4" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue4', calValue4.value)" class="btnx btn-primary">_calValue4</button> </span>
 		</div>
 		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input cal. 5" class="form-controlx input-sl" id="cv5" value=""></span> <span><button onclick="updateText('cv5')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels"></span> 
-			<span id="cal_val5"></span>
-			<sup class="units">&deg;C</sup>	
-		</div>	
-        <br>		
-		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input KP or MIN" class="form-controlx input-sl" id="pv1" value=""></span> <span><button onclick="updateText('pv1')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels"></span>
-			<span id="pid_val1"></span>
-		</div>			
-		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input KI or MAX" class="form-controlx input-sl" id="pv2" value=""></span> <span><button onclick="updateText('pv2')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels"></span> 
-			<span id="pid_val2"></span>
-		</div>			
-		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input KD (-)" class="form-controlx input-sl" id="pv3" value=""></span> <span><button onclick="updateText('pv3')"  class="btnx btn-primary">_submit</button> </span>			&nbsp; &nbsp;
-			<i class="glyphicon glyphicon-signal"></i> 
-			<span class="dht-labels"></span> 
-			<span id="pid_val3"></span>
+			<span class="inputparam"> <input type="number" placeholder="input cal. 5" class="form-controlx input-sl" id="calValue5" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue5', calValue5.value)" class="btnx btn-primary">_calValue5</button> </span>
 		</div>
+		<br><h4>DHT temp sensor (temperature)</h4>
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 6" class="form-controlx input-sl" id="calValue6" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue6', calValue6.value)" class="btnx btn-primary">_calValue6</button> </span>
+		</div>
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 7" class="form-controlx input-sl" id="calValue7" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue7', calValue7.value)" class="btnx btn-primary">_calValue7</button> </span>
+		</div>
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 8" class="form-controlx input-sl" id="calValue8" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue8', calValue8.value)" class="btnx btn-primary">_calValue8</button> </span>
+		</div>
+		<br><h4>DHT temp sensor (humidity)</h4>
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 9" class="form-controlx input-sl" id="calValue9" value=""></span><span class="units">(%)</span>
+			<span><button onclick="updateNumber('calValue9', calValue9.value)" class="btnx btn-primary">_calValue9</button> </span>
+		</div>
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 10" class="form-controlx input-sl" id="calValue10" value=""></span><span class="units">(%)</span>
+			<span><button onclick="updateNumber('calValue10', calValue10.value)" class="btnx btn-primary">_calValue10</button> </span>
+		</div>
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 11" class="form-controlx input-sl" id="calValue11" value=""></span><span class="units">(%)</span>
+			<span><button onclick="updateNumber('calValue11', calValue11.value)" class="btnx btn-primary">_calValue11</button> </span>
+		</div>
+		<br><h4>PID parameters</h4>	
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input KP" class="form-controlx input-sl" id="KP" value=""></span>
+			<span><button onclick="updateNumber('calValue16', KP.value)" class="btnx btn-primary">_input KP</button> </span>
+		</div>
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input KI" class="form-controlx input-sl" id="KI" value=""></span>
+			<span><button onclick="updateNumber('calValue17', KI.value)" class="btnx btn-primary">_input KI</button> </span>
+		</div>
+		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input KD (-)" class="form-controlx input-sl" id="KD" value=""></span>
+			<span><button onclick="updateNumber('calValue18', KD.value)" class="btnx btn-primary">_input KD</button> </span>
+		</div>		
 		<hr>
 </div>
 
-<div id="Systemsettings" class="tabcontent">
+<div id="systemsettings" class="tabcontent">
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
-	<h4>system settings:</h4>	
+	<h4>system settings: (system settings are always saved to EEPROM)</h4>	
 	<p>	
 	<span class="inputparam">
-	<select name="selectProbeType" id="probe_id" onchange="selectProbeTType(this)">
+	<select name="selectProbeType" id="probeTypeT" onchange="updateNumber(this.id, this.value)">
     <option value="1" >PT100</option>
     <option value="2" >Thermokoppel</option>
 	</select>
@@ -218,7 +391,8 @@
 	<br>
 	<br>
 	<span class="inputparam">
-	<select name="selectProbeAmount" id="probe_number" onchange="selectProbeTAmount(this)">
+	<select name="selectProbeAmount" id="probeCountT" onchange="updateNumber(this.id, this.value)">
+	<option value="0" >no probes</option>	
     <option value="1" >1 probe</option>
     <option value="2" >2 probes</option>
 	<option value="3" >3 probes</option>
@@ -229,14 +403,15 @@
 	<br>
 	<br>
 	<span class="inputparam">
-	<select name="selectProbeType" id="probe_id" onchange="selectProbeHType(this)">
+	<select name="selectProbeType" id="probeTypeH" onchange="updateNumber(this.id, this.value)">
     <option value="0" >DHT22</option>
+	<option value="1" >DHT11</option>
 	</select>
 	</span>
 	<br>
 	<br>
 	<span class="inputparam">
-	<select name="selectProbeAmount" id="probe_numberH" onchange="selectProbeHAmount(this)">
+	<select name="selectProbeAmount" id="probeCountH" onchange="updateNumber(this.id, this.value)">
     <option value="0" >no probes</option>
 	<option value="1" >1 probe</option>
     <option value="2" >2 probes</option>
@@ -245,11 +420,12 @@
 	</span>
 	<br>
 	<br>
+	
 	</p>	
 	<h4>graph update:</h4>
 	<p>
 	<span class="inputparam">
-	<select name="selectProbeAmount" id="graph_time" onchange="selectUpdateGraphTime(this)">
+	<select name="selectProbeAmount" id="graphUpdate" onchange="updateNumber(this.id, this.value)">
     <option value="1" >every second</option>
     <option value="2" >every 2 seconds</option>
 	<option value="5" >every 5 seconds</option>
@@ -264,187 +440,127 @@
 	</p>
 
 	<div>
+		<span class="textinfo">store values in EEPROM?</span><input type="checkbox" id="saveInEEPROM" onclick="updateButton(this.id, this.checked)"> </span>
+	</div>
+	<br>
+
+	<div>
 		<span id="checkbox1">PID control (checked) or linear control
-		<input class="ckeckbox-element" type="checkbox" id="1X1" onclick="updateButton('1X1')"/>  
+		<input class="ckeckbox-element" type="checkbox" id="PIDcontrol" onclick="updateButton(this.id,this.checked)"/>  
 		<i class="glyphicon glyphicon-tasks"></i>
 		</span> 
 	</div>		
-
 	<br>
-	
 
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="text" placeholder="input Wifi ID" class="form-controlx input-sl" id="ssid" value=""></span> <span><button onclick="updateTemp('I')" class="btnx btn-primary">_submit</button> </span>	<span id="SSID"></span>
+		<span class="inputparam"> <input type="text" placeholder="input Wifi ID" class="form-controlx input-sl" id="ssid" value=""></span>
+		<span><button onclick="updateText('ssid', ssid.value)" class="btnx btn-primary">_submitID</button> </span>		<span id="SSID"></span>
+		&nbsp <span id="wifiID"></span>
 	</div>
 	<div class="inputcontainer">
-		<span class="inputparam"> <input type="text" placeholder="input Wifi pass" class="form-controlx input-sl" id="pass" value=""></span> <span><button onclick="updateTemp('P')" class="btnx btn-primary">_submit</button> </span>	<span id="PASS"></span>
+		<span class="inputparam"> <input type="text" placeholder="input Wifi pass" class="form-controlx input-sl" id="pass" value=""></span>
+		<span><button onclick="updateText('pass', pass.value)" class="btnx btn-primary">_submitPass</button> </span>	<span id="PASS"></span>
+		&nbsp <span id="wifiPASS"></span>
 	</div>
-
+	<br>
 	<div>
 	<span id="checkbox1">reboot &nbsp
-	<input class="ckeckbox-element" type="checkbox" id="1U1" onclick="updateButton('1U1')"/>  
+	<input class="ckeckbox-element" type="checkbox" id="Reboot" onclick="updateButton(this.id,this.checked)"/>  
 	<i class="glyphicon glyphicon-refresh"></i>
 	</span> 
-	</div>	
+	</div>
+	<br>
+	<div>
+		<span class="textinfo">pin info: wemos D1 mini esp32: Temp. pins: 5, 26, 27, 32. Relay: 14, 13, 27, 33, 15, (34). DHT: 17, 16. Fan: 4, 0.</span>
+	</div>
 	<hr>
 </div>
 
 	<div class="inline">
-
-		<h4>temperature</h4>
+		<h3>climate 1</h3>
+		
 		<p>
-		<i class="fas fa-thermometer-half" style="color:#62BD69;"></i> 
-		<span class="dht-labels">Ground</span> 
-		<span id="temperature1"></span>
-		<sup class="units">&deg;C</sup>
-		
-		<span id="checkbox4">
-		<input class="ckeckbox-element" type="checkbox" id="1L4" />  
-		&nbsp;
-		<i class="glyphicon glyphicon-fire"></i>
+		<span class="dht-labels">Soil temp:</span>&nbsp<span id="temperature1"></span><sup class="units">&deg;C</sup><span id="checkbox4">
+		<input class="ckeckbox-element" type="checkbox" id="heater1" onclick="updateButton(this.id, this.checked)" />  &nbsp;
+		<i class="fas fa-thermometer-half"></i>
 		</span> 
-		
-		<span class="tab">
-		<span id="checkbox3">
-		<input class="ckeckbox-element" id="1Z1" type="checkbox" onclick="openTab('1Z1', event, 'tempcontrol')"/>  
-		<i class="glyphicon glyphicon-pencil"></i>
+		</p>	
+		<p>
+		<span class="dht-labels">Air temp:</span>&nbsp<span id="temperature6"></span><sup class="units">&deg;C</sup>	
+		</p>
+		<p>		
+		<span class="dht-labels">Fanspeed:</span>&nbsp<span id="fanspeed1"></span><span class="dht-labels">%</span> 	
+		<span id="checkbox2"><input class="ckeckbox-element" type="checkbox" id="fan1" onclick="updateButton(this.id, this.checked)"/> 	&nbsp;
+		<i class="fas fa-atom"></i>
 		</span> 
+		</p>
 		
+		<p>
+		<span class="dht-labels">Rel. humidity:</span>&nbsp<span id="humid1"></span>&nbsp<span class="units">%</span>
+		<span id="checkbox6"><input class="ckeckbox-element" type="checkbox" id="humidifier1" onclick="updateButton(this.id, this.checked)"/>  &nbsp
+		<i class="glyphicon glyphicon-leaf"></i>
+		</span> 
+		</p>
+		
+		<p>
+		<span class="dht-labels">light schedule: </span><span><time class="dht-labels" type="time"id="lights1ON"></time></span>&nbsp-&nbsp<span><time class="dht-labels" type="time" id="lights1OFF"></span>
+		<span id="checkbox5"><input class="ckeckbox-element" type="checkbox" id="lights1" onclick="updateButton(this.id, this.checked)"/>	&nbsp;
+		<i class="glyphicon glyphicon-asterisk"></i>
+		</span> 
+		</p>
+		<br>
+		
+		<p>
+		<span class="dht-labels">additional temp. sensor 2:</span>&nbsp<span id="temperature2"></span><sup class="units">&deg;C</sup>	
+		</p>
+	</div>
+
+	<div class="inline">
+		<h3>climate 2</h3>
+		
+		<p>
+		<span class="dht-labels">Soil temp:</span>&nbsp<span id="temperature3"></span><sup class="units">&deg;C</sup>
+		<span id="checkbox4"><input class="ckeckbox-element" type="checkbox" id="heater2" onclick="updateButton(this.id, this.checked)"/>  &nbsp;
+		<i class="fas fa-thermometer-half"></i>
+		</span> 
 		</p>	
 		
 		<p>
-			<i class="fas fa-thermometer-half" style="color:#a6e7ff;"></i> 
-			<span class="dht-labels">Air</span> 
-			<span id="temperature2"></span>
-			<sup class="units">&deg;C</sup>
-			
-			<span class="tab">
-			<span id="checkbox3">
-			<input class="ckeckbox-element" id="1Z2" type="checkbox" onclick="openTab('1Z2', event, 'tempcontrol2')"/>  
-			<i class="glyphicon glyphicon-pencil"></i>
-			</span> 
+		<span class="dht-labels">Air temp:</span>&nbsp<span id="temperature7"></span><sup class="units">&deg;C</sup>
 			
 		</p>
-		
-		<span class="dht-labels">more probes:</span>
-		<span id="checkbox1">
-		<input class="ckeckbox-element" type="checkbox" id="1N1" onclick="setTab('SetTab2')"/>  
-		<i class="glyphicon glyphicon-menu-down"></i>
+		<p>		
+		<span class="dht-labels">Fanspeed:</span>&nbsp<span id="fanspeed2"></span><span class="dht-labels">%</span> 		
+		<span id="checkbox2"><input class="ckeckbox-element" type="checkbox" id="fan2" onclick="updateButton(this.id, this.checked)"/> 	&nbsp;
+		<i class="fas fa-atom"></i>
 		</span> 
-
-		<div id="SetTab2">
-		<p>	
-		<span>
-			<span class="dht-labels">t3</span> 
-			<span id="temperature3"></span>
-			<sup class="units">&deg;C</sup>
-
-			<span class="dht-labels">t4</span> 
-			<span id="temperature4"></span>
-			<sup class="units">&deg;C</sup>
-
-			<span class="dht-labels">t5</span> 
-			<span id="temperature5"></span>
-			<sup class="units">&deg;C</sup>
-		</span>
 		</p>
-		</div>
-
-	</div>
-	<div class="inline">
-		<h4>fan</h4>
-
-			<span id="checkbox2">
-			<input class="ckeckbox-element" type="checkbox" id="1L1" onclick="updateButton('1L1')"/>  
-			&nbsp;
-			<i class="glyphicon glyphicon-refresh"></i>
-			</span> 
 		
-			<span>
-				<span class="dht-labels">Speed</span> 		
-				<span id="fanSpeed"></span>
-				<span class="dht-labels">%</span> 	
-			</span>
-
-			
-			<div>
-			<span class="textinfo">manual control</span>
-			<input type="checkbox" id="1T1" onclick="updateButton('1T1')"> 
-			</div>
+		<p>
+		<span class="dht-labels">Rel. humidity:</span>&nbsp<span id="humid2"></span>&nbsp<span class="units">%</span>	
+		<span id="checkbox6"><input class="ckeckbox-element" type="checkbox" id="humidifier2" onclick="updateButton(this.id, this.checked)"/>&nbsp
+		<i class="glyphicon glyphicon-leaf"></i>
+		</span> 
+		</p>
 		
-			<div>
-			<label class="slidercontainerx">	
-			<input id="1Y1" type="range" class="slider" min="0" max="255" step="1" value="128" onchange="updateSlider('1Y1', this.value)">
-			</label>
-			</div>
-
-	</div>
-	
-	<div class="inline">
-	
-	<h4>humidity / light
-	
-	&nbsp
-	<span class="tab">
-	<span id="checkbox3">
-	<input class="ckeckbox-element" id="1Z5" type="checkbox" onclick="openTab('1Z5', event, 'humidcontrol')"/>  
-	<i class="glyphicon glyphicon-pencil"></i>
-	</span> 
-	
-	</h4>
-	
-	<span id="checkbox5">
-	<input class="ckeckbox-element" type="checkbox" id="1L2"/>  
-	&nbsp;
-	<i class="glyphicon glyphicon-asterisk"></i>
-	</span> 
-	
-	&nbsp;
-	<span id="checkbox1">
-	<input class="ckeckbox-element" type="checkbox" id="1L3"/>  
-	&nbsp;
-	<i class="glyphicon glyphicon-leaf"></i>
-	</span> 	
-	
-	<div>
-	<span class="dht-labels">RH 1: </span> 
-	<span id="humid1"></span>
-	<span class="units">(%)</span>	
-	</div>
-	
-	<div>
-	<span class="dht-labels">RH 2: </span> 
-	<span id="humid2"></span>
-	<span class="units">(%)</span>	
-	</div>
-
-	<div>
-	<span class="dht-labels">RH 3: </span> 
-	<span id="humid3"></span>
-	<span class="units">(%)</span>	
-	</div>		
+		<p>
+		<span class="dht-labels">light schedule: </span><span><time class="dht-labels" type="time"id="lights2ON"></time></span>&nbsp-&nbsp<span><time class="dht-labels" type="time" id="lights2OFF"></span>
+		<span id="checkbox5"><input class="ckeckbox-element" type="checkbox" id="lights2" onclick="updateButton(this.id, this.checked)"/> 	&nbsp;
+		<i class="glyphicon glyphicon-asterisk"></i>
+		</span> 
+		</p>
+		<br>
+		
+		<p>
+		<span class="dht-labels">additional temp. sensor 2:</span>&nbsp<span id="temperature4"></span><sup class="units">&deg;C</sup>			
+		</p>
 
 	</div>
 
-    <div id="chart-temperature" class="container">
-	</div>
+    <div id="chart-temperature1" class="container"></div>
 	
-	<hr>
-  
-<script>
-/*
-function myFunction() {
-document.getElementById("demo").innerHTML = "choose"
-if (document.getElementById("GGG").checked == true) {  
-document.getElementById("demo").innerHTML = "hello";
-}
-else if (document.getElementById("GGG").checked == false){
-document.getElementById("demo").innerHTML = "hi";   
-}  
-} 
-*/ 
-</script> 
-
+	<div id="chart-temperature2" class="container"></div>
+	
 <script>	
 
 var gateway = `ws://${window.location.hostname}/ws`;
@@ -452,42 +568,17 @@ var websocket;
 
 console.log(gateway);
 
-var k = 10;
-var residuFloat = 0; 
-
-var humidmin = 30;
-var humidmax = 80;
-
-var hourStart = 05;
-var minuteStart = 30;
-var hourStop = 20;
-var minuteStop = 30;
-
-var targetCelsius1=0;
+var soiltemp2=0;
+var airtemp2=0;
+var fanspeed2=0;
+var humidity2=0;
 var targetCelsius2=0;
-var offsetFromTargetTempMax=0;
-var offsetFromTargetTempMin=0;
-//var tempOffsetAlarm=false;
 
-var fanSpeed=0;
-var humidity=0;
-//var alarmActiveTimer1=false;
-//var alarmActiveTimer2=false;
-
-//var alarmActiveTemp1=false;
-
-var timer1Counter=0;
-var timer2Counter=0;
-var numberofRingsAlarm1=0;
-var numberofRingsAlarm2=0;
-var refreshIntervalId1=0;
-var refreshIntervalId2=0;
-//var alarmReachTemp1=false;
-//var alarmReachTemp2=false;
-
-// ----------------------------------------------------------------------------
-// Initialization
-// ----------------------------------------------------------------------------
+var soiltemp1=0;
+var airtemp1=0;
+var fanspeed1=0;
+var humidity1=0;
+var targetCelsius1=0;
 
 window.addEventListener('load', onLoad);
 
@@ -515,10 +606,14 @@ function onOpen(event) {
  
     // Log connection state
     console.log("Connected");
-	document.getElementById("SetTab2").style.display = "none";	
-	document.getElementById("1U1").checked = true;
-	k = 0;
-	doSend("GGG"+k);
+	updateTimeOnopen();
+	//document.getElementById("SetTab2").style.display = "none";	
+	document.getElementById("Reboot").checked = true;
+	var myJSON = JSON.stringify({requestInfo:true});
+	websocket.send(myJSON);  
+	console.log(myJSON);
+	//k = 0;
+	//doSend("GGG"+k);
 
 }
  
@@ -528,400 +623,194 @@ function onClose(event) {
     setTimeout(initWebSocket, 2000);
 }
 
+function updateNumber(key, value) {
+	var field = key;
+	var obj = {};
+	obj[field] = value;
+	var myJSON = JSON.stringify(obj);
+	websocket.send(myJSON);  
+	console.log(myJSON);
+}
+
+function updateText(key, value) {
+	console.log(key);
+	console.log(value);
+	var field = key;
+	var obj = {};
+	obj[field] = value;
+	var myJSON = JSON.stringify(obj);
+	websocket.send(myJSON);  
+	console.log(myJSON);
+}
+
+function updateSlider(key, value){
+	document.getElementById(key).innerHTML = value;
+	var field = key;
+	var obj = {};
+	obj[field] = value;
+	var myJSON = JSON.stringify(obj);
+	websocket.send(myJSON);
+	console.log(myJSON);	
+}
+
+function updateButton(key, value) {
+	var field = key;
+	var obj = {};
+	obj[field] = value;
+	var myJSON = JSON.stringify(obj);
+	websocket.send(myJSON);
+	console.log(myJSON);
+}
+
+function updateLightSchedule(key1, value1, key2, value2) {
+	var field = key1;
+	var field2 = key2;
+	var obj = {};
+	var obj2 = {};
+	
+	document.getElementById(key1).innerHTML = value1;
+	document.getElementById(key2).innerHTML = value2;
+
+	obj[field] = value1;
+	obj2[field2] = value2;
+	Object.assign(obj, obj2);
+
+	var myJSON = JSON.stringify(obj);
+	websocket.send(myJSON); 
+	console.log(myJSON); 
+}
  
 // Called when a message is received from the server
 function onMessage(event) {
- 
-    // Print out our received message
-    // console.log("Received: " + event.data);
+let data = JSON.parse(event.data);
+console.log(data);
 
-	var string = event.data;
-	
-//  console.log(k);
-if (string.charAt(0) == 'G'){
-	
-	if (string.charAt(1) == 'C'){// receive targetCelsius1 parameter
-		var residu = string.slice(2, string.length);
-		document.getElementById("targetTemperature1").innerHTML = residu;		
-		targetCelsius1 = parseInt(residu);
-	}	
-	else if (string.charAt(1) == 'D'){
-		var residu = string.slice(2, string.length);	
-		document.getElementById("targetTemperature2").innerHTML = residu;
-		targetCelsius2 = parseInt(residu);
-	}	
+	var len = Object.keys(data).length;
+	console.log("length ");
+	console.log(len);
 
-	else if (string.charAt(1) == 'H'){
-		var residu = string.slice(2, string.length);	
-		document.getElementById("targetHumidMax").innerHTML = residu;
-		humidmax = parseInt(residu);
-	}
+	for (var i = 0; i < len; i++) {
+	var variable = Object.keys(data)[i];
+	//console.log("this is the name "); console.log(variable);
+	if (variable == 'probeTypeT'){document.getElementById('probeTypeT').value = data.probeTypeT;}
+	else if (variable == 'probeCountT'){document.getElementById('probeCountT').value = data.probeCountT;}
+	else if (variable == 'probeTypeH'){document.getElementById('probeTypeH').value = data.probeTypeH;}
+	else if (variable == 'probeCountH'){document.getElementById('probeCountH').value = data.probeCountH;}
+	else if (variable == 'relay1Connected'){document.getElementById('relay1Connected').checked = data.relay1Connected;}
+	else if (variable == 'relay2Connected'){document.getElementById('relay2Connected').checked = data.relay2Connected;}
+	else if (variable == 'relay3Connected'){document.getElementById('relay3Connected').checked = data.relay3Connected;}
+	else if (variable == 'relay4Connected'){document.getElementById('relay4Connected').checked = data.relay4Connected;}
+	else if (variable == 'relay5Connected'){document.getElementById('relay5Connected').checked = data.relay5Connected;}
+	else if (variable == 'relay6Connected'){document.getElementById('relay6Connected').checked = data.relay6Connected;}
+	else if (variable == 'fan1Connected'){document.getElementById('fan1Connected').checked = data.fan1Connected;}
+	else if (variable == 'fan2Connected'){document.getElementById('fan2Connected').checked = data.fan2Connected;}
+	else if (variable == 'graphUpdate'){document.getElementById('graphUpdate').value = data.graphUpdate;}
+	else if (variable == 'PIDcontrol'){document.getElementById('PIDcontrol').checked = data.PIDcontrol;}
 
-	else if (string.charAt(1) == 'h'){
-		var residu = string.slice(2, string.length);	
-		document.getElementById("targetHumidMin").innerHTML = residu;
-		humidmin = parseInt(residu);
-	}	
-	
-	else if (string.charAt(1) == 'l'){// failsafe to preven ongoing alarm1 firing when conditions are met
-		var residu = string.slice(2, string.length);	
-		//console.log(residu);
-		hourStart = residu.slice(0, 2);	
-		minuteStart = residu.slice(2, 4);
-		hourStop = residu.slice(4, 6);
-		minuteStop = residu.slice(6, 8);
+	else if (variable == 'calValue1'){document.getElementById('calValue1').value = data.calValue1;}
+	else if (variable == 'calValue2'){document.getElementById('calValue2').value = data.calValue2;}
+	else if (variable == 'calValue3'){document.getElementById('calValue3').value = data.calValue3;}
+	else if (variable == 'calValue4'){document.getElementById('calValue4').value = data.calValue4;}
+	else if (variable == 'calValue5'){document.getElementById('calValue5').value = data.calValue5;}
+	else if (variable == 'calValue6'){document.getElementById('calValue6').value = data.calValue6;}
+	else if (variable == 'calValue7'){document.getElementById('calValue7').value = data.calValue7;}
+	else if (variable == 'calValue8'){document.getElementById('calValue8').value = data.calValue8;}
+	else if (variable == 'calValue9'){document.getElementById('calValue9').value = data.calValue9;}
+	else if (variable == 'calValue10'){document.getElementById('calValue10').value = data.calValue10;}
+	else if (variable == 'calValue11'){document.getElementById('calValue11').value = data.calValue11;}
 
-		document.getElementById("lightsON").value = hourStart +':' + minuteStart;
-		document.getElementById("lightsOFF").value = hourStop +':' + minuteStop;
-	}
-	
-    else if (string.charAt(1) == 'N'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		if (residu == '0'){
-		document.getElementById("1J2").checked = false;
-		//alarmReachTemp2 = false;
-		}
-		else if (residu == '1'){
-		document.getElementById("1J2").checked = true;
-		//alarmReachTemp2 = true;
-		}
-	}	
-	
-    else if (string.charAt(1) == 'G'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		if (residu == '0'){
-		document.getElementById("1G1").checked = false;
-		//alarmReachTemp2 = false;
-		}
-		else if (residu == '1'){
-		document.getElementById("1G1").checked = true;
-		//alarmReachTemp2 = true;
-		}
-	}
+	else if (variable == 'OUTPUT_MIN1'){document.getElementById('OUTPUT_MIN1').value = data.OUTPUT_MIN1;}
+	else if (variable == 'OUTPUT_MAX1'){document.getElementById('OUTPUT_MAX1').value = data.OUTPUT_MAX1;}
+	else if (variable == 'OUTPUT_MIN2'){document.getElementById('OUTPUT_MIN2').value = data.OUTPUT_MIN2;}
+	else if (variable == 'OUTPUT_MAX2'){document.getElementById('OUTPUT_MAX2').value = data.OUTPUT_MAX2;}
 
-    else if (string.charAt(1) == 'r'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		if (residu == '0'){
-		document.getElementById("1G2").checked = false;
-		//alarmReachTemp2 = false;
-		}
-		else if (residu == '1'){
-		document.getElementById("1G2").checked = true;
-		//alarmReachTemp2 = true;
-		}
-	}	
-	
-	else if (string.charAt(1) == 'O'){// receive alarmTime1 parameter
-		var residu = string.slice(2, string.length);
-		document.getElementById("offsetFromTargetTempMax").innerHTML = residu;
-		offsetFromTargetTempMax = parseInt(residu);
-	}
-	
-	else if (string.charAt(1) == 'o'){// receive alarmTime1 parameter
-		var residu = string.slice(2, string.length);
-		document.getElementById("offsetFromTargetTempMin").innerHTML = residu;
-		offsetFromTargetTempMin = parseInt(residu);
-	}
-	
-    else if (string.charAt(1) == 'Q'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		if (residu == '0'){
-		document.getElementById("1L1").checked = false;
-		}
-		else if (residu == '1'){
-		document.getElementById("1L1").checked = true;
-		}
-	}
-	
-	else if (string.charAt(1) == 'q'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		if (residu == '0'){
-		document.getElementById("1L2").checked = false;
-		}
-		else if (residu == '1'){
-		document.getElementById("1L2").checked = true;
-		}
-	}	
-	
-	else if (string.charAt(1) == 'g'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		if (residu == '0'){
-		document.getElementById("1L3").checked = false;
-		}
-		else if (residu == '1'){
-		document.getElementById("1L3").checked = true;
-		}
-	}
+	else if (variable == 'KP'){document.getElementById('KP').value = data.KP;}
+	else if (variable == 'KI'){document.getElementById('KI').value = data.KI;}
+	else if (variable == 'KD'){document.getElementById('KD').value = data.KD;}
 
-	else if (string.charAt(1) == 's'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		if (residu == '0'){
-		document.getElementById("1L4").checked = false;
-		}
-		else if (residu == '1'){
-		document.getElementById("1L4").checked = true;
-		}
-	}	
-	
-    else if (string.charAt(1) == 'R'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		if (residu == '0'){
-		document.getElementById("1M1").checked = false;
-		}
-		else if (residu == '1'){
-		document.getElementById("1M1").checked = true;
-		}
-	}	
-	
-    else if (string.charAt(1) == 'S'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		document.getElementById("probe_number").value = residu;
-	}
-    else if (string.charAt(1) == 'E'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		document.getElementById("probe_numberH").value = residu;
-	}	
-	
-	else if (string.charAt(1) == 'e'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		document.getElementById("graph_time").value = residu;
-	}	
-	
-    else if (string.charAt(1) == 'T'){// sets alarm1 when targetCelsius 1 is reached.
-		var residu = string.slice(2, string.length);	
-		document.getElementById("probe_id").value = residu;
-	}	
-	
-	else if (string.charAt(1) == 'U'){// checkBox - activates alarm1 Timer checkbox (alarmTime1)
-		var residu = string.slice(2, string.length);	
-		if (residu == '0'){
-		document.getElementById("1T1").checked = false;
-		//alarmActiveTimer2 = false;
-		}
-		else if (residu == '1'){
-		document.getElementById("1T1").checked = true;
-		//alarmActiveTimer2 = true;
-		}
-	}
+	else if (variable == 'lights1ON'){document.getElementById('lights1ON').innerHTML = data.lights1ON;}
+	else if (variable == 'lights1OFF'){document.getElementById('lights1OFF').innerHTML = data.lights1OFF;}
+	else if (variable == 'lights2ON'){document.getElementById('lights2ON').innerHTML = data.lights2ON;}
+	else if (variable == 'lights2OFF'){document.getElementById('lights2OFF').innerHTML = data.lights2OFF;}
 
-	else if (string.charAt(1) == 'X'){
-		var residu = string.slice(2, string.length);	
-		if (residu == '0'){
-		document.getElementById("1X1").checked = false;
-		//alarmActiveTimer2 = false;
-		}
-		else if (residu == '1'){
-		document.getElementById("1X1").checked = true;
-		//alarmActiveTimer2 = true;
-		}
-	}	
-	
-	else if (string.charAt(1) == 'V'){// checkBox - activates alarm1 Timer checkbox (alarmTime1)
-		var numArgs = 0;
-		var pos1 = 1;
-		var pos2 = 0;
-		var cal_values = new Array(5)
-		var altString = string.slice(1, string.length);
-		//console.log(altString);
-		for( var t = 0; t < altString.length; t++ ){
-			if (altString[t] == '+'){
-				pos2 = t;
-				var cal = altString.substring(pos1, pos2);
-				cal_values[numArgs] = cal;		
-				numArgs = numArgs+1;
-				pos1 = t+1;		
-			}
-		}	
-		document.getElementById("cal_val1").innerHTML = cal_values[0];
-		document.getElementById("cal_val2").innerHTML = cal_values[1];
-		document.getElementById("cal_val3").innerHTML = cal_values[2];
-		document.getElementById("cal_val4").innerHTML = cal_values[3];
-		document.getElementById("cal_val5").innerHTML = cal_values[4];
-	}
+	else if (variable == 'humidMin1'){document.getElementById('humidMin1').value = data.humidMin1;}
+	else if (variable == 'humidMax1'){document.getElementById('humidMax1').value = data.humidMax1;}
+	else if (variable == 'humidMin2'){document.getElementById('humidMin2').value = data.humidMin2;}
+	else if (variable == 'humidMax2'){document.getElementById('humidMax2').value = data.humidMax2;}
 
-	else if (string.charAt(1) == 'W'){// checkBox - activates alarm1 Timer checkbox (alarmTime1)
-		var numArgs = 0;
-		var pos1 = 1;
-		var pos2 = 0;
-		var pid_cal_values = new Array(3)
-		var altString = string.slice(1, string.length);
-		//console.log(altString);
-		for( var t = 0; t < altString.length; t++ ){
-			if (altString[t] == '+'){
-				pos2 = t;
-				var cal = altString.substring(pos1, pos2);
-				pid_cal_values[numArgs] = cal;		
-				numArgs = numArgs+1;
-				pos1 = t+1;		
-			}
-		}	
-		document.getElementById("pid_val1").innerHTML = pid_cal_values[0];
-		document.getElementById("pid_val2").innerHTML = pid_cal_values[1];
-		document.getElementById("pid_val3").innerHTML = pid_cal_values[2];
-	}
-	
-	else if (string.charAt(1) == 'Y'){// receive alarmTime1 parameter
-		var residu = string.slice(2, string.length);
-		document.getElementById("1Y1").innerHTML = residu;
+	else if (variable == 'targetSoilTemp1'){document.getElementById('targetSoilTemp1').value = data.targetSoilTemp1; targetCelsius1 = data.targetSoilTemp1;}
+	else if (variable == 'tempRange1'){document.getElementById('tempRange1').value = data.tempRange1;}
+	else if (variable == 'alarmRange1'){document.getElementById('alarmRange1').value = data.alarmRange1;}
+	else if (variable == 'soilAlarm1'){document.getElementById('soilAlarm1').checked = data.soilAlarm1;}
+	else if (variable == 'targetAirTemp1'){document.getElementById('targetAirTemp1').value = data.targetAirTemp1;}
+	else if (variable == 'airAlarm1'){document.getElementById('airAlarm1').checked = data.airAlarm1;}
 
-	}
-	
-	else {
-	};
-	
-	if (k < 24){
-	//console.log("k "); console.log(k);
-    doSend("GGG"+k);
-	k = k + 1;
-    }
-}
-else if (string.charAt(0) == 'H'){
-	var numArgs = 0;
-	var pos1 = 1;
-	var pos2 = 0;
-	var humid_values = new Array(3)
-	var fullString = string.slice(1, string.length);
-	for( var t = 0; t < string.length; t++ ){
-		if (string[t] == '+'){
-			pos2 = t;
-			var temp = string.substring(pos1, pos2);
-			humid_values[numArgs] = temp;		
-			numArgs = numArgs+1;
-			pos1 = t+1;		
-		}
-	}
-	
-	for (var x = 0; x < numArgs; x ++){
-	residu = humid_values[x]
-		if (x == 0){
-		document.getElementById("humid1").innerHTML = residu;	
-		
-			if ((residu < humidmin-10 && document.getElementById("1G1").checked == true) || (residu > humidmax+10 && document.getElementById("1G1").checked == true)){ //;tempOffsetAlarm == true){  // alarmActiveTemp1
-			//tempOffsetAlarm = false; // alarmActiveTemp1
-			document.getElementById("1G1").checked = false;
-			document.getElementById("1G2").checked = false;
-			document.getElementById("1I1").checked = true;
-			doSend("1G1"+0);
-			doSend("1G2"+0);
-			doSend('1RR'+2);
-			//playSound1(100);	
-			}
-		
-		}
-		else if (x == 1){
-		document.getElementById("humid2").innerHTML = residu;	
-		}
-		else if (x == 2){
-		document.getElementById("humid3").innerHTML = residu;
-		}		
-	}	
-}
-else if (string.charAt(0) == 'T'){
-	var numArgs = 0;
-	var pos1 = 1;
-	var pos2 = 0;
-	var temp_values = new Array(5)
-	var fullString = string.slice(1, string.length);
-	for( var t = 0; t < string.length; t++ ){
-		if (string[t] == '+'){
-			pos2 = t;
-			var temp = string.substring(pos1, pos2);
-			temp_values[numArgs] = temp;		
-			numArgs = numArgs+1;
-			pos1 = t+1;		
-		}
-	}
-	
-	for (var x = 0; x < numArgs; x ++){
-	residu = temp_values[x]
-		if (x == 0){
-		document.getElementById("temperature1").innerHTML = residu;
-			if (targetCelsius1 > 0){
-				if (offsetFromTargetTempMax > 1){
-					if ((residu > targetCelsius1 + offsetFromTargetTempMax || residu < targetCelsius1 - offsetFromTargetTempMax) && document.getElementById("1M1").checked == true){ //;tempOffsetAlarm == true){  // alarmActiveTemp1
-					//tempOffsetAlarm = false; // alarmActiveTemp1
-					document.getElementById("1M1").checked = false;
-					document.getElementById("1I1").checked = true;
-					doSend("1M1"+0);
-					doSend('1RR'+2);
-					//playSound1(100);	
-					}
-				}
-			}	
-		}
-		else if (x == 1){
-		document.getElementById("temperature2").innerHTML = residu;
-			if (targetCelsius2 > 0){
-				if (residu >= targetCelsius2 && document.getElementById("1J2").checked == true){ // alarmReachTemp2 == true
-				//alarmReachTemp2 = false;	
-				document.getElementById("1J2").checked = false;	
-				document.getElementById("1I1").checked = true;					
-				doSend("1J2"+0);
-				doSend('1RR'+1);
-				//playSound1(100);				
-				}
-			}	
-		}
-		else if (x == 2){
-			document.getElementById("temperature3").innerHTML = residu;
-		}	
-		else if (x == 3){
-			document.getElementById("temperature4").innerHTML = residu;
-		}
-		else if (x == 4){
-			document.getElementById("temperature5").innerHTML = residu;
-		}	
-	}
-	updateTime();	
-}
-else if (string.charAt(0) == 'S'){	
-	if (string.charAt(1) == 'C'){
-		var residu = string.slice(2, string.length);	
-		var residuFloat = parseFloat(residu).toFixed(2);
-		drawChart(residuFloat);
-	}
-	else if (string.charAt(1) == 'D'){
-		var residu = string.slice(2, string.length);	
-		var residuFloat = parseFloat(residu).toFixed(2);
-		drawChart1(residuFloat);
-	}	
+	else if (variable == 'targetSoilTemp2'){document.getElementById('targetSoilTemp2').value = data.targetSoilTemp2; targetCelsius2 = data.targetSoilTemp2;}
+	else if (variable == 'tempRange2'){document.getElementById('tempRange2').value = data.tempRange2;}
+	else if (variable == 'alarmRange2'){document.getElementById('alarmRange2').value = data.alarmRange2;}
+	else if (variable == 'soilAlarm2'){document.getElementById('soilAlarm2').checked = data.soilAlarm2;}
+	else if (variable == 'targetAirTemp2'){document.getElementById('targetAirTemp2').value = data.targetAirTemp2;}
+	else if (variable == 'airAlarm2'){document.getElementById('airAlarm2').checked = data.airAlarm2;}
 
-    else if (string.charAt(1) == 'I'){
-		var residu = string.slice(2, string.length);
-		document.getElementById("fanSpeed").innerHTML = residu;	
-		fanSpeed = residu;	
-		//console.log(fanSpeed);
+	else if (variable == 'manualMosfet1'){document.getElementById('manualMosfet1').checked = data.manualMosfet1;}
+	else if (variable == 'manualFanspeed1'){document.getElementById('manualFanspeed1').value = data.manualFanspeed1;}
+	else if (variable == 'manualMosfet2'){document.getElementById('manualMosfet2').checked = data.manualMosfet2;}
+	else if (variable == 'manualFanspeed2'){document.getElementById('manualFanspeed2').value = data.manualFanspeed2;}
+
+	else if (variable == 'manualRelay1'){document.getElementById('manualRelay1').checked = data.manualRelay1;}
+	else if (variable == 'manualRelay2'){document.getElementById('manualRelay2').checked = data.manualRelay2;}
+	else if (variable == 'manualRelay3'){document.getElementById('manualRelay3').checked = data.manualRelay3;}
+	else if (variable == 'manualRelay4'){document.getElementById('manualRelay4').checked = data.manualRelay4;}
+	else if (variable == 'manualRelay5'){document.getElementById('manualRelay5').checked = data.manualRelay5;}
+	else if (variable == 'manualRelay6'){document.getElementById('manualRelay6').checked = data.manualRelay6;}
+
+	else if (variable == 'lights1'){document.getElementById('lights1').checked = data.lights1;}
+	else if(variable == 'heater1'){document.getElementById('heater1').checked = data.heater1;}
+	else if(variable == 'fan1'){document.getElementById('fan1').checked = data.fan1;}
+	else if(variable == 'humidifier1'){document.getElementById('humidifier1').checked = data.humidifier1;}
+
+	else if (variable == 'lights2'){document.getElementById('lights2').checked = data.lights2;}
+	else if(variable == 'heater2'){document.getElementById('heater2').checked = data.heater2;}
+	else if(variable == 'fan2'){document.getElementById('fan2').checked = data.fan2;}
+	else if(variable == 'humidifier2'){document.getElementById('humidifier2').checked = data.humidifier2;}
+
+	else if (variable == 'saveInEEPROM'){document.getElementById('saveInEEPROM').checked = data.saveInEEPROM;}
+
+	else if (variable == 'temperature1'){document.getElementById('temperature1').innerHTML = data.temperature1; soiltemp1 = data.temperature1;}
+	else if (variable == 'temperature2'){document.getElementById('temperature2').innerHTML = data.temperature2;}
+	else if (variable == 'temperature3'){document.getElementById('temperature3').innerHTML = data.temperature3; soiltemp2 = data.temperature3;}
+	else if (variable == 'temperature4'){document.getElementById('temperature4').innerHTML = data.temperature4;}
+	else if (variable == 'temperature6'){document.getElementById('temperature6').innerHTML = data.temperature6; airtemp1 = data.temperature6;}
+	else if (variable == 'temperature7'){document.getElementById('temperature7').innerHTML = data.temperature7; airtemp2 = data.temperature7;}
+
+	else if (variable == 'humid1'){document.getElementById('humid1').innerHTML = data.humid1; humidity1 = data.humid1;}
+	else if (variable == 'humid2'){document.getElementById('humid2').innerHTML = data.humid2; humidity2 = data.humid2;}
+
+	else if (variable == 'fanspeed1'){document.getElementById('fanspeed1').value = data.fanspeed1; fanspeed1 = data.fanspeed1}
+	else if (variable == 'fanspeed2'){document.getElementById('fanspeed2').value = data.fanspeed2; fanspeed2 = data.fanspeed2}
+
+	else if (variable == 'wifiID'){document.getElementById('wifiID').innerHTML = data.wifiID;}
+	else if (variable == 'wifiPASS'){document.getElementById('wifiPASS').innerHTML = data.wifiPASS;}
+
+	else if (variable == 'updateGraph'){if (data.updateGraph == true){drawChart1(); drawChart2();} else {drawChart1();};}
+
+	else if (variable == 'recMsg'){document.getElementById('recMsg').checked = data.recMsg; setTimeout(msgRec, 800);}
 	}
 }
-else if (string.charAt(0) == 'R'){
-	if (string.charAt(1) == 'P'){
-		var residu = string.slice(2, string.length);
-		//console.log('redidu pass'); console.log(residu);
-		document.getElementById("PASS").innerHTML = residu;	
+</script>
+
+<script>
+	function msgRec(){
+		document.getElementById('recMsg').checked = false;
 	}
-	else if (string.charAt(1) == 'I'){
-		var residu = string.slice(2, string.length);
-		//console.log('redidu ssid'); console.log(residu);
-		document.getElementById("SSID").innerHTML = residu;	
-	}	
-}	
-}	
- 
-// Sends a message to the server (and prints it to the console)
-function doSend(message) {
-	String(message);
-    //console.log("Sending: " + message);
-    websocket.send(message);
-}
+</script>
 	
-	
-</script>	
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 
 <script>
- 	var chartT = new Highcharts.Chart({
-            chart: { renderTo : 'chart-temperature',
+ 	var chartT1 = new Highcharts.Chart({
+            chart: { renderTo : 'chart-temperature1',
 					backgroundColor: '#808080',
 			},
             title: { text: 'Temperature History',
@@ -930,7 +819,7 @@ function doSend(message) {
             series: [
                 {
                     showInLegend: true,
-                    name: 'Ground temp',
+                    name: 'Soil temp',
                     data: [],
                     color: '#ff0000'
                 }, 
@@ -948,7 +837,7 @@ function doSend(message) {
                 },
 				{
                     showInLegend: true,
-                    name: 'fanSpeed %',
+                    name: 'fan %',
                     data: [], 
                     color: '#00ff00'
                 },
@@ -996,171 +885,141 @@ function doSend(message) {
             },
             credits: { enabled: false }
         });
-function drawChart(temp){
+function drawChart1(){
             var x = (new Date()).getTime();
-			var currentCelsius = parseFloat(temp);
-			var currentFanSpeed = parseFloat(fanSpeed);
-			var currentHumidity = parseFloat(humidity);
-			if(chartT.series[0].data.length > 1440) {
-				chartT.series[0].addPoint([x, currentCelsius], true, true, true);
-				chartT.series[3].addPoint([x, currentFanSpeed], true, true, true);
-				chartT.series[4].addPoint([x, currentHumidity], true, true, true);
+			var currentCelsius = parseFloat(soiltemp1);
+			var currentAirCelsius = parseFloat(airtemp1);
+			var currentFanSpeed = parseFloat(fanspeed1);
+			var currentHumidity = parseFloat(humidity1);
+			
+			if(chartT1.series[0].data.length > 1440) {
+				chartT1.series[0].addPoint([x, currentCelsius], true, true, true);
+				chartT1.series[2].addPoint([x, currentAirCelsius], true, true, true);
+				chartT1.series[3].addPoint([x, currentFanSpeed], true, true, true);
+				chartT1.series[4].addPoint([x, currentHumidity], true, true, true);
 			} else {
-				chartT.series[0].addPoint([x, currentCelsius], true, false, true);
-				chartT.series[3].addPoint([x, currentFanSpeed], true, false, true);
-				chartT.series[4].addPoint([x, currentHumidity], true, false, true);
+				chartT1.series[0].addPoint([x, currentCelsius], true, false, true);
+				chartT1.series[2].addPoint([x, currentAirCelsius], true, true, true);
+				chartT1.series[3].addPoint([x, currentFanSpeed], true, false, true);
+				chartT1.series[4].addPoint([x, currentHumidity], true, false, true);
 			}
             if (targetCelsius1 > 0) {
-                if(chartT.series[1].data.length > 1440) {
-                    chartT.series[1].addPoint([x, targetCelsius1], true, true, true);
+                if(chartT1.series[1].data.length > 1440) {
+                    chartT1.series[1].addPoint([x, targetCelsius1], true, true, true);
                 } else {
-                    chartT.series[1].addPoint([x, targetCelsius1], true, false, true);
+                    chartT1.series[1].addPoint([x, targetCelsius1], true, false, true);
                 }
             }
+			
+//function drawChart1(temp
 };
-function drawChart1(temp){
+
+ 	var chartT2 = new Highcharts.Chart({
+            chart: { renderTo : 'chart-temperature2',
+					backgroundColor: '#808080',
+			},
+            title: { text: 'Temperature History',
+						style: {color: '#ffffff',}
+					},
+            series: [
+				{
+                    showInLegend: true,
+                    name: 'Soil temp2',
+                    data: [],
+                    color: '#ff0000'
+                }, 
+                {
+                    showInLegend: true,
+                    name: 'target Temp2',
+                    data: [], 
+                    color: '#0000ff'
+                },
+				{
+                    showInLegend: true,
+                    name: 'Air temp2',
+                    data: [],
+                    color: '#ffff00'
+                },
+				{
+                    showInLegend: true,
+                    name: 'fan2 %',
+                    data: [], 
+                    color: '#00ff00'
+                },
+				{
+                    showInLegend: true,
+                    name: 'humidity2 %',
+                    data: [], 
+                    color: '#00ffff'
+                }
+
+            ],
+			tooltip: {
+				valueSuffix: '\xB0 C'
+			},
+			 plotOptions: {
+				line: {
+					lineWidth: 2,
+					states: {
+						hover: {
+							lineWidth: 3
+						}
+					},
+					
+					marker: {
+						enabled: false
+					}
+					
+				}
+			},
+			legend: {
+				itemStyle: {
+					color: 'white'
+				}  
+			},
+            xAxis: { 
+               type: 'datetime',
+               dateTimeLabelFormats: { second: '%H:%M:%S' },
+			   title: { style: {color:"#ffffff"}},
+			   labels: { style: {color:"#ffffff"}}
+            },
+            yAxis: {
+                title: { text: 'Temperature (Celsius)',
+						 style: {color:"#ffffff"}},
+				labels: { style: {color:"#ffffff"}}
+            },
+            credits: { enabled: false }
+        });
+function drawChart2(){
             var x = (new Date()).getTime();
-			var currentCelsius = parseFloat(temp);
-			if(chartT.series[2].data.length > 1440) {
-				chartT.series[2].addPoint([x, currentCelsius], true, true, true);
+			var currentCelsius = parseFloat(soiltemp2);
+			var currentAirCelsius = parseFloat(airtemp2);
+			var currentFanSpeed = parseFloat(fanspeed2);
+			var currentHumidity = parseFloat(humidity2);
+			if(chartT2.series[0].data.length > 1440) {
+				chartT2.series[0].addPoint([x, currentCelsius], true, true, true);
+				chartT2.series[2].addPoint([x, currentAirCelsius], true, true, true);
+				chartT2.series[3].addPoint([x, currentFanSpeed], true, true, true);
+				chartT2.series[4].addPoint([x, currentHumidity], true, true, true);
 			} else {
-				chartT.series[2].addPoint([x, currentCelsius], true, false, true);
+				chartT2.series[0].addPoint([x, currentCelsius], true, false, true);
+				chartT2.series[2].addPoint([x, currentAirCelsius], true, true, true);
+				chartT2.series[3].addPoint([x, currentFanSpeed], true, false, true);
+				chartT2.series[4].addPoint([x, currentHumidity], true, false, true);
 			}
+            if (targetCelsius2 > 0) {
+                if(chartT2.series[1].data.length > 1440) {
+                    chartT2.series[1].addPoint([x, targetCelsius2], true, true, true);
+                } else {
+                    chartT2.series[1].addPoint([x, targetCelsius2], true, false, true);
+                }
+            }
+			
+//function drawChart1(temp
 };
 </script>
 
 <script>
-function selectProbeTType(event) {
-    //var selected_text = event.options[event.selectedIndex].innerHTML;
-	//console.log("text "); console.log(selected_text);
-    var selected_value = event.value;
-	//console.log("value "); console.log(selected_value);
-	doSend('1ST'+selected_value);
-}
-
-function selectProbeTAmount(event) {
-    var selected_value = event.value;
-	doSend('1SN'+selected_value);
-}
-
-function selectProbeHType(event) {
-    var selected_value = event.value;
-	
-	//doSend('1ST'+selected_value);
-}
-
-function selectProbeHAmount(event) {
-    var selected_value = event.value;
-	doSend('1HN'+selected_value);
-}
-
-function selectUpdateGraphTime(event) {
-    var selected_value = event.value;
-	doSend('1Z1'+selected_value);
-}
-
-function updateButton(fixedVariable) { 
-	if (document.getElementById(fixedVariable).checked == true){			
-		if (fixedVariable == '1I1'){
-		clearInterval(refreshIntervalId1); 
-		document.getElementById("1I1").checked = false;
-		//doSend('1I1'+0);
-		}
-		else if (fixedVariable == '1U1'){
-//		document.getElementById("1U1").checked = true;
-		doSend('1U1');
-		}		
-		else {
-		doSend(fixedVariable+1);
-		}
-		}
-	else if (document.getElementById(fixedVariable).checked == false){	
-		if (fixedVariable == '1I1'){
-		clearInterval(refreshIntervalId1);
-		document.getElementById("1I1").checked = false;
-		//doSend('1I1'+0);
-		}					
-		else {
-		doSend(fixedVariable+0);
-	}  
-	}
-	}
-
-function updateText(fixedVariable) {
-	if (fixedVariable == 'cv1'){
-	 doSend('1V1'+cv1.value);
-	}
-	else if (fixedVariable == 'cv2'){
-	 doSend('1V2'+cv2.value);
-	}
-	else if (fixedVariable == 'cv3'){
-	doSend('1V3'+cv3.value);
-	}
-	else if (fixedVariable == 'cv4'){
-	doSend('1V4'+cv4.value);
-	}
-	else if (fixedVariable == 'cv5'){
-	doSend('1V5'+cv5.value);
-	}
-	else if (fixedVariable == 'pv1'){
-	doSend('1W1'+pv1.value);
-	}
-	else if (fixedVariable == 'pv2'){
-	doSend('1W2'+pv2.value);
-	}
-	else if (fixedVariable == 'pv3'){
-	doSend('1W3'+pv3.value);
-	}	
-}
-
-function updateTemp(fixedVariable) {
-	if (fixedVariable == '1A1'){
-	 doSend('1A1'+A1.value);
-	}
-	else if (fixedVariable == '1A2'){
-	 doSend('1A2'+A2.value);
-	}
-	
-	else if (fixedVariable == '1C1'){
-	 doSend('1C1'+C1.value);
-	}
-	else if (fixedVariable == '1C2'){
-	 doSend('1C2'+C2.value);
-	}
-	
-	else if (fixedVariable == '1K1'){
-	 doSend('1K1'+K1.value);
-	 offsetFromTargetTempMax = targetValue;
-	}
-	else if (fixedVariable == '1K2'){
-	 doSend('1K2'+K2.value);
-	 offsetFromTargetTempMin = targetValue;
-	}
-
-	else if (fixedVariable == 'I'){
-	 doSend('I'+ssid.value);
-	}
-	else if (fixedVariable == 'P'){
-	 doSend('P'+pass.value);
-	}
-	else if (fixedVariable == 'L'){
-	
-		var timeON = document.getElementById("lightsON").value;
-		var timeOFF = document.getElementById("lightsOFF").value;
-		hourStart = timeON.slice(0, 2);	
-		minuteStart = timeON.slice(3, 5);
-		hourStop = timeOFF.slice(0, 2);
-		minuteStop = timeOFF.slice(3, 5);
-		//console.log("L"+hourStart+minuteStart+hourStop+minuteStop);
-		doSend("L"+hourStart+minuteStart+hourStop+minuteStop);
-	}			
-}
-
-function updateSlider(fixedVariable, slideAmount){
-		document.getElementById(fixedVariable).innerHTML = slideAmount;
-		doSend(fixedVariable+slideAmount);
-	}
-
 function playSound1(repeats){
 		numberofRingsAlarm1=repeats;
 		var sound = new Audio('/alarm.mp3');
@@ -1188,16 +1047,6 @@ function playSound1(repeats){
 
 <script>
 /*
-function setTab() {
-  var x = document.getElementById("SetTab");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-*/
-
 function setTab(fixedVariable) {
   var x = document.getElementById(fixedVariable);
   if (x.style.display === "none") {
@@ -1206,39 +1055,37 @@ function setTab(fixedVariable) {
     x.style.display = "none";
   }
 }
+*/
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 
 <script>
+
+function updateTimeOnopen(){
+	var today = new Date();
+	var hours = today.getHours()
+	console.log(hours);
+	var minutes = today.getMinutes()
+	console.log(minutes);
+	var obj = {};
+	obj.hours=hours;
+	obj.minutes=minutes;
+	var myJSON = JSON.stringify(obj);
+	console.log(myJSON);
+	websocket.send(myJSON); 
+
+	
+//var time =  + ":" +  + ":" + today.getSeconds();
+//console.log(time);
+}
+
 function updateTime(){
         var momentNow = moment();
         $('#date-part').html(momentNow.format('YYYY MMMM DD') + ' '
                             + momentNow.format('dddd')
                              .substring(0,3).toUpperCase());
-        $('#time-part').html(momentNow.format('HH:mm:ss'));
-		
-		var currentD = new Date();
-		var startLights = new Date();
-
-		startLights.setHours(hourStart,minuteStart); // 5.30 pm
-		//console.log(startLights);
-		
-		var endLights = new Date();
-		endLights.setHours(hourStop,minuteStop); // 6.30 pm
-		//console.log(endLights);
-
-		if(currentD >= startLights && currentD < endLights ){
-		//console.log("lights ON");
-			if (document.getElementById("1L2").checked == false){
-				doSend('1L2'+1);
-			}
-		}
-		else{
-		//	console.log("lights off");
-			if (document.getElementById("1L2").checked == true)
-			doSend('1L2'+0);
-			}	
+        $('#time-part').html(momentNow.format('HH:mm:ss'));		
 		}
 </script>
 
@@ -1249,30 +1096,56 @@ document.getElementById('1Z2').checked = false;
 document.getElementById('1Z3').checked = false;
 document.getElementById('1Z4').checked = false;
 document.getElementById('1Z5').checked = false;
+document.getElementById('1Z6').checked = false;
+document.getElementById('1Z7').checked = false;
 }
 else if (fixedVariable == '1Z2'){
 document.getElementById('1Z1').checked = false;
 document.getElementById('1Z3').checked = false;
 document.getElementById('1Z4').checked = false;
 document.getElementById('1Z5').checked = false;
+document.getElementById('1Z6').checked = false;
+document.getElementById('1Z7').checked = false;
 }
 else if (fixedVariable == '1Z3'){
-document.getElementById('1Z2').checked = false;
 document.getElementById('1Z1').checked = false;
+document.getElementById('1Z2').checked = false;
 document.getElementById('1Z4').checked = false;
 document.getElementById('1Z5').checked = false;
+document.getElementById('1Z6').checked = false;
+document.getElementById('1Z7').checked = false;
 }
 else if (fixedVariable == '1Z4'){
+document.getElementById('1Z1').checked = false;
 document.getElementById('1Z2').checked = false;
 document.getElementById('1Z3').checked = false;
-document.getElementById('1Z1').checked = false;
 document.getElementById('1Z5').checked = false;
+document.getElementById('1Z6').checked = false;
+document.getElementById('1Z7').checked = false;
 }
 else if (fixedVariable == '1Z5'){
+document.getElementById('1Z1').checked = false;
 document.getElementById('1Z2').checked = false;
 document.getElementById('1Z3').checked = false;
-document.getElementById('1Z1').checked = false;
 document.getElementById('1Z4').checked = false;
+document.getElementById('1Z6').checked = false;
+document.getElementById('1Z7').checked = false;
+}
+else if (fixedVariable == '1Z6'){
+document.getElementById('1Z1').checked = false;
+document.getElementById('1Z2').checked = false;
+document.getElementById('1Z3').checked = false;
+document.getElementById('1Z4').checked = false;
+document.getElementById('1Z5').checked = false;
+document.getElementById('1Z7').checked = false;
+}
+else if (fixedVariable == '1Z7'){
+document.getElementById('1Z1').checked = false;
+document.getElementById('1Z2').checked = false;
+document.getElementById('1Z3').checked = false;
+document.getElementById('1Z4').checked = false;
+document.getElementById('1Z5').checked = false;
+document.getElementById('1Z6').checked = false;
 }
 
 if (document.getElementById(fixedVariable).checked == true){
@@ -1295,18 +1168,16 @@ if (document.getElementById(fixedVariable).checked == true){
 }
 
 function toggleoff(parentElement){
-
 parentElement.style.display='none';
 document.getElementById('1Z1').checked = false;
 document.getElementById('1Z2').checked = false;
 document.getElementById('1Z3').checked = false;
 document.getElementById('1Z4').checked = false;
 document.getElementById('1Z5').checked = false;
-
+document.getElementById('1Z6').checked = false;
+document.getElementById('1Z7').checked = false;
 }
 
-// Get the element with id="defaultOpen" and click on it
-//document.getElementById("defaultOpen").click();
 </script>
   
 </body>
