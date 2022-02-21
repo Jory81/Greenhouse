@@ -471,7 +471,7 @@
 	</div>
 	<br>
 	<div>
-		<span class="textinfo">pin info: wemos D1 mini esp32: Temp. pins: 5, 26, 27, 32. Relay: 14, 13, 27, 33, 15, (34). DHT: 17, 16. Fan: 4, 0.</span>
+		<span class="textinfo">pin info: wemos D1 mini esp32: Temp. pins: 5, 26, 27, 32, (35). Relay: 14, 13, 15, 33, (36), (34). DHT: 17, 16, (39) Fan: 4, 0.</span>
 	</div>
 	<hr>
 </div>
@@ -611,7 +611,7 @@ function onOpen(event) {
 	document.getElementById("Reboot").checked = true;
 	var myJSON = JSON.stringify({requestInfo:true});
 	websocket.send(myJSON);  
-	console.log(myJSON);
+	//console.log(myJSON);
 	//k = 0;
 	//doSend("GGG"+k);
 
@@ -619,7 +619,7 @@ function onOpen(event) {
  
 // Called when the WebSocket connection is closed
 function onClose(event) {
-    console.log('Connection closed');
+    //console.log('Connection closed');
     setTimeout(initWebSocket, 2000);
 }
 
@@ -629,18 +629,18 @@ function updateNumber(key, value) {
 	obj[field] = value;
 	var myJSON = JSON.stringify(obj);
 	websocket.send(myJSON);  
-	console.log(myJSON);
+	//console.log(myJSON);
 }
 
 function updateText(key, value) {
-	console.log(key);
-	console.log(value);
+	//console.log(key);
+	//console.log(value);
 	var field = key;
 	var obj = {};
 	obj[field] = value;
 	var myJSON = JSON.stringify(obj);
 	websocket.send(myJSON);  
-	console.log(myJSON);
+	//console.log(myJSON);
 }
 
 function updateSlider(key, value){
@@ -650,7 +650,7 @@ function updateSlider(key, value){
 	obj[field] = value;
 	var myJSON = JSON.stringify(obj);
 	websocket.send(myJSON);
-	console.log(myJSON);	
+	//console.log(myJSON);	
 }
 
 function updateButton(key, value) {
@@ -659,7 +659,7 @@ function updateButton(key, value) {
 	obj[field] = value;
 	var myJSON = JSON.stringify(obj);
 	websocket.send(myJSON);
-	console.log(myJSON);
+	//console.log(myJSON);
 }
 
 function updateLightSchedule(key1, value1, key2, value2) {
@@ -677,17 +677,17 @@ function updateLightSchedule(key1, value1, key2, value2) {
 
 	var myJSON = JSON.stringify(obj);
 	websocket.send(myJSON); 
-	console.log(myJSON); 
+	//console.log(myJSON); 
 }
  
 // Called when a message is received from the server
 function onMessage(event) {
 let data = JSON.parse(event.data);
-console.log(data);
+//console.log(data);
 
 	var len = Object.keys(data).length;
-	console.log("length ");
-	console.log(len);
+	//console.log("length ");
+	//console.log(len);
 
 	for (var i = 0; i < len; i++) {
 	var variable = Object.keys(data)[i];
@@ -776,7 +776,7 @@ console.log(data);
 
 	else if (variable == 'saveInEEPROM'){document.getElementById('saveInEEPROM').checked = data.saveInEEPROM;}
 
-	else if (variable == 'temperature1'){document.getElementById('temperature1').innerHTML = data.temperature1; soiltemp1 = data.temperature1;}
+	else if (variable == 'temperature1'){document.getElementById('temperature1').innerHTML = data.temperature1; soiltemp1 = data.temperature1; updateTime();}
 	else if (variable == 'temperature2'){document.getElementById('temperature2').innerHTML = data.temperature2;}
 	else if (variable == 'temperature3'){document.getElementById('temperature3').innerHTML = data.temperature3; soiltemp2 = data.temperature3;}
 	else if (variable == 'temperature4'){document.getElementById('temperature4').innerHTML = data.temperature4;}
@@ -1065,14 +1065,14 @@ function setTab(fixedVariable) {
 function updateTimeOnopen(){
 	var today = new Date();
 	var hours = today.getHours()
-	console.log(hours);
+	//console.log(hours);
 	var minutes = today.getMinutes()
-	console.log(minutes);
+	//console.log(minutes);
 	var obj = {};
 	obj.hours=hours;
 	obj.minutes=minutes;
 	var myJSON = JSON.stringify(obj);
-	console.log(myJSON);
+	//console.log(myJSON);
 	websocket.send(myJSON); 
 
 	

@@ -55,9 +55,9 @@ AsyncWebSocket ws("/ws");
 
 const int RELAYPINHEATER1 = 14;
 const int RELAYPINHEATER2 = 13;
-const int RELAYPINLIGHTS1 = 27;
+const int RELAYPINLIGHTS1 = 15;
 const int RELAYPINLIGHTS2 = 33;
-const int RELAYPINOPTIONAL1 = 15;
+const int RELAYPINOPTIONAL1 = 36; // probably won't work, but there are no pins left
 const int RELAYPINOPTIONAL2 = 34; // probably won't work, but there are no pins left
 
 #define OUTPUT_PIN1 4 // Fan1
@@ -74,9 +74,9 @@ const int ledChannel2 = 1;
 Thermocouple* thermocouple[5];
 //Thermocouple* thermocouple2;
 
-#define updateTimeTemp 1000
+#define updateTimeTemp 1000 //1000
 #define updateTimeHumidity 2500
-#define updateTimeLights 30000
+#define updateTimeLights 1000
 
 // #define DHTPIN1 34
 // #define DHTPIN2 35
@@ -84,7 +84,7 @@ Thermocouple* thermocouple[5];
 
 #define DHTPIN1 17
 #define DHTPIN2 16
-#define DHTPIN3 15
+#define DHTPIN3 39 // probably won't work, but there are no pins left
 
 DHT dht[] = {
   {DHTPIN1, DHT22},
@@ -92,7 +92,7 @@ DHT dht[] = {
   {DHTPIN3, DHT22},
 };
 
-Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(5), Adafruit_MAX31865(26), Adafruit_MAX31865(27), Adafruit_MAX31865(32), Adafruit_MAX31865(33)} ; // 5, 26, 27, 32, 12
+Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(5), Adafruit_MAX31865(26), Adafruit_MAX31865(27), Adafruit_MAX31865(32), Adafruit_MAX31865(35)} ; // 5, 26, 27, 32, 12 // 35 probably won't work, but there are no pins left
 
 // The value of the Rref resistor. Use 430.0!
 #define RREF 430.0
@@ -212,10 +212,10 @@ void loop(){
 }
 
 void timeControl(){
-  unsigned long currentMillis = millis();
-  unsigned long seconds = currentMillis / 1000;
-  int minutes = (seconds / 60)+minutesStart;
-  int hours = (minutes / 60)+hourStart;
+  currentMillis = millis();
+  seconds = currentMillis / 1000;
+  minutes = (seconds / 60)+minutesStart;
+  hours = (minutes / 60)+hourStart;
   //int days = hours / 24;
   
   currentMillis %= 1000;
@@ -226,7 +226,7 @@ void timeControl(){
   char buffer[40];
   sprintf(buffer, "%02d:%02d", hours, minutes);
   
-  Serial.println(buffer);
+  //Serial.println(buffer);
 }
 
 void light1Control(){
@@ -239,23 +239,23 @@ void light1Control(){
   int minutesLights1Off = ((hoursOff1*60)+minutesOff1);
   int currentMinutes = ((hours*60)+minutes);
 
-  //Serial.print("string lights1ON "); Serial.println(lights1ON);
+  // Serial.print("string lights1ON "); Serial.println(lights1ON);
   // Serial.println(hoursOn1);
-  // Serial.println(MinutesOn1);
+  // Serial.println(minutesOn1);
   // Serial.println(hoursOff1);
-  // Serial.println(MinutesOff1);
-  //Serial.print("minutes when to turn on: "); Serial.println(minutesLights1On);
-  //Serial.print("minutes whn to turn off: "); Serial.println(minutesLights1Off);
-  //Serial.print("currentMinutes: ");Serial.println(currentMinutes);
+  // Serial.println(minutesOff1);
+  // Serial.print("minutes when to turn on: "); Serial.println(minutesLights1On);
+  // Serial.print("minutes whn to turn off: "); Serial.println(minutesLights1Off);
+  // Serial.print("currentMinutes: ");Serial.println(currentMinutes);
 
   if (!manualRelay3){
     if (currentMinutes > minutesLights1On && currentMinutes < minutesLights1Off){
       lights1=true;
-      //Serial.println("LIGHTS_ON");
+      //Serial.println("LIGHTS1_ON");
     }
     else if (currentMinutes < minutesLights1On || currentMinutes > minutesLights1On){
       lights1=false;
-      //Serial.println("LIGHTS_OFF");
+      //Serial.println("LIGHTS1_OFF");
     }
   }
   if (lightState1 != lights1){
@@ -277,20 +277,20 @@ void light2Control(){
   int currentMinutes = ((hours*60)+minutes);
 
     // Serial.println(hoursOn2);
-    // Serial.println(MinutesOn2);
+    // Serial.println(minutesOn2);
     // Serial.println(hoursOff2);
-    // Serial.println(MinutesOff2);
-    //Serial.print("minutes when to turn on: "); Serial.println(minutesLights1On);
-    //Serial.print("minutes whn to turn off: "); Serial.println(minutesLights1Off);
+    // Serial.println(minutesOff2);
+    // Serial.print("minutes when to turn on: "); Serial.println(minutesLights1On);
+    // Serial.print("minutes whn to turn off: "); Serial.println(minutesLights1Off);
 
  if (!manualRelay4){
     if (currentMinutes > minutesLights2On && currentMinutes < minutesLights2Off){
       lights2=true;
-      //Serial.println("LIGHTS_ON");
+      //Serial.println("LIGHTS2_ON");
     }
     else if (currentMinutes < minutesLights2On || currentMinutes > minutesLights2On){
       lights2=false;
-      //Serial.println("LIGHTS_OFF");
+      //Serial.println("LIGHTS2_OFF");
     }
   } 
 

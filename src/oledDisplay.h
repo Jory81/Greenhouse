@@ -1,5 +1,5 @@
 void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
-
+  displayTime = !displayTime;
   display.clearDisplay();
   display.setTextSize(1);
   display.setCursor(0,22);// 30 is fit
@@ -19,7 +19,8 @@ void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
     display.print(calibrationValue[sensor], 1);
   }
   display.setCursor(0,0);
-  // if (alarmMessage == 0){  
+  // if (alarmMessage == 0){ 
+  if (!displayTime){
      if (wifiStationMode){
      //display.print("wifi "); display.println(WiFi.localIP());
      display.print("wifi "); display.print(WiFi.localIP());  
@@ -27,6 +28,12 @@ void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
      else {
      display.print("soft-AP "); display.println(WiFi.softAPIP());  
      }
+  }
+  else if (displayTime){
+    char buffer[40];
+    sprintf(buffer, "%02d:%02d", hours, minutes);  
+    display.print(buffer);
+  } 
   // }
   // else if (alarmMessage > 0){
   //   switch(alarmMessage){

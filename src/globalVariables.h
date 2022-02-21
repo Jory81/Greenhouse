@@ -162,6 +162,7 @@ uint16_t EEPROMposition = 0;
 uint16_t stringLength;
 boolean msgFanState1= true;
 boolean msgFanState2= true;
+boolean displayTime;
 
 struct storeInEEPROM {
 int check;

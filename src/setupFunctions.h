@@ -2,6 +2,11 @@ void setupESP32(){
   Serial.begin(115200); 
   //pinMode(onboard_led.pin, OUTPUT);
   pinMode(RELAYPINLIGHTS1,   OUTPUT);
+  pinMode(RELAYPINLIGHTS2,   OUTPUT);
+  pinMode(RELAYPINHEATER1,   OUTPUT);
+  pinMode(RELAYPINHEATER2,   OUTPUT);
+  pinMode(RELAYPINOPTIONAL1,   OUTPUT);
+  pinMode(RELAYPINOPTIONAL2 ,   OUTPUT);
   //pinMode(button.pin,      INPUT);
 
 }

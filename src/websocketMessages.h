@@ -52,9 +52,9 @@ void notifyClientsSingleString(String object, String &message) {
     char data[50];
     size_t len = serializeJson(doc, data);
         for (int i = 0; i < len;  i++){
-      Serial.print(data[i]);
+      //Serial.print(data[i]);
     }
-    Serial.println(" ");
+    //Serial.println(" ");
     ws.textAll(data, len); 
 
 }
@@ -72,9 +72,9 @@ void notifyClientsSingleObject(String object, boolean value) {
     char data[50];
     size_t len = serializeJson(doc, data);
         for (int i = 0; i < len;  i++){
-      Serial.print(data[i]);
+      //Serial.print(data[i]);
     }
-    Serial.println(" ");
+    //Serial.println(" ");
     ws.textAll(data, len); 
 }
 
@@ -92,12 +92,12 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
     AwsFrameInfo *info = (AwsFrameInfo*)arg;
     if (info->final && info->index == 0 && info->len == len && info->opcode == WS_TEXT) {
 
-        Serial.println("received text ");
-        for (int i = 0; i < len; i++){
-        //strval[i]=(char)data[i];    
-        Serial.print((char)data[i]);
-        }
-        Serial.println(" ");
+        // Serial.println("received text ");
+        // for (int i = 0; i < len; i++){
+        // strval[i]=(char)data[i];    
+        // Serial.print((char)data[i]);
+        // }
+        // Serial.println(" ");
 
         //const uint8_t size = JSON_OBJECT_SIZE(1);
         StaticJsonDocument<200> json;
@@ -111,7 +111,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         //uint8_t numberOfArguments = json.size();
         //Serial.println(numberOfArguments);
         //for (int i = 0; i < numberOfArguments; i++){
-        if (json.containsKey("requestInfo")){Serial.println("enters this sequence "); sendProgramInfo();}
+        if (json.containsKey("requestInfo")){sendProgramInfo();}
         else if (json.containsKey("hours")){if (initializeTimeOnOpen){hourStart = json["hours"]; minutesStart = json["minutes"]; initializeTimeOnOpen = false;};}
         else if (json.containsKey("saveInEEPROM")){saveInEEPROM = json["saveInEEPROM"];}   
         else if (json.containsKey("ssid")){String wifiID = json["ssid"]; Serial.println(wifiID); EEPROMposition = offsetof(storeInEEPROM, ssidStorage[0]); writeStringToEEPROM(EEPROMposition, wifiID); notifyClientsSingleString("wifiID", wifiID);}
@@ -148,21 +148,21 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("calValue11")){calibrationValue[10] = json["calValue11"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[10]), calibrationValue[10]);  EEPROM.commit(); };}
 
         else if (json.containsKey("manualRelay1")){manualRelay1 = json["manualRelay1"];}
-        else if (json.containsKey("manualRelay2")){manualRelay1 = json["manualRelay2"];}
-        else if (json.containsKey("manualRelay3")){manualRelay1 = json["manualRelay3"];}
-        else if (json.containsKey("manualRelay4")){manualRelay1 = json["manualRelay4"];}
-        else if (json.containsKey("manualRelay5")){manualRelay1 = json["manualRelay5"];}
-        else if (json.containsKey("manualRelay6")){manualRelay1 = json["manualRelay6"];}
+        else if (json.containsKey("manualRelay2")){manualRelay2 = json["manualRelay2"];}
+        else if (json.containsKey("manualRelay3")){manualRelay3 = json["manualRelay3"];}
+        else if (json.containsKey("manualRelay4")){manualRelay4 = json["manualRelay4"];}
+        else if (json.containsKey("manualRelay5")){manualRelay5 = json["manualRelay5"];}
+        else if (json.containsKey("manualRelay6")){manualRelay6 = json["manualRelay6"];}
 
         else if (json.containsKey("lights1")){lights1 = json["lights1"]; lightState1 = !lights1;}
         else if (json.containsKey("heater1")){heater1 = json["heater1"]; heaterState1 = !heater1;}// Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
         else if (json.containsKey("fan1")){fan1 = json["fan1"]; fanState1 = !fan1;}
         else if (json.containsKey("humidifier1")){humidifier1 = json["humidifier1"]; humidifierState1 = !humidifier1;}
 
-        else if (json.containsKey("lights2")){lights1 = json["lights2"]; lightState1 = !lights1;}
-        else if (json.containsKey("heater2")){heater1 = json["heater2"]; heaterState1 = !heater1;}// Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
-        else if (json.containsKey("fan2")){fan1 = json["fan2"]; fanState1 = !fan1;}
-        else if (json.containsKey("humidifier2")){humidifier1 = json["humidifier2"]; humidifierState1 = !humidifier1;}
+        else if (json.containsKey("lights2")){lights2 = json["lights2"]; lightState2 = !lights2;}
+        else if (json.containsKey("heater2")){heater2 = json["heater2"]; heaterState2 = !heater2;}// Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
+        else if (json.containsKey("fan2")){fan2 = json["fan2"]; fanState2 = !fan2;}
+        else if (json.containsKey("humidifier2")){humidifier2 = json["humidifier2"]; humidifierState2 = !humidifier2;}
 
         else if (json.containsKey("manualMosfet1")){manualMosfet1 = json["manualMosfet1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualMosfet1), manualMosfet1);  EEPROM.commit(); };}
         else if (json.containsKey("manualFanspeed1")){manualFanspeed1 = json["manualFanspeed1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualFanspeed1), manualFanspeed1);  EEPROM.commit(); };}
@@ -202,7 +202,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
 }  
 
 void sendProgramInfo(){
-StaticJsonDocument<1250> doc;
+StaticJsonDocument<1350> doc;
 doc["probeTypeT"] = probeTypeT;
 doc["probeCountT"]   = probeCountT;
 doc["probeTypeH"]   = probeTypeH;
@@ -244,7 +244,7 @@ doc["KD"]   = KD;
 doc["lights1ON"] = lights1ON;
 doc["lights1OFF"] = lights1OFF;
 doc["lights2ON"] = lights2ON;
-doc["lights1OFF"] = lights1OFF;
+doc["lights2OFF"] = lights2OFF;
 doc["humidMin1"] = humidMin1;
 doc["humidMax1"] = humidMax1;
 doc["humidMin2"] = humidMin2;
@@ -255,7 +255,7 @@ doc["alarmRange1"] = alarmRange1;
 doc["soilAlarm1"] = soilAlarm1;
 doc["targetAirTemp1"] = targetAirTemp1;
 doc["airAlarm1"] = airAlarm1;
-doc["targetSoilTemp2"] = probeTypeT;
+doc["targetSoilTemp2"] = targetSoilTemp2;
 doc["tempRange2"] = tempRange2;
 doc["alarmRange2"] = alarmRange2;
 doc["soilAlarm2"] = soilAlarm2;
@@ -275,13 +275,13 @@ doc["fan2"] = fan2;
 doc["humidifier2"] = humidifier2;
 doc["saveInEEPROM"] = saveInEEPROM;
 
-char data[1250];
+char data[1350];
 size_t len = serializeJson(doc, data);
-    Serial.print("length: "); Serial.println(len);
+    //Serial.print("length: "); Serial.println(len);
     for (int i = 0; i < len;  i++){
-    Serial.print(data[i]);
+    //Serial.print(data[i]);
 }
-Serial.println(" ");
+//Serial.println(" ");
 ws.textAll(data, len);
 return;
 }
