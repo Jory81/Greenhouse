@@ -129,7 +129,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("relay6Connected")){relay6Connected = json["relay6Connected"]; EEPROM.put(offsetof(storeInEEPROM, relay6Connected), relay6Connected);  EEPROM.commit();}
         else if (json.containsKey("fan1Connected")){fan1Connected = json["fan1Connected"]; EEPROM.put(offsetof(storeInEEPROM, fan1Connected), fan1Connected);  EEPROM.commit();}
         else if (json.containsKey("fan2Connected")){fan2Connected = json["fan2Connected"]; EEPROM.put(offsetof(storeInEEPROM, fan2Connected), fan2Connected);  EEPROM.commit();}
-        else if (json.containsKey("graphUpdate")){graphUpdate = json["graphUpdate"]; EEPROM.put(offsetof(storeInEEPROM, graphUpdate), graphUpdate);  EEPROM.commit();}
+        else if (json.containsKey("graphUpdate")){graphUpdate = json["graphUpdate"]; graphUpdate = graphUpdate*1000; EEPROM.put(offsetof(storeInEEPROM, graphUpdate), (graphUpdate/1000));  EEPROM.commit();}
         else if (json.containsKey("PIDcontrol")){PIDcontrol = json["PIDcontrol"]; EEPROM.put(offsetof(storeInEEPROM, PIDcontrol), PIDcontrol);  EEPROM.commit();}
         
         else if (json.containsKey("lights1ON")){String StoreLights1ON = json["lights1ON"]; String StoreLights1OFF = json["lights1OFF"]; EEPROMposition = offsetof(storeInEEPROM, lights1on[0]); writeStringToEEPROM(EEPROMposition, StoreLights1ON); EEPROMposition = offsetof(storeInEEPROM, lights1off[0]); writeStringToEEPROM(EEPROMposition, StoreLights1OFF); reInitializeTimeStrings();}
@@ -202,7 +202,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
 }  
 
 void sendProgramInfo(){
-StaticJsonDocument<1350> doc;
+StaticJsonDocument<1550> doc;
 doc["probeTypeT"] = probeTypeT;
 doc["probeCountT"]   = probeCountT;
 doc["probeTypeH"]   = probeTypeH;
@@ -215,32 +215,32 @@ doc["relay5Connected"]   = relay5Connected;
 doc["relay6Connected"]   = relay6Connected;
 doc["fan1Connected"]   =     fan1Connected;
 doc["fan2Connected"]   =     fan2Connected;
-doc["graphUpdate"]   = (graphUpdate/1000);
+doc["graphUpdate"]   = graphUpdate/1000;
 doc["PIDcontrol"]   = PIDcontrol;
-doc["calValue1"]   = calibrationValue[0];
-doc["calValue2"]   = calibrationValue[1];
-doc["calValue3"]   = calibrationValue[2];
-doc["calValue4"]   = calibrationValue[3];
-doc["calValue5"]   = calibrationValue[4];
-doc["calValue6"]   = calibrationValue[5];
-doc["calValue7"]   = calibrationValue[6];
-doc["calValue8"]   = calibrationValue[7];
-doc["calValue9"]   = calibrationValue[8];
-doc["calValue10"]   = calibrationValue[9];
-doc["calValue11"]   = calibrationValue[10];
+doc["calValue1"]   = String(calibrationValue[0],2);
+doc["calValue2"]   = String(calibrationValue[1],2);
+doc["calValue3"]   = String(calibrationValue[2],2);
+doc["calValue4"]   = String(calibrationValue[3],2);
+doc["calValue5"]   = String(calibrationValue[4],2);
+doc["calValue6"]   = String(calibrationValue[5],2);
+doc["calValue7"]   = String(calibrationValue[6],2);
+doc["calValue8"]   = String(calibrationValue[7],2);
+doc["calValue9"]   = String(calibrationValue[8],2);
+doc["calValue10"]   = String(calibrationValue[9],2);
+doc["calValue11"]   = String(calibrationValue[10],2);
 doc["manualRelay1"] = manualRelay1;
 doc["manualRelay2"] = manualRelay2;
 doc["manualRelay3"] = manualRelay3;
 doc["manualRelay4"] = manualRelay4;
 doc["manualRelay5"] = manualRelay5;
 doc["manualRelay6"] = manualRelay6;
-doc["OUTPUT_MIN1"]   = OUTPUT_MIN1;
-doc["OUTPUT_MAX1"]   = OUTPUT_MAX1;
-doc["OUTPUT_MIN2"]   = OUTPUT_MIN2;
-doc["OUTPUT_MAX2"]   = OUTPUT_MAX2;
-doc["KP"]   = KP;
-doc["KI"]   = KI;
-doc["KD"]   = KD;
+doc["OUTPUT_MIN1"]   = String(OUTPUT_MIN1,2);
+doc["OUTPUT_MAX1"]   = String(OUTPUT_MAX1,2);
+doc["OUTPUT_MIN2"]   = String(OUTPUT_MIN2,2);
+doc["OUTPUT_MAX2"]   = String(OUTPUT_MAX2,2);
+doc["KP"]   = String(KP,2); // may require more decimals
+doc["KI"]   = String(KI,2); // may require more decimals
+doc["KD"]   = String(KD,2); // may require more decimals
 doc["lights1ON"] = lights1ON;
 doc["lights1OFF"] = lights1OFF;
 doc["lights2ON"] = lights2ON;
@@ -249,17 +249,17 @@ doc["humidMin1"] = humidMin1;
 doc["humidMax1"] = humidMax1;
 doc["humidMin2"] = humidMin2;
 doc["humidMax2"] = humidMax2;
-doc["targetSoilTemp1"] = targetSoilTemp1;
-doc["tempRange1"] = tempRange1;
-doc["alarmRange1"] = alarmRange1;
+doc["targetSoilTemp1"] = String(targetSoilTemp1,2);
+doc["tempRange1"] = String(tempRange1,2);
+doc["alarmRange1"] = String(alarmRange1,2);
 doc["soilAlarm1"] = soilAlarm1;
-doc["targetAirTemp1"] = targetAirTemp1;
+doc["targetAirTemp1"] = String(targetAirTemp1,2);
 doc["airAlarm1"] = airAlarm1;
-doc["targetSoilTemp2"] = targetSoilTemp2;
-doc["tempRange2"] = tempRange2;
-doc["alarmRange2"] = alarmRange2;
+doc["targetSoilTemp2"] = String(targetSoilTemp2,2);
+doc["tempRange2"] = String(tempRange2,2);
+doc["alarmRange2"] = String(alarmRange2,2);
 doc["soilAlarm2"] = soilAlarm2;
-doc["targetAirTemp2"] = targetAirTemp2;
+doc["targetAirTemp2"] = String(targetAirTemp2,2);
 doc["airAlarm2"] = airAlarm2;
 doc["manualMosfet1"] = manualMosfet1;
 doc["manualFanspeed1"] = manualFanspeed1;
@@ -275,11 +275,11 @@ doc["fan2"] = fan2;
 doc["humidifier2"] = humidifier2;
 doc["saveInEEPROM"] = saveInEEPROM;
 
-char data[1350];
+char data[1550];
 size_t len = serializeJson(doc, data);
-    //Serial.print("length: "); Serial.println(len);
+//    Serial.print("length: "); Serial.println(len);
     for (int i = 0; i < len;  i++){
-    //Serial.print(data[i]);
+//    Serial.print(data[i]);
 }
 //Serial.println(" ");
 ws.textAll(data, len);

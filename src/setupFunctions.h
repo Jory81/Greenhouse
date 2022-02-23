@@ -1,15 +1,9 @@
 void setupESP32(){
   Serial.begin(115200); 
   //pinMode(onboard_led.pin, OUTPUT);
-  pinMode(RELAYPINLIGHTS1,   OUTPUT);
-  pinMode(RELAYPINLIGHTS2,   OUTPUT);
-  pinMode(RELAYPINHEATER1,   OUTPUT);
-  pinMode(RELAYPINHEATER2,   OUTPUT);
-  pinMode(RELAYPINOPTIONAL1,   OUTPUT);
-  pinMode(RELAYPINOPTIONAL2 ,   OUTPUT);
   //pinMode(button.pin,      INPUT);
-
 }
+
 void setupOledScreen(){
   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3D for 128x64
     for(;;); // Don't proceed, loop forever
@@ -158,6 +152,21 @@ void setupFans(){
   }
 }
 
+void setupRelays(){
+  pinMode(RELAYPINLIGHTS1,   OUTPUT);
+  if (relay1Connected){digitalWrite(RELAYPINLIGHTS1, true);}  else {digitalWrite(RELAYPINLIGHTS1, false);}
+  pinMode(RELAYPINLIGHTS2,   OUTPUT);
+  if (relay1Connected){digitalWrite(RELAYPINLIGHTS2, true);}  else {digitalWrite(RELAYPINLIGHTS2, false);}
+  pinMode(RELAYPINHEATER1,   OUTPUT);
+  if (relay1Connected){digitalWrite(RELAYPINHEATER1, true);}  else {digitalWrite(RELAYPINHEATER1, false);}
+  pinMode(RELAYPINHEATER2,   OUTPUT);
+  if (relay1Connected){digitalWrite(RELAYPINHEATER2, true);}  else {digitalWrite(RELAYPINHEATER2, false);}
+  pinMode(RELAYPINOPTIONAL1,   OUTPUT);
+  if (relay1Connected){digitalWrite(RELAYPINOPTIONAL1, true);}  else {digitalWrite(RELAYPINOPTIONAL1, false);}
+  pinMode(RELAYPINOPTIONAL2 ,   OUTPUT);
+  if (relay1Connected){digitalWrite(RELAYPINOPTIONAL2, true);}  else {digitalWrite(RELAYPINOPTIONAL2, false);}
+}
+
 void initializeEEPROMvariables(){
 probeTypeT  = EEPROM.read(offsetof(storeInEEPROM, probeTypeT));
 probeCountT = EEPROM.read(offsetof(storeInEEPROM, probeCountT));
@@ -211,7 +220,7 @@ EEPROM.get(offsetPosition+(4*m), calibrationValue[m]);
 }
 
 #else
-graphUpdate = EEPROM.readInt(offsetof(storeInEEPROM, graphUpdate));
+graphUpdate = EEPROM.readInt(offsetof(storeInEEPROM, graphUpdate))*1000;
 
 targetSoilTemp1 = EEPROM.readFloat(offsetof(storeInEEPROM, targetSoilTemp1));
 targetAirTemp1 = EEPROM.readFloat(offsetof(storeInEEPROM, targetAirTemp1));

@@ -76,7 +76,7 @@ Thermocouple* thermocouple[5];
 
 #define updateTimeTemp 1000 //1000
 #define updateTimeHumidity 2500
-#define updateTimeLights 1000
+#define updateTimeLights 3000
 
 // #define DHTPIN1 34
 // #define DHTPIN2 35
@@ -151,6 +151,7 @@ void setupWIFI();
 void setupTempSensors();
 void setupDHTSensors();
 void setupFans();
+void setupRelays();
 
 #include "globalVariables.h"
 #include "readTemperature.h"
@@ -173,6 +174,7 @@ setupWIFI();
 setupTempSensors();
 setupDHTSensors();
 setupFans();
+setupRelays();
 
 myPID.setBangBang(tempRange1);
 myPID.setTimeStep(100);
@@ -185,7 +187,6 @@ void loop(){
       timeControl();
       samplingTemp();        
       sendTempToClient();
-      displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
       if (relay1Connected){heater1Control();};
       if (relay2Connected){heater2Control();}; 
     previousMillis1 = millis();     
@@ -205,6 +206,7 @@ void loop(){
     }
 
     if (millis() - previousMillis4 >= updateTimeLights){
+      displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
       if (relay3Connected){light1Control();}
       if (relay4Connected){light2Control();}
     previousMillis4 = millis();
