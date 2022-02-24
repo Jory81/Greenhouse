@@ -1,5 +1,7 @@
 //TEMPERATURE SETTINGS
 float targetSoilTemp1 = 25.0f; //! float targetTemperature1=25.0f;
+float daySoilTemp1 = 26.0f;
+float nightSoilTemp1  =22.0f;
 float tempRange1 = 1.5f; //! float offsetTemperatureMin = 1.5f;
 float alarmRange1 = 10.0f; //! float offsetTemperatureMax=10.0f;
 boolean soilAlarm1 = false;
@@ -7,6 +9,8 @@ float targetAirTemp1 = 25.0f; //!
 boolean airAlarm1 = false;
 
 float targetSoilTemp2 = 25.0f;
+float daySoilTemp2 = 26.0f;
+float nightSoilTemp2  =22.0f;
 float tempRange2 = 1.5f;
 float alarmRange2 = 10.0f;
 boolean soilAlarm2 = false;
@@ -152,11 +156,33 @@ unsigned long previousMillis4=0;
 
 unsigned long currentMillis = 0;
 unsigned long seconds = 0;
+//int seconds = 0;
 int minutes = 0;
 int hours = 0;
+int days = 0;
+
+int totalMinutes = 0;
+int totalHours = 0;
+int currentMinutes = 0;
 
 int minutesStart = 0;
 int hourStart = 0;
+
+int hoursOn1 = 0;
+int minutesOn1 = 0;
+int hoursOff1 = 0;
+int minutesOff1 = 0;
+
+int minutesLights1On = 0;
+int minutesLights1Off = 0;
+
+int hoursOn2 = 0;
+int minutesOn2 = 0;
+int hoursOff2 = 0;
+int minutesOff2 = 0;
+
+int minutesLights2On = 0;
+int minutesLights2Off = 0;
 
 uint16_t EEPROMposition = 0;
 uint16_t stringLength;
@@ -204,12 +230,14 @@ double OUTPUT_MAX1;
 double OUTPUT_MIN2;
 double OUTPUT_MAX2;
 
-float targetSoilTemp1;
+float daySoilTemp1;
+float nightSoilTemp1;
 float targetAirTemp1;
 float alarmRange1;
 float tempRange1;
 
-float targetSoilTemp2;
+float daySoilTemp2;
+float nightSoilTemp2;
 float targetAirTemp2;
 float alarmRange2;
 float tempRange2;
@@ -248,11 +276,13 @@ storeInEEPROM customVar = {
       0, 0, // manualMosfet1 manualMosfet2
       0, 255, // OUTPUT_MIN1 OUTPUT_MAX1
       0, 255, // OUTPUT_MIN2 OUTPUT_MAX2
-      25.0f, // targetSoilTemp1
+      26.0f, // daySoilTemp1
+      22.0f, // nightSoilTemp1
       25.0f, // targetAirTemp1
       10.0f, // alarmTemp1
       1.5f, // temprange1
-      25.0f, // targetSoilTemp2
+      26.0f, // daySoilTemp2
+      22.0f, // nightSoilTemp2
       25.0f, // targetAirTemp2
       10.0f, // alarmTemp2
       1.5f // temprange2

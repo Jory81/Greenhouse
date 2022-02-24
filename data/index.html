@@ -93,9 +93,13 @@
 
 	<h4>Soil temp.1</h4>
 	<div class="inputcontainer">
-	<span class="inputparam"> <input type="number" placeholder="input Soil Temp 1" class="form-controlx input-sl" id="targetSoilTemp1" value=""></span> <sup class="units">&deg;C</sup>
-	<span><button onclick="updateNumber('targetSoilTemp1', targetSoilTemp1.value)" class="btnx btn-primary">_targetSoilTemp1</button> </span>
+	<span class="inputparam"> <input type="number" placeholder="soil dayTemp 1" class="form-controlx input-sl" id="daySoilTemp1" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('daySoilTemp1', daySoilTemp1.value)" class="btnx btn-primary">_daySoilTemp1</button> </span>
 	</div>
+	<div class="inputcontainer">
+	<span class="inputparam"> <input type="number" placeholder="soil nightTemp 1" class="form-controlx input-sl" id="nightSoilTemp1" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('nightSoilTemp1', nightSoilTemp1.value)" class="btnx btn-primary">_nightSoilTemp1</button> </span>
+	</div>	
 	<div class="inputcontainer">
 	<span class="inputparam"> <input type="number" placeholder="temp range 1" class="form-controlx input-sl" id="tempRange1" value=""></span> <sup class="units">&deg;C</sup>
 	<span><button onclick="updateNumber('tempRange1', tempRange1.value)" class="btnx btn-primary">_tempRange1</button> </span>
@@ -122,8 +126,12 @@
 	
 	<h4>Soil temp.2</h4>
 	<div class="inputcontainer">
-	<span class="inputparam"> <input type="number" placeholder="input Soil Temp 2" class="form-controlx input-sl" id="targetSoilTemp2" value=""></span> <sup class="units">&deg;C</sup>
-	<span><button onclick="updateNumber('targetSoilTemp2', targetSoilTemp2.value)" class="btnx btn-primary">_targetSoilTemp2</button> </span>
+	<span class="inputparam"> <input type="number" placeholder="soil dayTemp 2" class="form-controlx input-sl" id="daySoilTemp2" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('daySoilTemp2', daySoilTemp2.value)" class="btnx btn-primary">_daySoilTemp2</button> </span>
+	</div>
+	<div class="inputcontainer">
+	<span class="inputparam"> <input type="number" placeholder="soil nightTemp 2" class="form-controlx input-sl" id="nightSoilTemp2" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('nightSoilTemp2', nightSoilTemp2.value)" class="btnx btn-primary">_nightSoilTemp2</button> </span>
 	</div>
 	<div class="inputcontainer">
 	<span class="inputparam"> <input type="number" placeholder="temp range 2" class="form-controlx input-sl" id="tempRange2" value=""></span> <sup class="units">&deg;C</sup>
@@ -735,14 +743,16 @@ let data = JSON.parse(event.data);
 	else if (variable == 'humidMin2'){document.getElementById('humidMin2').value = data.humidMin2;}
 	else if (variable == 'humidMax2'){document.getElementById('humidMax2').value = data.humidMax2;}
 
-	else if (variable == 'targetSoilTemp1'){document.getElementById('targetSoilTemp1').value = data.targetSoilTemp1; targetCelsius1 = data.targetSoilTemp1;}
+	else if (variable == 'daySoilTemp1'){document.getElementById('daySoilTemp1').value = data.daySoilTemp1;}
+	else if (variable == 'nightSoilTemp1'){document.getElementById('nightSoilTemp1').value = data.nightSoilTemp1;}
 	else if (variable == 'tempRange1'){document.getElementById('tempRange1').value = data.tempRange1;}
 	else if (variable == 'alarmRange1'){document.getElementById('alarmRange1').value = data.alarmRange1;}
 	else if (variable == 'soilAlarm1'){document.getElementById('soilAlarm1').checked = data.soilAlarm1;}
 	else if (variable == 'targetAirTemp1'){document.getElementById('targetAirTemp1').value = data.targetAirTemp1;}
 	else if (variable == 'airAlarm1'){document.getElementById('airAlarm1').checked = data.airAlarm1;}
 
-	else if (variable == 'targetSoilTemp2'){document.getElementById('targetSoilTemp2').value = data.targetSoilTemp2; targetCelsius2 = data.targetSoilTemp2;}
+	else if (variable == 'daySoilTemp2'){document.getElementById('daySoilTemp2').value = data.daySoilTemp2;}
+	else if (variable == 'nightSoilTemp2'){document.getElementById('nightSoilTemp2').value = data.nightSoilTemp2;}	
 	else if (variable == 'tempRange2'){document.getElementById('tempRange2').value = data.tempRange2;}
 	else if (variable == 'alarmRange2'){document.getElementById('alarmRange2').value = data.alarmRange2;}
 	else if (variable == 'soilAlarm2'){document.getElementById('soilAlarm2').checked = data.soilAlarm2;}
@@ -820,12 +830,12 @@ let data = JSON.parse(event.data);
                     data: [],
                     color: '#ff0000'
                 }, 
-                {
-                    showInLegend: true,
-                    name: 'target Temp',
-                    data: [], 
-                    color: '#0000ff'
-                },
+                // {
+                //     showInLegend: true,
+                //     name: 'target Temp',
+                //     data: [], 
+                //     color: '#0000ff'
+                // },
 				{
                     showInLegend: true,
                     name: 'Air temp',
@@ -900,13 +910,13 @@ function drawChart1(){
 				chartT1.series[3].addPoint([x, currentFanSpeed], true, false, true);
 				chartT1.series[4].addPoint([x, currentHumidity], true, false, true);
 			}
-            if (targetCelsius1 > 0) {
-                if(chartT1.series[1].data.length > 1440) {
-                    chartT1.series[1].addPoint([x, targetCelsius1], true, true, true);
-                } else {
-                    chartT1.series[1].addPoint([x, targetCelsius1], true, false, true);
-                }
-            }
+            // if (targetCelsius1 > 0) {
+            //     if(chartT1.series[1].data.length > 1440) {
+            //         chartT1.series[1].addPoint([x, targetCelsius1], true, true, true);
+            //     } else {
+            //         chartT1.series[1].addPoint([x, targetCelsius1], true, false, true);
+            //     }
+            // }
 			
 //function drawChart1(temp
 };
@@ -925,12 +935,12 @@ function drawChart1(){
                     data: [],
                     color: '#ff0000'
                 }, 
-                {
-                    showInLegend: true,
-                    name: 'target Temp2',
-                    data: [], 
-                    color: '#0000ff'
-                },
+                // {
+                //     showInLegend: true,
+                //     name: 'target Temp2',
+                //     data: [], 
+                //     color: '#0000ff'
+                // },
 				{
                     showInLegend: true,
                     name: 'Air temp2',
@@ -1004,13 +1014,13 @@ function drawChart2(){
 				chartT2.series[3].addPoint([x, currentFanSpeed], true, false, true);
 				chartT2.series[4].addPoint([x, currentHumidity], true, false, true);
 			}
-            if (targetCelsius2 > 0) {
-                if(chartT2.series[1].data.length > 1440) {
-                    chartT2.series[1].addPoint([x, targetCelsius2], true, true, true);
-                } else {
-                    chartT2.series[1].addPoint([x, targetCelsius2], true, false, true);
-                }
-            }
+            // if (targetCelsius2 > 0) {
+            //     if(chartT2.series[1].data.length > 1440) {
+            //         chartT2.series[1].addPoint([x, targetCelsius2], true, true, true);
+            //     } else {
+            //         chartT2.series[1].addPoint([x, targetCelsius2], true, false, true);
+            //     }
+            // }
 			
 //function drawChart1(temp
 };

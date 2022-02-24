@@ -154,15 +154,15 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("manualRelay5")){manualRelay5 = json["manualRelay5"];}
         else if (json.containsKey("manualRelay6")){manualRelay6 = json["manualRelay6"];}
 
-        else if (json.containsKey("lights1")){lights1 = json["lights1"]; lightState1 = !lights1;}
-        else if (json.containsKey("heater1")){heater1 = json["heater1"]; heaterState1 = !heater1;}// Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
+        else if (json.containsKey("lights1")){lights1 = json["lights1"];} //lightState1 = !lights1;
+        else if (json.containsKey("heater1")){heater1 = json["heater1"]; }// heaterState1 = !heater1;//  Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
         else if (json.containsKey("fan1")){fan1 = json["fan1"]; fanState1 = !fan1;}
-        else if (json.containsKey("humidifier1")){humidifier1 = json["humidifier1"]; humidifierState1 = !humidifier1;}
+        else if (json.containsKey("humidifier1")){humidifier1 = json["humidifier1"]; } // humidifierState1 = !humidifier1;
 
-        else if (json.containsKey("lights2")){lights2 = json["lights2"]; lightState2 = !lights2;}
-        else if (json.containsKey("heater2")){heater2 = json["heater2"]; heaterState2 = !heater2;}// Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
+        else if (json.containsKey("lights2")){lights2 = json["lights2"]; } // lightState2 = !lights2;}
+        else if (json.containsKey("heater2")){heater2 = json["heater2"]; }// heaterState2 = !heater2;// Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
         else if (json.containsKey("fan2")){fan2 = json["fan2"]; fanState2 = !fan2;}
-        else if (json.containsKey("humidifier2")){humidifier2 = json["humidifier2"]; humidifierState2 = !humidifier2;}
+        else if (json.containsKey("humidifier2")){humidifier2 = json["humidifier2"]; } // humidifierState2 = !humidifier2;
 
         else if (json.containsKey("manualMosfet1")){manualMosfet1 = json["manualMosfet1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualMosfet1), manualMosfet1);  EEPROM.commit(); };}
         else if (json.containsKey("manualFanspeed1")){manualFanspeed1 = json["manualFanspeed1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualFanspeed1), manualFanspeed1);  EEPROM.commit(); };}
@@ -183,14 +183,16 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("humidMin2")){humidMin2 = json["humidMin2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMin2), humidMin2);  EEPROM.commit(); };}
         else if (json.containsKey("humidMax2")){humidMax2 = json["humidMax2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMax2), humidMax2);  EEPROM.commit(); };}
 
-        else if (json.containsKey("targetSoilTemp1")){targetSoilTemp1 = json["targetSoilTemp1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, targetSoilTemp1), targetSoilTemp1);  EEPROM.commit(); };}
+        else if (json.containsKey("daySoilTemp1")){daySoilTemp1 = json["daySoilTemp1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, daySoilTemp1), daySoilTemp1);  EEPROM.commit(); };}
+        else if (json.containsKey("nightSoilTemp1")){nightSoilTemp1 = json["nightSoilTemp1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, nightSoilTemp1), nightSoilTemp1);  EEPROM.commit(); };}
         else if (json.containsKey("tempRange1")){tempRange1 = json["tempRange1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, tempRange1), tempRange1);  EEPROM.commit(); };}
         else if (json.containsKey("alarmRange1")){alarmRange1 = json["alarmRange1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, alarmRange1), alarmRange1);  EEPROM.commit(); };}
         else if (json.containsKey("soilAlarm1")){soilAlarm1 = json["soilAlarm1"];}
         else if (json.containsKey("targetAirTemp1")){targetAirTemp1 = json["targetAirTemp1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, targetAirTemp1), targetAirTemp1);  EEPROM.commit(); };}
         else if (json.containsKey("airAlarm1")){airAlarm1 = json["airAlarm1"];}
 
-        else if (json.containsKey("targetSoilTemp2")){probeTypeT = json["targetSoilTemp2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, targetSoilTemp2), targetSoilTemp2);  EEPROM.commit(); };}
+        else if (json.containsKey("daySoilTemp2")){daySoilTemp2 = json["daySoilTemp2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, daySoilTemp2), daySoilTemp2);  EEPROM.commit(); };}
+        else if (json.containsKey("nightSoilTemp2")){nightSoilTemp2 = json["nightSoilTemp2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, nightSoilTemp2), nightSoilTemp2);  EEPROM.commit(); };}        
         else if (json.containsKey("tempRange2")){tempRange2 = json["tempRange2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, tempRange2), tempRange2);  EEPROM.commit(); };}
         else if (json.containsKey("alarmRange2")){alarmRange2 = json["alarmRange2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, alarmRange2), alarmRange2);  EEPROM.commit(); };}
         else if (json.containsKey("soilAlarm2")){soilAlarm2 = json["soilAlarm2"];}
@@ -249,13 +251,15 @@ doc["humidMin1"] = humidMin1;
 doc["humidMax1"] = humidMax1;
 doc["humidMin2"] = humidMin2;
 doc["humidMax2"] = humidMax2;
-doc["targetSoilTemp1"] = String(targetSoilTemp1,2);
+doc["daySoilTemp1"] = String(daySoilTemp1,2);
+doc["nightSoilTemp1"] = String(nightSoilTemp1,2);
 doc["tempRange1"] = String(tempRange1,2);
 doc["alarmRange1"] = String(alarmRange1,2);
 doc["soilAlarm1"] = soilAlarm1;
 doc["targetAirTemp1"] = String(targetAirTemp1,2);
 doc["airAlarm1"] = airAlarm1;
-doc["targetSoilTemp2"] = String(targetSoilTemp2,2);
+doc["daySoilTemp2"] = String(daySoilTemp2,2);
+doc["nightSoilTemp2"] = String(nightSoilTemp2,2);
 doc["tempRange2"] = String(tempRange2,2);
 doc["alarmRange2"] = String(alarmRange2,2);
 doc["soilAlarm2"] = soilAlarm2;

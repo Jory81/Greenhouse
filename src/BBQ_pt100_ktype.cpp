@@ -76,7 +76,7 @@ Thermocouple* thermocouple[5];
 
 #define updateTimeTemp 1000 //1000
 #define updateTimeHumidity 2500
-#define updateTimeLights 3000
+#define updateTimeLights 5000
 
 // #define DHTPIN1 34
 // #define DHTPIN2 35
@@ -109,6 +109,7 @@ float processRTD(uint16_t rtd);
 void initializeEEPROMvariables();
 void timeControl();
 void reInitializeTimeStrings();
+void reInitializeTimeInts();
 void writeStringToEEPROM(int addrOffset, const String &strToWrite);
 int convertStringToInt(String str, int workflow);
 double modifiedMap(double x, double in_min, double in_max, double out_min, double out_max);
@@ -206,7 +207,7 @@ void loop(){
     }
 
     if (millis() - previousMillis4 >= updateTimeLights){
-      displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
+      displayOledScreen(temp[0], temp[2], temp[1], temp[3]);
       if (relay3Connected){light1Control();}
       if (relay4Connected){light2Control();}
     previousMillis4 = millis();
@@ -216,30 +217,28 @@ void loop(){
 void timeControl(){
   currentMillis = millis();
   seconds = currentMillis / 1000;
-  minutes = (seconds / 60)+minutesStart;
-  hours = (minutes / 60)+hourStart;
-  //int days = hours / 24;
+  minutes = (seconds / 60);
+  totalMinutes = minutes + minutesStart;
+  hours = (minutes / 60);
+  totalHours = hours + hourStart;
+  days = hours / 24;
   
   currentMillis %= 1000;
   seconds %= 60;
   minutes %= 60;
+  totalMinutes %= 60;
   hours %= 24;
+  totalHours %= 24;
 
-  char buffer[40];
-  sprintf(buffer, "%02d:%02d", hours, minutes);
+  // char buffer[40];
+  // sprintf(buffer, "%02d:%02d", hours, minutes);
+
+  currentMinutes = ((totalHours*60)+totalMinutes);
   
   //Serial.println(buffer);
 }
 
 void light1Control(){
-  int hoursOn1 = convertStringToInt(lights1ON, 0);
-  int minutesOn1 = convertStringToInt(lights1ON, 1);
-  int hoursOff1 = convertStringToInt(lights1OFF, 0);
-  int minutesOff1 = convertStringToInt(lights1OFF, 1);
-
-  int minutesLights1On = ((hoursOn1*60)+minutesOn1);
-  int minutesLights1Off = ((hoursOff1*60)+minutesOff1);
-  int currentMinutes = ((hours*60)+minutes);
 
   // Serial.print("string lights1ON "); Serial.println(lights1ON);
   // Serial.println(hoursOn1);
@@ -253,31 +252,22 @@ void light1Control(){
   if (!manualRelay3){
     if (currentMinutes > minutesLights1On && currentMinutes < minutesLights1Off){
       lights1=true;
-      //Serial.println("LIGHTS1_ON");
+      targetSoilTemp1=daySoilTemp1;
     }
     else if (currentMinutes < minutesLights1On || currentMinutes > minutesLights1On){
       lights1=false;
-      //Serial.println("LIGHTS1_OFF");
+      targetSoilTemp1=nightSoilTemp1;
     }
   }
-  if (lightState1 != lights1){
-    lightState1 = lights1;
-    digitalWrite(RELAYPINLIGHTS1, !lights1);
-    //Serial.println("send lights message to client");
-    notifyClientsSingleObject("lights1", lights1);
-  }
+  bool lights1Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINLIGHTS1) ) & digitalPinToBitMask(RELAYPINLIGHTS1));
+      if (lights1 != lights1Reg){
+        digitalWrite(RELAYPINLIGHTS1, !lights1);
+        //Serial.println("send lights message to client");
+        notifyClientsSingleObject("lights1", lights1);
+      }
 }
 
 void light2Control(){
-  int hoursOn2 = convertStringToInt(lights2ON, 0);
-  int minutesOn2 = convertStringToInt(lights2ON, 1);
-  int hoursOff2 = convertStringToInt(lights2OFF, 0);
-  int minutesOff2 = convertStringToInt(lights2OFF, 1);
- 
-  int minutesLights2On = ((hoursOn2*60)+minutesOn2);
-  int minutesLights2Off = ((hoursOff2*60)+minutesOff2);
-  int currentMinutes = ((hours*60)+minutes);
-
     // Serial.println(hoursOn2);
     // Serial.println(minutesOn2);
     // Serial.println(hoursOff2);
@@ -288,16 +278,19 @@ void light2Control(){
  if (!manualRelay4){
     if (currentMinutes > minutesLights2On && currentMinutes < minutesLights2Off){
       lights2=true;
+      targetSoilTemp2=daySoilTemp2;
       //Serial.println("LIGHTS2_ON");
     }
     else if (currentMinutes < minutesLights2On || currentMinutes > minutesLights2On){
       lights2=false;
+      targetSoilTemp2=nightSoilTemp2;
       //Serial.println("LIGHTS2_OFF");
     }
   } 
+  bool lights2Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINLIGHTS2) ) & digitalPinToBitMask(RELAYPINLIGHTS2));
 
-  if (lightState2 != lights2){
-    lightState2 = lights2;
+  if (lights2 != lights2Reg){
+    //lightState2 = lights2;
     digitalWrite(RELAYPINLIGHTS2, !lights2);
     //Serial.println("send lights message to client");
     notifyClientsSingleObject("lights2", lights2);
@@ -308,13 +301,19 @@ void light2Control(){
   if (!manualRelay1){
     if (temp[0] < targetSoilTemp1 - tempRange1){
       heater1 = true;
+
+      // bool value = (0!=(*portOutputRegister( digitalPinToPort(pin) ) & digitalPinToBitMask(pin)));
+      // check values to a reference pin
+      // another possibility GPIO_MODE_INPUT_OUTPUT (or GPIO_MODE_INPUT_OUTPUT_OD)
+      // GPIO_OUT_REG (31..0) or GPIO_OUT1_REG (32..39)
     }
     else if (temp[0] > targetSoilTemp1 + tempRange1){
       heater1 = false;
     }
   }
-  if (heaterState1 != heater1){
-    heaterState1 = heater1;
+  bool heater1Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINHEATER1) ) & digitalPinToBitMask(RELAYPINHEATER1));
+  if (heater1 != heater1Reg){
+    //heaterState1 = heater1;
     digitalWrite(RELAYPINHEATER1, !heater1);
     notifyClientsSingleObject("heater1", heater1);
   }
@@ -329,38 +328,45 @@ void heater2Control(){
       heater2 = false;
     }
   }
-  if (heaterState2 != heater2){
-    heaterState2 = heater2;
+  bool heater2Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINHEATER2) ) & digitalPinToBitMask(RELAYPINHEATER2));
+  if (heater2 != heater2Reg){
+    //heaterState2 = heater2;
     digitalWrite(RELAYPINHEATER2, !heater2);
     notifyClientsSingleObject("heater2", heater2);
   }
 }
 
 void humidity1Control(){
-  if (humidity[0] < humidMin1){
-    humidifier1 = true;
+  if (!manualRelay5){
+    if (humidity[0] < humidMin1){
+      humidifier1 = true;
+    }
+    else if (humidity[0] > humidMax1){
+      humidifier1 = false;
+    }
   }
-  else if (humidity[0] > humidMax1){
-    humidifier1 = false;
-  }
-
-  if (humidifierState1 != humidifier1){
-    humidifierState1 = humidifier1;
-    digitalWrite(RELAYPINOPTIONAL1, humidifier1);
-    notifyClientsSingleObject("humidifier1", humidifier1);
-  }
+  bool opt1Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINOPTIONAL1) ) & digitalPinToBitMask(RELAYPINOPTIONAL1));
+    //if (humidifierState1 != humidifier1){
+    if (humidifier1 != opt1Reg){
+      //humidifierState1 = humidifier1;
+      digitalWrite(RELAYPINOPTIONAL1, humidifier1);
+      notifyClientsSingleObject("humidifier1", humidifier1);
+    }
 }
 
 void humidity2Control(){
+if (!manualRelay6){
   if (humidity[1] < humidMin2){
     humidifier2 = true;
   }
   else if (humidity[1] > humidMax2){
     humidifier2 = false;
   }
-
-  if (humidifierState2 != humidifier2){
-    humidifierState2 = humidifier2;
+}
+bool opt2Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINOPTIONAL2) ) & digitalPinToBitMask(RELAYPINOPTIONAL2));
+  // if (humidifierState2 != humidifier2){
+  //   humidifierState2 = humidifier2;
+  if (humidifier2 != opt2Reg){
     digitalWrite(RELAYPINOPTIONAL2, humidifier2);
     notifyClientsSingleObject("humidifier2", humidifier2);
   }

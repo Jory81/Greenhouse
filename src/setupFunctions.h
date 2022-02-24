@@ -204,12 +204,14 @@ EEPROM.get(offsetof(storeInEEPROM, OUTPUT_MAX1), OUTPUT_MAX1);
 EEPROM.get(offsetof(storeInEEPROM, OUTPUT_MIN2), OUTPUT_MIN2);
 EEPROM.get(offsetof(storeInEEPROM, OUTPUT_MAX2), OUTPUT_MAX2);
 
-EEPROM.get(offsetof(storeInEEPROM, targetSoilTemp1), targetSoilTemp1;
+EEPROM.get(offsetof(storeInEEPROM, daySoilTemp1), daySoilTemp1;
+EEPROM.get(offsetof(storeInEEPROM, nightSoilTemp1), nightSoilTemp1;
 EEPROM.get(offsetof(storeInEEPROM, targetAirTemp1), targetAirTemp1;
 EEPROM.get(offsetof(storeInEEPROM, tempRange1), tempRange1;
 EEPROM.get(offsetof(storeInEEPROM, alarmRange1), alarmRange1;
 
-EEPROM.get(offsetof(storeInEEPROM, targetSoilTemp2), targetSoilTemp2;
+EEPROM.get(offsetof(storeInEEPROM, daySoilTemp2), daySoilTemp2;
+EEPROM.get(offsetof(storeInEEPROM, nightSoilTemp2), nightSoilTemp2;
 EEPROM.get(offsetof(storeInEEPROM, targetAirTemp2, targetAirTemp2;
 EEPROM.get(offsetof(storeInEEPROM, tempRange2), tempRange2;
 EEPROM.get(offsetof(storeInEEPROM, alarmRange2), alarmRange2;
@@ -222,12 +224,14 @@ EEPROM.get(offsetPosition+(4*m), calibrationValue[m]);
 #else
 graphUpdate = EEPROM.readInt(offsetof(storeInEEPROM, graphUpdate))*1000;
 
-targetSoilTemp1 = EEPROM.readFloat(offsetof(storeInEEPROM, targetSoilTemp1));
+daySoilTemp1 = EEPROM.readFloat(offsetof(storeInEEPROM, daySoilTemp1));
+nightSoilTemp1 = EEPROM.readFloat(offsetof(storeInEEPROM, nightSoilTemp1));
 targetAirTemp1 = EEPROM.readFloat(offsetof(storeInEEPROM, targetAirTemp1));
 tempRange1 = EEPROM.readFloat(offsetof(storeInEEPROM, tempRange1));
 alarmRange1 = EEPROM.readFloat(offsetof(storeInEEPROM, alarmRange1));
 
-targetSoilTemp2 = EEPROM.readFloat(offsetof(storeInEEPROM, targetSoilTemp2));
+daySoilTemp2 = EEPROM.readFloat(offsetof(storeInEEPROM, daySoilTemp2));
+nightSoilTemp2 = EEPROM.readFloat(offsetof(storeInEEPROM, nightSoilTemp2));
 targetAirTemp2 = EEPROM.readFloat(offsetof(storeInEEPROM, targetAirTemp2));
 tempRange2 = EEPROM.readFloat(offsetof(storeInEEPROM, tempRange2));
 alarmRange2 = EEPROM.readFloat(offsetof(storeInEEPROM, alarmRange2));
@@ -296,7 +300,11 @@ lights2off[m]  = EEPROM.read(offsetPosition+m);
 }
 lights2OFF = String(lights2off);
 //Serial.print("lights2off "); Serial.println(lights2OFF);
+
+reInitializeTimeInts();
+
 }
+
 
 int convertStringToInt(String str, int workflow){
   int str_len = str.length() + 1;
@@ -319,6 +327,7 @@ int convertStringToInt(String str, int workflow){
   }
   return atoi(buffer1);
 }
+
 
 void reInitializeTimeStrings(){
     for (int m = 0; m < 6; m++){
@@ -344,5 +353,27 @@ void reInitializeTimeStrings(){
     lights2off[m]  = EEPROM.read(offsetPosition+m);
     }
     lights2OFF = String(lights2off);
+
+    reInitializeTimeInts();
+
     return;
+}
+
+void reInitializeTimeInts(){
+    hoursOn1 = convertStringToInt(lights1ON, 0);
+    minutesOn1 = convertStringToInt(lights1ON, 1);
+    hoursOff1 = convertStringToInt(lights1OFF, 0);
+    minutesOff1 = convertStringToInt(lights1OFF, 1);
+    currentMinutes = ((hours*60)+minutes);
+
+    minutesLights1On = ((hoursOn1*60)+minutesOn1);
+    minutesLights1Off = ((hoursOff1*60)+minutesOff1);
+
+    hoursOn2 = convertStringToInt(lights2ON, 0);
+    minutesOn2 = convertStringToInt(lights2ON, 1);
+    hoursOff2 = convertStringToInt(lights2OFF, 0);
+    minutesOff2 = convertStringToInt(lights2OFF, 1);
+ 
+    minutesLights2On = ((hoursOn2*60)+minutesOn2);
+    minutesLights2Off = ((hoursOff2*60)+minutesOff2);
 }
