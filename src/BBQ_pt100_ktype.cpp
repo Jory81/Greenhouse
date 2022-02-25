@@ -228,6 +228,14 @@ void timeControl(){
   minutes %= 60;
   totalMinutes %= 60;
   hours %= 24;
+  boolean mismatch;
+  if (minutes + minutesStart > 59){
+      mismatch = 1;
+  }
+  else {
+      mismatch = 0;
+  }
+  totalHours = totalHours + mismatch;
   totalHours %= 24;
 
   // char buffer[40];
