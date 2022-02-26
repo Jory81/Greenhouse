@@ -124,9 +124,9 @@ String lights1OFF; //!
 boolean lights1; //boolean lightsON = true;
 float temperature2;
 
-boolean heaterState1 = !heater1;
-boolean lightState1 = !lights1;
-boolean humidifierState1 = !humidifier1;
+// boolean heaterState1 = !heater1;
+// boolean lightState1 = !lights1;
+// boolean humidifierState1 = !humidifier1;
 boolean fanState1 = !fan1;
 
 //CLIMATE 2 PARAMETERS
@@ -142,9 +142,9 @@ String lights2OFF; //!
 boolean lights2;
 float temperature4;
 
-boolean heaterState2 = !heater2;
-boolean lightState2 = !lights2;
-boolean humidifierState2 = !humidifier2;
+// boolean heaterState2 = !heater2;
+// boolean lightState2 = !lights2;
+// boolean humidifierState2 = !humidifier2;
 boolean fanState2 = !fan2;
 
 //TIME RELATED PARAMETERS
@@ -244,7 +244,7 @@ float tempRange2;
 };
 
 storeInEEPROM customVar = {
-      11331, // code to check
+      13331, // code to check
       1, // sensorTypeT ; 1 is PT100 2 is thermokoppel
       1, // sensorAmountT 
       1, // sensorTypeH

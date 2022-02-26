@@ -31,7 +31,7 @@ void setupEEPROM(){
   Serial.print("check is: "); Serial.println(check);
   #endif
   
-  if (check == 11331){
+  if (check == 13331){
   display.print(F("code: ")); display.println(check);
   display.println(F("EEPROM SET"));
   display.display();
@@ -39,7 +39,7 @@ void setupEEPROM(){
   delay(1000);
   }
   
-  else if (check != 11331){
+  else if (check != 13331){
   display.println(F("EEPROM not initialized"));
   display.println(F("Write to EEPROM"));
   display.display();
@@ -153,18 +153,35 @@ void setupFans(){
 }
 
 void setupRelays(){
-  pinMode(RELAYPINLIGHTS1,   OUTPUT);
-  if (relay1Connected){digitalWrite(RELAYPINLIGHTS1, true);}  else {digitalWrite(RELAYPINLIGHTS1, false);}
-  pinMode(RELAYPINLIGHTS2,   OUTPUT);
-  if (relay1Connected){digitalWrite(RELAYPINLIGHTS2, true);}  else {digitalWrite(RELAYPINLIGHTS2, false);}
-  pinMode(RELAYPINHEATER1,   OUTPUT);
-  if (relay1Connected){digitalWrite(RELAYPINHEATER1, true);}  else {digitalWrite(RELAYPINHEATER1, false);}
+  // pinMode(RELAYPINHEATER1,   OUTPUT);
+  // if (relay1Connected){digitalWrite(RELAYPINHEATER1, false);}  else {digitalWrite(RELAYPINHEATER1, true);}
+  // pinMode(RELAYPINHEATER2,   OUTPUT);
+  // if (relay2Connected){digitalWrite(RELAYPINHEATER2, false);}  else {digitalWrite(RELAYPINHEATER2, true);}
+  
+  // pinMode(RELAYPINLIGHTS1,   OUTPUT);
+  // if (relay3Connected){digitalWrite(RELAYPINLIGHTS1, false);}  else {digitalWrite(RELAYPINLIGHTS1, true);}
+  // pinMode(RELAYPINLIGHTS2,   OUTPUT);
+  // if (relay4Connected){digitalWrite(RELAYPINLIGHTS2, false);}  else {digitalWrite(RELAYPINLIGHTS2, true);}
+  
+  // pinMode(RELAYPINOPTIONAL1,   OUTPUT);
+  // if (relay5Connected){digitalWrite(RELAYPINOPTIONAL1, false);}  else {digitalWrite(RELAYPINOPTIONAL1, true);}
+  // pinMode(RELAYPINOPTIONAL2 ,   OUTPUT);
+  // if (relay6Connected){digitalWrite(RELAYPINOPTIONAL2, false);}  else {digitalWrite(RELAYPINOPTIONAL2, true);}
+
+    pinMode(RELAYPINHEATER1,   OUTPUT);
+  if (!relay1Connected){digitalWrite(RELAYPINHEATER1, true);}
   pinMode(RELAYPINHEATER2,   OUTPUT);
-  if (relay1Connected){digitalWrite(RELAYPINHEATER2, true);}  else {digitalWrite(RELAYPINHEATER2, false);}
+  if (!relay2Connected){digitalWrite(RELAYPINHEATER2, true);}
+  
+  pinMode(RELAYPINLIGHTS1,   OUTPUT);
+  if (!relay3Connected){digitalWrite(RELAYPINLIGHTS1, true);}
+  pinMode(RELAYPINLIGHTS2,   OUTPUT);
+  if (!relay4Connected){digitalWrite(RELAYPINLIGHTS2, true);}
+  
   pinMode(RELAYPINOPTIONAL1,   OUTPUT);
-  if (relay1Connected){digitalWrite(RELAYPINOPTIONAL1, true);}  else {digitalWrite(RELAYPINOPTIONAL1, false);}
+  if (!relay5Connected){digitalWrite(RELAYPINOPTIONAL1, true);}
   pinMode(RELAYPINOPTIONAL2 ,   OUTPUT);
-  if (relay1Connected){digitalWrite(RELAYPINOPTIONAL2, true);}  else {digitalWrite(RELAYPINOPTIONAL2, false);}
+  if (!relay6Connected){digitalWrite(RELAYPINOPTIONAL2, true);}
 }
 
 void initializeEEPROMvariables(){
@@ -231,6 +248,7 @@ tempRange1 = EEPROM.readFloat(offsetof(storeInEEPROM, tempRange1));
 alarmRange1 = EEPROM.readFloat(offsetof(storeInEEPROM, alarmRange1));
 
 daySoilTemp2 = EEPROM.readFloat(offsetof(storeInEEPROM, daySoilTemp2));
+
 nightSoilTemp2 = EEPROM.readFloat(offsetof(storeInEEPROM, nightSoilTemp2));
 targetAirTemp2 = EEPROM.readFloat(offsetof(storeInEEPROM, targetAirTemp2));
 tempRange2 = EEPROM.readFloat(offsetof(storeInEEPROM, tempRange2));
@@ -251,6 +269,8 @@ calibrationValue[m]  = EEPROM.readFloat(offsetPosition+4*m);
 }
 #endif
 
+targetSoilTemp1 = daySoilTemp1;
+targetSoilTemp2 = daySoilTemp2;
 // for (int m = 0; m < 8; m++){
 // int offsetPosition = offsetof(storeInEEPROM, lightSchedule[0]);
 // lightSchedule[m]  = EEPROM.readChar(offsetPosition+m);

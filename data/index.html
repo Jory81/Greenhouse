@@ -901,14 +901,14 @@ function drawChart1(){
 			
 			if(chartT1.series[0].data.length > 1440) {
 				chartT1.series[0].addPoint([x, currentCelsius], true, true, true);
-				chartT1.series[2].addPoint([x, currentAirCelsius], true, true, true);
-				chartT1.series[3].addPoint([x, currentFanSpeed], true, true, true);
-				chartT1.series[4].addPoint([x, currentHumidity], true, true, true);
+				chartT1.series[1].addPoint([x, currentAirCelsius], true, true, true);
+				chartT1.series[2].addPoint([x, currentFanSpeed], true, true, true);
+				chartT1.series[3].addPoint([x, currentHumidity], true, true, true);
 			} else {
 				chartT1.series[0].addPoint([x, currentCelsius], true, false, true);
-				chartT1.series[2].addPoint([x, currentAirCelsius], true, true, true);
-				chartT1.series[3].addPoint([x, currentFanSpeed], true, false, true);
-				chartT1.series[4].addPoint([x, currentHumidity], true, false, true);
+				chartT1.series[1].addPoint([x, currentAirCelsius], true, true, true);
+				chartT1.series[2].addPoint([x, currentFanSpeed], true, false, true);
+				chartT1.series[3].addPoint([x, currentHumidity], true, false, true);
 			}
             // if (targetCelsius1 > 0) {
             //     if(chartT1.series[1].data.length > 1440) {
@@ -961,7 +961,8 @@ function drawChart1(){
                 }
 
             ],
-			tooltip: {
+			tooltip:
+			{
 				valueSuffix: '\xB0 C'
 			},
 			 plotOptions: {
@@ -1005,14 +1006,14 @@ function drawChart2(){
 			var currentHumidity = parseFloat(humidity2);
 			if(chartT2.series[0].data.length > 1440) {
 				chartT2.series[0].addPoint([x, currentCelsius], true, true, true);
-				chartT2.series[2].addPoint([x, currentAirCelsius], true, true, true);
-				chartT2.series[3].addPoint([x, currentFanSpeed], true, true, true);
-				chartT2.series[4].addPoint([x, currentHumidity], true, true, true);
+				chartT2.series[1].addPoint([x, currentAirCelsius], true, true, true);
+				chartT2.series[2].addPoint([x, currentFanSpeed], true, true, true);
+				chartT2.series[3].addPoint([x, currentHumidity], true, true, true);
 			} else {
 				chartT2.series[0].addPoint([x, currentCelsius], true, false, true);
-				chartT2.series[2].addPoint([x, currentAirCelsius], true, true, true);
-				chartT2.series[3].addPoint([x, currentFanSpeed], true, false, true);
-				chartT2.series[4].addPoint([x, currentHumidity], true, false, true);
+				chartT2.series[1].addPoint([x, currentAirCelsius], true, true, true);
+				chartT2.series[2].addPoint([x, currentFanSpeed], true, false, true);
+				chartT2.series[3].addPoint([x, currentHumidity], true, false, true);
 			}
             // if (targetCelsius2 > 0) {
             //     if(chartT2.series[1].data.length > 1440) {
