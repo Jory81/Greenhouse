@@ -102,8 +102,8 @@ DHT dht[] = {
   {DHTPIN3, DHT22},
 };
 
-Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(5), Adafruit_MAX31865(26), Adafruit_MAX31865(27), Adafruit_MAX31865(32), Adafruit_MAX31865(35)} ; // 5, 26, 27, 32, 12 // 35 probably won't work, but there are no pins left
-
+//Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(5), Adafruit_MAX31865(26), Adafruit_MAX31865(27), Adafruit_MAX31865(32), Adafruit_MAX31865(35)} ; // 5, 26, 27, 32, 12 // 35 probably won't work, but there are no pins left
+Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(34), Adafruit_MAX31865(35), Adafruit_MAX31865(36), Adafruit_MAX31865(39), Adafruit_MAX31865(5)} ;
 // The value of the Rref resistor. Use 430.0!
 #define RREF 430.0
 

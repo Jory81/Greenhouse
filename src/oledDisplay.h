@@ -68,19 +68,19 @@ void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
     display.print(buffer);
     display.setCursor(0,28);
     // Reads pin settings from register
-    bool lights1Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINLIGHTS1) ) & digitalPinToBitMask(RELAYPINLIGHTS1));
-    bool lights2Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINLIGHTS2) ) & digitalPinToBitMask(RELAYPINLIGHTS2));
-    bool heater1Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINHEATER1) ) & digitalPinToBitMask(RELAYPINHEATER1));
-    bool heater2Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINHEATER2) ) & digitalPinToBitMask(RELAYPINHEATER2));
-    bool opt1Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINOPTIONAL1) ) & digitalPinToBitMask(RELAYPINOPTIONAL1));
-    bool opt2Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINOPTIONAL2) ) & digitalPinToBitMask(RELAYPINOPTIONAL2));
-    sprintf(buffer, "Relay heaters:  %d / %d", heater1Reg, heater2Reg);
+    bool relayReg1 = !(*portOutputRegister( digitalPinToPort(RELAYPIN1) ) & digitalPinToBitMask(RELAYPIN1));
+    bool relayReg2 = !(*portOutputRegister( digitalPinToPort(RELAYPIN2) ) & digitalPinToBitMask(RELAYPIN2));
+    bool relayReg3 = !(*portOutputRegister( digitalPinToPort(RELAYPIN3) ) & digitalPinToBitMask(RELAYPIN3));
+    bool relayReg4 = !(*portOutputRegister( digitalPinToPort(RELAYPIN4) ) & digitalPinToBitMask(RELAYPIN4));
+    bool relayReg5 = !(*portOutputRegister( digitalPinToPort(RELAYPIN5) ) & digitalPinToBitMask(RELAYPIN5));
+    bool relayReg6 = !(*portOutputRegister( digitalPinToPort(RELAYPIN6) ) & digitalPinToBitMask(RELAYPIN6));
+    sprintf(buffer, "Relay 1/2:  %d / %d", relayReg1, relayReg2);
     display.print(buffer);
     display.setCursor(0,36);
-    sprintf(buffer, "Relay lights:   %d / %d", lights1Reg, lights2Reg);
+    sprintf(buffer, "Relay 3/4:   %d / %d", relayReg3, relayReg4);
     display.print(buffer);
     display.setCursor(0,44);
-    sprintf(buffer, "Relay optional: %d / %d", opt1Reg, opt2Reg);
+    sprintf(buffer, "Relay 5/6: %d / %d", relayReg5, relayReg6);
     display.print(buffer);
     display.setCursor(0,54);
     //char buffer[40];

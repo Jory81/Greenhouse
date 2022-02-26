@@ -17,6 +17,15 @@ boolean soilAlarm2 = false;
 float targetAirTemp2 = 25.0f;
 boolean airAlarm2 = false;
 
+float targetSoilTemp3 = 25.0f;
+float daySoilTemp3 = 26.0f;
+float nightSoilTemp3  =22.0f;
+float tempRange3 = 1.5f;
+float alarmRange3 = 10.0f;
+boolean soilAlarm3 = false;
+float targetAirTemp3 = 25.0f;
+boolean airAlarm3 = false;
+
 float temp[5] = {0,0,0,0,0}; 
 float oldtemp[5] = {0,0,0,0,0}; 
 
@@ -54,17 +63,28 @@ boolean relay4Connected = false; // controls lights2
 boolean relay5Connected = false; // optional/ humidity1
 boolean relay6Connected = false; // optional/ humidity2
 
+byte modeRelay1 = 0;
+byte modeRelay2 = 0;
+byte modeRelay3 = 0;
+byte modeRelay4 = 0;
+byte modeRelay5 = 0;
+byte modeRelay6 = 0;
+
 //LIGHT SETTINGS
 char lights1on[6];
 char lights1off[6];
 char lights2on[6];
 char lights2off[6];
+char lights3on[6];
+char lights3off[6];
 
 //HUMIDITY SETTINGS
 uint8_t humidMin1 = 30;
 uint8_t humidMax1 = 70;
 uint8_t humidMin2 = 30;
 uint8_t humidMax2 = 70;
+uint8_t humidMin3 = 30;
+uint8_t humidMax3 = 70;
 
 //CALIBRATION SETTINGS
 float calibrationValue[11] = {-0.0f, -0.0f, -0.0f, -0.0f, -0.0f, -0.0f, -0.0f, -0.0f, -0.0f, -0.0f, -0.0f};
@@ -142,6 +162,19 @@ String lights2OFF; //!
 boolean lights2;
 float temperature4;
 
+//CLIMATE 2 PARAMETERS
+//float temperature3;
+boolean heater3;
+//float temperature7;
+//uint8_t fanspeed2 = 127;
+//boolean fan2;
+float humidity3;
+boolean humidifier3;
+String lights3ON; //!
+String lights3OFF; //!
+boolean lights3;
+//float temperature4;
+
 // boolean heaterState2 = !heater2;
 // boolean lightState2 = !lights2;
 // boolean humidifierState2 = !humidifier2;
@@ -185,6 +218,14 @@ int minutesOff2 = 0;
 int minutesLights2On = 0;
 int minutesLights2Off = 0;
 
+int hoursOn3 = 0;
+int minutesOn3 = 0;
+int hoursOff3 = 0;
+int minutesOff3 = 0;
+
+int minutesLights3On = 0;
+int minutesLights3Off = 0;
+
 uint16_t EEPROMposition = 0;
 uint16_t stringLength;
 boolean msgFanState1= true;
@@ -204,6 +245,12 @@ boolean relay3Connected;
 boolean relay4Connected;
 boolean relay5Connected;
 boolean relay6Connected;
+byte modeRelay1;
+byte modeRelay2;
+byte modeRelay3;
+byte modeRelay4;
+byte modeRelay5;
+byte modeRelay6;
 boolean fan1Connected;
 boolean fan2Connected;
 uint32_t graphUpdate;
@@ -211,6 +258,8 @@ uint8_t humidMin1;
 uint8_t humidMax1;
 uint8_t humidMin2;
 uint8_t humidMax2;
+uint8_t humidMin3;
+uint8_t humidMax3;
 byte manualFanspeed1;
 byte manualFanspeed2;
 char ssidStorage[32];
@@ -219,6 +268,8 @@ char lights1on[6];
 char lights1off[6];
 char lights2on[6];
 char lights2off[6];
+char lights3on[6];
+char lights3off[6];
 float calibrationValue[11];
 boolean PIDcontrol;
 double KP;
@@ -242,6 +293,12 @@ float nightSoilTemp2;
 float targetAirTemp2;
 float alarmRange2;
 float tempRange2;
+
+float daySoilTemp3;
+float nightSoilTemp3;
+float targetAirTemp3;
+float alarmRange3;
+float tempRange3;
 };
 
 storeInEEPROM customVar = {
@@ -256,12 +313,12 @@ storeInEEPROM customVar = {
       0, // relay4Connected
       0, // relay5Connected
       0, // relay6Connected
-      1, // modeRelay1
-      2, // modeRelay2
-      4, // modeRelay3
-      5, // modeRelay4
-      7, // modeRelay5
-      8, // modeRelay6
+      0, // modeRelay1
+      0, // modeRelay2
+      0, // modeRelay3
+      0, // modeRelay4
+      0, // modeRelay5
+      0, // modeRelay6
       0, // fan1Connected
       0, // fan2Connected
       5000, // graphupdate
@@ -269,6 +326,8 @@ storeInEEPROM customVar = {
       80, // humidmax1
       30, // humidmin2
       80, // humidmax2
+      30, // humidmin3
+      80, // humidmax3
       50, // manualFanSpeed
       50, // manualFanSpeed2
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // ssidstorage
@@ -277,6 +336,8 @@ storeInEEPROM customVar = {
       0, 0, 0, 0, 0, 0, // lights1off
       0, 0, 0, 0, 0, 0, // lights2on
       0, 0, 0, 0, 0, 0, // lights2off
+      0, 0, 0, 0, 0, 0, // lights3on
+      0, 0, 0, 0, 0, 0, // lights3off      
       0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, //11 calibration values
       0, // boolean tempControlPID;
       5, 3, 1, // PID values
@@ -292,7 +353,12 @@ storeInEEPROM customVar = {
       22.0f, // nightSoilTemp2
       25.0f, // targetAirTemp2
       10.0f, // alarmTemp2
-      1.5f // temprange2
+      1.5f, // temprange2
+      26.0f, // daySoilTemp3
+      22.0f, // nightSoilTemp3
+      25.0f, // targetAirTemp3
+      10.0f, // alarmTemp3
+      1.5f // temprange3      
     };
 
 char stringStorage[32];
