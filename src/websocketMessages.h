@@ -226,7 +226,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
 }  
 
 void sendProgramInfo(){
-StaticJsonDocument<1850> doc;
+StaticJsonDocument<2500> doc;
 doc["probeTypeT"] = probeTypeT;
 doc["probeCountT"]   = probeCountT;
 doc["probeTypeH"]   = probeTypeH;
@@ -322,11 +322,11 @@ doc["heater3"] = heater3;
 doc["humidifier3"] = humidifier3;
 doc["saveInEEPROM"] = saveInEEPROM;
 
-char data[1550];
+char data[2500];
 size_t len = serializeJson(doc, data);
-//    Serial.print("length: "); Serial.println(len);
+    //Serial.print("length: "); Serial.println(len);
     for (int i = 0; i < len;  i++){
-//    Serial.print(data[i]);
+    //Serial.print(data[i]);
 }
 //Serial.println(" ");
 ws.textAll(data, len);
@@ -396,7 +396,7 @@ void sendTempToClient (){
     // if (temp[3] != 0){doc["temperature4"] = temp[3];}
 
 void sendHumidityToClient(){
-    StaticJsonDocument<100> doc;
+    StaticJsonDocument<200> doc;
     doc["temperature6"] =  String(dhtTemp[0],2);
     doc["temperature7"] =  String(dhtTemp[1],2);
     doc["temperature8"] =  String(dhtTemp[2],2);
@@ -404,7 +404,7 @@ void sendHumidityToClient(){
     doc["humid2"] =  String(humidity[1],2);
     doc["humid3"] =  String(humidity[2],2);
 
-    char data[100];
+    char data[200];
     size_t len = serializeJson(doc, data);
     //Serial.print("length: "); Serial.println(len);
     for (int i = 0; i < len;  i++){

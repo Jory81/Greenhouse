@@ -302,7 +302,7 @@ float tempRange3;
 };
 
 storeInEEPROM customVar = {
-      13331, // code to check
+      11331, // code to check
       1, // sensorTypeT ; 1 is PT100 2 is thermokoppel
       1, // sensorAmountT 
       1, // sensorTypeH

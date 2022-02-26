@@ -533,7 +533,6 @@
     <option value="2" >2 probes</option>
 	<option value="3" >3 probes</option>
 	<option value="4" >4 probes</option>
-	<option value="5" >5 probes</option>
 	</select>	
 	</span>
 	<br>
@@ -956,7 +955,7 @@ let data = JSON.parse(event.data);
 	else if(variable == 'humidifier2'){document.getElementById('humidifier2').checked = data.humidifier2;}
 
 	else if (variable == 'lights3'){document.getElementById('lights3').checked = data.lights2;}
-	else if(variable == 'heater3'){document.getElementById('heater3').checked = data.heater2;}
+	else if(variable == 'heater3'){document.getElementById('heater3').checked = data.heater3;}
 	//else if(variable == 'fan2'){document.getElementById('fan2').checked = data.fan2;}
 	else if(variable == 'humidifier3'){document.getElementById('humidifier3').checked = data.humidifier2;}
 
@@ -972,7 +971,7 @@ let data = JSON.parse(event.data);
 
 	else if (variable == 'humid1'){document.getElementById('humid1').innerHTML = data.humid1; humidity1 = data.humid1;}
 	else if (variable == 'humid2'){document.getElementById('humid2').innerHTML = data.humid2; humidity2 = data.humid2;}
-	else if (variable == 'humid3'){document.getElementById('humid3').innerHTML = data.humid2; humidity2 = data.humid2;}
+	else if (variable == 'humid3'){document.getElementById('humid3').innerHTML = data.humid3; humidity3 = data.humid3;}
 
 	else if (variable == 'fanspeed1'){document.getElementById('fanspeed1').value = data.fanspeed1; fanspeed1 = data.fanspeed1}
 	else if (variable == 'fanspeed2'){document.getElementById('fanspeed2').value = data.fanspeed2; fanspeed2 = data.fanspeed2}

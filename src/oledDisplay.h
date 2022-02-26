@@ -74,13 +74,13 @@ void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
     bool relayReg4 = !(*portOutputRegister( digitalPinToPort(RELAYPIN4) ) & digitalPinToBitMask(RELAYPIN4));
     bool relayReg5 = !(*portOutputRegister( digitalPinToPort(RELAYPIN5) ) & digitalPinToBitMask(RELAYPIN5));
     bool relayReg6 = !(*portOutputRegister( digitalPinToPort(RELAYPIN6) ) & digitalPinToBitMask(RELAYPIN6));
-    sprintf(buffer, "Relay 1/2:  %d / %d", relayReg1, relayReg2);
+    sprintf(buffer, "Relay 1/2:   %d / %d", relayReg1, relayReg2);
     display.print(buffer);
     display.setCursor(0,36);
     sprintf(buffer, "Relay 3/4:   %d / %d", relayReg3, relayReg4);
     display.print(buffer);
     display.setCursor(0,44);
-    sprintf(buffer, "Relay 5/6: %d / %d", relayReg5, relayReg6);
+    sprintf(buffer, "Relay 5/6:   %d / %d", relayReg5, relayReg6);
     display.print(buffer);
     display.setCursor(0,54);
     //char buffer[40];

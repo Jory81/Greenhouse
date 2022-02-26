@@ -57,10 +57,10 @@ AsyncWebSocket ws("/ws");
 
 const int RELAYPIN1 = 14;
 const int RELAYPIN2 = 13;
-const int RELAYPIN3 = 15;
+const int RELAYPIN3 = 34; // doesnt do anything yet
 const int RELAYPIN4 = 33;
-const int RELAYPIN5 = 36; // probably won't work, but there are no pins left
-const int RELAYPIN6 = 15; // probably won't work, but there are no pins left
+const int RELAYPIN5 = 36; // doesn't do anything yet
+const int RELAYPIN6 = 15; //
 
 // const int RELAYPINHEATER1 = 14;
 // const int RELAYPINHEATER2 = 13;
@@ -92,9 +92,9 @@ Thermocouple* thermocouple[5];
 // #define DHTPIN2 35
 // #define DHTPIN3 36
 
-#define DHTPIN1 17
-#define DHTPIN2 16
-#define DHTPIN3 39 // probably won't work, but there are no pins left
+#define DHTPIN1 16
+#define DHTPIN2 17
+#define DHTPIN3 35 // probably won't work, but there are no pins left
 
 DHT dht[] = {
   {DHTPIN1, DHT22},
@@ -102,8 +102,8 @@ DHT dht[] = {
   {DHTPIN3, DHT22},
 };
 
-//Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(5), Adafruit_MAX31865(26), Adafruit_MAX31865(27), Adafruit_MAX31865(32), Adafruit_MAX31865(35)} ; // 5, 26, 27, 32, 12 // 35 probably won't work, but there are no pins left
-Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(34), Adafruit_MAX31865(35), Adafruit_MAX31865(36), Adafruit_MAX31865(39), Adafruit_MAX31865(5)} ;
+Adafruit_MAX31865 maxthermo[4] = {Adafruit_MAX31865(5), Adafruit_MAX31865(26), Adafruit_MAX31865(27), Adafruit_MAX31865(32)} ; // 5, 26, 27, 32, 12 // 35 probably won't work, but there are no pins left
+//Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(34), Adafruit_MAX31865(35), Adafruit_MAX31865(36), Adafruit_MAX31865(39), Adafruit_MAX31865(5)} ;
 // The value of the Rref resistor. Use 430.0!
 #define RREF 430.0
 
@@ -268,6 +268,7 @@ void timeControl(){
 
 void executeTask(byte mode, boolean manualRelay, const int relayPin){
   switch (mode){
+    case 0: break; // do nothing - no function attached
     case 1: heater1Control(manualRelay, relayPin); break;
     case 2: heater2Control(manualRelay, relayPin); break;
     case 3: heater3Control(manualRelay, relayPin); break;
@@ -277,6 +278,7 @@ void executeTask(byte mode, boolean manualRelay, const int relayPin){
     case 7: humidity1Control(manualRelay, relayPin); break;
     case 8: humidity2Control(manualRelay, relayPin); break;
     case 9: humidity3Control(manualRelay, relayPin); break;
+    default: break;
     return;
 }
 }
