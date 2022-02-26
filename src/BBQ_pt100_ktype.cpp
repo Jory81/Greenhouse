@@ -60,7 +60,7 @@ const int RELAYPIN2 = 13;
 const int RELAYPIN3 = 15;
 const int RELAYPIN4 = 33;
 const int RELAYPIN5 = 36; // probably won't work, but there are no pins left
-const int RELAYPIN6 = 34; // probably won't work, but there are no pins left
+const int RELAYPIN6 = 15; // probably won't work, but there are no pins left
 
 // const int RELAYPINHEATER1 = 14;
 // const int RELAYPINHEATER2 = 13;
@@ -86,6 +86,7 @@ Thermocouple* thermocouple[5];
 #define updateTimeTemp 1000 //1000
 #define updateTimeHumidity 2500
 #define updateTimeLights 5000
+#define updateRelays 1000
 
 // #define DHTPIN1 34
 // #define DHTPIN2 35
@@ -101,8 +102,8 @@ DHT dht[] = {
   {DHTPIN3, DHT22},
 };
 
-Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(5), Adafruit_MAX31865(26), Adafruit_MAX31865(27), Adafruit_MAX31865(32), Adafruit_MAX31865(35)} ; // 5, 26, 27, 32, 12 // 35 probably won't work, but there are no pins left
-
+//Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(5), Adafruit_MAX31865(26), Adafruit_MAX31865(27), Adafruit_MAX31865(32), Adafruit_MAX31865(35)} ; // 5, 26, 27, 32, 12 // 35 probably won't work, but there are no pins left
+Adafruit_MAX31865 maxthermo[5] = {Adafruit_MAX31865(34), Adafruit_MAX31865(35), Adafruit_MAX31865(36), Adafruit_MAX31865(39), Adafruit_MAX31865(5)} ;
 // The value of the Rref resistor. Use 430.0!
 #define RREF 430.0
 
@@ -132,18 +133,22 @@ void updateGraph();
 void displayOledScreen(float temp1, float temp2, float temp3, float temp4);
 
 void fan1Control();
-void light1Control(boolean manualRelay, const int RELAYPIN[]);
-void heater1Control(boolean manualRelay, const int RELAYPIN[]);
-void humidity1Control(boolean manualRelay, const int RELAYPIN[]);
+void light1Control(boolean manualRelay, const int RELAYPIN);
+void heater1Control(boolean manualRelay, const int RELAYPIN);
+void humidity1Control(boolean manualRelay, const int RELAYPIN);
 void messageFanState1();
 
-void executeTask(byte modeRelay, boolean manualRelay, const int RELAYPIN[]);
+void executeTask(byte modeRelay, boolean manualRelay, const int RELAYPIN);
 
 void fan2Control();
-void light2Control(boolean manualRelay, const int RELAYPIN[]);
-void heater2Control(boolean manualRelay, const int RELAYPIN[]);
-void humidity2Control(boolean manualRelay, const int RELAYPIN[]);
+void light2Control(boolean manualRelay, const int RELAYPIN);
+void heater2Control(boolean manualRelay, const int RELAYPIN);
+void humidity2Control(boolean manualRelay, const int RELAYPIN);
 void messageFanState2();
+
+void light3Control(boolean manualRelay, const int RELAYPIN);
+void heater3Control(boolean manualRelay, const int RELAYPIN);
+void humidity3Control(boolean manualRelay, const int RELAYPIN);
 
 void onRootRequest(AsyncWebServerRequest *request);
 void initWebServer();
@@ -199,16 +204,12 @@ void loop(){
       timeControl();
       samplingTemp();        
       sendTempToClient();
-      if (relay1Connected){executeTask(modeRelay1, manualRelay1, RELAYPIN1);};
-      if (relay2Connected){heater2Control();}; 
     previousMillis1 = millis();     
     }
 
     if (millis() - previousMillis2 >= updateTimeHumidity){
       samplingHumidity();
       sendHumidityToClient();
-      if (relay5Connected){humidity1Control();};
-      if (relay6Connected){humidity2Control();};
     previousMillis2 = millis();
     }
 
@@ -218,10 +219,18 @@ void loop(){
     }
 
     if (millis() - previousMillis4 >= updateTimeLights){
-      displayOledScreen(temp[0], temp[2], temp[1], temp[3]);
-      if (relay3Connected){light1Control();}
-      if (relay4Connected){light2Control();}
+      displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
     previousMillis4 = millis();
+    }
+
+    if (millis() - previousMillis5 >= updateRelays){
+      if (relay1Connected){executeTask(modeRelay1, manualRelay1, RELAYPIN1);};
+      if (relay2Connected){executeTask(modeRelay2, manualRelay2, RELAYPIN2);}; 
+      if (relay3Connected){executeTask(modeRelay3, manualRelay3, RELAYPIN3);};
+      if (relay4Connected){executeTask(modeRelay4, manualRelay4, RELAYPIN4);};
+      if (relay5Connected){executeTask(modeRelay5, manualRelay5, RELAYPIN5);};
+      if (relay6Connected){executeTask(modeRelay6, manualRelay6, RELAYPIN6);};
+      previousMillis5 = millis();
     }
 }
 
@@ -257,18 +266,23 @@ void timeControl(){
   //Serial.println(buffer);
 }
 
-void light1Control(){
+void executeTask(byte mode, boolean manualRelay, const int relayPin){
+  switch (mode){
+    case 1: heater1Control(manualRelay, relayPin); break;
+    case 2: heater2Control(manualRelay, relayPin); break;
+    case 3: heater3Control(manualRelay, relayPin); break;
+    case 4: light1Control(manualRelay, relayPin); break;
+    case 5: light2Control(manualRelay, relayPin); break;
+    case 6: light3Control(manualRelay, relayPin); break;
+    case 7: humidity1Control(manualRelay, relayPin); break;
+    case 8: humidity2Control(manualRelay, relayPin); break;
+    case 9: humidity3Control(manualRelay, relayPin); break;
+    return;
+}
+}
 
-  // Serial.print("string lights1ON "); Serial.println(lights1ON);
-  // Serial.println(hoursOn1);
-  // Serial.println(minutesOn1);
-  // Serial.println(hoursOff1);
-  // Serial.println(minutesOff1);
-  // Serial.print("minutes when to turn on: "); Serial.println(minutesLights1On);
-  // Serial.print("minutes whn to turn off: "); Serial.println(minutesLights1Off);
-  // Serial.print("currentMinutes: ");Serial.println(currentMinutes);
-
-  if (!manualRelay3){
+void light1Control(boolean manualRelay, const int relayPin){
+  if (!manualRelay){
     if (currentMinutes > minutesLights1On && currentMinutes < minutesLights1Off){
       lights1=true;
       targetSoilTemp1=daySoilTemp1;
@@ -278,23 +292,17 @@ void light1Control(){
       targetSoilTemp1=nightSoilTemp1;
     }
   }
-  bool lights1Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINLIGHTS1) ) & digitalPinToBitMask(RELAYPINLIGHTS1));
-      if (lights1 != lights1Reg){
-        digitalWrite(RELAYPINLIGHTS1, !lights1);
+  bool relayReg1 = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
+      if (lights1 != relayReg1){
+        digitalWrite(relayPin, !lights1);
         //Serial.println("send lights message to client");
         notifyClientsSingleObject("lights1", lights1);
       }
+  return;
 }
 
-void light2Control(){
-    // Serial.println(hoursOn2);
-    // Serial.println(minutesOn2);
-    // Serial.println(hoursOff2);
-    // Serial.println(minutesOff2);
-    // Serial.print("minutes when to turn on: "); Serial.println(minutesLights1On);
-    // Serial.print("minutes whn to turn off: "); Serial.println(minutesLights1Off);
-
- if (!manualRelay4){
+void light2Control(boolean manualRelay, const int relayPin){
+ if (!manualRelay){
     if (currentMinutes > minutesLights2On && currentMinutes < minutesLights2Off){
       lights2=true;
       targetSoilTemp2=daySoilTemp2;
@@ -306,57 +314,97 @@ void light2Control(){
       //Serial.println("LIGHTS2_OFF");
     }
   } 
-  bool lights2Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINLIGHTS2) ) & digitalPinToBitMask(RELAYPINLIGHTS2));
+  bool relayReg2 = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
 
-  if (lights2 != lights2Reg){
+  if (lights2 != relayReg2){
     //lightState2 = lights2;
-    digitalWrite(RELAYPINLIGHTS2, !lights2);
+    digitalWrite(relayPin, !lights2);
     //Serial.println("send lights message to client");
     notifyClientsSingleObject("lights2", lights2);
   }
+  return;
   }
 
-  void heater1Control(){
-  if (!manualRelay1){
+  void light3Control(boolean manualRelay, const int relayPin){
+ if (!manualRelay){
+    if (currentMinutes > minutesLights3On && currentMinutes < minutesLights3Off){
+      lights3=true;
+      targetSoilTemp3=daySoilTemp3;
+      //Serial.println("LIGHTS2_ON");
+    }
+    else if (currentMinutes < minutesLights3On || currentMinutes > minutesLights3On){
+      lights3=false;
+      targetSoilTemp3=nightSoilTemp3;
+      //Serial.println("LIGHTS2_OFF");
+    }
+  } 
+  bool relayReg3 = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
+
+  if (lights3 != relayReg3){
+    //lightState2 = lights2;
+    digitalWrite(relayPin, !lights3);
+    //Serial.println("send lights message to client");
+    notifyClientsSingleObject("lights3", lights3);
+  }
+  return;
+  }
+
+  void heater1Control(boolean manualRelay, const int relayPin){
+  if (!manualRelay){
     if (temp[0] < targetSoilTemp1 - tempRange1){
       heater1 = true;
-
-      // bool value = (0!=(*portOutputRegister( digitalPinToPort(pin) ) & digitalPinToBitMask(pin)));
-      // check values to a reference pin
-      // another possibility GPIO_MODE_INPUT_OUTPUT (or GPIO_MODE_INPUT_OUTPUT_OD)
-      // GPIO_OUT_REG (31..0) or GPIO_OUT1_REG (32..39)
     }
     else if (temp[0] > targetSoilTemp1 + tempRange1){
       heater1 = false;
     }
   }
-  bool heater1Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINHEATER1) ) & digitalPinToBitMask(RELAYPINHEATER1));
-  if (heater1 != heater1Reg){
+  bool relayReg4 = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
+  if (heater1 != relayReg4){
     //heaterState1 = heater1;
-    digitalWrite(RELAYPINHEATER1, !heater1);
+    digitalWrite(relayPin, !heater1);
     notifyClientsSingleObject("heater1", heater1);
   }
+  return;
 }
 
-void heater2Control(){
-  if (!manualRelay2){
-    if (temp[2] < targetSoilTemp2 - tempRange2){
+void heater2Control(boolean manualRelay, const int relayPin){
+  if (!manualRelay){
+    if (temp[1] < targetSoilTemp2 - tempRange2){
       heater2 = true;
     }
-    else if (temp[2] > targetSoilTemp2 + tempRange2){
+    else if (temp[1] > targetSoilTemp2 + tempRange2){
       heater2 = false;
     }
   }
-  bool heater2Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINHEATER2) ) & digitalPinToBitMask(RELAYPINHEATER2));
-  if (heater2 != heater2Reg){
+  bool relayReg5 = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
+  if (heater2 != relayReg5){
     //heaterState2 = heater2;
-    digitalWrite(RELAYPINHEATER2, !heater2);
+    digitalWrite(relayPin, !heater2);
     notifyClientsSingleObject("heater2", heater2);
   }
+  return;
 }
 
-void humidity1Control(){
-  if (!manualRelay5){
+void heater3Control(boolean manualRelay, const int relayPin){
+  if (!manualRelay){
+    if (temp[2] < targetSoilTemp3 - tempRange3){
+      heater3 = true;
+    }
+    else if (temp[1] > targetSoilTemp3 + tempRange3){
+      heater3 = false;
+    }
+  }
+  bool relayReg6 = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
+  if (heater3 != relayReg6){
+    //heaterState2 = heater2;
+    digitalWrite(relayPin, !heater3);
+    notifyClientsSingleObject("heater3", heater3);
+  }
+  return;
+}
+
+void humidity1Control(boolean manualRelay, const int relayPin){
+  if (!manualRelay){
     if (humidity[0] < humidMin1){
       humidifier1 = true;
     }
@@ -364,17 +412,18 @@ void humidity1Control(){
       humidifier1 = false;
     }
   }
-  bool opt1Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINOPTIONAL1) ) & digitalPinToBitMask(RELAYPINOPTIONAL1));
+  bool relayReg7 = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
     //if (humidifierState1 != humidifier1){
-    if (humidifier1 != opt1Reg){
+    if (humidifier1 != relayReg7){
       //humidifierState1 = humidifier1;
-      digitalWrite(RELAYPINOPTIONAL1, humidifier1);
+      digitalWrite(relayPin, humidifier1);
       notifyClientsSingleObject("humidifier1", humidifier1);
     }
+    return;
 }
 
-void humidity2Control(){
-if (!manualRelay6){
+void humidity2Control(boolean manualRelay, const int relayPin){
+if (!manualRelay){
   if (humidity[1] < humidMin2){
     humidifier2 = true;
   }
@@ -382,13 +431,33 @@ if (!manualRelay6){
     humidifier2 = false;
   }
 }
-bool opt2Reg = !(*portOutputRegister( digitalPinToPort(RELAYPINOPTIONAL2) ) & digitalPinToBitMask(RELAYPINOPTIONAL2));
+bool relayReg8 = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
   // if (humidifierState2 != humidifier2){
   //   humidifierState2 = humidifier2;
-  if (humidifier2 != opt2Reg){
-    digitalWrite(RELAYPINOPTIONAL2, humidifier2);
+  if (humidifier2 != relayReg8){
+    digitalWrite(relayPin, humidifier2);
     notifyClientsSingleObject("humidifier2", humidifier2);
   }
+  return;
+}
+
+void humidity3Control(boolean manualRelay, const int relayPin){
+if (!manualRelay){
+  if (humidity[2] < humidMin3){
+    humidifier3 = true;
+  }
+  else if (humidity[2] > humidMax3){
+    humidifier3 = false;
+  }
+}
+bool relayReg9 = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
+  // if (humidifierState2 != humidifier2){
+  //   humidifierState2 = humidifier2;
+  if (humidifier3 != relayReg9){
+    digitalWrite(relayPin, humidifier3);
+    notifyClientsSingleObject("humidifier3", humidifier3);
+  }
+  return;
 }
 
 void samplingTemp(){
