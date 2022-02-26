@@ -53,21 +53,12 @@ AsyncWebSocket ws("/ws");
 // #define CS2_PIN 26
 // NOT FULLY TESTED AND OPERATIONAL FOR MULTIPLE SENSORS - FYI
 
-// const int RELAYPIN[6] = {14,12,15,33,36,34};
-
-const int RELAYPIN1 = 14;
-const int RELAYPIN2 = 13;
-const int RELAYPIN3 = 15;
-const int RELAYPIN4 = 33;
-const int RELAYPIN5 = 36; // probably won't work, but there are no pins left
-const int RELAYPIN6 = 34; // probably won't work, but there are no pins left
-
-// const int RELAYPINHEATER1 = 14;
-// const int RELAYPINHEATER2 = 13;
-// const int RELAYPINLIGHTS1 = 15;
-// const int RELAYPINLIGHTS2 = 33;
-// const int RELAYPINOPTIONAL1 = 36; // probably won't work, but there are no pins left
-// const int RELAYPINOPTIONAL2 = 34; // probably won't work, but there are no pins left
+const int RELAYPINHEATER1 = 14;
+const int RELAYPINHEATER2 = 13;
+const int RELAYPINLIGHTS1 = 15;
+const int RELAYPINLIGHTS2 = 33;
+const int RELAYPINOPTIONAL1 = 36; // probably won't work, but there are no pins left
+const int RELAYPINOPTIONAL2 = 34; // probably won't work, but there are no pins left
 
 #define OUTPUT_PIN1 4 // Fan1
 const int freq = 10;
@@ -132,17 +123,15 @@ void updateGraph();
 void displayOledScreen(float temp1, float temp2, float temp3, float temp4);
 
 void fan1Control();
-void light1Control(boolean manualRelay, const int RELAYPIN[]);
-void heater1Control(boolean manualRelay, const int RELAYPIN[]);
-void humidity1Control(boolean manualRelay, const int RELAYPIN[]);
+void light1Control();
+void heater1Control();
+void humidity1Control();
 void messageFanState1();
 
-void executeTask(byte modeRelay, boolean manualRelay, const int RELAYPIN[]);
-
 void fan2Control();
-void light2Control(boolean manualRelay, const int RELAYPIN[]);
-void heater2Control(boolean manualRelay, const int RELAYPIN[]);
-void humidity2Control(boolean manualRelay, const int RELAYPIN[]);
+void light2Control();
+void heater2Control();
+void humidity2Control();
 void messageFanState2();
 
 void onRootRequest(AsyncWebServerRequest *request);
@@ -199,7 +188,7 @@ void loop(){
       timeControl();
       samplingTemp();        
       sendTempToClient();
-      if (relay1Connected){executeTask(modeRelay1, manualRelay1, RELAYPIN1);};
+      if (relay1Connected){heater1Control();};
       if (relay2Connected){heater2Control();}; 
     previousMillis1 = millis();     
     }

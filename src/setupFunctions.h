@@ -21,7 +21,7 @@ void setupSPIFFS(){
   }  
 }
 void setupEEPROM(){
-  EEPROM.begin(500);
+  EEPROM.begin(750);
   
   #ifdef ESP8266
   int check;
@@ -168,20 +168,20 @@ void setupRelays(){
   // pinMode(RELAYPINOPTIONAL2 ,   OUTPUT);
   // if (relay6Connected){digitalWrite(RELAYPINOPTIONAL2, false);}  else {digitalWrite(RELAYPINOPTIONAL2, true);}
 
-    pinMode(RELAYPINHEATER1,   OUTPUT);
-  if (!relay1Connected){digitalWrite(RELAYPINHEATER1, true);}
-  pinMode(RELAYPINHEATER2,   OUTPUT);
-  if (!relay2Connected){digitalWrite(RELAYPINHEATER2, true);}
+    pinMode(RELAYPIN1,   OUTPUT);
+  if (!relay1Connected){digitalWrite(RELAYPIN1, true);}
+  pinMode(RELAYPIN2,   OUTPUT);
+  if (!relay2Connected){digitalWrite(RELAYPIN2, true);}
   
-  pinMode(RELAYPINLIGHTS1,   OUTPUT);
-  if (!relay3Connected){digitalWrite(RELAYPINLIGHTS1, true);}
-  pinMode(RELAYPINLIGHTS2,   OUTPUT);
-  if (!relay4Connected){digitalWrite(RELAYPINLIGHTS2, true);}
+  pinMode(RELAYPIN3,   OUTPUT);
+  if (!relay3Connected){digitalWrite(RELAYPIN3, true);}
+  pinMode(RELAYPIN4,   OUTPUT);
+  if (!relay4Connected){digitalWrite(RELAYPIN4, true);}
   
-  pinMode(RELAYPINOPTIONAL1,   OUTPUT);
-  if (!relay5Connected){digitalWrite(RELAYPINOPTIONAL1, true);}
-  pinMode(RELAYPINOPTIONAL2 ,   OUTPUT);
-  if (!relay6Connected){digitalWrite(RELAYPINOPTIONAL2, true);}
+  pinMode(RELAYPIN5,   OUTPUT);
+  if (!relay5Connected){digitalWrite(RELAYPIN5, true);}
+  pinMode(RELAYPIN6 ,   OUTPUT);
+  if (!relay6Connected){digitalWrite(RELAYPIN6, true);}
 }
 
 void initializeEEPROMvariables(){
@@ -195,6 +195,12 @@ relay3Connected = EEPROM.read(offsetof(storeInEEPROM, relay3Connected));
 relay4Connected = EEPROM.read(offsetof(storeInEEPROM, relay4Connected));
 relay5Connected = EEPROM.read(offsetof(storeInEEPROM, relay5Connected));
 relay6Connected = EEPROM.read(offsetof(storeInEEPROM, relay6Connected));
+modeRelay1 = EEPROM.read(offsetof(storeInEEPROM, modeRelay1));
+modeRelay2 = EEPROM.read(offsetof(storeInEEPROM, modeRelay2));
+modeRelay3 = EEPROM.read(offsetof(storeInEEPROM, modeRelay3));
+modeRelay4 = EEPROM.read(offsetof(storeInEEPROM, modeRelay4));
+modeRelay5 = EEPROM.read(offsetof(storeInEEPROM, modeRelay5));
+modeRelay6 = EEPROM.read(offsetof(storeInEEPROM, modeRelay6));
 fan1Connected = EEPROM.read(offsetof(storeInEEPROM, fan1Connected));
 fan1Connected = EEPROM.read(offsetof(storeInEEPROM, fan1Connected));
 
@@ -204,6 +210,8 @@ humidMin1 = EEPROM.read(offsetof(storeInEEPROM, humidMin1));
 humidMax1 =  EEPROM.read(offsetof(storeInEEPROM, humidMax1));
 humidMin2 = EEPROM.read(offsetof(storeInEEPROM, humidMin2));
 humidMax2 =  EEPROM.read(offsetof(storeInEEPROM, humidMax2));
+humidMin3 = EEPROM.read(offsetof(storeInEEPROM, humidMin3));
+humidMax3 =  EEPROM.read(offsetof(storeInEEPROM, humidMax3));
 
 manualFanspeed1 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed1));
 manualFanspeed2 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed2));
@@ -233,6 +241,12 @@ EEPROM.get(offsetof(storeInEEPROM, targetAirTemp2, targetAirTemp2;
 EEPROM.get(offsetof(storeInEEPROM, tempRange2), tempRange2;
 EEPROM.get(offsetof(storeInEEPROM, alarmRange2), alarmRange2;
 
+EEPROM.get(offsetof(storeInEEPROM, daySoilTemp3), daySoilTemp3;
+EEPROM.get(offsetof(storeInEEPROM, nightSoilTemp3), nightSoilTemp3;
+EEPROM.get(offsetof(storeInEEPROM, targetAirTemp3, targetAirTemp3;
+EEPROM.get(offsetof(storeInEEPROM, tempRange3), tempRange3;
+EEPROM.get(offsetof(storeInEEPROM, alarmRange3), alarmRange3;
+
 for (int m = 0; m < 11; m++){
 int offsetPosition = offsetof(storeInEEPROM, calibrationValue[0]);
 EEPROM.get(offsetPosition+(4*m), calibrationValue[m]);
@@ -248,11 +262,16 @@ tempRange1 = EEPROM.readFloat(offsetof(storeInEEPROM, tempRange1));
 alarmRange1 = EEPROM.readFloat(offsetof(storeInEEPROM, alarmRange1));
 
 daySoilTemp2 = EEPROM.readFloat(offsetof(storeInEEPROM, daySoilTemp2));
-
 nightSoilTemp2 = EEPROM.readFloat(offsetof(storeInEEPROM, nightSoilTemp2));
 targetAirTemp2 = EEPROM.readFloat(offsetof(storeInEEPROM, targetAirTemp2));
 tempRange2 = EEPROM.readFloat(offsetof(storeInEEPROM, tempRange2));
 alarmRange2 = EEPROM.readFloat(offsetof(storeInEEPROM, alarmRange2));
+
+daySoilTemp3 = EEPROM.readFloat(offsetof(storeInEEPROM, daySoilTemp3));
+nightSoilTemp3 = EEPROM.readFloat(offsetof(storeInEEPROM, nightSoilTemp3));
+targetAirTemp3 = EEPROM.readFloat(offsetof(storeInEEPROM, targetAirTemp3));
+tempRange3 = EEPROM.readFloat(offsetof(storeInEEPROM, tempRange3));
+alarmRange3 = EEPROM.readFloat(offsetof(storeInEEPROM, alarmRange3));
 
 KP = EEPROM.readDouble(offsetof(storeInEEPROM, KP));
 KI = EEPROM.readDouble(offsetof(storeInEEPROM, KI));
@@ -271,6 +290,7 @@ calibrationValue[m]  = EEPROM.readFloat(offsetPosition+4*m);
 
 targetSoilTemp1 = daySoilTemp1;
 targetSoilTemp2 = daySoilTemp2;
+targetSoilTemp3 = daySoilTemp3;
 // for (int m = 0; m < 8; m++){
 // int offsetPosition = offsetof(storeInEEPROM, lightSchedule[0]);
 // lightSchedule[m]  = EEPROM.readChar(offsetPosition+m);
@@ -320,6 +340,19 @@ lights2off[m]  = EEPROM.read(offsetPosition+m);
 }
 lights2OFF = String(lights2off);
 //Serial.print("lights2off "); Serial.println(lights2OFF);
+
+for (int m = 0; m < 6; m++){
+int offsetPosition = offsetof(storeInEEPROM, lights3on[0]);
+lights3on[m]  = EEPROM.read(offsetPosition+m);
+}
+lights3ON = String(lights3on);
+//Serial.print("lights2on "); Serial.println(lights2ON);
+
+for (int m = 0; m < 6; m++){
+int offsetPosition = offsetof(storeInEEPROM, lights3off[0]);
+lights3off[m]  = EEPROM.read(offsetPosition+m);
+}
+lights3OFF = String(lights3off);
 
 reInitializeTimeInts();
 
@@ -374,6 +407,19 @@ void reInitializeTimeStrings(){
     }
     lights2OFF = String(lights2off);
 
+    for (int m = 0; m < 6; m++){
+    int offsetPosition = offsetof(storeInEEPROM, lights3on[0]);
+    lights3on[m]  = EEPROM.read(offsetPosition+m);
+    }
+    lights3ON = String(lights3on);
+    //Serial.print("lights2on "); Serial.println(lights2ON);
+
+    for (int m = 0; m < 6; m++){
+    int offsetPosition = offsetof(storeInEEPROM, lights3off[0]);
+    lights3off[m]  = EEPROM.read(offsetPosition+m);
+    }
+    lights3OFF = String(lights3off);    
+
     reInitializeTimeInts();
 
     return;
@@ -396,4 +442,12 @@ void reInitializeTimeInts(){
  
     minutesLights2On = ((hoursOn2*60)+minutesOn2);
     minutesLights2Off = ((hoursOff2*60)+minutesOff2);
+
+    hoursOn3 = convertStringToInt(lights3ON, 0);
+    minutesOn3 = convertStringToInt(lights3ON, 1);
+    hoursOff3 = convertStringToInt(lights3OFF, 0);
+    minutesOff3 = convertStringToInt(lights3OFF, 1);
+ 
+    minutesLights3On = ((hoursOn2*60)+minutesOn3);
+    minutesLights3Off = ((hoursOff2*60)+minutesOff3);    
 }

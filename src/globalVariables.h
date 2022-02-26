@@ -153,6 +153,7 @@ unsigned long previousMillis1=0;
 unsigned long previousMillis2=0;
 unsigned long previousMillis3=0;
 unsigned long previousMillis4=0;
+unsigned long previousMillis5=0;
 
 unsigned long currentMillis = 0;
 unsigned long seconds = 0;
@@ -255,6 +256,12 @@ storeInEEPROM customVar = {
       0, // relay4Connected
       0, // relay5Connected
       0, // relay6Connected
+      1, // modeRelay1
+      2, // modeRelay2
+      4, // modeRelay3
+      5, // modeRelay4
+      7, // modeRelay5
+      8, // modeRelay6
       0, // fan1Connected
       0, // fan2Connected
       5000, // graphupdate

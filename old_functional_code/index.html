@@ -123,7 +123,6 @@
 	</span>
 	</div>
 	<br>
-	<br>
 	
 	<h4>Soil temp.2</h4>
 	<div class="inputcontainer">
@@ -156,40 +155,6 @@
 	<i class="glyphicon glyphicon-bell"></i>	
 	</span>
 	</div>
-	<br>
-	<br>
-
-	<h4>Soil temp.3</h4>
-	<div class="inputcontainer">
-	<span class="inputparam"> <input type="number" placeholder="soil dayTemp 3" class="form-controlx input-sl" id="daySoilTemp3" value=""></span> <sup class="units">&deg;C</sup>
-	<span><button onclick="updateNumber('daySoilTemp3', daySoilTemp3.value)" class="btnx btn-primary">_daySoilTemp3</button> </span>
-	</div>
-	<div class="inputcontainer">
-	<span class="inputparam"> <input type="number" placeholder="soil nightTemp 3" class="form-controlx input-sl" id="nightSoilTemp3" value=""></span> <sup class="units">&deg;C</sup>
-	<span><button onclick="updateNumber('nightSoilTemp3', nightSoilTemp3.value)" class="btnx btn-primary">_nightSoilTemp3</button> </span>
-	</div>
-	<div class="inputcontainer">
-	<span class="inputparam"> <input type="number" placeholder="temp range 3" class="form-controlx input-sl" id="tempRange3" value=""></span> <sup class="units">&deg;C</sup>
-	<span><button onclick="updateNumber('tempRange3', tempRange3.value)" class="btnx btn-primary">_tempRange3</button> </span>
-	</div>
-	<div class="inputcontainer">
-	<span class="inputparam"> <input type="number" placeholder="alarm range 3" class="form-controlx input-sl" id="alarmRange3" value=""></span> <sup class="units">&deg;C</sup>
-	<span><button onclick="updateNumber('alarmRange3', alarmRange3.value)" class="btnx btn-primary">_alarmRange3</button> </span>
-	<span id="checkbox1">
-	<input class="ckeckbox-element" type="checkbox" id="soilAlarm3" onclick="updateButton(this.id, this.checked)"/>  
-	<i class="glyphicon glyphicon-bell"></i>	
-	</span>
-	</div>	
-
-	<h4>Air temp 2</h4>
-	<div class="inputcontainer">
-	<span class="inputparam"> <input type="number" placeholder="input Air Temp 3" class="form-controlx input-sl" id="targetAirTemp3" value=""></span> <sup class="units">&deg;C</sup>
-	<span><button onclick="updateNumber('targetAirTemp3', targetAirTemp3.value)" class="btnx btn-primary">_targetAirTemp3</button> </span>
-	<span id="checkbox1">
-	<input class="ckeckbox-element" type="checkbox" id="airAlarm3" onclick="updateButton(this.id, this.checked)"/>  
-	<i class="glyphicon glyphicon-bell"></i>	
-	</span>
-	</div>	
 	<hr>
 </div>
 
@@ -253,141 +218,60 @@
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
   
   <h4>Relay control</h4>
-  			
-		<p>	
-			<span class="textinfo">relay 1:</span> &nbsp
+  			<div>
+			<span class="textinfo">relay 1 - heater 1:</span> &nbsp
 			<span class="textinfo">connected</span>
 			<input type="checkbox" id="relay1Connected" onclick="updateButton(this.id, this.checked)">
-			&nbsp &nbsp 	
+			&nbsp &nbsp 
 			<span class="textinfo">manual control:</span>
 			<input type="checkbox" id="manualRelay1" onclick="updateButton(this.id, this.checked)">
-			&nbsp &nbsp 
-			<span class="inputparam">
-				<select name="selectMode" id="modeRelay1" onchange="updateNumber(this.id, this.value)">
-				<option value="0" >no function attached</option>
-				<option value="1" >heater 1</option>	
-				<option value="2" >heater 2</option>
-				<option value="3" >heater 3</option>
-				<option value="4" >lights 1</option>
-				<option value="5" >lights 2</option>
-				<option value="6" >lights 3</option>
-				<option value="7" >humidity 1</option>
-				<option value="8" >humidity 2</option>
-				<option value="9" >humidity 3</option>				
-				</select>	
-			</span>
-			<br>
-			<span class="textinfo">relay 2:</span> &nbsp
+			</div>
+
+			<div>
+			<span class="textinfo">relay 2 - heater 2:</span> &nbsp
 			<span class="textinfo">connected</span>
 			<input type="checkbox" id="relay2Connected" onclick="updateButton(this.id, this.checked)">
 			&nbsp &nbsp 
 			<span class="textinfo">manual control:</span>
 			<input type="checkbox" id="manualRelay2" onclick="updateButton(this.id, this.checked)">
-			&nbsp &nbsp 
-			<span class="inputparam">
-				<select name="selectMode" id="modeRelay2" onchange="updateNumber(this.id, this.value)">
-				<option value="0" >no function attached</option>
-				<option value="1" >heater 1</option>	
-				<option value="2" >heater 2</option>
-				<option value="3" >heater 3</option>
-				<option value="4" >lights 1</option>
-				<option value="5" >lights 2</option>
-				<option value="6" >lights 3</option>
-				<option value="7" >humidity 1</option>
-				<option value="8" >humidity 2</option>
-				<option value="9" >humidity 3</option>				
-				</select>	
-			</span>
-			<br>
-			<span class="textinfo">relay 3:</span> &nbsp
+			</div>
+
+			<div>
+			<span class="textinfo">relay 3 - lights 1:</span> &nbsp
 			<span class="textinfo">connected</span>
 			<input type="checkbox" id="relay3Connected" onclick="updateButton(this.id, this.checked)">
 			&nbsp &nbsp 
 			<span class="textinfo">manual control:</span>
 			<input type="checkbox" id="manualRelay3" onclick="updateButton(this.id, this.checked)">
-			&nbsp &nbsp 
-			<span class="inputparam">
-				<select name="selectMode" id="modeRelay3" onchange="updateNumber(this.id, this.value)">
-				<option value="0" >no function attached</option>	
-				<option value="1" >heater 1</option>	
-				<option value="2" >heater 2</option>
-				<option value="3" >heater 3</option>
-				<option value="4" >lights 1</option>
-				<option value="5" >lights 2</option>
-				<option value="6" >lights 3</option>
-				<option value="7" >humidity 1</option>
-				<option value="8" >humidity 2</option>
-				<option value="9" >humidity 3</option>				
-				</select>	
-			</span>
-			<br>
-			<span class="textinfo">relay 4:</span> &nbsp
+			</div>
+
+			<div>
+			<span class="textinfo">relay 4 - lights 2:</span> &nbsp
 			<span class="textinfo">connected</span>
 			<input type="checkbox" id="relay4Connected" onclick="updateButton(this.id, this.checked)">
 			&nbsp &nbsp 
 			<span class="textinfo">manual control:</span>
 			<input type="checkbox" id="manualRelay4" onclick="updateButton(this.id, this.checked)">
-			&nbsp &nbsp 
-			<span class="inputparam">
-				<select name="selectMode" id="modeRelay4" onchange="updateNumber(this.id, this.value)">
-				<option value="0" >no function attached</option>
-				<option value="1" >heater 1</option>	
-				<option value="2" >heater 2</option>
-				<option value="3" >heater 3</option>
-				<option value="4" >lights 1</option>
-				<option value="5" >lights 2</option>
-				<option value="6" >lights 3</option>
-				<option value="7" >humidity 1</option>
-				<option value="8" >humidity 2</option>
-				<option value="9" >humidity 3</option>				
-				</select>	
-			</span>
-			<br>
-			<span class="textinfo">relay 5:</span> &nbsp
+			</div>
+
+			<div>
+			<span class="textinfo">relay 5 - optional:</span> &nbsp
 			<span class="textinfo">connected</span>
 			<input type="checkbox" id="relay5Connected" onclick="updateButton(this.id, this.checked)">
 			&nbsp &nbsp 
 			<span class="textinfo">manual control:</span>
 			<input type="checkbox" id="manualRelay5" onclick="updateButton(this.id, this.checked)">
-			&nbsp &nbsp 
-			<span class="inputparam">
-				<select name="selectMode" id="modeRelay5" onchange="updateNumber(this.id, this.value)">
-				<option value="0" >no function attached</option>		
-				<option value="1" >heater 1</option>	
-				<option value="2" >heater 2</option>
-				<option value="3" >heater 3</option>
-				<option value="4" >lights 1</option>
-				<option value="5" >lights 2</option>
-				<option value="6" >lights 3</option>
-				<option value="7" >humidity 1</option>
-				<option value="8" >humidity 2</option>
-				<option value="9" >humidity 3</option>				
-				</select>	
-			</span>
-			<br>
-			<span class="textinfo">relay 6:</span>
+			</div>
+
+			<div>
+			<span class="textinfo">relay 6 - optional:</span>
 			<span class="textinfo">connected</span>
 			<input type="checkbox" id="relay6Connected" onclick="updateButton(this.id, this.checked)">
 			&nbsp &nbsp 
 			<span class="textinfo">manual control:</span>
 			<input type="checkbox" id="manualRelay6" onclick="updateButton(this.id, this.checked)">
-			&nbsp &nbsp 
-			<span class="inputparam">
-				<select name="selectMode" id="modeRelay6" onchange="updateNumber(this.id, this.value)">
-				<option value="0" >no function attached</option>			
-				<option value="1" >heater 1</option>	
-				<option value="2" >heater 2</option>
-				<option value="3" >heater 3</option>
-				<option value="4" >lights 1</option>
-				<option value="5" >lights 2</option>
-				<option value="6" >lights 3</option>
-				<option value="7" >humidity 1</option>
-				<option value="8" >humidity 2</option>
-				<option value="9" >humidity 3</option>				
-				</select>	
-			</span>	
+			</div>	
 			<br>
-			</p>	
   	<hr>
 </div>
 
@@ -406,12 +290,6 @@
 	Light 2 off: <input class="timeMakeup" type="time" id="lights2off">
 	&nbsp
 	<span><button onclick="updateLightSchedule('lights2ON', lights2on.value,'lights2OFF', lights2off.value)" class="btnx btn-primary">_LightSchedule2</button></span>
-	</p>
-	<p>
-	Light 3 on: <input class="timeMakeup" type="time" id="lights3on">
-	Light 3 off: <input class="timeMakeup" type="time" id="lights3off">
-	&nbsp
-	<span><button onclick="updateLightSchedule('lights3ON', lights3on.value,'lights3OFF', lights3off.value)" class="btnx btn-primary">_LightSchedule3</button></span>
 	</p>	
   	<hr>
 </div>
@@ -436,16 +314,7 @@
 	<div class="inputcontainer">
 		<span class="inputparam"> <input type="number" placeholder="input humidity max. 2" class="form-controlx input-sl" id="humidMax2" value=""></span><span class="units">(%)</span>
 		<span><button onclick="updateNumber('humidMax2', humidMax2.value)" class="btnx btn-primary">_humidMax2</button> </span>
-	</div>	
-	<br>
-	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input humidity min. 3" class="form-controlx input-sl" id="humidMin3" value=""></span><span class="units">(%)</span>
-		<span><button onclick="updateNumber('humidMin3', humidMin3.value)" class="btnx btn-primary">_humidMin3</button> </span>
-	</div>	
-	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input humidity max. 3" class="form-controlx input-sl" id="humidMax3" value=""></span><span class="units">(%)</span>
-		<span><button onclick="updateNumber('humidMax3', humidMax3.value)" class="btnx btn-primary">_humidMax3</button> </span>
-	</div>			
+	</div>		
 	<hr>
 </div>
 
@@ -645,13 +514,17 @@
 		</span> 
 		</p>
 		<br>
+		
+		<p>
+		<span class="dht-labels">additional temp. sensor 2:</span>&nbsp<span id="temperature2"></span><sup class="units">&deg;C</sup>	
+		</p>
 	</div>
 
 	<div class="inline">
 		<h3>climate 2</h3>
 		
 		<p>
-		<span class="dht-labels">Soil temp:</span>&nbsp<span id="temperature2"></span><sup class="units">&deg;C</sup>
+		<span class="dht-labels">Soil temp:</span>&nbsp<span id="temperature3"></span><sup class="units">&deg;C</sup>
 		<span id="checkbox4"><input class="ckeckbox-element" type="checkbox" id="heater2" onclick="updateButton(this.id, this.checked)"/>  &nbsp;
 		<i class="fas fa-thermometer-half"></i>
 		</span> 
@@ -682,38 +555,11 @@
 		</span> 
 		</p>
 		<br>
-	</div>
+		
+		<p>
+		<span class="dht-labels">additional temp. sensor 2:</span>&nbsp<span id="temperature4"></span><sup class="units">&deg;C</sup>			
+		</p>
 
-	<div class="inline">
-		<h3>climate 3</h3>
-		
-		<p>
-		<span class="dht-labels">Soil temp:</span>&nbsp<span id="temperature3"></span><sup class="units">&deg;C</sup><span id="checkbox4">
-		<input class="ckeckbox-element" type="checkbox" id="heater3" onclick="updateButton(this.id, this.checked)" />  &nbsp;
-		<i class="fas fa-thermometer-half"></i>
-		</span> 
-		</p>	
-		<p>
-		<span class="dht-labels">Air temp:</span>&nbsp<span id="temperature8"></span><sup class="units">&deg;C</sup>	
-		</p>
-		
-		<p>
-		<span class="dht-labels">Rel. humidity:</span>&nbsp<span id="humid3"></span>&nbsp<span class="units">%</span>
-		<span id="checkbox6"><input class="ckeckbox-element" type="checkbox" id="humidifier3" onclick="updateButton(this.id, this.checked)"/>  &nbsp
-		<i class="glyphicon glyphicon-leaf"></i>
-		</span> 
-		</p>
-		
-		<p>
-		<span class="dht-labels">light schedule: </span><span><time class="dht-labels" type="time"id="lights3ON"></time></span>&nbsp-&nbsp<span><time class="dht-labels" type="time" id="lights3OFF"></span>
-		<span id="checkbox5"><input class="ckeckbox-element" type="checkbox" id="lights3" onclick="updateButton(this.id, this.checked)"/>	&nbsp;
-		<i class="glyphicon glyphicon-asterisk"></i>
-		</span> 
-		</p>
-		<p>
-			<span class="dht-labels">Extra temp. sensor:</span>&nbsp<span id="temperature4"></span><sup class="units">&deg;C</sup>			
-		</p>
-		<br>
 	</div>
 
     <div id="chart-temperature1" class="container"></div>
@@ -861,14 +707,6 @@ let data = JSON.parse(event.data);
 	else if (variable == 'relay4Connected'){document.getElementById('relay4Connected').checked = data.relay4Connected;}
 	else if (variable == 'relay5Connected'){document.getElementById('relay5Connected').checked = data.relay5Connected;}
 	else if (variable == 'relay6Connected'){document.getElementById('relay6Connected').checked = data.relay6Connected;}
-
-	else if (variable == 'modeRelay1'){document.getElementById('modeRelay1').value = data.modeRelay1;}
-	else if (variable == 'modeRelay2'){document.getElementById('modeRelay2').value = data.modeRelay2;}
-	else if (variable == 'modeRelay3'){document.getElementById('modeRelay3').value = data.modeRelay3;}
-	else if (variable == 'modeRelay4'){document.getElementById('modeRelay4').value = data.modeRelay4;}
-	else if (variable == 'modeRelay5'){document.getElementById('modeRelay5').value = data.modeRelay5;}
-	else if (variable == 'modeRelay6'){document.getElementById('modeRelay6').value = data.modeRelay6;}
-
 	else if (variable == 'fan1Connected'){document.getElementById('fan1Connected').checked = data.fan1Connected;}
 	else if (variable == 'fan2Connected'){document.getElementById('fan2Connected').checked = data.fan2Connected;}
 	else if (variable == 'graphUpdate'){document.getElementById('graphUpdate').value = data.graphUpdate;}
@@ -899,15 +737,11 @@ let data = JSON.parse(event.data);
 	else if (variable == 'lights1OFF'){document.getElementById('lights1OFF').innerHTML = data.lights1OFF;}
 	else if (variable == 'lights2ON'){document.getElementById('lights2ON').innerHTML = data.lights2ON;}
 	else if (variable == 'lights2OFF'){document.getElementById('lights2OFF').innerHTML = data.lights2OFF;}
-	else if (variable == 'lights3ON'){document.getElementById('lights3ON').innerHTML = data.lights3ON;}
-	else if (variable == 'lights3OFF'){document.getElementById('lights3OFF').innerHTML = data.lights3OFF;}
 
 	else if (variable == 'humidMin1'){document.getElementById('humidMin1').value = data.humidMin1;}
 	else if (variable == 'humidMax1'){document.getElementById('humidMax1').value = data.humidMax1;}
 	else if (variable == 'humidMin2'){document.getElementById('humidMin2').value = data.humidMin2;}
 	else if (variable == 'humidMax2'){document.getElementById('humidMax2').value = data.humidMax2;}
-	else if (variable == 'humidMin3'){document.getElementById('humidMin3').value = data.humidMin3;}
-	else if (variable == 'humidMax3'){document.getElementById('humidMax3').value = data.humidMax3;}
 
 	else if (variable == 'daySoilTemp1'){document.getElementById('daySoilTemp1').value = data.daySoilTemp1;}
 	else if (variable == 'nightSoilTemp1'){document.getElementById('nightSoilTemp1').value = data.nightSoilTemp1;}
@@ -924,14 +758,6 @@ let data = JSON.parse(event.data);
 	else if (variable == 'soilAlarm2'){document.getElementById('soilAlarm2').checked = data.soilAlarm2;}
 	else if (variable == 'targetAirTemp2'){document.getElementById('targetAirTemp2').value = data.targetAirTemp2;}
 	else if (variable == 'airAlarm2'){document.getElementById('airAlarm2').checked = data.airAlarm2;}
-
-	else if (variable == 'daySoilTemp3'){document.getElementById('daySoilTemp3').value = data.daySoilTemp3;}
-	else if (variable == 'nightSoilTemp3'){document.getElementById('nightSoilTemp3').value = data.nightSoilTemp3;}	
-	else if (variable == 'tempRange3'){document.getElementById('tempRange3').value = data.tempRange3;}
-	else if (variable == 'alarmRange3'){document.getElementById('alarmRange3').value = data.alarmRange3;}
-	else if (variable == 'soilAlarm3'){document.getElementById('soilAlarm3').checked = data.soilAlarm3;}
-	else if (variable == 'targetAirTemp3'){document.getElementById('targetAirTemp3').value = data.targetAirTemp3;}
-	else if (variable == 'airAlarm3'){document.getElementById('airAlarm3').checked = data.airAlarm3;}
 
 	else if (variable == 'manualMosfet1'){document.getElementById('manualMosfet1').checked = data.manualMosfet1;}
 	else if (variable == 'manualFanspeed1'){document.getElementById('manualFanspeed1').value = data.manualFanspeed1;}
@@ -955,24 +781,17 @@ let data = JSON.parse(event.data);
 	else if(variable == 'fan2'){document.getElementById('fan2').checked = data.fan2;}
 	else if(variable == 'humidifier2'){document.getElementById('humidifier2').checked = data.humidifier2;}
 
-	else if (variable == 'lights3'){document.getElementById('lights3').checked = data.lights2;}
-	else if(variable == 'heater3'){document.getElementById('heater3').checked = data.heater2;}
-	//else if(variable == 'fan2'){document.getElementById('fan2').checked = data.fan2;}
-	else if(variable == 'humidifier3'){document.getElementById('humidifier3').checked = data.humidifier2;}
-
 	else if (variable == 'saveInEEPROM'){document.getElementById('saveInEEPROM').checked = data.saveInEEPROM;}
 
 	else if (variable == 'temperature1'){document.getElementById('temperature1').innerHTML = data.temperature1; soiltemp1 = data.temperature1; updateTime();}
-	else if (variable == 'temperature2'){document.getElementById('temperature2').innerHTML = data.temperature2; soiltemp2 = data.temperature2;}
-	else if (variable == 'temperature3'){document.getElementById('temperature3').innerHTML = data.temperature3;}
+	else if (variable == 'temperature2'){document.getElementById('temperature2').innerHTML = data.temperature2;}
+	else if (variable == 'temperature3'){document.getElementById('temperature3').innerHTML = data.temperature3; soiltemp2 = data.temperature3;}
 	else if (variable == 'temperature4'){document.getElementById('temperature4').innerHTML = data.temperature4;}
 	else if (variable == 'temperature6'){document.getElementById('temperature6').innerHTML = data.temperature6; airtemp1 = data.temperature6;}
 	else if (variable == 'temperature7'){document.getElementById('temperature7').innerHTML = data.temperature7; airtemp2 = data.temperature7;}
-	else if (variable == 'temperature8'){document.getElementById('temperature8').innerHTML = data.temperature8; airtemp3 = data.temperature8;}
 
 	else if (variable == 'humid1'){document.getElementById('humid1').innerHTML = data.humid1; humidity1 = data.humid1;}
 	else if (variable == 'humid2'){document.getElementById('humid2').innerHTML = data.humid2; humidity2 = data.humid2;}
-	else if (variable == 'humid3'){document.getElementById('humid3').innerHTML = data.humid2; humidity2 = data.humid2;}
 
 	else if (variable == 'fanspeed1'){document.getElementById('fanspeed1').value = data.fanspeed1; fanspeed1 = data.fanspeed1}
 	else if (variable == 'fanspeed2'){document.getElementById('fanspeed2').value = data.fanspeed2; fanspeed2 = data.fanspeed2}
