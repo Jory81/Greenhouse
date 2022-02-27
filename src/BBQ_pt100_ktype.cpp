@@ -57,7 +57,7 @@ const int RELAYPIN1 = 14;
 const int RELAYPIN2 = 13;
 const int RELAYPIN3 = 25; 
 const int RELAYPIN4 = 33;
-const int RELAYPIN5 = 12; // DISCONNECT PIN AT FLASH - CONNECT AFTER FLASHING
+const int RELAYPIN5 = 2; // DISCONNECT PIN AT FLASH - CONNECT AFTER FLASHING
 const int RELAYPIN6 = 15; //
 
 #define OUTPUT_PIN1 4 // Fan1
@@ -69,8 +69,6 @@ const int resolution = 8;
 //const int freq = 10;
 const int ledChannel2 = 1;
 
-#define ONBOARD_LED 2
-
 Thermocouple* thermocouple[5];
 //Thermocouple* thermocouple2;
 
@@ -80,7 +78,7 @@ Thermocouple* thermocouple[5];
 
 #define DHTPIN1 16 // 
 #define DHTPIN2 17
-#define DHTPIN3 2 // DISCONNECT PIN AT FLASH - CONNECT AFTER FLASHING
+#define DHTPIN3 12 // DISCONNECT PIN AT FLASH - CONNECT AFTER FLASHING/ RUNNING 
 
 DHT dht[] = {
   {DHTPIN1, DHT22},

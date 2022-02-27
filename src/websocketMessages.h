@@ -127,13 +127,22 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("relay4Connected")){relay4Connected = json["relay4Connected"]; EEPROM.put(offsetof(storeInEEPROM, relay4Connected), relay4Connected);  EEPROM.commit();}
         else if (json.containsKey("relay5Connected")){relay5Connected = json["relay5Connected"]; EEPROM.put(offsetof(storeInEEPROM, relay5Connected), relay5Connected);  EEPROM.commit();}
         else if (json.containsKey("relay6Connected")){relay6Connected = json["relay6Connected"]; EEPROM.put(offsetof(storeInEEPROM, relay6Connected), relay6Connected);  EEPROM.commit();}
+        
         else if (json.containsKey("fan1Connected")){fan1Connected = json["fan1Connected"]; EEPROM.put(offsetof(storeInEEPROM, fan1Connected), fan1Connected);  EEPROM.commit();}
         else if (json.containsKey("fan2Connected")){fan2Connected = json["fan2Connected"]; EEPROM.put(offsetof(storeInEEPROM, fan2Connected), fan2Connected);  EEPROM.commit();}
         else if (json.containsKey("graphUpdate")){graphUpdate = json["graphUpdate"]; graphUpdate = graphUpdate*1000; EEPROM.put(offsetof(storeInEEPROM, graphUpdate), (graphUpdate/1000));  EEPROM.commit();}
         else if (json.containsKey("PIDcontrol")){PIDcontrol = json["PIDcontrol"]; EEPROM.put(offsetof(storeInEEPROM, PIDcontrol), PIDcontrol);  EEPROM.commit();}
+
+        else if (json.containsKey("funcRelay1")){funcRelay1 = json["funcRelay1"]; EEPROM.put(offsetof(storeInEEPROM, funcRelay1), funcRelay1);  EEPROM.commit();}
+        else if (json.containsKey("funcRelay2")){funcRelay2 = json["funcRelay2"]; EEPROM.put(offsetof(storeInEEPROM, funcRelay2), funcRelay2);  EEPROM.commit();}
+        else if (json.containsKey("funcRelay3")){funcRelay3 = json["funcRelay3"]; EEPROM.put(offsetof(storeInEEPROM, funcRelay3), funcRelay3);  EEPROM.commit();}
+        else if (json.containsKey("funcRelay4")){funcRelay4 = json["funcRelay4"]; EEPROM.put(offsetof(storeInEEPROM, funcRelay4), funcRelay4);  EEPROM.commit();}
+        else if (json.containsKey("funcRelay5")){funcRelay5 = json["funcRelay5"]; EEPROM.put(offsetof(storeInEEPROM, funcRelay5), funcRelay5);  EEPROM.commit();}
+        else if (json.containsKey("funcRelay6")){funcRelay6 = json["funcRelay6"]; EEPROM.put(offsetof(storeInEEPROM, funcRelay6), funcRelay6);  EEPROM.commit();}
         
         else if (json.containsKey("lights1ON")){String StoreLights1ON = json["lights1ON"]; String StoreLights1OFF = json["lights1OFF"]; EEPROMposition = offsetof(storeInEEPROM, lights1on[0]); writeStringToEEPROM(EEPROMposition, StoreLights1ON); EEPROMposition = offsetof(storeInEEPROM, lights1off[0]); writeStringToEEPROM(EEPROMposition, StoreLights1OFF); reInitializeTimeStrings();}
         else if (json.containsKey("lights2ON")){String StoreLights2ON = json["lights2ON"]; String StoreLights2OFF = json["lights2OFF"]; EEPROMposition = offsetof(storeInEEPROM, lights2on[0]); writeStringToEEPROM(EEPROMposition, StoreLights2ON); EEPROMposition = offsetof(storeInEEPROM, lights2off[0]); writeStringToEEPROM(EEPROMposition, StoreLights2OFF); reInitializeTimeStrings();}
+        else if (json.containsKey("lights3ON")){String StoreLights3ON = json["lights3ON"]; String StoreLights3OFF = json["lights3OFF"]; EEPROMposition = offsetof(storeInEEPROM, lights3on[0]); writeStringToEEPROM(EEPROMposition, StoreLights3ON); EEPROMposition = offsetof(storeInEEPROM, lights3off[0]); writeStringToEEPROM(EEPROMposition, StoreLights3OFF); reInitializeTimeStrings();}
         // THESE VALUES ARE ONLY PERMANENTLT SWITCHED WHEN EEPROM BUTTON IS CHECKED
         else if (json.containsKey("calValue1")){calibrationValue[0] = json["calValue1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[0]), calibrationValue[0]);  EEPROM.commit(); };}
         else if (json.containsKey("calValue2")){calibrationValue[1] = json["calValue2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[1]), calibrationValue[1]);  EEPROM.commit(); };}
@@ -153,13 +162,6 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("manualRelay4")){manualRelay4 = json["manualRelay4"];}
         else if (json.containsKey("manualRelay5")){manualRelay5 = json["manualRelay5"];}
         else if (json.containsKey("manualRelay6")){manualRelay6 = json["manualRelay6"];}
-
-        else if (json.containsKey("modeRelay1")){modeRelay1 = json["modeRelay1"]; EEPROM.put(offsetof(storeInEEPROM, modeRelay1), modeRelay1);  EEPROM.commit();}
-        else if (json.containsKey("modeRelay2")){modeRelay2 = json["modeRelay2"]; EEPROM.put(offsetof(storeInEEPROM, modeRelay2), modeRelay2);  EEPROM.commit();}
-        else if (json.containsKey("modeRelay3")){modeRelay3 = json["modeRelay3"]; EEPROM.put(offsetof(storeInEEPROM, modeRelay3), modeRelay3);  EEPROM.commit();}
-        else if (json.containsKey("modeRelay4")){modeRelay4 = json["modeRelay4"]; EEPROM.put(offsetof(storeInEEPROM, modeRelay4), modeRelay4);  EEPROM.commit();}
-        else if (json.containsKey("modeRelay5")){modeRelay5 = json["modeRelay5"]; EEPROM.put(offsetof(storeInEEPROM, modeRelay5), modeRelay5);  EEPROM.commit();}
-        else if (json.containsKey("modeRelay6")){modeRelay6 = json["modeRelay6"]; EEPROM.put(offsetof(storeInEEPROM, modeRelay6), modeRelay6);  EEPROM.commit();}
 
         else if (json.containsKey("lights1")){lights1 = json["lights1"];} //lightState1 = !lights1;
         else if (json.containsKey("heater1")){heater1 = json["heater1"]; }// heaterState1 = !heater1;//  Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
@@ -258,12 +260,12 @@ doc["manualRelay3"] = manualRelay3;
 doc["manualRelay4"] = manualRelay4;
 doc["manualRelay5"] = manualRelay5;
 doc["manualRelay6"] = manualRelay6;
-doc["modeRelay1"] = modeRelay1;
-doc["modeRelay2"] = modeRelay2;
-doc["modeRelay3"] = modeRelay3;
-doc["modeRelay4"] = modeRelay4;
-doc["modeRelay5"] = modeRelay5;
-doc["modeRelay6"] = modeRelay6;
+doc["funcRelay1"] = funcRelay1;
+doc["funcRelay2"] = funcRelay2;
+doc["funcRelay3"] = funcRelay3;
+doc["funcRelay4"] = funcRelay4;
+doc["funcRelay5"] = funcRelay5;
+doc["funcRelay6"] = funcRelay6;
 doc["OUTPUT_MIN1"]   = String(OUTPUT_MIN1,2);
 doc["OUTPUT_MAX1"]   = String(OUTPUT_MAX1,2);
 doc["OUTPUT_MIN2"]   = String(OUTPUT_MIN2,2);

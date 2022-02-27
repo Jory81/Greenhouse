@@ -63,12 +63,12 @@ boolean relay4Connected = false; // controls lights2
 boolean relay5Connected = false; // optional/ humidity1
 boolean relay6Connected = false; // optional/ humidity2
 
-byte modeRelay1 = 0;
-byte modeRelay2 = 0;
-byte modeRelay3 = 0;
-byte modeRelay4 = 0;
-byte modeRelay5 = 0;
-byte modeRelay6 = 0;
+byte funcRelay1 = 0;
+byte funcRelay2 = 0;
+byte funcRelay3 = 0;
+byte funcRelay4 = 0;
+byte funcRelay5 = 0;
+byte funcRelay6 = 0;
 
 //LIGHT SETTINGS
 char lights1on[6];
@@ -245,12 +245,12 @@ boolean relay3Connected;
 boolean relay4Connected;
 boolean relay5Connected;
 boolean relay6Connected;
-byte modeRelay1;
-byte modeRelay2;
-byte modeRelay3;
-byte modeRelay4;
-byte modeRelay5;
-byte modeRelay6;
+byte funcRelay1;
+byte funcRelay2;
+byte funcRelay3;
+byte funcRelay4;
+byte funcRelay5;
+byte funcRelay6;
 boolean fan1Connected;
 boolean fan2Connected;
 uint32_t graphUpdate;
@@ -313,12 +313,12 @@ storeInEEPROM customVar = {
       0, // relay4Connected
       0, // relay5Connected
       0, // relay6Connected
-      0, // modeRelay1
-      0, // modeRelay2
-      0, // modeRelay3
-      0, // modeRelay4
-      0, // modeRelay5
-      0, // modeRelay6
+      0, // funcRelay1
+      0, // funcRelay2
+      0, // funcRelay3
+      0, // funcRelay4
+      0, // funcRelay5
+      0, // funcRelay6
       0, // fan1Connected
       0, // fan2Connected
       5000, // graphupdate
