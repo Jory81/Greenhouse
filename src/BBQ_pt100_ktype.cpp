@@ -53,21 +53,12 @@ AsyncWebSocket ws("/ws");
 // #define CS2_PIN 26
 // NOT FULLY TESTED AND OPERATIONAL FOR MULTIPLE SENSORS - FYI
 
-// const int RELAYPIN[6] = {14,12,15,33,36,34};
-
 const int RELAYPIN1 = 14;
 const int RELAYPIN2 = 13;
-const int RELAYPIN3 = 34; // doesnt do anything yet
+const int RELAYPIN3 = 25; 
 const int RELAYPIN4 = 33;
-const int RELAYPIN5 = 36; // doesn't do anything yet
+const int RELAYPIN5 = 12; // DISCONNECT PIN AT FLASH - CONNECT AFTER FLASHING
 const int RELAYPIN6 = 15; //
-
-// const int RELAYPINHEATER1 = 14;
-// const int RELAYPINHEATER2 = 13;
-// const int RELAYPINLIGHTS1 = 15;
-// const int RELAYPINLIGHTS2 = 33;
-// const int RELAYPINOPTIONAL1 = 36; // probably won't work, but there are no pins left
-// const int RELAYPINOPTIONAL2 = 34; // probably won't work, but there are no pins left
 
 #define OUTPUT_PIN1 4 // Fan1
 const int freq = 10;
@@ -83,18 +74,13 @@ const int ledChannel2 = 1;
 Thermocouple* thermocouple[5];
 //Thermocouple* thermocouple2;
 
-#define updateTimeTemp 1000 //1000
-#define updateTimeHumidity 2500
-#define updateTimeLights 5000
-#define updateRelays 1000
+#define updateTempAndRelays 1000 //1000
+#define updateHumidity 2500
+#define updateOledDisplay 5000
 
-// #define DHTPIN1 34
-// #define DHTPIN2 35
-// #define DHTPIN3 36
-
-#define DHTPIN1 16
+#define DHTPIN1 16 // 
 #define DHTPIN2 17
-#define DHTPIN3 35 // probably won't work, but there are no pins left
+#define DHTPIN3 2 // DISCONNECT PIN AT FLASH - CONNECT AFTER FLASHING
 
 DHT dht[] = {
   {DHTPIN1, DHT22},
@@ -138,7 +124,7 @@ void heater1Control(boolean manualRelay, const int RELAYPIN);
 void humidity1Control(boolean manualRelay, const int RELAYPIN);
 void messageFanState1();
 
-void executeTask(byte modeRelay, boolean manualRelay, const int RELAYPIN);
+void executeTask(byte function, boolean manualRelay, const int RELAYPIN);
 
 void fan2Control();
 void light2Control(boolean manualRelay, const int RELAYPIN);
@@ -200,14 +186,20 @@ myPID.setTimeStep(100);
 void loop(){
     //ws.cleanupClients();
 
-    if (millis() - previousMillis1 >= updateTimeTemp){
+    if (millis() - previousMillis1 >= updateTempAndRelays){
       timeControl();
       samplingTemp();        
       sendTempToClient();
+      if (relay1Connected){executeTask(funcRelay1, manualRelay1, RELAYPIN1);};
+      if (relay2Connected){executeTask(funcRelay2, manualRelay2, RELAYPIN2);}; 
+      if (relay3Connected){executeTask(funcRelay3, manualRelay3, RELAYPIN3);};
+      if (relay4Connected){executeTask(funcRelay4, manualRelay4, RELAYPIN4);};
+      if (relay5Connected){executeTask(funcRelay5, manualRelay5, RELAYPIN5);};
+      if (relay6Connected){executeTask(funcRelay6, manualRelay6, RELAYPIN6);};
     previousMillis1 = millis();     
     }
 
-    if (millis() - previousMillis2 >= updateTimeHumidity){
+    if (millis() - previousMillis2 >= updateHumidity){
       samplingHumidity();
       sendHumidityToClient();
     previousMillis2 = millis();
@@ -218,19 +210,9 @@ void loop(){
     previousMillis3 = millis();
     }
 
-    if (millis() - previousMillis4 >= updateTimeLights){
+    if (millis() - previousMillis4 >= updateOledDisplay){
       displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
     previousMillis4 = millis();
-    }
-
-    if (millis() - previousMillis5 >= updateRelays){
-      if (relay1Connected){executeTask(modeRelay1, manualRelay1, RELAYPIN1);};
-      if (relay2Connected){executeTask(modeRelay2, manualRelay2, RELAYPIN2);}; 
-      if (relay3Connected){executeTask(modeRelay3, manualRelay3, RELAYPIN3);};
-      if (relay4Connected){executeTask(modeRelay4, manualRelay4, RELAYPIN4);};
-      if (relay5Connected){executeTask(modeRelay5, manualRelay5, RELAYPIN5);};
-      if (relay6Connected){executeTask(modeRelay6, manualRelay6, RELAYPIN6);};
-      previousMillis5 = millis();
     }
 }
 
@@ -266,8 +248,8 @@ void timeControl(){
   //Serial.println(buffer);
 }
 
-void executeTask(byte mode, boolean manualRelay, const int relayPin){
-  switch (mode){
+void executeTask(byte function, boolean manualRelay, const int relayPin){
+  switch (function){
     case 0: break; // do nothing - no function attached
     case 1: heater1Control(manualRelay, relayPin); break;
     case 2: heater2Control(manualRelay, relayPin); break;

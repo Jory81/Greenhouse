@@ -24,12 +24,12 @@
 	<span id="checkbox6">
 		<input class="ckeckbox-element" type="checkbox" id="recMsg"/>  
 		<i class="glyphicon glyphicon-ok"></i>
-		</span>  
+		</span> 
 	</div>
 </div>
 	
 	<div>	
-	<h3>settings:</h3>
+	<h3>settings: ( <span class="dht-labels">EEPROM</span><input type="checkbox" id="saveInEEPROM" onclick="updateButton(this.id, this.checked)"> </span>	) </h3>
 	</div>
 	<div>	
 	<span class="dht-labels">temperature</span>
@@ -263,7 +263,7 @@
 			<input type="checkbox" id="manualRelay1" onclick="updateButton(this.id, this.checked)">
 			&nbsp &nbsp 
 			<span class="inputparam">
-				<select name="selectMode" id="modeRelay1" onchange="updateNumber(this.id, this.value)">
+				<select name="selectfunc" id="funcRelay1" onchange="updateNumber(this.id, this.value)">
 				<option value="0" >no function attached</option>
 				<option value="1" >heater 1</option>	
 				<option value="2" >heater 2</option>
@@ -285,7 +285,7 @@
 			<input type="checkbox" id="manualRelay2" onclick="updateButton(this.id, this.checked)">
 			&nbsp &nbsp 
 			<span class="inputparam">
-				<select name="selectMode" id="modeRelay2" onchange="updateNumber(this.id, this.value)">
+				<select name="selectfunc" id="funcRelay2" onchange="updateNumber(this.id, this.value)">
 				<option value="0" >no function attached</option>
 				<option value="1" >heater 1</option>	
 				<option value="2" >heater 2</option>
@@ -307,7 +307,7 @@
 			<input type="checkbox" id="manualRelay3" onclick="updateButton(this.id, this.checked)">
 			&nbsp &nbsp 
 			<span class="inputparam">
-				<select name="selectMode" id="modeRelay3" onchange="updateNumber(this.id, this.value)">
+				<select name="selectfunc" id="funcRelay3" onchange="updateNumber(this.id, this.value)">
 				<option value="0" >no function attached</option>	
 				<option value="1" >heater 1</option>	
 				<option value="2" >heater 2</option>
@@ -329,7 +329,7 @@
 			<input type="checkbox" id="manualRelay4" onclick="updateButton(this.id, this.checked)">
 			&nbsp &nbsp 
 			<span class="inputparam">
-				<select name="selectMode" id="modeRelay4" onchange="updateNumber(this.id, this.value)">
+				<select name="selectfunc" id="funcRelay4" onchange="updateNumber(this.id, this.value)">
 				<option value="0" >no function attached</option>
 				<option value="1" >heater 1</option>	
 				<option value="2" >heater 2</option>
@@ -351,7 +351,7 @@
 			<input type="checkbox" id="manualRelay5" onclick="updateButton(this.id, this.checked)">
 			&nbsp &nbsp 
 			<span class="inputparam">
-				<select name="selectMode" id="modeRelay5" onchange="updateNumber(this.id, this.value)">
+				<select name="selectfunc" id="funcRelay5" onchange="updateNumber(this.id, this.value)">
 				<option value="0" >no function attached</option>		
 				<option value="1" >heater 1</option>	
 				<option value="2" >heater 2</option>
@@ -373,7 +373,7 @@
 			<input type="checkbox" id="manualRelay6" onclick="updateButton(this.id, this.checked)">
 			&nbsp &nbsp 
 			<span class="inputparam">
-				<select name="selectMode" id="modeRelay6" onchange="updateNumber(this.id, this.value)">
+				<select name="selectfunc" id="funcRelay6" onchange="updateNumber(this.id, this.value)">
 				<option value="0" >no function attached</option>			
 				<option value="1" >heater 1</option>	
 				<option value="2" >heater 2</option>
@@ -575,11 +575,6 @@
 	</p>
 
 	<div>
-		<span class="textinfo">store values in EEPROM?</span><input type="checkbox" id="saveInEEPROM" onclick="updateButton(this.id, this.checked)"> </span>
-	</div>
-	<br>
-
-	<div>
 		<span id="checkbox1">PID control (checked) or linear control
 		<input class="ckeckbox-element" type="checkbox" id="PIDcontrol" onclick="updateButton(this.id,this.checked)"/>  
 		<i class="glyphicon glyphicon-tasks"></i>
@@ -606,7 +601,9 @@
 	</div>
 	<br>
 	<div>
-		<span class="textinfo">pin info: wemos D1 mini esp32: Temp. pins: 5, 26, 27, 32, (35). Relay: 14, 13, 15, 33, (36), (34). DHT: 17, 16, (39) Fan: 4, 0.</span>
+		<span class="textinfo">PIN INFO: wemos D1 mini esp32: Temp pins: [5, 26, 27, 32]. Relay: [14, 13, 25, 33, 12, 15]. DHT: [17, 16, 2]. Fan: [4, 0].</span>
+		<br>
+		<span class="textinfo">IMPORTANT: disattach pins 2 and 12 when flashing otherwise flash will FAIL - reconect after flashing</span>
 	</div>
 	<hr>
 </div>
@@ -861,12 +858,12 @@ let data = JSON.parse(event.data);
 	else if (variable == 'relay5Connected'){document.getElementById('relay5Connected').checked = data.relay5Connected;}
 	else if (variable == 'relay6Connected'){document.getElementById('relay6Connected').checked = data.relay6Connected;}
 
-	else if (variable == 'modeRelay1'){document.getElementById('modeRelay1').value = data.modeRelay1;}
-	else if (variable == 'modeRelay2'){document.getElementById('modeRelay2').value = data.modeRelay2;}
-	else if (variable == 'modeRelay3'){document.getElementById('modeRelay3').value = data.modeRelay3;}
-	else if (variable == 'modeRelay4'){document.getElementById('modeRelay4').value = data.modeRelay4;}
-	else if (variable == 'modeRelay5'){document.getElementById('modeRelay5').value = data.modeRelay5;}
-	else if (variable == 'modeRelay6'){document.getElementById('modeRelay6').value = data.modeRelay6;}
+	else if (variable == 'funcRelay1'){document.getElementById('funcRelay1').value = data.funcRelay1;}
+	else if (variable == 'funcRelay2'){document.getElementById('funcRelay2').value = data.funcRelay2;}
+	else if (variable == 'funcRelay3'){document.getElementById('funcRelay3').value = data.funcRelay3;}
+	else if (variable == 'funcRelay4'){document.getElementById('funcRelay4').value = data.funcRelay4;}
+	else if (variable == 'funcRelay5'){document.getElementById('funcRelay5').value = data.funcRelay5;}
+	else if (variable == 'funcRelay6'){document.getElementById('funcRelay6').value = data.funcRelay6;}
 
 	else if (variable == 'fan1Connected'){document.getElementById('fan1Connected').checked = data.fan1Connected;}
 	else if (variable == 'fan2Connected'){document.getElementById('fan2Connected').checked = data.fan2Connected;}

@@ -168,20 +168,41 @@ void setupRelays(){
   // pinMode(RELAYPINOPTIONAL2 ,   OUTPUT);
   // if (relay6Connected){digitalWrite(RELAYPINOPTIONAL2, false);}  else {digitalWrite(RELAYPINOPTIONAL2, true);}
 
-    pinMode(RELAYPIN1,   OUTPUT);
-  if (!relay1Connected){digitalWrite(RELAYPIN1, true);}
+
+
+  //   pinMode(RELAYPIN1,   OUTPUT);
+  // if (!relay1Connected){digitalWrite(RELAYPIN1, true);}
+  // pinMode(RELAYPIN2,   OUTPUT);
+  // if (!relay2Connected){digitalWrite(RELAYPIN2, true);}
+  
+  // pinMode(RELAYPIN3,   OUTPUT);
+  // if (!relay3Connected){digitalWrite(RELAYPIN3, true);}
+  // pinMode(RELAYPIN4,   OUTPUT);
+  // if (!relay4Connected){digitalWrite(RELAYPIN4, true);}
+  
+  // pinMode(RELAYPIN5,   OUTPUT);
+  // if (!relay5Connected){digitalWrite(RELAYPIN5, true);}
+  // pinMode(RELAYPIN6 ,   OUTPUT);
+  // if (!relay6Connected){digitalWrite(RELAYPIN6, true);}
+
+
+  pinMode(RELAYPIN1,   OUTPUT);
+  digitalWrite(RELAYPIN1, true);
+  
   pinMode(RELAYPIN2,   OUTPUT);
-  if (!relay2Connected){digitalWrite(RELAYPIN2, true);}
+  digitalWrite(RELAYPIN2, true);
   
   pinMode(RELAYPIN3,   OUTPUT);
-  if (!relay3Connected){digitalWrite(RELAYPIN3, true);}
+  digitalWrite(RELAYPIN3, true);
+  
   pinMode(RELAYPIN4,   OUTPUT);
-  if (!relay4Connected){digitalWrite(RELAYPIN4, true);}
+  digitalWrite(RELAYPIN4, true);
   
   pinMode(RELAYPIN5,   OUTPUT);
-  if (!relay5Connected){digitalWrite(RELAYPIN5, true);}
+  digitalWrite(RELAYPIN5, true);
+  
   pinMode(RELAYPIN6 ,   OUTPUT);
-  if (!relay6Connected){digitalWrite(RELAYPIN6, true);}
+ digitalWrite(RELAYPIN6, true);
 }
 
 void initializeEEPROMvariables(){
