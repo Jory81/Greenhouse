@@ -54,6 +54,15 @@ void setupEEPROM(){
   display.clearDisplay();  
 }
 
+void setupRTC(){
+
+   if (! rtc.begin()) {
+    Serial.println("Couldn't find RTC");
+    while (1);
+  }
+
+}
+
 void setupWIFI(){
   int wifiCounter=0;
   WiFi.mode(WIFI_STA);
@@ -70,6 +79,7 @@ void setupWIFI(){
       delay(500);
       wifiCounter++;
       wifiStationMode = true;
+
       if (wifiCounter > 20){
       wifiStationMode = false;  
       break;  
@@ -223,7 +233,7 @@ funcRelay4 = EEPROM.read(offsetof(storeInEEPROM, funcRelay4));
 funcRelay5 = EEPROM.read(offsetof(storeInEEPROM, funcRelay5));
 funcRelay6 = EEPROM.read(offsetof(storeInEEPROM, funcRelay6));
 fan1Connected = EEPROM.read(offsetof(storeInEEPROM, fan1Connected));
-fan1Connected = EEPROM.read(offsetof(storeInEEPROM, fan1Connected));
+fan2Connected = EEPROM.read(offsetof(storeInEEPROM, fan2Connected));
 
 PIDcontrol = EEPROM.read(offsetof(storeInEEPROM, PIDcontrol));
 
@@ -274,7 +284,7 @@ EEPROM.get(offsetPosition+(4*m), calibrationValue[m]);
 }
 
 #else
-graphUpdate = EEPROM.readInt(offsetof(storeInEEPROM, graphUpdate))*1000;
+graphUpdate = EEPROM.readInt(offsetof(storeInEEPROM, graphUpdate));
 
 daySoilTemp1 = EEPROM.readFloat(offsetof(storeInEEPROM, daySoilTemp1));
 nightSoilTemp1 = EEPROM.readFloat(offsetof(storeInEEPROM, nightSoilTemp1));

@@ -689,16 +689,6 @@
 		<i class="fas fa-thermometer-half"></i>
 		</span> 
 		</p>	
-		<p>
-		<span class="dht-labels">Air temp:</span>&nbsp<span id="temperature8"></span><sup class="units">&deg;C</sup>	
-		</p>
-		
-		<p>
-		<span class="dht-labels">Rel. humidity:</span>&nbsp<span id="humid3"></span>&nbsp<span class="units">%</span>
-		<span id="checkbox6"><input class="ckeckbox-element" type="checkbox" id="humidifier3" onclick="updateButton(this.id, this.checked)"/>  &nbsp
-		<i class="glyphicon glyphicon-leaf"></i>
-		</span> 
-		</p>
 		
 		<p>
 		<span class="dht-labels">light schedule: </span><span><time class="dht-labels" type="time"id="lights3ON"></time></span>&nbsp-&nbsp<span><time class="dht-labels" type="time" id="lights3OFF"></span>
@@ -716,7 +706,19 @@
 	
 	<div id="chart-temperature2" class="container"></div>
 	
-<script>	
+<script>
+
+//USED IN CLIMATE 3 -- REMOVED BECAUSE ONLY 2 DHT SENSORS WERE ATTACHED
+// <p>
+// 		<span class="dht-labels">Air temp:</span>&nbsp<span id="temperature8"></span><sup class="units">&deg;C</sup>	
+// 		</p>
+		
+// 		<p>
+// 		<span class="dht-labels">Rel. humidity:</span>&nbsp<span id="humid3"></span>&nbsp<span class="units">%</span>
+// 		<span id="checkbox6"><input class="ckeckbox-element" type="checkbox" id="humidifier3" onclick="updateButton(this.id, this.checked)"/>  &nbsp
+// 		<i class="glyphicon glyphicon-leaf"></i>
+// 		</span> 
+// 		</p>
 
 var gateway = `ws://${window.location.hostname}/ws`;
 var websocket;
@@ -953,8 +955,8 @@ let data = JSON.parse(event.data);
 
 	else if (variable == 'lights3'){document.getElementById('lights3').checked = data.lights2;}
 	else if(variable == 'heater3'){document.getElementById('heater3').checked = data.heater3;}
-	//else if(variable == 'fan2'){document.getElementById('fan2').checked = data.fan2;}
-	else if(variable == 'humidifier3'){document.getElementById('humidifier3').checked = data.humidifier2;}
+	//else if(variable == 'fan3'){document.getElementById('fan3').checked = data.fan3;}
+	//else if(variable == 'humidifier3'){document.getElementById('humidifier3').checked = data.humidifier2;}
 
 	else if (variable == 'saveInEEPROM'){document.getElementById('saveInEEPROM').checked = data.saveInEEPROM;}
 
@@ -964,11 +966,11 @@ let data = JSON.parse(event.data);
 	else if (variable == 'temperature4'){document.getElementById('temperature4').innerHTML = data.temperature4;}
 	else if (variable == 'temperature6'){document.getElementById('temperature6').innerHTML = data.temperature6; airtemp1 = data.temperature6;}
 	else if (variable == 'temperature7'){document.getElementById('temperature7').innerHTML = data.temperature7; airtemp2 = data.temperature7;}
-	else if (variable == 'temperature8'){document.getElementById('temperature8').innerHTML = data.temperature8; airtemp3 = data.temperature8;}
+	//else if (variable == 'temperature8'){document.getElementById('temperature8').innerHTML = data.temperature8; airtemp3 = data.temperature8;}
 
 	else if (variable == 'humid1'){document.getElementById('humid1').innerHTML = data.humid1; humidity1 = data.humid1;}
 	else if (variable == 'humid2'){document.getElementById('humid2').innerHTML = data.humid2; humidity2 = data.humid2;}
-	else if (variable == 'humid3'){document.getElementById('humid3').innerHTML = data.humid3; humidity3 = data.humid3;}
+	//else if (variable == 'humid3'){document.getElementById('humid3').innerHTML = data.humid3; humidity3 = data.humid3;}
 
 	else if (variable == 'fanspeed1'){document.getElementById('fanspeed1').value = data.fanspeed1; fanspeed1 = data.fanspeed1}
 	else if (variable == 'fanspeed2'){document.getElementById('fanspeed2').value = data.fanspeed2; fanspeed2 = data.fanspeed2}

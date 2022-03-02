@@ -56,7 +56,7 @@ void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
     display.clearDisplay();
     display.setCursor(0,0);
     char buffer[40];
-    sprintf(buffer, "time %02d:%02d", totalHours, totalMinutes);  
+    sprintf(buffer, "time %02d:%02d", dateHour, dateMinute);  
     display.print(buffer);
     display.setCursor(0,10);
     //char buffer2[40];

@@ -32,6 +32,14 @@
 
 #include <DHT.h>
 
+#include "RTClib.h"
+#include "time.h"
+
+RTC_DS3231 rtc;
+
+char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
+const char* ntpServer = "pool.ntp.org";
 
 // OLED SD1306 properties
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
@@ -102,6 +110,7 @@ pt100rtd PT100 = pt100rtd();
 float processRTD(uint16_t rtd);
 void initializeEEPROMvariables();
 void timeControl();
+void syncTimeRTC();
 void reInitializeTimeStrings();
 void reInitializeTimeInts();
 void writeStringToEEPROM(int addrOffset, const String &strToWrite);
@@ -149,6 +158,7 @@ void setupOledScreen();
 void setupSPIFFS();
 void setupEEPROM();
 void setupWIFI();
+void setupRTC();
 void setupTempSensors();
 void setupDHTSensors();
 void setupFans();
@@ -172,6 +182,7 @@ setupOledScreen();
 setupSPIFFS();
 setupEEPROM();
 setupWIFI();
+setupRTC();
 setupTempSensors();
 setupDHTSensors();
 setupFans();
@@ -194,6 +205,8 @@ void loop(){
       if (relay4Connected){executeTask(funcRelay4, manualRelay4, RELAYPIN4);};
       if (relay5Connected){executeTask(funcRelay5, manualRelay5, RELAYPIN5);};
       if (relay6Connected){executeTask(funcRelay6, manualRelay6, RELAYPIN6);};
+      if (fan1Connected){fan1Control();}
+      if (fan2Connected){fan2Control();}
     previousMillis1 = millis();     
     }
 
@@ -215,35 +228,64 @@ void loop(){
 }
 
 void timeControl(){
+  DateTime now = rtc.now();
+
+  dateHour = now.hour();
+  dateMinute = now.minute();
+
   currentMillis = millis();
   seconds = currentMillis / 1000;
   minutes = (seconds / 60);
-  totalMinutes = minutes + minutesStart;
+  // totalMinutes = minutes + minutesStart;
   hours = (minutes / 60);
-  totalHours = hours + hourStart;
+  // totalHours = hours + hourStart;
   days = hours / 24;
   
   currentMillis %= 1000;
   seconds %= 60;
   minutes %= 60;
-  totalMinutes %= 60;
+  // totalMinutes %= 60;
   hours %= 24;
-  boolean mismatch;
-  if (minutes + minutesStart > 59){
-      mismatch = 1;
-  }
-  else {
-      mismatch = 0;
-  }
-  totalHours = totalHours + mismatch;
-  totalHours %= 24;
+  // boolean mismatch;
+  // if (minutes + minutesStart > 59){
+  //     mismatch = 1;
+  // }
+  // else {
+  //     mismatch = 0;
+  // }
+  // totalHours = totalHours + mismatch;
+  // totalHours %= 24;
 
   // char buffer[40];
   // sprintf(buffer, "%02d:%02d", hours, minutes);
 
-  currentMinutes = ((totalHours*60)+totalMinutes);
+  currentMinutes = ((dateHour*60)+dateMinute);
   
   //Serial.println(buffer);
+}
+
+void syncTimeRTC(){
+
+      if (rtc.lostPower()) {
+        Serial.println("RTC lost power, lets set the time!");
+
+        configTime(3600, 3600, ntpServer);
+        // following line sets the RTC to the date &amp; time this sketch was compiled
+        //rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+
+        struct tm time;
+  
+        if(!getLocalTime(&time)){
+          Serial.println("Could not obtain time info");
+          return;
+        }
+      
+        Serial.println("\n---------TIME----------");
+        
+        Serial.println(asctime(&time));
+
+        rtc.adjust(DateTime(time.tm_year, time.tm_mon, time.tm_mday, time.tm_hour, time.tm_min, time.tm_sec));
+      }
 }
 
 void executeTask(byte function, boolean manualRelay, const int relayPin){

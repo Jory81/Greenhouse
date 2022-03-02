@@ -112,7 +112,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         //Serial.println(numberOfArguments);
         //for (int i = 0; i < numberOfArguments; i++){
         if (json.containsKey("requestInfo")){sendProgramInfo();}
-        else if (json.containsKey("hours")){if (initializeTimeOnOpen){hourStart = json["hours"]; minutesStart = json["minutes"]; initializeTimeOnOpen = false;};}
+        else if (json.containsKey("hours")){syncTimeRTC();} //
         else if (json.containsKey("saveInEEPROM")){saveInEEPROM = json["saveInEEPROM"];}   
         else if (json.containsKey("ssid")){String wifiID = json["ssid"]; Serial.println(wifiID); EEPROMposition = offsetof(storeInEEPROM, ssidStorage[0]); writeStringToEEPROM(EEPROMposition, wifiID); notifyClientsSingleString("wifiID", wifiID);}
         else if (json.containsKey("pass")){String wifiPASS = json["pass"]; Serial.println(wifiPASS); EEPROMposition = offsetof(storeInEEPROM, passStorage[0]); writeStringToEEPROM(EEPROMposition, wifiPASS); notifyClientsSingleString("wifiPASS", wifiPASS);}
@@ -130,7 +130,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         
         else if (json.containsKey("fan1Connected")){fan1Connected = json["fan1Connected"]; EEPROM.put(offsetof(storeInEEPROM, fan1Connected), fan1Connected);  EEPROM.commit();}
         else if (json.containsKey("fan2Connected")){fan2Connected = json["fan2Connected"]; EEPROM.put(offsetof(storeInEEPROM, fan2Connected), fan2Connected);  EEPROM.commit();}
-        else if (json.containsKey("graphUpdate")){graphUpdate = json["graphUpdate"]; graphUpdate = graphUpdate*1000; EEPROM.put(offsetof(storeInEEPROM, graphUpdate), (graphUpdate/1000));  EEPROM.commit();}
+        else if (json.containsKey("graphUpdate")){graphUpdate = json["graphUpdate"]; graphUpdate = graphUpdate*1000; EEPROM.put(offsetof(storeInEEPROM, graphUpdate), (graphUpdate));  EEPROM.commit();}
         else if (json.containsKey("PIDcontrol")){PIDcontrol = json["PIDcontrol"]; EEPROM.put(offsetof(storeInEEPROM, PIDcontrol), PIDcontrol);  EEPROM.commit();}
 
         else if (json.containsKey("funcRelay1")){funcRelay1 = json["funcRelay1"]; EEPROM.put(offsetof(storeInEEPROM, funcRelay1), funcRelay1);  EEPROM.commit();}
@@ -176,7 +176,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("lights3")){lights3 = json["lights3"]; } // lightState2 = !lights2;}
         else if (json.containsKey("heater3")){heater3 = json["heater3"]; }// heaterState2 = !heater2;// Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
         //else if (json.containsKey("fan2")){fan2 = json["fan2"]; fanState2 = !fan2;}
-        else if (json.containsKey("humidifier3")){humidifier3 = json["humidifier3"]; } // humidifierState2 = !humidifier2;
+        //else if (json.containsKey("humidifier3")){humidifier3 = json["humidifier3"]; } // humidifierState2 = !humidifier2;
 
         else if (json.containsKey("manualMosfet1")){manualMosfet1 = json["manualMosfet1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualMosfet1), manualMosfet1);  EEPROM.commit(); };}
         else if (json.containsKey("manualFanspeed1")){manualFanspeed1 = json["manualFanspeed1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualFanspeed1), manualFanspeed1);  EEPROM.commit(); };}
@@ -321,7 +321,7 @@ doc["humidifier2"] = humidifier2;
 doc["lights3"] = lights3;
 doc["heater3"] = heater3;
 //doc["fan2"] = fan2;
-doc["humidifier3"] = humidifier3;
+//doc["humidifier3"] = humidifier3;
 doc["saveInEEPROM"] = saveInEEPROM;
 
 char data[2500];
@@ -401,10 +401,10 @@ void sendHumidityToClient(){
     StaticJsonDocument<200> doc;
     doc["temperature6"] =  String(dhtTemp[0],2);
     doc["temperature7"] =  String(dhtTemp[1],2);
-    doc["temperature8"] =  String(dhtTemp[2],2);
+    //doc["temperature8"] =  String(dhtTemp[2],2);
     doc["humid1"] =  String(humidity[0],2);
     doc["humid2"] =  String(humidity[1],2);
-    doc["humid3"] =  String(humidity[2],2);
+    //doc["humid3"] =  String(humidity[2],2);
 
     char data[200];
     size_t len = serializeJson(doc, data);

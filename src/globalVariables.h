@@ -109,7 +109,7 @@ double outputVal2;
 
 //SYSTEM SETTINGS
 int check;
-boolean initializeTimeOnOpen = true;
+//boolean initializeTimeOnOpen = true;
 uint8_t probeTypeT = 1; //uint8_t sensorType = 1;
 uint8_t probeCountT = 1; // uint8_t sensorAmount = 1;
 uint8_t probeTypeH = 1; 
@@ -195,12 +195,15 @@ int minutes = 0;
 int hours = 0;
 int days = 0;
 
-int totalMinutes = 0;
-int totalHours = 0;
+int dateHour = 0;
+int dateMinute = 0;
+
+// int totalMinutes = 0;
+// int totalHours = 0;
 int currentMinutes = 0;
 
-int minutesStart = 0;
-int hourStart = 0;
+// int minutesStart = 0;
+// int hourStart = 0;
 
 int hoursOn1 = 0;
 int minutesOn1 = 0;
