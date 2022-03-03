@@ -29,6 +29,11 @@ boolean airAlarm3 = false;
 float temp[5] = {0,0,0,0,0}; 
 float oldtemp[5] = {0,0,0,0,0}; 
 
+float tempTable[5][10];
+int readIndex = 0;              
+float totalTemp[5] = {0, 0, 0, 0, 0};                 
+float averageTemp[5] = {0, 0, 0, 0, 0};   
+
 float preHumidity[3] = {0,0,0};
 float humidity[3] = {0,0,0};
 
