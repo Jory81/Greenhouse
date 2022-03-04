@@ -31,7 +31,7 @@ void setupEEPROM(){
   Serial.print("check is: "); Serial.println(check);
   #endif
   
-  if (check == 11331){
+  if (check == 11221){
   display.print(F("code: ")); display.println(check);
   display.println(F("EEPROM SET"));
   display.display();
@@ -39,7 +39,7 @@ void setupEEPROM(){
   delay(1000);
   }
   
-  else if (check != 11331){
+  else if (check != 11221){
   display.println(F("EEPROM not initialized"));
   display.println(F("Write to EEPROM"));
   display.display();
@@ -237,12 +237,14 @@ fan2Connected = EEPROM.read(offsetof(storeInEEPROM, fan2Connected));
 
 PIDcontrol = EEPROM.read(offsetof(storeInEEPROM, PIDcontrol));
 
+measurements = EEPROM.read(offsetof(storeInEEPROM, measurements));
+
 humidMin1 = EEPROM.read(offsetof(storeInEEPROM, humidMin1));
 humidMax1 =  EEPROM.read(offsetof(storeInEEPROM, humidMax1));
 humidMin2 = EEPROM.read(offsetof(storeInEEPROM, humidMin2));
 humidMax2 =  EEPROM.read(offsetof(storeInEEPROM, humidMax2));
-humidMin3 = EEPROM.read(offsetof(storeInEEPROM, humidMin3));
-humidMax3 =  EEPROM.read(offsetof(storeInEEPROM, humidMax3));
+// humidMin3 = EEPROM.read(offsetof(storeInEEPROM, humidMin3));
+// humidMax3 =  EEPROM.read(offsetof(storeInEEPROM, humidMax3));
 
 manualFanspeed1 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed1));
 manualFanspeed2 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed2));
@@ -251,6 +253,10 @@ manualMosfet1 = EEPROM.read(offsetof(storeInEEPROM, manualMosfet1));
 manualMosfet2 = EEPROM.read(offsetof(storeInEEPROM, manualMosfet2));
 
 #ifdef ESP8266  
+
+EEPROM.get(offsetof(storeInEEPROM, graphUpdate), graphUpdate;
+EEPROM.get(offsetof(storeInEEPROM, tempUodate), tempUpdate;
+
 EEPROM.get(offsetof(storeInEEPROM, KP, KP);
 EEPROM.get(offsetof(storeInEEPROM, KI), KI);
 EEPROM.get(offsetof(storeInEEPROM, KD), KD);
@@ -274,17 +280,22 @@ EEPROM.get(offsetof(storeInEEPROM, alarmRange2), alarmRange2;
 
 EEPROM.get(offsetof(storeInEEPROM, daySoilTemp3), daySoilTemp3;
 EEPROM.get(offsetof(storeInEEPROM, nightSoilTemp3), nightSoilTemp3;
-EEPROM.get(offsetof(storeInEEPROM, targetAirTemp3, targetAirTemp3;
 EEPROM.get(offsetof(storeInEEPROM, tempRange3), tempRange3;
 EEPROM.get(offsetof(storeInEEPROM, alarmRange3), alarmRange3;
 
-for (int m = 0; m < 11; m++){
+EEPROM.get(offsetof(storeInEEPROM, daySoilTemp4), daySoilTemp4;
+EEPROM.get(offsetof(storeInEEPROM, nightSoilTemp4), nightSoilTemp4;
+EEPROM.get(offsetof(storeInEEPROM, tempRange4), tempRange4;
+EEPROM.get(offsetof(storeInEEPROM, alarmRange4), alarmRange4;
+
+for (int m = 0; m < 8; m++){
 int offsetPosition = offsetof(storeInEEPROM, calibrationValue[0]);
 EEPROM.get(offsetPosition+(4*m), calibrationValue[m]);
 }
 
 #else
 graphUpdate = EEPROM.readInt(offsetof(storeInEEPROM, graphUpdate));
+tempUpdate = EEPROM.readInt(offsetof(storeInEEPROM, tempUpdate));
 
 daySoilTemp1 = EEPROM.readFloat(offsetof(storeInEEPROM, daySoilTemp1));
 nightSoilTemp1 = EEPROM.readFloat(offsetof(storeInEEPROM, nightSoilTemp1));
@@ -300,9 +311,13 @@ alarmRange2 = EEPROM.readFloat(offsetof(storeInEEPROM, alarmRange2));
 
 daySoilTemp3 = EEPROM.readFloat(offsetof(storeInEEPROM, daySoilTemp3));
 nightSoilTemp3 = EEPROM.readFloat(offsetof(storeInEEPROM, nightSoilTemp3));
-targetAirTemp3 = EEPROM.readFloat(offsetof(storeInEEPROM, targetAirTemp3));
 tempRange3 = EEPROM.readFloat(offsetof(storeInEEPROM, tempRange3));
 alarmRange3 = EEPROM.readFloat(offsetof(storeInEEPROM, alarmRange3));
+
+daySoilTemp4 = EEPROM.readFloat(offsetof(storeInEEPROM, daySoilTemp4));
+nightSoilTemp4 = EEPROM.readFloat(offsetof(storeInEEPROM, nightSoilTemp4));
+tempRange4 = EEPROM.readFloat(offsetof(storeInEEPROM, tempRange4));
+alarmRange4 = EEPROM.readFloat(offsetof(storeInEEPROM, alarmRange4));
 
 KP = EEPROM.readDouble(offsetof(storeInEEPROM, KP));
 KI = EEPROM.readDouble(offsetof(storeInEEPROM, KI));
@@ -313,7 +328,7 @@ OUTPUT_MAX1 = EEPROM.readDouble(offsetof(storeInEEPROM, OUTPUT_MAX1));
 OUTPUT_MIN2 = EEPROM.readDouble(offsetof(storeInEEPROM, OUTPUT_MIN2));
 OUTPUT_MAX2 = EEPROM.readDouble(offsetof(storeInEEPROM, OUTPUT_MAX2));
 
-for (int m = 0; m < 11; m++){
+for (int m = 0; m < 8; m++){
 int offsetPosition = offsetof(storeInEEPROM, calibrationValue[0]);
 calibrationValue[m]  = EEPROM.readFloat(offsetPosition+4*m);
 }
@@ -322,6 +337,7 @@ calibrationValue[m]  = EEPROM.readFloat(offsetPosition+4*m);
 targetSoilTemp1 = daySoilTemp1;
 targetSoilTemp2 = daySoilTemp2;
 targetSoilTemp3 = daySoilTemp3;
+targetSoilTemp4 = daySoilTemp4;
 // for (int m = 0; m < 8; m++){
 // int offsetPosition = offsetof(storeInEEPROM, lightSchedule[0]);
 // lightSchedule[m]  = EEPROM.readChar(offsetPosition+m);

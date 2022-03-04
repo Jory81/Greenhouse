@@ -91,7 +91,7 @@
 <div id="tempcontrol" class="tabcontent">
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 
-	<h4>Soil temp.1</h4>
+	<h4>Peppers (1)</h4>
 	<div class="inputcontainer">
 	<span class="inputparam"> <input type="number" placeholder="soil dayTemp 1" class="form-controlx input-sl" id="daySoilTemp1" value=""></span> <sup class="units">&deg;C</sup>
 	<span><button onclick="updateNumber('daySoilTemp1', daySoilTemp1.value)" class="btnx btn-primary">_daySoilTemp1</button> </span>
@@ -112,8 +112,6 @@
 	<i class="glyphicon glyphicon-bell"></i>	
 	</span>
 	</div>	
-	
-	<h4>Air temp 1</h4>
 	<div class="inputcontainer">
 	<span class="inputparam"> <input type="number" placeholder="input Air Temp 1" class="form-controlx input-sl" id="targetAirTemp1" value=""></span> <sup class="units">&deg;C</sup>
 	<span><button onclick="updateNumber('targetAirTemp1', targetAirTemp1.value)" class="btnx btn-primary">_targetAirTemp1</button> </span>
@@ -123,9 +121,8 @@
 	</span>
 	</div>
 	<br>
-	<br>
-	
-	<h4>Soil temp.2</h4>
+
+	<h4>Tomatoes (2)</h4>
 	<div class="inputcontainer">
 	<span class="inputparam"> <input type="number" placeholder="soil dayTemp 2" class="form-controlx input-sl" id="daySoilTemp2" value=""></span> <sup class="units">&deg;C</sup>
 	<span><button onclick="updateNumber('daySoilTemp2', daySoilTemp2.value)" class="btnx btn-primary">_daySoilTemp2</button> </span>
@@ -146,8 +143,6 @@
 	<i class="glyphicon glyphicon-bell"></i>	
 	</span>
 	</div>	
-
-	<h4>Air temp 2</h4>
 	<div class="inputcontainer">
 	<span class="inputparam"> <input type="number" placeholder="input Air Temp 2" class="form-controlx input-sl" id="targetAirTemp2" value=""></span> <sup class="units">&deg;C</sup>
 	<span><button onclick="updateNumber('targetAirTemp2', targetAirTemp2.value)" class="btnx btn-primary">_targetAirTemp2</button> </span>
@@ -157,9 +152,8 @@
 	</span>
 	</div>
 	<br>
-	<br>
 
-	<h4>Soil temp.3</h4>
+	<h4>Seeds (3/4)</h4>
 	<div class="inputcontainer">
 	<span class="inputparam"> <input type="number" placeholder="soil dayTemp 3" class="form-controlx input-sl" id="daySoilTemp3" value=""></span> <sup class="units">&deg;C</sup>
 	<span><button onclick="updateNumber('daySoilTemp3', daySoilTemp3.value)" class="btnx btn-primary">_daySoilTemp3</button> </span>
@@ -181,15 +175,29 @@
 	</span>
 	</div>	
 
-	<h4>Air temp 2</h4>
+	<br>
 	<div class="inputcontainer">
-	<span class="inputparam"> <input type="number" placeholder="input Air Temp 3" class="form-controlx input-sl" id="targetAirTemp3" value=""></span> <sup class="units">&deg;C</sup>
-	<span><button onclick="updateNumber('targetAirTemp3', targetAirTemp3.value)" class="btnx btn-primary">_targetAirTemp3</button> </span>
+	<span class="inputparam"> <input type="number" placeholder="soil dayTemp 4" class="form-controlx input-sl" id="daySoilTemp4" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('daySoilTemp4', daySoilTemp4.value)" class="btnx btn-primary">_daySoilTemp4</button> </span>
+	</div>
+	<div class="inputcontainer">
+	<span class="inputparam"> <input type="number" placeholder="soil nightTemp 4" class="form-controlx input-sl" id="nightSoilTemp4" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('nightSoilTemp4', nightSoilTemp4.value)" class="btnx btn-primary">_nightSoilTemp4</button> </span>
+	</div>
+	<div class="inputcontainer">
+	<span class="inputparam"> <input type="number" placeholder="temp range 4" class="form-controlx input-sl" id="tempRange4" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('tempRange4', tempRange4.value)" class="btnx btn-primary">_tempRange4</button> </span>
+	</div>
+	<div class="inputcontainer">
+	<span class="inputparam"> <input type="number" placeholder="alarm range 4" class="form-controlx input-sl" id="alarmRange4" value=""></span> <sup class="units">&deg;C</sup>
+	<span><button onclick="updateNumber('alarmRange4', alarmRange4.value)" class="btnx btn-primary">_alarmRange4</button> </span>
 	<span id="checkbox1">
-	<input class="ckeckbox-element" type="checkbox" id="airAlarm3" onclick="updateButton(this.id, this.checked)"/>  
+	<input class="ckeckbox-element" type="checkbox" id="soilAlarm4" onclick="updateButton(this.id, this.checked)"/>  
 	<i class="glyphicon glyphicon-bell"></i>	
 	</span>
-	</div>	
+	</div>		
+
+
 	<hr>
 </div>
 
@@ -235,9 +243,10 @@
 				<span><button onclick="updateNumber('OUTPUT_MIN1', OUTPUT_MIN1.value)" class="btnx btn-primary">_Fan1 capped min</button> </span>
 			</div>
 			<div class="inputcontainer">
-				<span class="inputparam"> <input type="number" placeholder="Fan1 min" class="form-controlx input-sl" id="OUTPUT_MAX1" value=""></span>
+				<span class="inputparam"> <input type="number" placeholder="Fan1 maxspeed" class="form-controlx input-sl" id="OUTPUT_MAX1" value=""></span>
 				<span><button onclick="updateNumber('OUTPUT_MAX1', OUTPUT_MAX1.value)" class="btnx btn-primary">_Fan1 capped max</button> </span>
 			</div>
+			<br>
 			<div class="inputcontainer">
 				<span class="inputparam"> <input type="number" placeholder="Fan2 min" class="form-controlx input-sl" id="OUTPUT_MIN2" value=""></span>
 				<span><button onclick="updateNumber('OUTPUT_MIN2', OUTPUT_MIN2.value)" class="btnx btn-primary">_Fan2 capped min</button> </span>
@@ -268,12 +277,12 @@
 				<option value="1" >heater 1</option>	
 				<option value="2" >heater 2</option>
 				<option value="3" >heater 3</option>
-				<option value="4" >lights 1</option>
-				<option value="5" >lights 2</option>
-				<option value="6" >lights 3</option>
-				<option value="7" >humidity 1</option>
-				<option value="8" >humidity 2</option>
-				<option value="9" >humidity 3</option>				
+				<option value="4" >heater 4</option>
+				<option value="5" >lights 1</option>
+				<option value="6" >lights 2</option>
+				<option value="7" >lights 3</option>
+				<option value="8" >humidity 1</option>
+				<option value="9" >humidity 2</option>			
 				</select>	
 			</span>
 			<br>
@@ -290,12 +299,12 @@
 				<option value="1" >heater 1</option>	
 				<option value="2" >heater 2</option>
 				<option value="3" >heater 3</option>
-				<option value="4" >lights 1</option>
-				<option value="5" >lights 2</option>
-				<option value="6" >lights 3</option>
-				<option value="7" >humidity 1</option>
-				<option value="8" >humidity 2</option>
-				<option value="9" >humidity 3</option>				
+				<option value="4" >heater 4</option>
+				<option value="5" >lights 1</option>
+				<option value="6" >lights 2</option>
+				<option value="7" >lights 3</option>
+				<option value="8" >humidity 1</option>
+				<option value="9" >humidity 2</option>			
 				</select>	
 			</span>
 			<br>
@@ -308,16 +317,16 @@
 			&nbsp &nbsp 
 			<span class="inputparam">
 				<select name="selectfunc" id="funcRelay3" onchange="updateNumber(this.id, this.value)">
-				<option value="0" >no function attached</option>	
+				<option value="0" >no function attached</option>
 				<option value="1" >heater 1</option>	
 				<option value="2" >heater 2</option>
 				<option value="3" >heater 3</option>
-				<option value="4" >lights 1</option>
-				<option value="5" >lights 2</option>
-				<option value="6" >lights 3</option>
-				<option value="7" >humidity 1</option>
-				<option value="8" >humidity 2</option>
-				<option value="9" >humidity 3</option>				
+				<option value="4" >heater 4</option>
+				<option value="5" >lights 1</option>
+				<option value="6" >lights 2</option>
+				<option value="7" >lights 3</option>
+				<option value="8" >humidity 1</option>
+				<option value="9" >humidity 2</option>					
 				</select>	
 			</span>
 			<br>
@@ -334,12 +343,12 @@
 				<option value="1" >heater 1</option>	
 				<option value="2" >heater 2</option>
 				<option value="3" >heater 3</option>
-				<option value="4" >lights 1</option>
-				<option value="5" >lights 2</option>
-				<option value="6" >lights 3</option>
-				<option value="7" >humidity 1</option>
-				<option value="8" >humidity 2</option>
-				<option value="9" >humidity 3</option>				
+				<option value="4" >heater 4</option>
+				<option value="5" >lights 1</option>
+				<option value="6" >lights 2</option>
+				<option value="7" >lights 3</option>
+				<option value="8" >humidity 1</option>
+				<option value="9" >humidity 2</option>					
 				</select>	
 			</span>
 			<br>
@@ -352,16 +361,16 @@
 			&nbsp &nbsp 
 			<span class="inputparam">
 				<select name="selectfunc" id="funcRelay5" onchange="updateNumber(this.id, this.value)">
-				<option value="0" >no function attached</option>		
+				<option value="0" >no function attached</option>
 				<option value="1" >heater 1</option>	
 				<option value="2" >heater 2</option>
 				<option value="3" >heater 3</option>
-				<option value="4" >lights 1</option>
-				<option value="5" >lights 2</option>
-				<option value="6" >lights 3</option>
-				<option value="7" >humidity 1</option>
-				<option value="8" >humidity 2</option>
-				<option value="9" >humidity 3</option>				
+				<option value="4" >heater 4</option>
+				<option value="5" >lights 1</option>
+				<option value="6" >lights 2</option>
+				<option value="7" >lights 3</option>
+				<option value="8" >humidity 1</option>
+				<option value="9" >humidity 2</option>			
 				</select>	
 			</span>
 			<br>
@@ -374,16 +383,16 @@
 			&nbsp &nbsp 
 			<span class="inputparam">
 				<select name="selectfunc" id="funcRelay6" onchange="updateNumber(this.id, this.value)">
-				<option value="0" >no function attached</option>			
+				<option value="0" >no function attached</option>
 				<option value="1" >heater 1</option>	
 				<option value="2" >heater 2</option>
 				<option value="3" >heater 3</option>
-				<option value="4" >lights 1</option>
-				<option value="5" >lights 2</option>
-				<option value="6" >lights 3</option>
-				<option value="7" >humidity 1</option>
-				<option value="8" >humidity 2</option>
-				<option value="9" >humidity 3</option>				
+				<option value="4" >heater 4</option>
+				<option value="5" >lights 1</option>
+				<option value="6" >lights 2</option>
+				<option value="7" >lights 3</option>
+				<option value="8" >humidity 1</option>
+				<option value="9" >humidity 2</option>			
 				</select>	
 			</span>	
 			<br>
@@ -436,15 +445,6 @@
 	<div class="inputcontainer">
 		<span class="inputparam"> <input type="number" placeholder="input humidity max. 2" class="form-controlx input-sl" id="humidMax2" value=""></span><span class="units">(%)</span>
 		<span><button onclick="updateNumber('humidMax2', humidMax2.value)" class="btnx btn-primary">_humidMax2</button> </span>
-	</div>	
-	<br>
-	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input humidity min. 3" class="form-controlx input-sl" id="humidMin3" value=""></span><span class="units">(%)</span>
-		<span><button onclick="updateNumber('humidMin3', humidMin3.value)" class="btnx btn-primary">_humidMin3</button> </span>
-	</div>	
-	<div class="inputcontainer">
-		<span class="inputparam"> <input type="number" placeholder="input humidity max. 3" class="form-controlx input-sl" id="humidMax3" value=""></span><span class="units">(%)</span>
-		<span><button onclick="updateNumber('humidMax3', humidMax3.value)" class="btnx btn-primary">_humidMax3</button> </span>
 	</div>			
 	<hr>
 </div>
@@ -454,50 +454,41 @@
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 		<div class="inputcontainer">
 			<span class="inputparam"> <input type="number" placeholder="input cal. 1" class="form-controlx input-sl" id="calValue1" value=""></span> <sup class="units">&deg;C</sup>
-			<span><button onclick="updateNumber('calValue1', calValue1.value)" class="btnx btn-primary">_calValue1</button> </span>
+			<span><button onclick="updateNumber('calValue1', calValue1.value)" class="btnx btn-primary">_Temp1</button> </span>
 		</div>
 		<div class="inputcontainer">
 			<span class="inputparam"> <input type="number" placeholder="input cal. 2" class="form-controlx input-sl" id="calValue2" value=""></span> <sup class="units">&deg;C</sup>
-			<span><button onclick="updateNumber('calValue2', calValue2.value)" class="btnx btn-primary">_calValue2</button> </span>
+			<span><button onclick="updateNumber('calValue2', calValue2.value)" class="btnx btn-primary">_Temp2</button> </span>
 		</div>
 		<div class="inputcontainer">
 			<span class="inputparam"> <input type="number" placeholder="input cal. 3" class="form-controlx input-sl" id="calValue3" value=""></span> <sup class="units">&deg;C</sup>
-			<span><button onclick="updateNumber('calValue3', calValue3.value)" class="btnx btn-primary">_calValue3</button> </span>
+			<span><button onclick="updateNumber('calValue3', calValue3.value)" class="btnx btn-primary">_Temp3</button> </span>
 		</div>
 		<div class="inputcontainer">
 			<span class="inputparam"> <input type="number" placeholder="input cal. 4" class="form-controlx input-sl" id="calValue4" value=""></span> <sup class="units">&deg;C</sup>
-			<span><button onclick="updateNumber('calValue4', calValue4.value)" class="btnx btn-primary">_calValue4</button> </span>
+			<span><button onclick="updateNumber('calValue4', calValue4.value)" class="btnx btn-primary">_Temp4</button> </span>
 		</div>
-		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input cal. 5" class="form-controlx input-sl" id="calValue5" value=""></span> <sup class="units">&deg;C</sup>
-			<span><button onclick="updateNumber('calValue5', calValue5.value)" class="btnx btn-primary">_calValue5</button> </span>
-		</div>
+
 		<br><h4>DHT temp sensor (temperature)</h4>
 		<div class="inputcontainer">
+			<span class="inputparam"> <input type="number" placeholder="input cal. 5" class="form-controlx input-sl" id="calValue5" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue5', calValue5.value)" class="btnx btn-primary">_DhtTemp1</button> </span>
+		</div>
+		<div class="inputcontainer">
 			<span class="inputparam"> <input type="number" placeholder="input cal. 6" class="form-controlx input-sl" id="calValue6" value=""></span> <sup class="units">&deg;C</sup>
-			<span><button onclick="updateNumber('calValue6', calValue6.value)" class="btnx btn-primary">_calValue6</button> </span>
+			<span><button onclick="updateNumber('calValue6', calValue6.value)" class="btnx btn-primary">_DhtTemp2</button> </span>
 		</div>
-		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input cal. 7" class="form-controlx input-sl" id="calValue7" value=""></span> <sup class="units">&deg;C</sup>
-			<span><button onclick="updateNumber('calValue7', calValue7.value)" class="btnx btn-primary">_calValue7</button> </span>
-		</div>
-		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input cal. 8" class="form-controlx input-sl" id="calValue8" value=""></span> <sup class="units">&deg;C</sup>
-			<span><button onclick="updateNumber('calValue8', calValue8.value)" class="btnx btn-primary">_calValue8</button> </span>
-		</div>
+
 		<br><h4>DHT temp sensor (humidity)</h4>
 		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input cal. 9" class="form-controlx input-sl" id="calValue9" value=""></span><span class="units">(%)</span>
-			<span><button onclick="updateNumber('calValue9', calValue9.value)" class="btnx btn-primary">_calValue9</button> </span>
+			<span class="inputparam"> <input type="number" placeholder="input cal. 7" class="form-controlx input-sl" id="calValue7" value=""></span> <sup class="units">&deg;C</sup>
+			<span><button onclick="updateNumber('calValue7', calValue7.value)" class="btnx btn-primary">_DhtHumid1</button> </span>
 		</div>
 		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input cal. 10" class="form-controlx input-sl" id="calValue10" value=""></span><span class="units">(%)</span>
-			<span><button onclick="updateNumber('calValue10', calValue10.value)" class="btnx btn-primary">_calValue10</button> </span>
+			<span class="inputparam"> <input type="number" placeholder="input cal. 8" class="form-controlx input-sl" id="calValue8" value=""></span><span class="units">(%)</span>
+			<span><button onclick="updateNumber('calValue8', calValue8.value)" class="btnx btn-primary">_DhtHumid2</button> </span>
 		</div>
-		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input cal. 11" class="form-controlx input-sl" id="calValue11" value=""></span><span class="units">(%)</span>
-			<span><button onclick="updateNumber('calValue11', calValue11.value)" class="btnx btn-primary">_calValue11</button> </span>
-		</div>
+
 		<br><h4>PID parameters</h4>	
 		<div class="inputcontainer">
 			<span class="inputparam"> <input type="number" placeholder="input KP" class="form-controlx input-sl" id="KP" value=""></span>
@@ -550,7 +541,6 @@
     <option value="0" >no probes</option>
 	<option value="1" >1 probe</option>
     <option value="2" >2 probes</option>
-	<option value="3" >3 probes</option>
 	</select>	
 	</span>
 	<br>
@@ -571,8 +561,39 @@
 	</select>	
 	</span>
 	<br>
+	</p>
+
+	</p>	
+	<h4>temp sampling:</h4>
+	<p>
+	<span class="inputparam">
+	<select name="selectProbeAmount" id="tempUpdate" onchange="updateNumber(this.id, this.value)">
+	<option value="1" >every second</option>
+	<option value="2" >every 2 seconds</option>
+	<option value="5" >every 5 seconds</option>
+	<option value="10" >every 10 seconds</option>
+	<option value="30" >every 30 seconds</option>
+	<option value="60" >every minute</option>
+	</select>	
+	</span>
 	<br>
 	</p>
+	
+	</p>	
+	<h4>Avaraging (temp):</h4>
+	<p>
+	<span class="inputparam">
+	<select name="selectProbeAmount" id="measurements" onchange="updateNumber(this.id, this.value)">
+	<option value="1" >per measurement</option>
+	<option value="2" >avarage of 2 measurements</option>
+	<option value="4" >avarage of 4 measurements</option>
+	<option value="8" >avarage of 8 measurements</option>
+	<option value="16" >avarage of 16 measurements</option>
+	</select>	
+	</span>
+	<br>
+	<br>
+	</p>	
 
 	<div>
 		<span id="checkbox1">PID control (checked) or linear control
@@ -601,15 +622,15 @@
 	</div>
 	<br>
 	<div>
-		<span class="textinfo">PIN INFO: wemos D1 mini esp32: Temp pins: [5, 26, 27, 32]. Relay: [14, 13, 25, 33, 2, 15]. DHT: [17, 16, 12]. Fan: [4, 0].</span>
+		<span class="textinfo">PIN INFO: wemos D1 mini esp32: Temp pins: [5, 26, 27, 32]. Relay: [14, 13, 25, 33, 2, 15]. DHT: [17, 16]. Fan: [4, 0].</span>
 		<br>
-		<span class="textinfo">IMPORTANT: disattach pins 2 and 12 when flashing otherwise flash will FAIL - reconect after flashing</span>
+		<span class="textinfo">IMPORTANT: disattach pin 2 when flashing otherwise flash will FAIL - reconect after flashing</span>
 	</div>
 	<hr>
 </div>
 
 	<div class="inline">
-		<h3>climate 1</h3>
+		<h3>Peppers (1)</h3>
 		
 		<p>
 		<span class="dht-labels">Soil temp:</span>&nbsp<span id="temperature1"></span><sup class="units">&deg;C</sup><span id="checkbox4">
@@ -644,7 +665,7 @@
 	</div>
 
 	<div class="inline">
-		<h3>climate 2</h3>
+		<h3>Tomatoes (2)</h3>
 		
 		<p>
 		<span class="dht-labels">Soil temp:</span>&nbsp<span id="temperature2"></span><sup class="units">&deg;C</sup>
@@ -681,14 +702,21 @@
 	</div>
 
 	<div class="inline">
-		<h3>climate 3</h3>
+		<h3>Seeds (3/4)</h3>
 		
 		<p>
 		<span class="dht-labels">Soil temp:</span>&nbsp<span id="temperature3"></span><sup class="units">&deg;C</sup><span id="checkbox4">
 		<input class="ckeckbox-element" type="checkbox" id="heater3" onclick="updateButton(this.id, this.checked)" />  &nbsp;
 		<i class="fas fa-thermometer-half"></i>
 		</span> 
-		</p>	
+		</p>
+		
+		<p>
+			<span class="dht-labels">Soil temp:</span>&nbsp<span id="temperature4"></span><sup class="units">&deg;C</sup><span id="checkbox4">
+			<input class="ckeckbox-element" type="checkbox" id="heater4" onclick="updateButton(this.id, this.checked)" />  &nbsp;
+			<i class="fas fa-thermometer-half"></i>
+			</span> 
+			</p>	
 		
 		<p>
 		<span class="dht-labels">light schedule: </span><span><time class="dht-labels" type="time"id="lights3ON"></time></span>&nbsp-&nbsp<span><time class="dht-labels" type="time" id="lights3OFF"></span>
@@ -696,9 +724,7 @@
 		<i class="glyphicon glyphicon-asterisk"></i>
 		</span> 
 		</p>
-		<p>
-			<span class="dht-labels">Extra temp. sensor:</span>&nbsp<span id="temperature4"></span><sup class="units">&deg;C</sup>			
-		</p>
+
 		<br>
 	</div>
 
@@ -719,6 +745,16 @@
 // 		<i class="glyphicon glyphicon-leaf"></i>
 // 		</span> 
 // 		</p>
+
+// <br>
+// 	<div class="inputcontainer">
+// 		<span class="inputparam"> <input type="number" placeholder="input humidity min. 3" class="form-controlx input-sl" id="humidMin3" value=""></span><span class="units">(%)</span>
+// 		<span><button onclick="updateNumber('humidMin3', humidMin3.value)" class="btnx btn-primary">_humidMin3</button> </span>
+// 	</div>	
+// 	<div class="inputcontainer">
+// 		<span class="inputparam"> <input type="number" placeholder="input humidity max. 3" class="form-controlx input-sl" id="humidMax3" value=""></span><span class="units">(%)</span>
+// 		<span><button onclick="updateNumber('humidMax3', humidMax3.value)" class="btnx btn-primary">_humidMax3</button> </span>
+// 	</div>	
 
 var gateway = `ws://${window.location.hostname}/ws`;
 var websocket;
@@ -870,6 +906,8 @@ let data = JSON.parse(event.data);
 	else if (variable == 'fan1Connected'){document.getElementById('fan1Connected').checked = data.fan1Connected;}
 	else if (variable == 'fan2Connected'){document.getElementById('fan2Connected').checked = data.fan2Connected;}
 	else if (variable == 'graphUpdate'){document.getElementById('graphUpdate').value = data.graphUpdate;}
+	else if (variable == 'tempUpdate'){document.getElementById('tempUpdate').value = data.tempUpdate;}
+	else if (variable == 'measurements'){document.getElementById('measurements').value = data.measurements;}
 	else if (variable == 'PIDcontrol'){document.getElementById('PIDcontrol').checked = data.PIDcontrol;}
 
 	else if (variable == 'calValue1'){document.getElementById('calValue1').value = data.calValue1;}
@@ -880,9 +918,9 @@ let data = JSON.parse(event.data);
 	else if (variable == 'calValue6'){document.getElementById('calValue6').value = data.calValue6;}
 	else if (variable == 'calValue7'){document.getElementById('calValue7').value = data.calValue7;}
 	else if (variable == 'calValue8'){document.getElementById('calValue8').value = data.calValue8;}
-	else if (variable == 'calValue9'){document.getElementById('calValue9').value = data.calValue9;}
-	else if (variable == 'calValue10'){document.getElementById('calValue10').value = data.calValue10;}
-	else if (variable == 'calValue11'){document.getElementById('calValue11').value = data.calValue11;}
+	//else if (variable == 'calValue9'){document.getElementById('calValue9').value = data.calValue9;}
+	//else if (variable == 'calValue10'){document.getElementById('calValue10').value = data.calValue10;}
+	//else if (variable == 'calValue11'){document.getElementById('calValue11').value = data.calValue11;}
 
 	else if (variable == 'OUTPUT_MIN1'){document.getElementById('OUTPUT_MIN1').value = data.OUTPUT_MIN1;}
 	else if (variable == 'OUTPUT_MAX1'){document.getElementById('OUTPUT_MAX1').value = data.OUTPUT_MAX1;}
@@ -928,8 +966,12 @@ let data = JSON.parse(event.data);
 	else if (variable == 'tempRange3'){document.getElementById('tempRange3').value = data.tempRange3;}
 	else if (variable == 'alarmRange3'){document.getElementById('alarmRange3').value = data.alarmRange3;}
 	else if (variable == 'soilAlarm3'){document.getElementById('soilAlarm3').checked = data.soilAlarm3;}
-	else if (variable == 'targetAirTemp3'){document.getElementById('targetAirTemp3').value = data.targetAirTemp3;}
-	else if (variable == 'airAlarm3'){document.getElementById('airAlarm3').checked = data.airAlarm3;}
+
+	else if (variable == 'daySoilTemp4'){document.getElementById('daySoilTemp4').value = data.daySoilTemp4;}
+	else if (variable == 'nightSoilTemp4'){document.getElementById('nightSoilTemp4').value = data.nightSoilTemp4;}	
+	else if (variable == 'tempRange4'){document.getElementById('tempRange4').value = data.tempRange4;}
+	else if (variable == 'alarmRange4'){document.getElementById('alarmRange4').value = data.alarmRange4;}
+	else if (variable == 'soilAlarm4'){document.getElementById('soilAlarm4').checked = data.soilAlarm4;}
 
 	else if (variable == 'manualMosfet1'){document.getElementById('manualMosfet1').checked = data.manualMosfet1;}
 	else if (variable == 'manualFanspeed1'){document.getElementById('manualFanspeed1').value = data.manualFanspeed1;}
@@ -955,6 +997,7 @@ let data = JSON.parse(event.data);
 
 	else if (variable == 'lights3'){document.getElementById('lights3').checked = data.lights2;}
 	else if(variable == 'heater3'){document.getElementById('heater3').checked = data.heater3;}
+	else if(variable == 'heater4'){document.getElementById('heater4').checked = data.heater4;}
 	//else if(variable == 'fan3'){document.getElementById('fan3').checked = data.fan3;}
 	//else if(variable == 'humidifier3'){document.getElementById('humidifier3').checked = data.humidifier2;}
 
@@ -1009,12 +1052,6 @@ let data = JSON.parse(event.data);
                     data: [],
                     color: '#ff0000'
                 }, 
-                // {
-                //     showInLegend: true,
-                //     name: 'target Temp',
-                //     data: [], 
-                //     color: '#0000ff'
-                // },
 				{
                     showInLegend: true,
                     name: 'Air temp',
@@ -1085,7 +1122,7 @@ function drawChart1(){
 				chartT1.series[3].addPoint([x, currentHumidity], true, true, true);
 			} else {
 				chartT1.series[0].addPoint([x, currentCelsius], true, false, true);
-				chartT1.series[1].addPoint([x, currentAirCelsius], true, true, true);
+				chartT1.series[1].addPoint([x, currentAirCelsius], true, false, true);
 				chartT1.series[2].addPoint([x, currentFanSpeed], true, false, true);
 				chartT1.series[3].addPoint([x, currentHumidity], true, false, true);
 			}
@@ -1114,12 +1151,6 @@ function drawChart1(){
                     data: [],
                     color: '#ff0000'
                 }, 
-                // {
-                //     showInLegend: true,
-                //     name: 'target Temp2',
-                //     data: [], 
-                //     color: '#0000ff'
-                // },
 				{
                     showInLegend: true,
                     name: 'Air temp2',
@@ -1190,7 +1221,7 @@ function drawChart2(){
 				chartT2.series[3].addPoint([x, currentHumidity], true, true, true);
 			} else {
 				chartT2.series[0].addPoint([x, currentCelsius], true, false, true);
-				chartT2.series[1].addPoint([x, currentAirCelsius], true, true, true);
+				chartT2.series[1].addPoint([x, currentAirCelsius], true, false, true);
 				chartT2.series[2].addPoint([x, currentFanSpeed], true, false, true);
 				chartT2.series[3].addPoint([x, currentHumidity], true, false, true);
 			}

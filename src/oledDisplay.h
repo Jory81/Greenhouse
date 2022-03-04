@@ -3,22 +3,55 @@ void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
   if (!displayTime){
   display.clearDisplay();
   display.setTextSize(1);
-  display.setCursor(0,22);// 30 is fit
-  display.print("soil");
-  display.setCursor(0,46); // 54 is fit
-  display.print("soil");
-  display.setCursor(96,8); 
-  display.print(targetSoilTemp1); display.print((char)247); //display.print((char)247);
-  display.setCursor(96,16); 
-  display.print(fanspeed1); display.print("%");
-  uint8_t calposition = 54-(probeCountT*8);
-  display.setCursor(96, calposition);
-  display.print("cal:");
-  for (int sensor = 0; sensor < probeCountT; sensor++){
-    uint8_t yposition = (calposition+8)+sensor*8;
-    display.setCursor(96, yposition);
-    display.print(calibrationValue[sensor], 1);
+  char buffer[40];
+  if (probeCountT >= 1){
+   display.setCursor(0,8);
+  sprintf(buffer, "T1: %2.1f   %2.1f", temp1, calibrationValue[0]);  
+  display.print(buffer);
   }
+  if (probeCountT >= 2){
+  display.setCursor(0,16);
+  sprintf(buffer, "T2: %2.1f   %2.1f", temp2, calibrationValue[1]);  
+  display.print(buffer);
+  }
+  if (probeCountT >= 3){
+  display.setCursor(0,24);
+  sprintf(buffer, "T3: %2.1f   %2.1f", temp3, calibrationValue[2]);  
+  display.print(buffer);
+  }
+  if (probeCountT >= 4){
+  display.setCursor(0,32);
+  sprintf(buffer, "T4: %2.1f   %2.1f", temp4, calibrationValue[3]);  
+  display.print(buffer);
+  }
+  if (probeCountH >= 1){
+  display.setCursor(0,40);
+  sprintf(buffer, "DHT1: %2.1f   %2.1f", dhtTemp[0], humidity[0]);  
+  display.print(buffer);
+  }
+  if (probeCountH >= 1){ 
+  display.setCursor(0,48);
+  sprintf(buffer, "DHT2: %2.1f   %2.1f", dhtTemp[1], humidity[1]);  
+  display.print(buffer);
+  }
+
+  //   display.setCursor(0,10);
+  // display.print("t1");
+  // display.setCursor(0,46); // 54 is fit
+  // display.print("soil");
+  // display.setCursor(96,8); 
+  // display.print(targetSoilTemp1); display.print((char)247); //display.print((char)247);
+  // display.setCursor(96,16); 
+  // display.print(fanspeed1); display.print("%");
+  // uint8_t calposition = 54-(probeCountT*8);
+  // display.setCursor(96, calposition);
+  // display.print("cal:");
+  // for (int sensor = 0; sensor < probeCountT; sensor++){
+  //   uint8_t yposition = (calposition+8)+sensor*8;
+  //   display.setCursor(96, yposition);
+  //   display.print(calibrationValue[sensor], 1);
+  // }
+
   display.setCursor(0,0);
   // if (alarmMessage == 0){ 
   if (wifiStationMode){
@@ -37,19 +70,19 @@ void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
   //   }
   // }
 
-  if (probeCountT > 2){
-    display.setCursor(0,56);
-    display.print("T3:"); display.print(temp3, 0);
-      if (probeCountT > 3){
-      display.print(" T4:"); display.print(temp4, 0);  
-      }
-  }
-  display.setTextSize(3); 
-  display.setCursor(24,8);
-  display.print(temp1, 0); display.setTextSize(1); display.println((char)247);
-  display.setCursor(24,32); 
-  display.setTextSize(3);
-  display.print(temp2, 0); display.setTextSize(1); display.println((char)247);
+  // if (probeCountT > 2){
+  //   display.setCursor(0,56);
+  //   display.print("T3:"); display.print(temp3, 0);
+  //     if (probeCountT > 3){
+  //     display.print(" T4:"); display.print(temp4, 0);  
+  //     }
+  // }
+  // display.setTextSize(3); 
+  // display.setCursor(24,8);
+  // display.print(temp1, 0); display.setTextSize(1); display.println((char)247);
+  // display.setCursor(24,32); 
+  // display.setTextSize(3);
+  // display.print(temp2, 0); display.setTextSize(1); display.println((char)247);
   display.display();
   }
   else if (displayTime){

@@ -12,7 +12,7 @@ float processRTD(uint16_t rtd){
   dummy >>= 16 ;
   ohmsx100 = (uint16_t) (dummy & 0xFFFF) ;
   ohms = (float)(ohmsx100 / 100) + ((float)(ohmsx100 % 100) / 100.0) ; 
-  Tlut  = PT100.celsius(ohmsx100) ;     // NoobNote: LUT== LookUp Table
+  Tlut  = PT100.celsius(ohmsx100); 
   return Tlut;
 }
 

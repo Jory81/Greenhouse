@@ -131,6 +131,9 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("fan1Connected")){fan1Connected = json["fan1Connected"]; EEPROM.put(offsetof(storeInEEPROM, fan1Connected), fan1Connected);  EEPROM.commit();}
         else if (json.containsKey("fan2Connected")){fan2Connected = json["fan2Connected"]; EEPROM.put(offsetof(storeInEEPROM, fan2Connected), fan2Connected);  EEPROM.commit();}
         else if (json.containsKey("graphUpdate")){graphUpdate = json["graphUpdate"]; graphUpdate = graphUpdate*1000; EEPROM.put(offsetof(storeInEEPROM, graphUpdate), (graphUpdate));  EEPROM.commit();}
+        else if (json.containsKey("tempUpdate")){tempUpdate = json["tempUpdate"]; tempUpdate = tempUpdate*1000; EEPROM.put(offsetof(storeInEEPROM, tempUpdate), (tempUpdate));  EEPROM.commit();}
+        else if (json.containsKey("tempUpdate")){tempUpdate = json["tempUpdate"]; tempUpdate = tempUpdate*1000; EEPROM.put(offsetof(storeInEEPROM, tempUpdate), (tempUpdate));  EEPROM.commit();}
+        else if (json.containsKey("measurements")){measurements = json["measurements"]; measurements = measurements; EEPROM.put(offsetof(storeInEEPROM, measurements), (measurements));  EEPROM.commit();}
         else if (json.containsKey("PIDcontrol")){PIDcontrol = json["PIDcontrol"]; EEPROM.put(offsetof(storeInEEPROM, PIDcontrol), PIDcontrol);  EEPROM.commit();}
 
         else if (json.containsKey("funcRelay1")){funcRelay1 = json["funcRelay1"]; EEPROM.put(offsetof(storeInEEPROM, funcRelay1), funcRelay1);  EEPROM.commit();}
@@ -152,9 +155,9 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("calValue6")){calibrationValue[5] = json["calValue6"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[5]), calibrationValue[5]);  EEPROM.commit(); };}
         else if (json.containsKey("calValue7")){calibrationValue[6] = json["calValue7"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[6]), calibrationValue[6]);  EEPROM.commit(); };}
         else if (json.containsKey("calValue8")){calibrationValue[7] = json["calValue8"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[7]), calibrationValue[7]);  EEPROM.commit(); };}
-        else if (json.containsKey("calValue9")){calibrationValue[8] = json["calValue9"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[8]), calibrationValue[8]);  EEPROM.commit(); };}
-        else if (json.containsKey("calValue10")){calibrationValue[9] = json["calValue10"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[9]), calibrationValue[9]);  EEPROM.commit(); };}
-        else if (json.containsKey("calValue11")){calibrationValue[10] = json["calValue11"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[10]), calibrationValue[10]);  EEPROM.commit(); };}
+        // else if (json.containsKey("calValue9")){calibrationValue[8] = json["calValue9"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[8]), calibrationValue[8]);  EEPROM.commit(); };}
+        // else if (json.containsKey("calValue10")){calibrationValue[9] = json["calValue10"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[9]), calibrationValue[9]);  EEPROM.commit(); };}
+        // else if (json.containsKey("calValue11")){calibrationValue[10] = json["calValue11"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[10]), calibrationValue[10]);  EEPROM.commit(); };}
 
         else if (json.containsKey("manualRelay1")){manualRelay1 = json["manualRelay1"];}
         else if (json.containsKey("manualRelay2")){manualRelay2 = json["manualRelay2"];}
@@ -196,8 +199,8 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("humidMax1")){humidMax1 = json["humidMax1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMax1), humidMax1);  EEPROM.commit(); };}
         else if (json.containsKey("humidMin2")){humidMin2 = json["humidMin2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMin2), humidMin2);  EEPROM.commit(); };}
         else if (json.containsKey("humidMax2")){humidMax2 = json["humidMax2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMax2), humidMax2);  EEPROM.commit(); };}
-        else if (json.containsKey("humidMin3")){humidMin3 = json["humidMin3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMin3), humidMin3);  EEPROM.commit(); };}
-        else if (json.containsKey("humidMax3")){humidMax3 = json["humidMax3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMax3), humidMax3);  EEPROM.commit(); };}        
+        //else if (json.containsKey("humidMin3")){humidMin3 = json["humidMin3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMin3), humidMin3);  EEPROM.commit(); };}
+        //else if (json.containsKey("humidMax3")){humidMax3 = json["humidMax3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMax3), humidMax3);  EEPROM.commit(); };}        
 
         else if (json.containsKey("daySoilTemp1")){daySoilTemp1 = json["daySoilTemp1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, daySoilTemp1), daySoilTemp1);  EEPROM.commit(); };}
         else if (json.containsKey("nightSoilTemp1")){nightSoilTemp1 = json["nightSoilTemp1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, nightSoilTemp1), nightSoilTemp1);  EEPROM.commit(); };}
@@ -220,8 +223,14 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("tempRange3")){tempRange3 = json["tempRange3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, tempRange3), tempRange3);  EEPROM.commit(); };}
         else if (json.containsKey("alarmRange3")){alarmRange3 = json["alarmRange3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, alarmRange3), alarmRange3);  EEPROM.commit(); };}
         else if (json.containsKey("soilAlarm3")){soilAlarm3 = json["soilAlarm3"];}
-        else if (json.containsKey("targetAirTemp3")){targetAirTemp3 = json["targetAirTemp3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, targetAirTemp3), targetAirTemp3);  EEPROM.commit(); };}
-        else if (json.containsKey("airAlarm3")){airAlarm3 = json["airAlarm3"];}        
+
+        else if (json.containsKey("daySoilTemp4")){daySoilTemp4 = json["daySoilTemp4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, daySoilTemp4), daySoilTemp4);  EEPROM.commit(); };}
+        else if (json.containsKey("nightSoilTemp4")){nightSoilTemp4 = json["nightSoilTemp4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, nightSoilTemp4), nightSoilTemp4);  EEPROM.commit(); };}        
+        else if (json.containsKey("tempRange4")){tempRange4 = json["tempRange4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, tempRange4), tempRange4);  EEPROM.commit(); };}
+        else if (json.containsKey("alarmRange4")){alarmRange4 = json["alarmRange4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, alarmRange4), alarmRange4);  EEPROM.commit(); };}
+        else if (json.containsKey("soilAlarm4")){soilAlarm4 = json["soilAlarm4"];}        
+        //else if (json.containsKey("targetAirTemp3")){targetAirTemp3 = json["targetAirTemp3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, targetAirTemp3), targetAirTemp3);  EEPROM.commit(); };}
+        //else if (json.containsKey("airAlarm3")){airAlarm3 = json["airAlarm3"];}        
         else if (json.containsKey("Reboot")){ESP.restart();}
         notifyClientsSingleObject("recMsg", true);
     }
@@ -242,6 +251,8 @@ doc["relay6Connected"]   = relay6Connected;
 doc["fan1Connected"]   =     fan1Connected;
 doc["fan2Connected"]   =     fan2Connected;
 doc["graphUpdate"]   = graphUpdate/1000;
+doc["tempUpdate"]   = tempUpdate/1000;
+doc["measurements"] = measurements;
 doc["PIDcontrol"]   = PIDcontrol;
 doc["calValue1"]   = String(calibrationValue[0],2);
 doc["calValue2"]   = String(calibrationValue[1],2);
@@ -251,9 +262,7 @@ doc["calValue5"]   = String(calibrationValue[4],2);
 doc["calValue6"]   = String(calibrationValue[5],2);
 doc["calValue7"]   = String(calibrationValue[6],2);
 doc["calValue8"]   = String(calibrationValue[7],2);
-doc["calValue9"]   = String(calibrationValue[8],2);
-doc["calValue10"]   = String(calibrationValue[9],2);
-doc["calValue11"]   = String(calibrationValue[10],2);
+
 doc["manualRelay1"] = manualRelay1;
 doc["manualRelay2"] = manualRelay2;
 doc["manualRelay3"] = manualRelay3;
@@ -283,8 +292,8 @@ doc["humidMin1"] = humidMin1;
 doc["humidMax1"] = humidMax1;
 doc["humidMin2"] = humidMin2;
 doc["humidMax2"] = humidMax2;
-doc["humidMin3"] = humidMin3;
-doc["humidMax3"] = humidMax3;
+// doc["humidMin3"] = humidMin3;
+// doc["humidMax3"] = humidMax3;
 doc["daySoilTemp1"] = String(daySoilTemp1,2);
 doc["nightSoilTemp1"] = String(nightSoilTemp1,2);
 doc["tempRange1"] = String(tempRange1,2);
@@ -304,8 +313,13 @@ doc["nightSoilTemp3"] = String(nightSoilTemp3,2);
 doc["tempRange3"] = String(tempRange3,2);
 doc["alarmRange3"] = String(alarmRange3,2);
 doc["soilAlarm3"] = soilAlarm3;
-doc["targetAirTemp3"] = String(targetAirTemp3,2);
-doc["airAlarm3"] = airAlarm2;
+doc["daySoilTemp4"] = String(daySoilTemp4,2);
+doc["nightSoilTemp4"] = String(nightSoilTemp4,2);
+doc["tempRange4"] = String(tempRange4,2);
+doc["alarmRange4"] = String(alarmRange4,2);
+doc["soilAlarm4"] = soilAlarm4;
+//doc["targetAirTemp3"] = String(targetAirTemp3,2);
+//doc["airAlarm3"] = airAlarm3;
 doc["manualMosfet1"] = manualMosfet1;
 doc["manualFanspeed1"] = manualFanspeed1;
 doc["manualMosfet2"] = manualMosfet2;
@@ -320,7 +334,8 @@ doc["fan2"] = fan2;
 doc["humidifier2"] = humidifier2;
 doc["lights3"] = lights3;
 doc["heater3"] = heater3;
-//doc["fan2"] = fan2;
+doc["heater4"] = heater4;
+//doc["fan3"] = fan3;
 //doc["humidifier3"] = humidifier3;
 doc["saveInEEPROM"] = saveInEEPROM;
 
