@@ -72,17 +72,17 @@ void notifyClientsSingleObject(String object, boolean value) {
     ws.textAll(data, len); 
 }
 
-void notifyClientsSingleObjectByte(String object, uint8_t value) {
+void notifyClientsSingleObjectByte(String object, byte value) {
     StaticJsonDocument<50> doc;
     String key = object;
-    boolean Value = value;
+    byte Value = value;
     doc[key] = Value; 
 
     char data[50];
     size_t len = serializeJson(doc, data);
-        Serial.print("length: "); Serial.println(len);
+        //Serial.print("length: "); Serial.println(len);
         for (int i = 0; i < len;  i++){
-        Serial.print(data[i]);
+        //Serial.print(data[i]);
     }
     ws.textAll(data, len); 
 }
@@ -180,9 +180,9 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         //else if (json.containsKey("humidifier3")){humidifier3 = json["humidifier3"]; } // humidifierState2 = !humidifier2;
 
         else if (json.containsKey("manualMosfet1")){manualMosfet1 = json["manualMosfet1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualMosfet1), manualMosfet1);  EEPROM.commit(); };}
-        else if (json.containsKey("manualFanspeed1")){manualFanspeed1 = json["manualFanspeed1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualFanspeed1), manualFanspeed1);  EEPROM.commit(); };}
+        else if (json.containsKey("manualFanspeed1")){manualFanspeed1 = json["manualFanspeed1"]; if (manualMosfet1){fan1 = true; fanState1 = !fan1;}; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualFanspeed1), manualFanspeed1);  EEPROM.commit(); };}
         else if (json.containsKey("manualMosfet2")){manualMosfet2 = json["manualMosfet2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualMosfet2), manualMosfet2);  EEPROM.commit(); };}
-        else if (json.containsKey("manualFanspeed2")){manualFanspeed2 = json["manualFanspeed2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualFanspeed2), manualFanspeed2);  EEPROM.commit(); };}
+        else if (json.containsKey("manualFanspeed2")){manualFanspeed2 = json["manualFanspeed2"]; if (manualMosfet2){fan2 = true; fanState2 = !fan2;}; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualFanspeed2), manualFanspeed2);  EEPROM.commit(); };}
 
         else if (json.containsKey("OUTPUT_MIN1")){OUTPUT_MIN1 = json["OUTPUT_MIN1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, OUTPUT_MIN1), OUTPUT_MIN1);  EEPROM.commit(); };}
         else if (json.containsKey("OUTPUT_MAX1")){OUTPUT_MAX1 = json["OUTPUT_MAX1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, OUTPUT_MAX1), OUTPUT_MAX1);  EEPROM.commit(); };}
@@ -235,7 +235,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
 }  
 
 void sendProgramInfo(){
-StaticJsonDocument<1000> doc; // 2500
+StaticJsonDocument<2500> doc; // 2500
 doc["probeTypeT"] = probeTypeT;
 doc["probeCountT"]   = probeCountT;
 doc["probeTypeH"]   = probeTypeH;
@@ -337,13 +337,13 @@ doc["heater4"] = heater4;
 //doc["humidifier3"] = humidifier3;
 doc["saveInEEPROM"] = saveInEEPROM;
 
-char data[1000]; // 2500
+char data[2500]; // 2500
 size_t len = serializeJson(doc, data);
-    Serial.print("length: "); Serial.println(len);
+    //Serial.print("length: "); Serial.println(len);
     for (int i = 0; i < len;  i++){
-    Serial.print(data[i]);
+    //Serial.print(data[i]);
 }
-Serial.println(" ");
+//Serial.println(" ");
 ws.textAll(data, len);
 return;
 }

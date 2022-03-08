@@ -153,7 +153,7 @@ boolean wifiStationMode=false;
 float temperature1;
 boolean heater1; //boolean heaterON = false; // heater1
 float temperature6;
-uint8_t fanspeed1 = 127; // fanspeed
+byte fanspeed1 = 127; // fanspeed
 boolean fan1 = false; //boolean fanON = false;
 float humidity1;
 boolean humidifier1; //boolean humidifierON = false;
@@ -171,7 +171,7 @@ boolean fanState1 = !fan1;
 float temperature3;
 boolean heater2;
 float temperature7;
-uint8_t fanspeed2 = 127;
+byte fanspeed2 = 127;
 boolean fan2 = false;
 float humidity2;
 boolean humidifier2;

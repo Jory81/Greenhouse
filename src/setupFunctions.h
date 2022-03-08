@@ -60,7 +60,7 @@ void setupRTC(){
     Serial.println("Couldn't find RTC");
     while (1);
   }
-
+//rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
 }
 
 void setupWIFI(){

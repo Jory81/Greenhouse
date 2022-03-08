@@ -73,7 +73,7 @@ const int freq = 10;
 const int ledChannel1 = 0;
 const int resolution = 8;
 
-//#define OUTPUT_PIN2 0 // fan2 not tested
+#define OUTPUT_PIN2 0 // fan2 not tested
 //const int freq = 10;
 const int ledChannel2 = 1;
 
@@ -154,7 +154,7 @@ void initWebSocket();
 void handleWebSocketMessage(void *arg, uint8_t *data, size_t len);
 void notifyClients(); 
 void notifyClientsSingleObject(String object, boolean value);
-void notifyClientsSingleObjectByte(String object, uint8_t value);
+void notifyClientsSingleObjectByte(String object, byte value);
 void notifyClientsSingleString(String object, String &message);
 void sendProgramInfo();
 
@@ -187,10 +187,10 @@ setupOledScreen();
 setupSPIFFS();
 setupEEPROM();
 setupWIFI();
-//setupRTC();
+setupRTC();
 setupTempSensors();
 setupDHTSensors();
-//setupFans();
+setupFans();
 setupRelays();
 
 myPID.setBangBang(tempRange1);
@@ -201,7 +201,7 @@ void loop(){
     //ws.cleanupClients();
 
     if (millis() - previousMillis1 >= tempUpdate){
-      //timeControl();
+      timeControl();
       samplingTemp();        
       sendTempToClient();
       if (relay1Connected){executeTask(funcRelay1, manualRelay1, RELAYPIN1);};
@@ -225,23 +225,17 @@ void loop(){
     }
 
     if (millis() - previousMillis4 >= updateOledDisplay){
-      //displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
+      displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
     previousMillis4 = millis();
     }
     
     if (millis() - previousMillis5 >= updateFans){
       if (fan1Connected){
-        //fan1Control();
+        fan1Control();
         }
-      // else {
-      // ledcWrite(ledChannel1, 0);
-      // }
       if (fan2Connected){
-        //fan2Control();
+        fan2Control();
         }
-      // else {
-      //   ledcWrite(ledChannel2, 0);
-      // }
       previousMillis5 = millis();
     }
 }
@@ -252,6 +246,9 @@ void timeControl(){
 
   dateHour = now.hour();
   dateMinute = now.minute();
+
+  // Serial.println(dateHour);
+  // Serial.println(dateMinute);
 
   currentMillis = millis();
   seconds = currentMillis / 1000;
@@ -306,6 +303,7 @@ void syncTimeRTC(){
 
         rtc.adjust(DateTime(time.tm_year, time.tm_mon, time.tm_mday, time.tm_hour, time.tm_min, time.tm_sec));
       }
+
 }
 
 void executeTask(byte function, boolean manualRelay, const int relayPin){
@@ -607,7 +605,7 @@ else if (!manualMosfet1){
       //   outputVal1 = manualFanspeed1;
       // }
       else if (dhtTemp[0] > targetAirTemp1 && dhtTemp[0] < targetAirTemp1 + alarmRange1){
-        outputVal1 = modifiedMap((targetAirTemp1-dhtTemp[0]), 0, alarmRange1, OUTPUT_MIN1, OUTPUT_MAX1);
+        outputVal1 = modifiedMap((dhtTemp[0]-targetAirTemp1), 0, alarmRange1, OUTPUT_MIN1, OUTPUT_MAX1);
       }
       }
   }
@@ -627,10 +625,10 @@ if (fanState1 != fan1 || msgFanState1 == true){
   fanState1 = fan1;
   messageFanState1();
 }   
-Serial.println(outputVal1);
+//Serial.println(outputVal1);
 ledcWrite(ledChannel1, outputVal1);
 fanspeed1 = map(outputVal1, 0, 255, 0, 100);
-Serial.println(fanspeed1);
+//Serial.println(fanspeed1);
 notifyClientsSingleObjectByte("fanspeed1", fanspeed1);   
 }
 
@@ -669,7 +667,7 @@ else if (!manualMosfet2){
       //   outputVal2 = manualFanspeed2;
       // }
       else if (dhtTemp[1] > targetAirTemp2 && dhtTemp[1] < targetAirTemp2 + alarmRange2){
-        outputVal2 = modifiedMap((targetAirTemp2-dhtTemp[1]), 0, alarmRange2, OUTPUT_MIN2, OUTPUT_MAX2);
+        outputVal2 = modifiedMap((dhtTemp[1]-targetAirTemp2), 0, alarmRange2, OUTPUT_MIN2, OUTPUT_MAX2);
       }
     if (outputVal2 == 0){
       fan2 = false;
