@@ -73,7 +73,7 @@ const int freq = 10;
 const int ledChannel1 = 0;
 const int resolution = 8;
 
-#define OUTPUT_PIN2 0 // fan2 not tested
+//#define OUTPUT_PIN2 0 // fan2 not tested
 //const int freq = 10;
 const int ledChannel2 = 1;
 
@@ -187,10 +187,10 @@ setupOledScreen();
 setupSPIFFS();
 setupEEPROM();
 setupWIFI();
-setupRTC();
+//setupRTC();
 setupTempSensors();
 setupDHTSensors();
-setupFans();
+//setupFans();
 setupRelays();
 
 myPID.setBangBang(tempRange1);
@@ -201,7 +201,7 @@ void loop(){
     //ws.cleanupClients();
 
     if (millis() - previousMillis1 >= tempUpdate){
-      timeControl();
+      //timeControl();
       samplingTemp();        
       sendTempToClient();
       if (relay1Connected){executeTask(funcRelay1, manualRelay1, RELAYPIN1);};
@@ -225,23 +225,23 @@ void loop(){
     }
 
     if (millis() - previousMillis4 >= updateOledDisplay){
-      displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
+      //displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
     previousMillis4 = millis();
     }
     
     if (millis() - previousMillis5 >= updateFans){
       if (fan1Connected){
-        fan1Control();
+        //fan1Control();
         }
-      else {
-      ledcWrite(ledChannel1, 0);
-      }
+      // else {
+      // ledcWrite(ledChannel1, 0);
+      // }
       if (fan2Connected){
-        fan2Control();
+        //fan2Control();
         }
-      else {
-        ledcWrite(ledChannel2, 0);
-      }
+      // else {
+      //   ledcWrite(ledChannel2, 0);
+      // }
       previousMillis5 = millis();
     }
 }

@@ -156,6 +156,12 @@ void setupFans(){
   ledcSetup(ledChannel2, freq, resolution);
   ledcAttachPin(OUTPUT_PIN1, ledChannel1);
   ledcAttachPin(OUTPUT_PIN2, ledChannel2);
+  if (!fan1Connected){
+      ledcWrite(ledChannel1, 0);
+  }
+  if (!fan2Connected){
+        ledcWrite(ledChannel2, 0);
+  }
 }
 
 void setupRelays(){

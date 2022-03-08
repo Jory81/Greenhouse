@@ -235,7 +235,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
 }  
 
 void sendProgramInfo(){
-StaticJsonDocument<2500> doc;
+StaticJsonDocument<1000> doc; // 2500
 doc["probeTypeT"] = probeTypeT;
 doc["probeCountT"]   = probeCountT;
 doc["probeTypeH"]   = probeTypeH;
@@ -337,13 +337,13 @@ doc["heater4"] = heater4;
 //doc["humidifier3"] = humidifier3;
 doc["saveInEEPROM"] = saveInEEPROM;
 
-char data[2500];
+char data[1000]; // 2500
 size_t len = serializeJson(doc, data);
-    //Serial.print("length: "); Serial.println(len);
+    Serial.print("length: "); Serial.println(len);
     for (int i = 0; i < len;  i++){
-    //Serial.print(data[i]);
+    Serial.print(data[i]);
 }
-//Serial.println(" ");
+Serial.println(" ");
 ws.textAll(data, len);
 return;
 }
