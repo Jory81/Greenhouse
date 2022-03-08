@@ -3,7 +3,7 @@ float targetSoilTemp1 = 25.0f; //! float targetTemperature1=25.0f;
 float daySoilTemp1 = 26.0f;
 float nightSoilTemp1  =22.0f;
 float tempRange1 = 1.5f; //! float offsetTemperatureMin = 1.5f;
-float alarmRange1 = 10.0f; //! float offsetTemperatureMax=10.0f;
+float alarmRange1 = 5.0f; //! float offsetTemperatureMax=10.0f;
 boolean soilAlarm1 = false;
 float targetAirTemp1 = 25.0f; //!
 boolean airAlarm1 = false;
@@ -12,7 +12,7 @@ float targetSoilTemp2 = 25.0f;
 float daySoilTemp2 = 26.0f;
 float nightSoilTemp2  =22.0f;
 float tempRange2 = 1.5f;
-float alarmRange2 = 10.0f;
+float alarmRange2 = 5.0f;
 boolean soilAlarm2 = false;
 float targetAirTemp2 = 25.0f;
 boolean airAlarm2 = false;
@@ -21,14 +21,14 @@ float targetSoilTemp3 = 25.0f;
 float daySoilTemp3 = 26.0f;
 float nightSoilTemp3  =22.0f;
 float tempRange3 = 1.5f;
-float alarmRange3 = 10.0f;
+float alarmRange3 = 5.0f;
 boolean soilAlarm3 = false;
 
 float targetSoilTemp4 = 25.0f;
 float daySoilTemp4 = 26.0f;
 float nightSoilTemp4  =22.0f;
 float tempRange4 = 1.5f;
-float alarmRange4 = 10.0f;
+float alarmRange4 = 5.0f;
 boolean soilAlarm4 = false;
 
 float temp[4] = {0,0,0,0}; 
@@ -46,9 +46,11 @@ float totalTemp[4] = {0, 0, 0, 0};
 
 float preHumidity[3] = {0,0,0};
 float humidity[3] = {0,0,0};
+//float humidityCompare[3] = {0,0,0};
 
 float predhtTemp[3] = {0,0,0};
 float dhtTemp[3] = {0,0,0};
+//float dhtTempCompare[3] = {0,0,0};
 
 //FAN SETTINGS
 boolean manualMosfet1 = false; //boolean fanManual = false;
@@ -152,7 +154,7 @@ float temperature1;
 boolean heater1; //boolean heaterON = false; // heater1
 float temperature6;
 uint8_t fanspeed1 = 127; // fanspeed
-boolean fan1; //boolean fanON = false;
+boolean fan1 = false; //boolean fanON = false;
 float humidity1;
 boolean humidifier1; //boolean humidifierON = false;
 String lights1ON; //!
@@ -170,7 +172,7 @@ float temperature3;
 boolean heater2;
 float temperature7;
 uint8_t fanspeed2 = 127;
-boolean fan2;
+boolean fan2 = false;
 float humidity2;
 boolean humidifier2;
 String lights2ON; //!
@@ -197,13 +199,17 @@ boolean lights3;
 // boolean humidifierState2 = !humidifier2;
 boolean fanState2 = !fan2;
 
+boolean resetHumidity = false;
+boolean sensorsOff = false;
+int humidityCounter = 0;
+int resetCount = 0;
 //TIME RELATED PARAMETERS
 unsigned long previousMillis=0;
 unsigned long previousMillis1=0;
 unsigned long previousMillis2=0;
 unsigned long previousMillis3=0;
 unsigned long previousMillis4=0;
-//unsigned long previousMillis5=0;
+unsigned long previousMillis5=0;
 
 unsigned long currentMillis = 0;
 unsigned long seconds = 0;
@@ -375,20 +381,20 @@ storeInEEPROM customVar = {
       26.0f, // daySoilTemp1
       22.0f, // nightSoilTemp1
       25.0f, // targetAirTemp1
-      10.0f, // alarmTemp1
+      5.0f, // alarmTemp1
       1.5f, // temprange1
       26.0f, // daySoilTemp2
       22.0f, // nightSoilTemp2
       25.0f, // targetAirTemp2
-      10.0f, // alarmTemp2
+      5.0f, // alarmTemp2
       1.5f, // temprange2
       26.0f, // daySoilTemp3
       22.0f, // nightSoilTemp3
-      10.0f, // alarmTemp3
+      5.0f, // alarmTemp3
       1.5f, // temprange3
       26.0f, // daySoilTemp4
       22.0f, // nightSoilTemp4
-      10.0f, // alarmTemp4
+      5.0f, // alarmTemp4
       1.5f // temprange4        
     };
 

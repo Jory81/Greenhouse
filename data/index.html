@@ -282,7 +282,8 @@
 				<option value="6" >lights 2</option>
 				<option value="7" >lights 3</option>
 				<option value="8" >humidity 1</option>
-				<option value="9" >humidity 2</option>			
+				<option value="9" >humidity 2</option>
+				<option value="10" >DHTsensors</option>
 				</select>	
 			</span>
 			<br>
@@ -304,7 +305,8 @@
 				<option value="6" >lights 2</option>
 				<option value="7" >lights 3</option>
 				<option value="8" >humidity 1</option>
-				<option value="9" >humidity 2</option>			
+				<option value="9" >humidity 2</option>
+				<option value="10" >DHTsensors</option>			
 				</select>	
 			</span>
 			<br>
@@ -326,7 +328,8 @@
 				<option value="6" >lights 2</option>
 				<option value="7" >lights 3</option>
 				<option value="8" >humidity 1</option>
-				<option value="9" >humidity 2</option>					
+				<option value="9" >humidity 2</option>
+				<option value="10" >DHTsensors</option>					
 				</select>	
 			</span>
 			<br>
@@ -348,7 +351,8 @@
 				<option value="6" >lights 2</option>
 				<option value="7" >lights 3</option>
 				<option value="8" >humidity 1</option>
-				<option value="9" >humidity 2</option>					
+				<option value="9" >humidity 2</option>
+				<option value="10" >DHTsensors</option>					
 				</select>	
 			</span>
 			<br>
@@ -370,7 +374,8 @@
 				<option value="6" >lights 2</option>
 				<option value="7" >lights 3</option>
 				<option value="8" >humidity 1</option>
-				<option value="9" >humidity 2</option>			
+				<option value="9" >humidity 2</option>	
+				<option value="10" >DHTsensors</option>		
 				</select>	
 			</span>
 			<br>
@@ -392,7 +397,8 @@
 				<option value="6" >lights 2</option>
 				<option value="7" >lights 3</option>
 				<option value="8" >humidity 1</option>
-				<option value="9" >humidity 2</option>			
+				<option value="9" >humidity 2</option>	
+				<option value="10" >DHTsensors</option>		
 				</select>	
 			</span>	
 			<br>
@@ -763,13 +769,13 @@ console.log(gateway);
 
 var soiltemp2=0;
 var airtemp2=0;
-var fanspeed2=0;
+var Fanspeed2=0;
 var humidity2=0;
 var targetCelsius2=0;
 
 var soiltemp1=0;
 var airtemp1=0;
-var fanspeed1=0;
+var Fanspeed1=0;
 var humidity1=0;
 var targetCelsius1=0;
 
@@ -1015,8 +1021,8 @@ let data = JSON.parse(event.data);
 	else if (variable == 'humid2'){document.getElementById('humid2').innerHTML = data.humid2; humidity2 = data.humid2;}
 	//else if (variable == 'humid3'){document.getElementById('humid3').innerHTML = data.humid3; humidity3 = data.humid3;}
 
-	else if (variable == 'fanspeed1'){document.getElementById('fanspeed1').value = data.fanspeed1; fanspeed1 = data.fanspeed1}
-	else if (variable == 'fanspeed2'){document.getElementById('fanspeed2').value = data.fanspeed2; fanspeed2 = data.fanspeed2}
+	else if (variable == 'fanspeed1'){document.getElementById('fanspeed1').value = data.fanspeed1; Fanspeed1 = data.fanspeed1}
+	else if (variable == 'fanspeed2'){document.getElementById('fanspeed2').value = data.fanspeed2; Fanspeed2 = data.fanspeed2}
 
 	else if (variable == 'wifiID'){document.getElementById('wifiID').innerHTML = data.wifiID;}
 	else if (variable == 'wifiPASS'){document.getElementById('wifiPASS').innerHTML = data.wifiPASS;}
@@ -1112,7 +1118,7 @@ function drawChart1(){
             var x = (new Date()).getTime();
 			var currentCelsius = parseFloat(soiltemp1);
 			var currentAirCelsius = parseFloat(airtemp1);
-			var currentFanSpeed = parseFloat(fanspeed1);
+			var currentFanSpeed = parseFloat(Fanspeed1);
 			var currentHumidity = parseFloat(humidity1);
 			
 			if(chartT1.series[0].data.length > 1440) {
@@ -1212,7 +1218,7 @@ function drawChart2(){
             var x = (new Date()).getTime();
 			var currentCelsius = parseFloat(soiltemp2);
 			var currentAirCelsius = parseFloat(airtemp2);
-			var currentFanSpeed = parseFloat(fanspeed2);
+			var currentFanSpeed = parseFloat(Fanspeed2);
 			var currentHumidity = parseFloat(humidity2);
 			if(chartT2.series[0].data.length > 1440) {
 				chartT2.series[0].addPoint([x, currentCelsius], true, true, true);

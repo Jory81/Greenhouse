@@ -60,32 +60,31 @@ void notifyClientsSingleString(String object, String &message) {
 }
 
 void notifyClientsSingleObject(String object, boolean value) {
-    // String objectString = object;
-    //const uint8_t size = JSON_OBJECT_SIZE(1);
     StaticJsonDocument<50> doc;
     String key = object;
     boolean Value = value;
     doc[key] = Value; 
 
-    //serializeJson(doc, Serial);
-
     char data[50];
     size_t len = serializeJson(doc, data);
         for (int i = 0; i < len;  i++){
-      //Serial.print(data[i]);
     }
-    //Serial.println(" ");
     ws.textAll(data, len); 
 }
 
-void notifyClients() {
-    // const uint8_t size = JSON_OBJECT_SIZE(1);
-    // StaticJsonDocument<size> json;
-    // json["relay1"] = relay_temp1.on ? "on" : "off";
+void notifyClientsSingleObjectByte(String object, uint8_t value) {
+    StaticJsonDocument<50> doc;
+    String key = object;
+    boolean Value = value;
+    doc[key] = Value; 
 
-    // char buffer[17];
-    // size_t len = serializeJson(json, buffer);
-    // ws.textAll(buffer, len);
+    char data[50];
+    size_t len = serializeJson(doc, data);
+        Serial.print("length: "); Serial.println(len);
+        for (int i = 0; i < len;  i++){
+        Serial.print(data[i]);
+    }
+    ws.textAll(data, len); 
 }
 
 void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
@@ -178,7 +177,6 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
 
         else if (json.containsKey("lights3")){lights3 = json["lights3"]; } // lightState2 = !lights2;}
         else if (json.containsKey("heater3")){heater3 = json["heater3"]; }// heaterState2 = !heater2;// Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
-        //else if (json.containsKey("fan2")){fan2 = json["fan2"]; fanState2 = !fan2;}
         //else if (json.containsKey("humidifier3")){humidifier3 = json["humidifier3"]; } // humidifierState2 = !humidifier2;
 
         else if (json.containsKey("manualMosfet1")){manualMosfet1 = json["manualMosfet1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualMosfet1), manualMosfet1);  EEPROM.commit(); };}
@@ -202,7 +200,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         //else if (json.containsKey("humidMin3")){humidMin3 = json["humidMin3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMin3), humidMin3);  EEPROM.commit(); };}
         //else if (json.containsKey("humidMax3")){humidMax3 = json["humidMax3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMax3), humidMax3);  EEPROM.commit(); };}        
 
-        else if (json.containsKey("daySoilTemp1")){daySoilTemp1 = json["daySoilTemp1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, daySoilTemp1), daySoilTemp1);  EEPROM.commit(); };}
+        else if (json.containsKey("daySoilTemp1")){daySoilTemp1 = json["daySoilTemp1"]; targetSoilTemp1 = daySoilTemp1; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, daySoilTemp1), daySoilTemp1);  EEPROM.commit(); };}
         else if (json.containsKey("nightSoilTemp1")){nightSoilTemp1 = json["nightSoilTemp1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, nightSoilTemp1), nightSoilTemp1);  EEPROM.commit(); };}
         else if (json.containsKey("tempRange1")){tempRange1 = json["tempRange1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, tempRange1), tempRange1);  EEPROM.commit(); };}
         else if (json.containsKey("alarmRange1")){alarmRange1 = json["alarmRange1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, alarmRange1), alarmRange1);  EEPROM.commit(); };}
@@ -210,7 +208,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("targetAirTemp1")){targetAirTemp1 = json["targetAirTemp1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, targetAirTemp1), targetAirTemp1);  EEPROM.commit(); };}
         else if (json.containsKey("airAlarm1")){airAlarm1 = json["airAlarm1"];}
 
-        else if (json.containsKey("daySoilTemp2")){daySoilTemp2 = json["daySoilTemp2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, daySoilTemp2), daySoilTemp2);  EEPROM.commit(); };}
+        else if (json.containsKey("daySoilTemp2")){daySoilTemp2 = json["daySoilTemp2"]; targetSoilTemp2 = daySoilTemp2; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, daySoilTemp2), daySoilTemp2);  EEPROM.commit(); };}
         else if (json.containsKey("nightSoilTemp2")){nightSoilTemp2 = json["nightSoilTemp2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, nightSoilTemp2), nightSoilTemp2);  EEPROM.commit(); };}        
         else if (json.containsKey("tempRange2")){tempRange2 = json["tempRange2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, tempRange2), tempRange2);  EEPROM.commit(); };}
         else if (json.containsKey("alarmRange2")){alarmRange2 = json["alarmRange2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, alarmRange2), alarmRange2);  EEPROM.commit(); };}
@@ -218,13 +216,13 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("targetAirTemp2")){targetAirTemp2 = json["targetAirTemp2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, targetAirTemp2), targetAirTemp2);  EEPROM.commit(); };}
         else if (json.containsKey("airAlarm2")){airAlarm2 = json["airAlarm2"];}
 
-        else if (json.containsKey("daySoilTemp3")){daySoilTemp3 = json["daySoilTemp3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, daySoilTemp3), daySoilTemp3);  EEPROM.commit(); };}
+        else if (json.containsKey("daySoilTemp3")){daySoilTemp3 = json["daySoilTemp3"]; targetSoilTemp3 = daySoilTemp3; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, daySoilTemp3), daySoilTemp3);  EEPROM.commit(); };}
         else if (json.containsKey("nightSoilTemp3")){nightSoilTemp3 = json["nightSoilTemp3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, nightSoilTemp3), nightSoilTemp3);  EEPROM.commit(); };}        
         else if (json.containsKey("tempRange3")){tempRange3 = json["tempRange3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, tempRange3), tempRange3);  EEPROM.commit(); };}
         else if (json.containsKey("alarmRange3")){alarmRange3 = json["alarmRange3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, alarmRange3), alarmRange3);  EEPROM.commit(); };}
         else if (json.containsKey("soilAlarm3")){soilAlarm3 = json["soilAlarm3"];}
 
-        else if (json.containsKey("daySoilTemp4")){daySoilTemp4 = json["daySoilTemp4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, daySoilTemp4), daySoilTemp4);  EEPROM.commit(); };}
+        else if (json.containsKey("daySoilTemp4")){daySoilTemp4 = json["daySoilTemp4"]; targetSoilTemp4 = daySoilTemp4; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, daySoilTemp4), daySoilTemp4);  EEPROM.commit(); };}
         else if (json.containsKey("nightSoilTemp4")){nightSoilTemp4 = json["nightSoilTemp4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, nightSoilTemp4), nightSoilTemp4);  EEPROM.commit(); };}        
         else if (json.containsKey("tempRange4")){tempRange4 = json["tempRange4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, tempRange4), tempRange4);  EEPROM.commit(); };}
         else if (json.containsKey("alarmRange4")){alarmRange4 = json["alarmRange4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, alarmRange4), alarmRange4);  EEPROM.commit(); };}

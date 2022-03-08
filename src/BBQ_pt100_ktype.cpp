@@ -81,8 +81,9 @@ Thermocouple* thermocouple[5];
 //Thermocouple* thermocouple2;
 
 #define updateTempAndRelays 1000 //1000
-#define updateHumidity 2500
+#define updateHumidity 5000
 #define updateOledDisplay 5000
+#define updateFans 1000
 
 #define DHTPIN1 16 // 
 #define DHTPIN2 17
@@ -144,6 +145,8 @@ void heater3Control(boolean manualRelay, const int RELAYPIN);
 void heater4Control(boolean manualRelay, const int RELAYPIN);
 void humidity3Control(boolean manualRelay, const int RELAYPIN);
 
+void DHTsensors(boolean manualRelay, const int RELAYPIN);
+
 void onRootRequest(AsyncWebServerRequest *request);
 void initWebServer();
 void onEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len);
@@ -151,6 +154,7 @@ void initWebSocket();
 void handleWebSocketMessage(void *arg, uint8_t *data, size_t len);
 void notifyClients(); 
 void notifyClientsSingleObject(String object, boolean value);
+void notifyClientsSingleObjectByte(String object, uint8_t value);
 void notifyClientsSingleString(String object, String &message);
 void sendProgramInfo();
 
@@ -206,8 +210,6 @@ void loop(){
       if (relay4Connected){executeTask(funcRelay4, manualRelay4, RELAYPIN4);};
       if (relay5Connected){executeTask(funcRelay5, manualRelay5, RELAYPIN5);};
       if (relay6Connected){executeTask(funcRelay6, manualRelay6, RELAYPIN6);};
-      if (fan1Connected){fan1Control();}
-      if (fan2Connected){fan2Control();}
     previousMillis1 = millis();     
     }
 
@@ -226,7 +228,24 @@ void loop(){
       displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
     previousMillis4 = millis();
     }
+    
+    if (millis() - previousMillis5 >= updateFans){
+      if (fan1Connected){
+        fan1Control();
+        }
+      else {
+      ledcWrite(ledChannel1, 0);
+      }
+      if (fan2Connected){
+        fan2Control();
+        }
+      else {
+        ledcWrite(ledChannel2, 0);
+      }
+      previousMillis5 = millis();
+    }
 }
+
 
 void timeControl(){
   DateTime now = rtc.now();
@@ -301,6 +320,7 @@ void executeTask(byte function, boolean manualRelay, const int relayPin){
     case 7: light3Control(manualRelay, relayPin); break;
     case 8: humidity1Control(manualRelay, relayPin); break;
     case 9: humidity2Control(manualRelay, relayPin); break;
+    case 10: DHTsensors(manualRelay, relayPin); break;
     // case 10: humidity3Control(manualRelay, relayPin); break;
     default: break;
     return;
@@ -462,7 +482,7 @@ void humidity1Control(boolean manualRelay, const int relayPin){
     //if (humidifierState1 != humidifier1){
     if (humidifier1 != relayReg){
       //humidifierState1 = humidifier1;
-      digitalWrite(relayPin, humidifier1);
+      digitalWrite(relayPin, !humidifier1);
       notifyClientsSingleObject("humidifier1", humidifier1);
     }
     return;
@@ -481,7 +501,7 @@ bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPin
   // if (humidifierState2 != humidifier2){
   //   humidifierState2 = humidifier2;
   if (humidifier2 != relayReg){
-    digitalWrite(relayPin, humidifier2);
+    digitalWrite(relayPin, !humidifier2);
     notifyClientsSingleObject("humidifier2", humidifier2);
   }
   return;
@@ -543,26 +563,36 @@ void samplingHumidity(){
         preHumidity[sensor] = dht[sensor].readHumidity();
         predhtTemp[sensor] = dht[sensor].readTemperature();
           if(!isnan(predhtTemp[sensor]) && !isnan(preHumidity[sensor])){
-            dhtTemp[sensor] = predhtTemp[sensor] - calibrationValue[sensor+4];;
-            humidity[sensor] = preHumidity[sensor] - calibrationValue[sensor+6];;
+            dhtTemp[sensor] = predhtTemp[sensor] - calibrationValue[sensor+4];
+            humidity[sensor] = preHumidity[sensor] - calibrationValue[sensor+6];
             // Serial.printf("sensor %d humidity ", sensor); Serial.print(humidity[sensor]);
             // Serial.printf(" temp "); Serial.println(dhtTemp[sensor]);
           }
+          else {
+            humidityCounter++;
+            if (humidityCounter > 6){
+              resetHumidity = true;
+            }
+          }  
         }
+       //newHumidity = true; 
     }
 }
 
 void fan1Control(){ // CLIMATE 1 based on TargetAirTemp1 and value from DHT22 sensor.
 if (manualMosfet1){
-  if (fan1){ outputVal1=manualFanspeed1; }
-  else { outputVal1=0; }
+  if (fan1){
+    outputVal1 = manualFanspeed1;
+    }
+  else {outputVal1 = 0;
+  }
   if (msgFanState1){
     messageFanState1();
   }
 }
 else if (!manualMosfet1){
+  fan1 = true;
   if (!PIDcontrol){
-    fan1 = true;
     if (humidifier1){
       outputVal1 = OUTPUT_MIN1;
     }
@@ -570,36 +600,38 @@ else if (!manualMosfet1){
       if (dhtTemp[0] > targetAirTemp1 + alarmRange1){
         outputVal1 = OUTPUT_MAX1;
       }
-      else if (dhtTemp[0] < targetAirTemp1 - tempRange1){
-        outputVal1 = OUTPUT_MIN1;
+      else if (dhtTemp[0] < targetAirTemp1){ //  - tempRange1
+        outputVal1 = manualFanspeed1; // OUTPUT_MIN1
       }
-      else if (dhtTemp[0] > targetAirTemp1 - tempRange1 && dhtTemp[0] < targetAirTemp1 + tempRange1){
-        outputVal1 = manualFanspeed1;
-      }
-      else if (dhtTemp[0] > targetAirTemp1 + tempRange1 && dhtTemp[0] < targetAirTemp1 + alarmRange1){
-        outputVal1 = modifiedMap((targetAirTemp1-dhtTemp[0]), 0, tempRange1, OUTPUT_MIN1, OUTPUT_MAX1);
+      // else if (dhtTemp[0] > targetAirTemp1 - tempRange1 && dhtTemp[0] < targetAirTemp1 + tempRange1){
+      //   outputVal1 = manualFanspeed1;
+      // }
+      else if (dhtTemp[0] > targetAirTemp1 && dhtTemp[0] < targetAirTemp1 + alarmRange1){
+        outputVal1 = modifiedMap((targetAirTemp1-dhtTemp[0]), 0, alarmRange1, OUTPUT_MIN1, OUTPUT_MAX1);
       }
       }
   }
   else {
       temperature=dhtTemp[0];
       myPID.run(); //call every loop, updates automatically at certain time interval
-      if (outputVal1 < 5){
-        fan1 = false;
-      }
-      else{
-        fan1 = true;
-      }
   }
-  if (fanState1 != fan1 || msgFanState1 == true){
+  if (outputVal1 == 0){
+    fan1 = false;
+  }
+  else {
+    fan1 = true;
+  }
+}
+
+if (fanState1 != fan1 || msgFanState1 == true){
   fanState1 = fan1;
   messageFanState1();
-  }   
-}
-//Serial.println(outputVal);
+}   
+Serial.println(outputVal1);
 ledcWrite(ledChannel1, outputVal1);
 fanspeed1 = map(outputVal1, 0, 255, 0, 100);
-notifyClientsSingleObject("fanspeed1", fanspeed1);   
+Serial.println(fanspeed1);
+notifyClientsSingleObjectByte("fanspeed1", fanspeed1);   
 }
 
 void messageFanState1(){
@@ -611,8 +643,12 @@ return;
 
 void fan2Control(){ // CLIMATE 1 based on TargetAirTemp1 and value from DHT22 sensor.
 if (manualMosfet2){
-  if (fan2){ outputVal2=manualFanspeed2; }
-  else { outputVal2=0; }
+  if (fan2){
+    outputVal2 = manualFanspeed2;
+    }
+  else {
+    outputVal2 = 0;
+    }
   if (msgFanState2){
     messageFanState2();
   }
@@ -626,29 +662,53 @@ else if (!manualMosfet2){
       if (dhtTemp[1] > targetAirTemp2 + alarmRange2){
         outputVal2 = OUTPUT_MAX2;
       }
-      else if (dhtTemp[1] < targetAirTemp2 - tempRange2){
-        outputVal2 = OUTPUT_MIN2;
+      else if (dhtTemp[1] < targetAirTemp2){ //  - tempRange2
+        outputVal2 = manualFanspeed2; // OUTPUT_MIN2
       }
-      else if (dhtTemp[1] > targetAirTemp2 - tempRange2 && dhtTemp[1] < targetAirTemp2 + tempRange2){
-        outputVal2 = manualFanspeed2;
+      // else if (dhtTemp[1] > targetAirTemp2 - tempRange2 && dhtTemp[1] < targetAirTemp2 + tempRange2){
+      //   outputVal2 = manualFanspeed2;
+      // }
+      else if (dhtTemp[1] > targetAirTemp2 && dhtTemp[1] < targetAirTemp2 + alarmRange2){
+        outputVal2 = modifiedMap((targetAirTemp2-dhtTemp[1]), 0, alarmRange2, OUTPUT_MIN2, OUTPUT_MAX2);
       }
-      else if (dhtTemp[1] > targetAirTemp2 + tempRange2 && dhtTemp[1] < targetAirTemp2 + alarmRange2){
-        outputVal2 = modifiedMap((targetAirTemp2-dhtTemp[1]), 0, tempRange2, OUTPUT_MIN2, OUTPUT_MAX2);
-      }
-      }
-  if (fanState2 != fan2 || msgFanState2 == true){
-  fanState2 = fan2;
-  messageFanState2();
-  }   
+    if (outputVal2 == 0){
+      fan2 = false;
+    }
+    else{
+      fan2 = true;
+    }   
+  }
 }
+
+if (fanState2 != fan2 || msgFanState2 == true){
+fanState2 = fan2;
+messageFanState2();
+}
+
 //Serial.println(outputVal);
 ledcWrite(ledChannel2, outputVal2);
 fanspeed2 = map(outputVal2, 0, 255, 0, 100);
-notifyClientsSingleObject("fanspeed2", fanspeed2);   
+notifyClientsSingleObjectByte("fanspeed2", fanspeed2);   
 }
 
 void messageFanState2(){
 msgFanState2 = false;
 notifyClientsSingleObject("fan2", fan2);
 return;
+}
+
+void DHTsensors(boolean manualRelay, const int relayPin){
+bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
+if (relayReg == 0 && (sensorsOff)){
+  digitalWrite(relayPin, false); // boolean resetHumidity = false;
+  sensorsOff = false;
+}
+
+if (resetHumidity){
+  digitalWrite(relayPin, true); // boolean resetHumidity is also true
+    resetHumidity = false;
+    humidityCounter = 0;
+    sensorsOff = true;
+    resetCount = resetCount + 1;
+}
 }

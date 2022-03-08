@@ -152,14 +152,10 @@ void setupDHTSensors(){
 }
 
 void setupFans(){
-  if (fan1Connected){
-    ledcSetup(ledChannel1, freq, resolution);
-    ledcAttachPin(OUTPUT_PIN1, ledChannel1);
-  }
-  if (fan2Connected){
-    ledcSetup(ledChannel2, freq, resolution);
-    ledcAttachPin(OUTPUT_PIN2, ledChannel2);
-  }
+  ledcSetup(ledChannel1, freq, resolution);
+  ledcSetup(ledChannel2, freq, resolution);
+  ledcAttachPin(OUTPUT_PIN1, ledChannel1);
+  ledcAttachPin(OUTPUT_PIN2, ledChannel2);
 }
 
 void setupRelays(){
