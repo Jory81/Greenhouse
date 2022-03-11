@@ -916,19 +916,19 @@ let data = JSON.parse(event.data);
 	else if (variable == 'probeCountT'){document.getElementById('probeCountT').value = data.probeCountT;}
 	else if (variable == 'probeTypeH'){document.getElementById('probeTypeH').value = data.probeTypeH;}
 	else if (variable == 'probeCountH'){document.getElementById('probeCountH').value = data.probeCountH;}
-	else if (variable == 'relay1Connected'){document.getElementById('relay1Connected').checked = data.relay1Connected;}
-	else if (variable == 'relay2Connected'){document.getElementById('relay2Connected').checked = data.relay2Connected;}
-	else if (variable == 'relay3Connected'){document.getElementById('relay3Connected').checked = data.relay3Connected;}
-	else if (variable == 'relay4Connected'){document.getElementById('relay4Connected').checked = data.relay4Connected;}
-	else if (variable == 'relay5Connected'){document.getElementById('relay5Connected').checked = data.relay5Connected;}
-	else if (variable == 'relay6Connected'){document.getElementById('relay6Connected').checked = data.relay6Connected;}
+	else if (variable == 'relay1c'){document.getElementById('relay1Connected').checked = data.relay1c;}
+	else if (variable == 'relay2c'){document.getElementById('relay2Connected').checked = data.relay2c;}
+	else if (variable == 'relay3c'){document.getElementById('relay3Connected').checked = data.relay3c;}
+	else if (variable == 'relay4c'){document.getElementById('relay4Connected').checked = data.relay4c;}
+	else if (variable == 'relay5c'){document.getElementById('relay5Connected').checked = data.relay5c;}
+	else if (variable == 'relay6c'){document.getElementById('relay6Connected').checked = data.relay6c;}
 
-	else if (variable == 'funcRelay1'){document.getElementById('funcRelay1').value = data.funcRelay1;}
-	else if (variable == 'funcRelay2'){document.getElementById('funcRelay2').value = data.funcRelay2;}
-	else if (variable == 'funcRelay3'){document.getElementById('funcRelay3').value = data.funcRelay3;}
-	else if (variable == 'funcRelay4'){document.getElementById('funcRelay4').value = data.funcRelay4;}
-	else if (variable == 'funcRelay5'){document.getElementById('funcRelay5').value = data.funcRelay5;}
-	else if (variable == 'funcRelay6'){document.getElementById('funcRelay6').value = data.funcRelay6;}
+	else if (variable == 'relay1f'){document.getElementById('funcRelay1').value = data.relay1f;}
+	else if (variable == 'relay2f'){document.getElementById('funcRelay2').value = data.relay2f;}
+	else if (variable == 'relay3f'){document.getElementById('funcRelay3').value = data.relay3f;}
+	else if (variable == 'relay4f'){document.getElementById('funcRelay4').value = data.relay4f;}
+	else if (variable == 'relay5f'){document.getElementById('funcRelay5').value = data.relay5f;}
+	else if (variable == 'relay6f'){document.getElementById('funcRelay6').value = data.relay6f;}
 
 	else if (variable == 'fan1Connected'){document.getElementById('fan1Connected').checked = data.fan1Connected;}
 	else if (variable == 'fan2Connected'){document.getElementById('fan2Connected').checked = data.fan2Connected;}
@@ -937,14 +937,14 @@ let data = JSON.parse(event.data);
 	else if (variable == 'measurements'){document.getElementById('measurements').value = data.measurements;}
 	else if (variable == 'PIDcontrol'){document.getElementById('PIDcontrol').checked = data.PIDcontrol;}
 
-	else if (variable == 'calValue1'){document.getElementById('calValue1').value = data.calValue1;}
-	else if (variable == 'calValue2'){document.getElementById('calValue2').value = data.calValue2;}
-	else if (variable == 'calValue3'){document.getElementById('calValue3').value = data.calValue3;}
-	else if (variable == 'calValue4'){document.getElementById('calValue4').value = data.calValue4;}
-	else if (variable == 'calValue5'){document.getElementById('calValue5').value = data.calValue5;}
-	else if (variable == 'calValue6'){document.getElementById('calValue6').value = data.calValue6;}
-	else if (variable == 'calValue7'){document.getElementById('calValue7').value = data.calValue7;}
-	else if (variable == 'calValue8'){document.getElementById('calValue8').value = data.calValue8;}
+	else if (variable == 'calV1'){document.getElementById('calValue1').value = data.calV1;}
+	else if (variable == 'calV2'){document.getElementById('calValue2').value = data.calV2;}
+	else if (variable == 'calV3'){document.getElementById('calValue3').value = data.calV3;}
+	else if (variable == 'calV4'){document.getElementById('calValue4').value = data.calV4;}
+	else if (variable == 'calV5'){document.getElementById('calValue5').value = data.calV5;}
+	else if (variable == 'calV6'){document.getElementById('calValue6').value = data.calV6;}
+	else if (variable == 'calV7'){document.getElementById('calValue7').value = data.calV7;}
+	else if (variable == 'calV8'){document.getElementById('calValue8').value = data.calV8;}
 	//else if (variable == 'calValue9'){document.getElementById('calValue9').value = data.calValue9;}
 	//else if (variable == 'calValue10'){document.getElementById('calValue10').value = data.calValue10;}
 	//else if (variable == 'calValue11'){document.getElementById('calValue11').value = data.calValue11;}
@@ -954,9 +954,9 @@ let data = JSON.parse(event.data);
 	else if (variable == 'OUTPUT_MIN2'){document.getElementById('OUTPUT_MIN2').value = data.OUTPUT_MIN2;}
 	else if (variable == 'OUTPUT_MAX2'){document.getElementById('OUTPUT_MAX2').value = data.OUTPUT_MAX2;}
 
-	else if (variable == 'KP'){document.getElementById('KP').value = data.KP;}
-	else if (variable == 'KI'){document.getElementById('KI').value = data.KI;}
-	else if (variable == 'KD'){document.getElementById('KD').value = data.KD;}
+	// else if (variable == 'KP'){document.getElementById('KP').value = data.KP;}
+	// else if (variable == 'KI'){document.getElementById('KI').value = data.KI;}
+	// else if (variable == 'KD'){document.getElementById('KD').value = data.KD;}
 
 	else if (variable == 'lights1ON'){document.getElementById('lights1ON').innerHTML = data.lights1ON;}
 	else if (variable == 'lights1OFF'){document.getElementById('lights1OFF').innerHTML = data.lights1OFF;}
@@ -1000,9 +1000,9 @@ let data = JSON.parse(event.data);
 	else if (variable == 'alarmRange4'){document.getElementById('alarmRange4').value = data.alarmRange4;}
 	else if (variable == 'soilAlarm4'){document.getElementById('soilAlarm4').checked = data.soilAlarm4;}
 
-	else if (variable == 'manualMosfet1'){document.getElementById('manualMosfet1').checked = data.manualMosfet1;}
+	else if (variable == 'fan1m'){document.getElementById('manualMosfet1').checked = data.fan1m;}
 	else if (variable == 'manualFanspeed1'){document.getElementById('manualFanspeed1').value = data.manualFanspeed1;}
-	else if (variable == 'manualMosfet2'){document.getElementById('manualMosfet2').checked = data.manualMosfet2;}
+	else if (variable == 'fan2m'){document.getElementById('manualMosfet2').checked = data.fan2m;}
 	else if (variable == 'manualFanspeed2'){document.getElementById('manualFanspeed2').value = data.manualFanspeed2;}
 	else if (variable == 'fan1NightSwitch'){document.getElementById('fan1NightSwitch').checked = data.fan1NightSwitch;}
 	else if (variable == 'fan2NightSwitch'){document.getElementById('fan2NightSwitch').checked = data.fan2NightSwitch;}

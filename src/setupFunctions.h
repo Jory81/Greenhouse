@@ -185,6 +185,9 @@ void setupRelays(){
 }
 
 void initializeEEPROMvariables(){
+
+systemParam.probeTypeT  = EEPROM.read(offsetof(storeEEPROM, systemParam.probeTypeT));
+
 probeTypeT  = EEPROM.read(offsetof(storeInEEPROM, probeTypeT));
 probeCountT = EEPROM.read(offsetof(storeInEEPROM, probeCountT));
 probeTypeH  = EEPROM.read(offsetof(storeInEEPROM, probeTypeH));

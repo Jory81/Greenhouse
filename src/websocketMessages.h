@@ -113,122 +113,123 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         if (json.containsKey("requestInfo")){sendProgramInfo();}
         else if (json.containsKey("hours")){syncTimeRTC();} //
         else if (json.containsKey("saveInEEPROM")){saveInEEPROM = json["saveInEEPROM"];}   
-        else if (json.containsKey("ssid")){String wifiID = json["ssid"]; Serial.println(wifiID); EEPROMposition = offsetof(storeInEEPROM, ssidStorage[0]); writeStringToEEPROM(EEPROMposition, wifiID); notifyClientsSingleString("wifiID", wifiID);}
-        else if (json.containsKey("pass")){String wifiPASS = json["pass"]; Serial.println(wifiPASS); EEPROMposition = offsetof(storeInEEPROM, passStorage[0]); writeStringToEEPROM(EEPROMposition, wifiPASS); notifyClientsSingleString("wifiPASS", wifiPASS);}
+        else if (json.containsKey("ssid")){String wifiID = json["ssid"]; Serial.println(wifiID); EEPROMposition = offsetof(storeEEPROM, systemParam.SSID[0]); writeStringToEEPROM(EEPROMposition, wifiID); notifyClientsSingleString("wifiID", wifiID);}
+        else if (json.containsKey("pass")){String wifiPASS = json["pass"]; Serial.println(wifiPASS); EEPROMposition = offsetof(storeEEPROM, systemParam.PASS[0]); writeStringToEEPROM(EEPROMposition, wifiPASS); notifyClientsSingleString("wifiPASS", wifiPASS);}
+        
         // THESE SYSTEM VALUES ARE ALWAYS SAVED TO EEPROM
-        else if (json.containsKey("probeTypeT")){probeTypeT = json["probeTypeT"]; EEPROM.put(offsetof(storeInEEPROM, probeTypeT), probeTypeT);  EEPROM.commit(); }
-        else if (json.containsKey("probeCountT")){probeCountT = json["probeCountT"]; EEPROM.put(offsetof(storeInEEPROM, probeCountT), probeCountT);  EEPROM.commit();}
-        else if (json.containsKey("probeTypeH")){probeTypeH = json["probeTypeH"]; EEPROM.put(offsetof(storeInEEPROM, probeTypeH), probeTypeH);  EEPROM.commit();}
-        else if (json.containsKey("probeCountH")){probeCountH = json["probeCountH"]; EEPROM.put(offsetof(storeInEEPROM, probeCountH), probeCountH);  EEPROM.commit();}
-        else if (json.containsKey("relay1Connected")){relay1Connected = json["relay1Connected"]; EEPROM.put(offsetof(storeInEEPROM, relay1Connected), relay1Connected);  EEPROM.commit();}
-        else if (json.containsKey("relay2Connected")){relay2Connected = json["relay2Connected"]; EEPROM.put(offsetof(storeInEEPROM, relay2Connected), relay2Connected);  EEPROM.commit();}
-        else if (json.containsKey("relay3Connected")){relay3Connected = json["relay3Connected"]; EEPROM.put(offsetof(storeInEEPROM, relay3Connected), relay3Connected);  EEPROM.commit();}
-        else if (json.containsKey("relay4Connected")){relay4Connected = json["relay4Connected"]; EEPROM.put(offsetof(storeInEEPROM, relay4Connected), relay4Connected);  EEPROM.commit();}
-        else if (json.containsKey("relay5Connected")){relay5Connected = json["relay5Connected"]; EEPROM.put(offsetof(storeInEEPROM, relay5Connected), relay5Connected);  EEPROM.commit();}
-        else if (json.containsKey("relay6Connected")){relay6Connected = json["relay6Connected"]; EEPROM.put(offsetof(storeInEEPROM, relay6Connected), relay6Connected);  EEPROM.commit();}
+        else if (json.containsKey("probeTypeT")){systemParam.probeTypeT = json["probeTypeT"]; EEPROM.put(offsetof(storeEEPROM, systemParam.probeTypeT), systemParam.probeTypeT);  EEPROM.commit(); }
+        else if (json.containsKey("probeCountT")){systemParam.probeCountT = json["probeCountT"]; EEPROM.put(offsetof(storeEEPROM, systemParam.probeCountT), systemParam.probeCountT);  EEPROM.commit();}
+        else if (json.containsKey("probeTypeH")){systemParam.probeTypeH = json["probeTypeH"]; EEPROM.put(offsetof(storeEEPROM, systemParam.probeTypeH), systemParam.probeTypeH);  EEPROM.commit();}
+        else if (json.containsKey("probeCountH")){systemParam.probeCountH = json["probeCountH"]; EEPROM.put(offsetof(storeEEPROM, systemParam.probeCountH), systemParam.probeCountH);  EEPROM.commit();}
+        else if (json.containsKey("relay1Connected")){relay1.connected = json["relay1Connected"]; EEPROM.put(offsetof(storeEEPROM, relay1.connected), relay1.connected);  EEPROM.commit();}
+        else if (json.containsKey("relay2Connected")){relay2.connected = json["relay2Connected"]; EEPROM.put(offsetof(storeEEPROM, relay1.connected), relay1.connected);  EEPROM.commit();}
+        else if (json.containsKey("relay3Connected")){relay3.connected = json["relay3Connected"]; EEPROM.put(offsetof(storeEEPROM, relay1.connected), relay1.connected);  EEPROM.commit();}
+        else if (json.containsKey("relay4Connected")){relay4.connected = json["relay4Connected"]; EEPROM.put(offsetof(storeEEPROM, relay1.connected), relay1.connected);  EEPROM.commit();}
+        else if (json.containsKey("relay5Connected")){relay5.connected = json["relay5Connected"]; EEPROM.put(offsetof(storeEEPROM, relay1.connected), relay1.connected);  EEPROM.commit();}
+        else if (json.containsKey("relay6Connected")){relay6.connected = json["relay6Connected"]; EEPROM.put(offsetof(storeEEPROM, relay1.connected), relay1.connected);  EEPROM.commit();}
         
-        else if (json.containsKey("fan1Connected")){fan1Connected = json["fan1Connected"]; EEPROM.put(offsetof(storeInEEPROM, fan1Connected), fan1Connected);  EEPROM.commit();}
-        else if (json.containsKey("fan2Connected")){fan2Connected = json["fan2Connected"]; EEPROM.put(offsetof(storeInEEPROM, fan2Connected), fan2Connected);  EEPROM.commit();}
-        else if (json.containsKey("graphUpdate")){graphUpdate = json["graphUpdate"]; graphUpdate = graphUpdate*1000; EEPROM.put(offsetof(storeInEEPROM, graphUpdate), (graphUpdate));  EEPROM.commit();}
-        else if (json.containsKey("tempUpdate")){tempUpdate = json["tempUpdate"]; tempUpdate = tempUpdate*1000; EEPROM.put(offsetof(storeInEEPROM, tempUpdate), (tempUpdate));  EEPROM.commit();}
-        else if (json.containsKey("tempUpdate")){tempUpdate = json["tempUpdate"]; tempUpdate = tempUpdate*1000; EEPROM.put(offsetof(storeInEEPROM, tempUpdate), (tempUpdate));  EEPROM.commit();}
-        else if (json.containsKey("measurements")){measurements = json["measurements"]; measurements = measurements; EEPROM.put(offsetof(storeInEEPROM, measurements), (measurements));  EEPROM.commit();}
-        else if (json.containsKey("PIDcontrol")){PIDcontrol = json["PIDcontrol"]; EEPROM.put(offsetof(storeInEEPROM, PIDcontrol), PIDcontrol);  EEPROM.commit();}
+        else if (json.containsKey("fan1Connected")){fan1.connected = json["fan1Connected"]; EEPROM.put(offsetof(storeEEPROM, fan1.connected), fan1.connected);  EEPROM.commit();}
+        else if (json.containsKey("fan2Connected")){fan2.connected = json["fan2Connected"]; EEPROM.put(offsetof(storeEEPROM, fan2.connected), fan2.connected);  EEPROM.commit();}
+        else if (json.containsKey("graphUpdate")){systemParam.graphUpdate = json["graphUpdate"]; systemParam.graphUpdate = systemParam.graphUpdate*1000; EEPROM.put(offsetof(storeEEPROM, systemParam.graphUpdate), (systemParam.graphUpdate));  EEPROM.commit();}
+        else if (json.containsKey("tempUpdate")){systemParam.tempUpdate = json["tempUpdate"]; systemParam.tempUpdate = systemParam.tempUpdate*1000; EEPROM.put(offsetof(storeEEPROM, systemParam.tempUpdate), (systemParam.tempUpdate));  EEPROM.commit();}
+       
+        else if (json.containsKey("measurements")){systemParam.measurements = json["measurements"];  EEPROM.put(offsetof(storeEEPROM, systemParam.measurements), (systemParam.measurements));  EEPROM.commit();}
+        //else if (json.containsKey("PIDcontrol")){PIDcontrol = json["PIDcontrol"]; EEPROM.put(offsetof(storeInEEPROM, PIDcontrol), PIDcontrol);  EEPROM.commit();}
 
-        else if (json.containsKey("funcRelay1")){funcRelay1 = json["funcRelay1"]; EEPROM.put(offsetof(storeInEEPROM, funcRelay1), funcRelay1);  EEPROM.commit();}
-        else if (json.containsKey("funcRelay2")){funcRelay2 = json["funcRelay2"]; EEPROM.put(offsetof(storeInEEPROM, funcRelay2), funcRelay2);  EEPROM.commit();}
-        else if (json.containsKey("funcRelay3")){funcRelay3 = json["funcRelay3"]; EEPROM.put(offsetof(storeInEEPROM, funcRelay3), funcRelay3);  EEPROM.commit();}
-        else if (json.containsKey("funcRelay4")){funcRelay4 = json["funcRelay4"]; EEPROM.put(offsetof(storeInEEPROM, funcRelay4), funcRelay4);  EEPROM.commit();}
-        else if (json.containsKey("funcRelay5")){funcRelay5 = json["funcRelay5"]; EEPROM.put(offsetof(storeInEEPROM, funcRelay5), funcRelay5);  EEPROM.commit();}
-        else if (json.containsKey("funcRelay6")){funcRelay6 = json["funcRelay6"]; EEPROM.put(offsetof(storeInEEPROM, funcRelay6), funcRelay6);  EEPROM.commit();}
+        else if (json.containsKey("funcRelay1")){relay1.function = json["funcRelay1"]; EEPROM.put(offsetof(storeEEPROM, relay1.function), relay1.function);  EEPROM.commit();}
+        else if (json.containsKey("funcRelay2")){relay2.function = json["funcRelay2"]; EEPROM.put(offsetof(storeEEPROM, relay2.function), relay2.function);  EEPROM.commit();}
+        else if (json.containsKey("funcRelay3")){relay3.function = json["funcRelay3"]; EEPROM.put(offsetof(storeEEPROM, relay3.function), relay3.function);  EEPROM.commit();}
+        else if (json.containsKey("funcRelay4")){relay4.function = json["funcRelay4"]; EEPROM.put(offsetof(storeEEPROM, relay4.function), relay4.function);  EEPROM.commit();}
+        else if (json.containsKey("funcRelay5")){relay5.function = json["funcRelay5"]; EEPROM.put(offsetof(storeEEPROM, relay5.function), relay5.function);  EEPROM.commit();}
+        else if (json.containsKey("funcRelay6")){relay6.function = json["funcRelay6"]; EEPROM.put(offsetof(storeEEPROM, relay6.function), relay6.function);  EEPROM.commit();}
         
-        else if (json.containsKey("lights1ON")){String StoreLights1ON = json["lights1ON"]; String StoreLights1OFF = json["lights1OFF"]; EEPROMposition = offsetof(storeInEEPROM, lights1on[0]); writeStringToEEPROM(EEPROMposition, StoreLights1ON); EEPROMposition = offsetof(storeInEEPROM, lights1off[0]); writeStringToEEPROM(EEPROMposition, StoreLights1OFF); reInitializeTimeStrings();}
-        else if (json.containsKey("lights2ON")){String StoreLights2ON = json["lights2ON"]; String StoreLights2OFF = json["lights2OFF"]; EEPROMposition = offsetof(storeInEEPROM, lights2on[0]); writeStringToEEPROM(EEPROMposition, StoreLights2ON); EEPROMposition = offsetof(storeInEEPROM, lights2off[0]); writeStringToEEPROM(EEPROMposition, StoreLights2OFF); reInitializeTimeStrings();}
-        else if (json.containsKey("lights3ON")){String StoreLights3ON = json["lights3ON"]; String StoreLights3OFF = json["lights3OFF"]; EEPROMposition = offsetof(storeInEEPROM, lights3on[0]); writeStringToEEPROM(EEPROMposition, StoreLights3ON); EEPROMposition = offsetof(storeInEEPROM, lights3off[0]); writeStringToEEPROM(EEPROMposition, StoreLights3OFF); reInitializeTimeStrings();}
+        else if (json.containsKey("lights1ON")){String StoreLights1ON = json["lights1ON"]; String StoreLights1OFF = json["lights1OFF"]; EEPROMposition = offsetof(storeEEPROM, lights1.lightsOn[0]); writeStringToEEPROM(EEPROMposition, StoreLights1ON); EEPROMposition = offsetof(storeEEPROM, lights1.lightsOff[0]); writeStringToEEPROM(EEPROMposition, StoreLights1OFF); reInitializeTimeStrings();}
+        else if (json.containsKey("lights2ON")){String StoreLights2ON = json["lights2ON"]; String StoreLights2OFF = json["lights2OFF"]; EEPROMposition = offsetof(storeEEPROM, lights2.lightsOn[0]); writeStringToEEPROM(EEPROMposition, StoreLights2ON); EEPROMposition = offsetof(storeEEPROM, lights2.lightsOff[0]); writeStringToEEPROM(EEPROMposition, StoreLights2OFF); reInitializeTimeStrings();}
+        else if (json.containsKey("lights3ON")){String StoreLights3ON = json["lights3ON"]; String StoreLights3OFF = json["lights3OFF"]; EEPROMposition = offsetof(storeEEPROM, lights3.lightsOn[0]); writeStringToEEPROM(EEPROMposition, StoreLights3ON); EEPROMposition = offsetof(storeEEPROM, lights3.lightsOff[0]); writeStringToEEPROM(EEPROMposition, StoreLights3OFF); reInitializeTimeStrings();}
         // THESE VALUES ARE ONLY PERMANENTLT SWITCHED WHEN EEPROM BUTTON IS CHECKED
-        else if (json.containsKey("calValue1")){calibrationValue[0] = json["calValue1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[0]), calibrationValue[0]);  EEPROM.commit(); };}
-        else if (json.containsKey("calValue2")){calibrationValue[1] = json["calValue2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[1]), calibrationValue[1]);  EEPROM.commit(); };}
-        else if (json.containsKey("calValue3")){calibrationValue[2] = json["calValue3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[2]), calibrationValue[2]);  EEPROM.commit(); };}
-        else if (json.containsKey("calValue4")){calibrationValue[3] = json["calValue4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[3]), calibrationValue[3]);  EEPROM.commit(); };}
-        else if (json.containsKey("calValue5")){calibrationValue[4] = json["calValue5"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[4]), calibrationValue[4]);  EEPROM.commit(); };}
-        else if (json.containsKey("calValue6")){calibrationValue[5] = json["calValue6"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[5]), calibrationValue[5]);  EEPROM.commit(); };}
-        else if (json.containsKey("calValue7")){calibrationValue[6] = json["calValue7"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[6]), calibrationValue[6]);  EEPROM.commit(); };}
-        else if (json.containsKey("calValue8")){calibrationValue[7] = json["calValue8"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[7]), calibrationValue[7]);  EEPROM.commit(); };}
+        else if (json.containsKey("calValue1")){calSettings.pt100sensor[0] = json["calValue1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.pt100sensor[0]), calSettings.pt100sensor[0]);  EEPROM.commit(); };}
+        else if (json.containsKey("calValue2")){calSettings.pt100sensor[1] = json["calValue2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.pt100sensor[1]), calSettings.pt100sensor[1]);  EEPROM.commit(); };}
+        else if (json.containsKey("calValue3")){calSettings.pt100sensor[2] = json["calValue3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.pt100sensor[2]), calSettings.pt100sensor[2]);  EEPROM.commit(); };}
+        else if (json.containsKey("calValue4")){calSettings.pt100sensor[3] = json["calValue4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.pt100sensor[3]), calSettings.pt100sensor[3]);  EEPROM.commit(); };}
+        else if (json.containsKey("calValue5")){calSettings.dhtTemp[0] = json["calValue5"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.dhtTemp[0]), calSettings.dhtTemp[0]);  EEPROM.commit(); };}
+        else if (json.containsKey("calValue6")){calSettings.dhtTemp[1] = json["calValue6"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.dhtTemp[1]), calSettings.dhtTemp[1]);  EEPROM.commit(); };}
+        else if (json.containsKey("calValue7")){calSettings.dhtHumid[0] = json["calValue7"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.dhtHumid[0]), calSettings.dhtHumid[0]);  EEPROM.commit(); };}
+        else if (json.containsKey("calValue8")){calSettings.dhtTemp[1] = json["calValue8"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.dhtHumid[1]), calSettings.dhtHumid[1]);  EEPROM.commit(); };}
         // else if (json.containsKey("calValue9")){calibrationValue[8] = json["calValue9"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[8]), calibrationValue[8]);  EEPROM.commit(); };}
         // else if (json.containsKey("calValue10")){calibrationValue[9] = json["calValue10"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[9]), calibrationValue[9]);  EEPROM.commit(); };}
         // else if (json.containsKey("calValue11")){calibrationValue[10] = json["calValue11"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[10]), calibrationValue[10]);  EEPROM.commit(); };}
 
-        else if (json.containsKey("manualRelay1")){manualRelay1 = json["manualRelay1"];}
-        else if (json.containsKey("manualRelay2")){manualRelay2 = json["manualRelay2"];}
-        else if (json.containsKey("manualRelay3")){manualRelay3 = json["manualRelay3"];}
-        else if (json.containsKey("manualRelay4")){manualRelay4 = json["manualRelay4"];}
-        else if (json.containsKey("manualRelay5")){manualRelay5 = json["manualRelay5"];}
-        else if (json.containsKey("manualRelay6")){manualRelay6 = json["manualRelay6"];}
+        else if (json.containsKey("manualRelay1")){relay1.manual = json["manualRelay1"];}
+        else if (json.containsKey("manualRelay2")){relay2.manual = json["manualRelay2"];}
+        else if (json.containsKey("manualRelay3")){relay3.manual = json["manualRelay3"];}
+        else if (json.containsKey("manualRelay4")){relay4.manual = json["manualRelay4"];}
+        else if (json.containsKey("manualRelay5")){relay5.manual = json["manualRelay5"];}
+        else if (json.containsKey("manualRelay6")){relay6.manual = json["manualRelay6"];}
 
-        else if (json.containsKey("lights1")){lights1 = json["lights1"];} //lightState1 = !lights1;
-        else if (json.containsKey("heater1")){heater1 = json["heater1"]; }// heaterState1 = !heater1;//  Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
-        else if (json.containsKey("fan1")){fan1 = json["fan1"]; fanState1 = !fan1;}
-        else if (json.containsKey("humidifier1")){humidifier1 = json["humidifier1"]; } // humidifierState1 = !humidifier1;
+        else if (json.containsKey("lights1")){climate1.lights = json["lights1"];} //lightState1 = !lights1;
+        else if (json.containsKey("heater1")){climate1.heater = json["heater1"]; }// heaterState1 = !heater1;//  Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
+        else if (json.containsKey("fan1")){climate1.fan = json["fan1"]; fan1.fanState = !climate1.fan;}
+        else if (json.containsKey("humidifier1")){climate1.humidifier = json["humidifier1"]; } // humidifierState1 = !humidifier1;
 
-        else if (json.containsKey("lights2")){lights2 = json["lights2"]; } // lightState2 = !lights2;}
-        else if (json.containsKey("heater2")){heater2 = json["heater2"]; }// heaterState2 = !heater2;// Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
-        else if (json.containsKey("fan2")){fan2 = json["fan2"]; fanState2 = !fan2;}
-        else if (json.containsKey("humidifier2")){humidifier2 = json["humidifier2"]; } // humidifierState2 = !humidifier2;
+        else if (json.containsKey("lights2")){climate2.lights = json["lights2"]; } // lightState2 = !lights2;}
+        else if (json.containsKey("heater2")){climate2.heater = json["heater2"]; }// heaterState2 = !heater2;// Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
+        else if (json.containsKey("fan2")){climate2.fan = json["fan2"]; fan2.fanState = !climate2.fan;}
+        else if (json.containsKey("humidifier2")){climate2.humidifier = json["humidifier2"]; } // humidifierState2 = !humidifier2;
 
-        else if (json.containsKey("lights3")){lights3 = json["lights3"]; } // lightState2 = !lights2;}
-        else if (json.containsKey("heater3")){heater3 = json["heater3"]; }// heaterState2 = !heater2;// Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
+        else if (json.containsKey("lights3")){climate3.lights = json["lights3"]; } // lightState2 = !lights2;}
+        else if (json.containsKey("heater3")){climate3.heater = json["heater3"]; }// heaterState2 = !heater2;// Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
         //else if (json.containsKey("humidifier3")){humidifier3 = json["humidifier3"]; } // humidifierState2 = !humidifier2;
 
-        else if (json.containsKey("manualMosfet1")){manualMosfet1 = json["manualMosfet1"]; if (!manualMosfet1){manualFanspeed1 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed1));}; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualMosfet1), manualMosfet1);  EEPROM.commit(); };}
-        else if (json.containsKey("manualFanspeed1")){manualFanspeed1 = json["manualFanspeed1"]; if (manualMosfet1){fan1 = true; fanState1 = !fan1;}; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualFanspeed1), manualFanspeed1);  EEPROM.commit(); };}
-        else if (json.containsKey("manualMosfet2")){manualMosfet2 = json["manualMosfet2"]; if (!manualMosfet2){manualFanspeed2 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed2));}; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualMosfet2), manualMosfet2);  EEPROM.commit(); };}
-        else if (json.containsKey("manualFanspeed2")){manualFanspeed2 = json["manualFanspeed2"]; if (manualMosfet2){fan2 = true; fanState2 = !fan2;}; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualFanspeed2), manualFanspeed2);  EEPROM.commit(); };}
-        else if (json.containsKey("fan1NightSwitch")){fan1NightSwitch = json[fan1NightSwitch]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, fan1NightSwitch), fan1NightSwitch);  EEPROM.commit(); };}
-        else if (json.containsKey("fan2NightSwitch")){fan2NightSwitch = json[fan2NightSwitch]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, fan2NightSwitch), fan2NightSwitch);  EEPROM.commit(); };}
+        else if (json.containsKey("manualMosfet1")){fan1.manual = json["manualMosfet1"]; if (!fan1.manual){fan1.speed = EEPROM.read(offsetof(storeEEPROM, fan1.speed));}; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, fan1.manual), fan1.manual);  EEPROM.commit(); };}
+        else if (json.containsKey("manualFanspeed1")){fan1.speed = json["manualFanspeed1"]; if (fan2.manual){climate1.fan = true; fan1.fanState = !climate1.fan;}; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, fan1.speed), fan1.speed);  EEPROM.commit(); };}
+        else if (json.containsKey("manualMosfet2")){fan2.manual = json["manualMosfet2"]; if (!fan2.manual){fan2.speed = EEPROM.read(offsetof(storeEEPROM, fan2.manual));}; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, fan2.manual), fan2.manual);  EEPROM.commit(); };}
+        else if (json.containsKey("manualFanspeed2")){fan2.speed = json["manualFanspeed2"]; if (fan2.manual){climate2.fan = true; fan2.fanState = !climate2.fan;}; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, fan2.speed), fan2.speed);  EEPROM.commit(); };}
+        else if (json.containsKey("fan1daySwitch")){fan1.daySwitch = json[fan1.daySwitch]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, fan1.daySwitch), fan1.daySwitch);  EEPROM.commit(); };}
+        else if (json.containsKey("fan2daySwitch")){fan2.daySwitch = json[fan2.daySwitch]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, fan2.daySwitch), fan2.daySwitch);  EEPROM.commit(); };}
 
-        else if (json.containsKey("OUTPUT_MIN1")){OUTPUT_MIN1 = json["OUTPUT_MIN1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, OUTPUT_MIN1), OUTPUT_MIN1);  EEPROM.commit(); };}
-        else if (json.containsKey("OUTPUT_MAX1")){OUTPUT_MAX1 = json["OUTPUT_MAX1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, OUTPUT_MAX1), OUTPUT_MAX1);  EEPROM.commit(); };}
-        else if (json.containsKey("OUTPUT_MIN2")){OUTPUT_MIN2 = json["OUTPUT_MIN2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, OUTPUT_MIN2), OUTPUT_MIN2);  EEPROM.commit(); };}
-        else if (json.containsKey("OUTPUT_MAX2")){OUTPUT_MAX2 = json["OUTPUT_MAX2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, OUTPUT_MAX2), OUTPUT_MAX2);  EEPROM.commit(); };}
+        else if (json.containsKey("OUTPUT_MIN1")){fan1.output_min = json["OUTPUT_MIN1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, fan1.output_min), fan1.output_min);  EEPROM.commit(); };}
+        else if (json.containsKey("OUTPUT_MAX1")){fan1.output_max = json["OUTPUT_MAX1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, fan1.output_max), fan1.output_max);  EEPROM.commit(); };}
+        else if (json.containsKey("OUTPUT_MIN2")){fan2.output_min = json["OUTPUT_MIN2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, fan2.output_min), fan2.output_min);  EEPROM.commit(); };}
+        else if (json.containsKey("OUTPUT_MAX2")){fan2.output_max = json["OUTPUT_MAX2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, fan2.output_max), fan2.output_max);  EEPROM.commit(); };}
 
-        else if (json.containsKey("KP")){KP = json["KP"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, KP), KP);  EEPROM.commit(); };}
-        else if (json.containsKey("KI")){KI = json["KI"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, KI), KI);  EEPROM.commit(); };}
-        else if (json.containsKey("KD")){KD = json["KD"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, KD), KD);  EEPROM.commit(); };}
+        // else if (json.containsKey("KP")){KP = json["KP"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, KP), KP);  EEPROM.commit(); };}
+        // else if (json.containsKey("KI")){KI = json["KI"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, KI), KI);  EEPROM.commit(); };}
+        // else if (json.containsKey("KD")){KD = json["KD"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, KD), KD);  EEPROM.commit(); };}
 
-        else if (json.containsKey("humidMin1")){humidMin1 = json["humidMin1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMin1), humidMin1);  EEPROM.commit(); };}
-        else if (json.containsKey("humidMax1")){humidMax1 = json["humidMax1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMax1), humidMax1);  EEPROM.commit(); };}
-        else if (json.containsKey("humidMin2")){humidMin2 = json["humidMin2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMin2), humidMin2);  EEPROM.commit(); };}
-        else if (json.containsKey("humidMax2")){humidMax2 = json["humidMax2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMax2), humidMax2);  EEPROM.commit(); };}
+        else if (json.containsKey("humidMin1")){humidParam1.humidmin = json["humidMin1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, humidParam1.humidmin), humidParam1.humidmin);  EEPROM.commit(); };}
+        else if (json.containsKey("humidMax1")){humidParam1.humidmax = json["humidMax1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, humidParam1.humidmax), humidParam1.humidmax);  EEPROM.commit(); };}
+        else if (json.containsKey("humidMin2")){humidParam2.humidmin = json["humidMin2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, humidParam2.humidmin), humidParam2.humidmin);  EEPROM.commit(); };}
+        else if (json.containsKey("humidMax2")){humidParam2.humidmax = json["humidMax2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, humidParam2.humidmax), humidParam2.humidmax);  EEPROM.commit(); };}
         //else if (json.containsKey("humidMin3")){humidMin3 = json["humidMin3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMin3), humidMin3);  EEPROM.commit(); };}
         //else if (json.containsKey("humidMax3")){humidMax3 = json["humidMax3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, humidMax3), humidMax3);  EEPROM.commit(); };}        
 
-        else if (json.containsKey("daySoilTemp1")){daySoilTemp1 = json["daySoilTemp1"]; targetSoilTemp1 = daySoilTemp1; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, daySoilTemp1), daySoilTemp1);  EEPROM.commit(); };}
-        else if (json.containsKey("nightSoilTemp1")){nightSoilTemp1 = json["nightSoilTemp1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, nightSoilTemp1), nightSoilTemp1);  EEPROM.commit(); };}
-        else if (json.containsKey("tempRange1")){tempRange1 = json["tempRange1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, tempRange1), tempRange1);  EEPROM.commit(); };}
-        else if (json.containsKey("alarmRange1")){alarmRange1 = json["alarmRange1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, alarmRange1), alarmRange1);  EEPROM.commit(); };}
-        else if (json.containsKey("soilAlarm1")){soilAlarm1 = json["soilAlarm1"];}
-        else if (json.containsKey("targetAirTemp1")){targetAirTemp1 = json["targetAirTemp1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, targetAirTemp1), targetAirTemp1);  EEPROM.commit(); };}
-        else if (json.containsKey("airAlarm1")){airAlarm1 = json["airAlarm1"];}
+        else if (json.containsKey("daySoilTemp1")){tempParam1.daySoilTemp = json["daySoilTemp1"]; tempParam1.targetSoilTemp = tempParam1.daySoilTemp; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam1.daySoilTemp), tempParam1.daySoilTemp);  EEPROM.commit(); };}
+        else if (json.containsKey("nightSoilTemp1")){tempParam1.nightSoilTemp = json["nightSoilTemp1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam1.nightSoilTemp), tempParam1.nightSoilTemp);  EEPROM.commit(); };}
+        else if (json.containsKey("tempRange1")){tempParam1.tempRange = json["tempRange1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam1.tempRange), tempParam1.tempRange);  EEPROM.commit(); };}
+        else if (json.containsKey("alarmRange1")){tempParam1.alarmRange = json["alarmRange1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam1.alarmRange), tempParam1.alarmRange);  EEPROM.commit(); };}
+        else if (json.containsKey("soilAlarm1")){tempParam1.soilAlarm = json["soilAlarm1"];}
+        else if (json.containsKey("targetAirTemp1")){tempParam1.targetAirTemp = json["targetAirTemp1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam1.targetAirTemp), tempParam1.targetAirTemp);  EEPROM.commit(); };}
+        else if (json.containsKey("airAlarm1")){tempParam1.airAlarm = json["airAlarm1"];}
 
-        else if (json.containsKey("daySoilTemp2")){daySoilTemp2 = json["daySoilTemp2"]; targetSoilTemp2 = daySoilTemp2; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, daySoilTemp2), daySoilTemp2);  EEPROM.commit(); };}
-        else if (json.containsKey("nightSoilTemp2")){nightSoilTemp2 = json["nightSoilTemp2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, nightSoilTemp2), nightSoilTemp2);  EEPROM.commit(); };}        
-        else if (json.containsKey("tempRange2")){tempRange2 = json["tempRange2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, tempRange2), tempRange2);  EEPROM.commit(); };}
-        else if (json.containsKey("alarmRange2")){alarmRange2 = json["alarmRange2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, alarmRange2), alarmRange2);  EEPROM.commit(); };}
-        else if (json.containsKey("soilAlarm2")){soilAlarm2 = json["soilAlarm2"];}
-        else if (json.containsKey("targetAirTemp2")){targetAirTemp2 = json["targetAirTemp2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, targetAirTemp2), targetAirTemp2);  EEPROM.commit(); };}
-        else if (json.containsKey("airAlarm2")){airAlarm2 = json["airAlarm2"];}
+        else if (json.containsKey("daySoilTemp2")){tempParam2.daySoilTemp = json["daySoilTemp2"]; tempParam2.targetSoilTemp = tempParam2.daySoilTemp; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam2.daySoilTemp), tempParam2.daySoilTemp);  EEPROM.commit(); };}
+        else if (json.containsKey("nightSoilTemp2")){tempParam2.nightSoilTemp = json["nightSoilTemp2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam2.nightSoilTemp), tempParam2.nightSoilTemp);  EEPROM.commit(); };}        
+        else if (json.containsKey("tempRange2")){tempParam2.tempRange = json["tempRange2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam2.tempRange), tempParam2.tempRange);  EEPROM.commit(); };}
+        else if (json.containsKey("alarmRange2")){tempParam2.alarmRange = json["alarmRange2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam2.alarmRange), tempParam2.alarmRange);  EEPROM.commit(); };}
+        else if (json.containsKey("soilAlarm2")){tempParam2.soilAlarm = json["soilAlarm2"];}
+        else if (json.containsKey("targetAirTemp2")){tempParam2.targetAirTemp = json["targetAirTemp2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam2.targetAirTemp), tempParam2.targetAirTemp);  EEPROM.commit(); };}
+        else if (json.containsKey("airAlarm2")){tempParam2.airAlarm = json["airAlarm2"];}
 
-        else if (json.containsKey("daySoilTemp3")){daySoilTemp3 = json["daySoilTemp3"]; targetSoilTemp3 = daySoilTemp3; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, daySoilTemp3), daySoilTemp3);  EEPROM.commit(); };}
-        else if (json.containsKey("nightSoilTemp3")){nightSoilTemp3 = json["nightSoilTemp3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, nightSoilTemp3), nightSoilTemp3);  EEPROM.commit(); };}        
-        else if (json.containsKey("tempRange3")){tempRange3 = json["tempRange3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, tempRange3), tempRange3);  EEPROM.commit(); };}
-        else if (json.containsKey("alarmRange3")){alarmRange3 = json["alarmRange3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, alarmRange3), alarmRange3);  EEPROM.commit(); };}
-        else if (json.containsKey("soilAlarm3")){soilAlarm3 = json["soilAlarm3"];}
+        else if (json.containsKey("daySoilTemp3")){tempParam3.daySoilTemp = json["daySoilTemp3"]; tempParam3.targetSoilTemp = tempParam3.daySoilTemp; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam3.daySoilTemp), tempParam3.daySoilTemp);  EEPROM.commit(); };}
+        else if (json.containsKey("nightSoilTemp3")){tempParam3.nightSoilTemp = json["nightSoilTemp3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam3.nightSoilTemp), tempParam3.nightSoilTemp);  EEPROM.commit(); };}        
+        else if (json.containsKey("tempRange3")){tempParam3.tempRange = json["tempRange3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam3.tempRange), tempParam3.tempRange);  EEPROM.commit(); };}
+        else if (json.containsKey("alarmRange3")){tempParam3.alarmRange = json["alarmRange3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam3.alarmRange), tempParam3.alarmRange);  EEPROM.commit(); };}
+        else if (json.containsKey("soilAlarm3")){tempParam3.soilAlarm = json["soilAlarm3"];}
 
-        else if (json.containsKey("daySoilTemp4")){daySoilTemp4 = json["daySoilTemp4"]; targetSoilTemp4 = daySoilTemp4; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, daySoilTemp4), daySoilTemp4);  EEPROM.commit(); };}
-        else if (json.containsKey("nightSoilTemp4")){nightSoilTemp4 = json["nightSoilTemp4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, nightSoilTemp4), nightSoilTemp4);  EEPROM.commit(); };}        
-        else if (json.containsKey("tempRange4")){tempRange4 = json["tempRange4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, tempRange4), tempRange4);  EEPROM.commit(); };}
-        else if (json.containsKey("alarmRange4")){alarmRange4 = json["alarmRange4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, alarmRange4), alarmRange4);  EEPROM.commit(); };}
-        else if (json.containsKey("soilAlarm4")){soilAlarm4 = json["soilAlarm4"];}        
+        else if (json.containsKey("daySoilTemp4")){tempParam4.daySoilTemp = json["daySoilTemp4"]; tempParam4.targetSoilTemp = tempParam4.daySoilTemp; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam4.daySoilTemp), tempParam4.daySoilTemp);  EEPROM.commit(); };}
+        else if (json.containsKey("nightSoilTemp4")){tempParam4.nightSoilTemp = json["nightSoilTemp4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam4.nightSoilTemp), tempParam4.nightSoilTemp);  EEPROM.commit(); };}        
+        else if (json.containsKey("tempRange4")){tempParam4.tempRange = json["tempRange4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam4.tempRange), tempParam4.tempRange);  EEPROM.commit(); };}
+        else if (json.containsKey("alarmRange4")){tempParam4.alarmRange = json["alarmRange4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, tempParam4.alarmRange), tempParam4.alarmRange);  EEPROM.commit(); };}
+        else if (json.containsKey("soilAlarm4")){tempParam4.soilAlarm = json["soilAlarm4"];}        
         //else if (json.containsKey("targetAirTemp3")){targetAirTemp3 = json["targetAirTemp3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, targetAirTemp3), targetAirTemp3);  EEPROM.commit(); };}
         //else if (json.containsKey("airAlarm3")){airAlarm3 = json["airAlarm3"];}        
         else if (json.containsKey("Reboot")){ESP.restart();}
@@ -238,105 +239,120 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
 
 void sendProgramInfo(){
 StaticJsonDocument<2500> doc; // 2500
-doc["probeTypeT"] = probeTypeT;
-doc["probeCountT"]   = probeCountT;
-doc["probeTypeH"]   = probeTypeH;
-doc["probeCountH"]   = probeCountH;
-doc["relay1Connected"]   = relay1Connected;
-doc["relay2Connected"]   = relay2Connected;
-doc["relay3Connected"]   = relay3Connected;
-doc["relay4Connected"]   = relay4Connected;
-doc["relay5Connected"]   = relay5Connected;
-doc["relay6Connected"]   = relay6Connected;
-doc["fan1Connected"]   =     fan1Connected;
-doc["fan2Connected"]   =     fan2Connected;
-doc["graphUpdate"]   = graphUpdate/1000;
-doc["tempUpdate"]   = tempUpdate/1000;
-doc["measurements"] = measurements;
-doc["PIDcontrol"]   = PIDcontrol;
-doc["calValue1"]   = String(calibrationValue[0],2);
-doc["calValue2"]   = String(calibrationValue[1],2);
-doc["calValue3"]   = String(calibrationValue[2],2);
-doc["calValue4"]   = String(calibrationValue[3],2);
-doc["calValue5"]   = String(calibrationValue[4],2);
-doc["calValue6"]   = String(calibrationValue[5],2);
-doc["calValue7"]   = String(calibrationValue[6],2);
-doc["calValue8"]   = String(calibrationValue[7],2);
+doc["probeTypeT"] = systemParam.probeTypeT;
+doc["probeCountT"]   = systemParam.probeCountT;
+doc["probeTypeH"]   = systemParam.probeTypeH;
+doc["probeCountH"]   = systemParam.probeCountH;
+doc["graphUpdate"]   = systemParam.graphUpdate/1000;
+doc["tempUpdate"]   = systemParam.tempUpdate/1000;
+doc["measurements"] = systemParam.measurements;
 
-doc["manualRelay1"] = manualRelay1;
-doc["manualRelay2"] = manualRelay2;
-doc["manualRelay3"] = manualRelay3;
-doc["manualRelay4"] = manualRelay4;
-doc["manualRelay5"] = manualRelay5;
-doc["manualRelay6"] = manualRelay6;
-doc["funcRelay1"] = funcRelay1;
-doc["funcRelay2"] = funcRelay2;
-doc["funcRelay3"] = funcRelay3;
-doc["funcRelay4"] = funcRelay4;
-doc["funcRelay5"] = funcRelay5;
-doc["funcRelay6"] = funcRelay6;
-doc["OUTPUT_MIN1"]   = String(OUTPUT_MIN1,2);
-doc["OUTPUT_MAX1"]   = String(OUTPUT_MAX1,2);
-doc["OUTPUT_MIN2"]   = String(OUTPUT_MIN2,2);
-doc["OUTPUT_MAX2"]   = String(OUTPUT_MAX2,2);
-doc["KP"]   = String(KP,2); // may require more decimals
-doc["KI"]   = String(KI,2); // may require more decimals
-doc["KD"]   = String(KD,2); // may require more decimals
-doc["lights1ON"] = lights1ON;
-doc["lights1OFF"] = lights1OFF;
-doc["lights2ON"] = lights2ON;
-doc["lights2OFF"] = lights2OFF;
-doc["lights3ON"] = lights3ON;
-doc["lights3OFF"] = lights3OFF;
-doc["humidMin1"] = humidMin1;
-doc["humidMax1"] = humidMax1;
-doc["humidMin2"] = humidMin2;
-doc["humidMax2"] = humidMax2;
+// doc["PIDcontrol"]   = PIDcontrol;
+
+doc["calV1"]   = String(calSettings.pt100sensor[0],2);
+doc["calV2"]   = String(calSettings.pt100sensor[1],2);
+doc["calV3"]   = String(calSettings.pt100sensor[2],2);
+doc["calV4"]   = String(calSettings.pt100sensor[3],2);
+doc["calV5"]   = String(calSettings.dhtTemp[0],2);
+doc["calV6"]   = String(calSettings.dhtTemp[1],2);
+doc["calV7"]   = String(calSettings.dhtHumid[0],2);
+doc["calV8"]   = String(calSettings.dhtHumid[1],2);
+
+doc["relay1c"]   = relay1.connected;
+doc["relay2c"]   = relay2.connected;
+doc["relay3c"]   = relay3.connected;
+doc["relay4c"]   = relay4.connected;
+doc["relay5c"]   = relay5.connected;
+doc["relay6c"]   = relay6.connected;
+
+doc["relay1m"] = relay1.manual;
+doc["relay2m"] = relay2.manual;
+doc["relay3m"] = relay3.manual;
+doc["relay4m"] = relay4.manual;
+doc["relay5m"] = relay5.manual;
+doc["relay6m"] = relay6.manual;
+
+doc["relay1f"] = relay1.function;
+doc["relay2f"] = relay2.function;
+doc["relay3f"] = relay3.function;
+doc["relay4f"] = relay4.function;
+doc["relay5f"] = relay5.function;
+doc["relay6f"] = relay6.function;
+
+doc["OUTPUT_MIN1"]   = String(fan1.output_min,2);
+doc["OUTPUT_MAX1"]   = String(fan1.output_max,2);
+doc["OUTPUT_MIN2"]   = String(fan2.output_min,2);
+doc["OUTPUT_MAX2"]   = String(fan2.output_max,2);
+// doc["KP"]   = String(KP,2); // may require more decimals
+// doc["KI"]   = String(KI,2); // may require more decimals
+// doc["KD"]   = String(KD,2); // may require more decimals
+
+doc["humidMin1"] = humidParam1.humidmin;
+doc["humidMax1"] = humidParam1.humidmax;
+doc["humidMin2"] = humidParam2.humidmin;
+doc["humidMax2"] = humidParam2.humidmax;
 // doc["humidMin3"] = humidMin3;
 // doc["humidMax3"] = humidMax3;
-doc["daySoilTemp1"] = String(daySoilTemp1,2);
-doc["nightSoilTemp1"] = String(nightSoilTemp1,2);
-doc["tempRange1"] = String(tempRange1,2);
-doc["alarmRange1"] = String(alarmRange1,2);
-doc["soilAlarm1"] = soilAlarm1;
-doc["targetAirTemp1"] = String(targetAirTemp1,2);
-doc["airAlarm1"] = airAlarm1;
-doc["daySoilTemp2"] = String(daySoilTemp2,2);
-doc["nightSoilTemp2"] = String(nightSoilTemp2,2);
-doc["tempRange2"] = String(tempRange2,2);
-doc["alarmRange2"] = String(alarmRange2,2);
-doc["soilAlarm2"] = soilAlarm2;
-doc["targetAirTemp2"] = String(targetAirTemp2,2);
-doc["airAlarm2"] = airAlarm2;
-doc["daySoilTemp3"] = String(daySoilTemp3,2);
-doc["nightSoilTemp3"] = String(nightSoilTemp3,2);
-doc["tempRange3"] = String(tempRange3,2);
-doc["alarmRange3"] = String(alarmRange3,2);
-doc["soilAlarm3"] = soilAlarm3;
-doc["daySoilTemp4"] = String(daySoilTemp4,2);
-doc["nightSoilTemp4"] = String(nightSoilTemp4,2);
-doc["tempRange4"] = String(tempRange4,2);
-doc["alarmRange4"] = String(alarmRange4,2);
-doc["soilAlarm4"] = soilAlarm4;
+doc["daySoilTemp1"] = String(tempParam1.daySoilTemp,2);
+doc["nightSoilTemp1"] = String(tempParam1.nightSoilTemp,2);
+doc["tempRange1"] = String(tempParam1.tempRange,2);
+doc["alarmRange1"] = String(tempParam1.alarmRange,2);
+doc["soilAlarm1"] = tempParam1.soilAlarm;
+doc["targetAirTemp1"] = String(tempParam1.targetAirTemp,2);
+doc["airAlarm1"] = tempParam1.airAlarm;
+
+doc["daySoilTemp2"] = String(tempParam2.daySoilTemp,2);
+doc["nightSoilTemp2"] = String(tempParam2.nightSoilTemp,2);
+doc["tempRange2"] = String(tempParam2.tempRange,2);
+doc["alarmRange2"] = String(tempParam2.alarmRange,2);
+doc["soilAlarm2"] = tempParam2.soilAlarm;
+doc["targetAirTemp2"] = String(tempParam2.targetAirTemp,2);
+doc["airAlarm2"] = tempParam2.airAlarm;
+
+doc["daySoilTemp3"] = String(tempParam3.daySoilTemp,2);
+doc["nightSoilTemp3"] = String(tempParam3.nightSoilTemp,2);
+doc["tempRange3"] = String(tempParam3.tempRange,2);
+doc["alarmRange3"] = String(tempParam3.alarmRange,2);
+doc["soilAlarm3"] = tempParam3.soilAlarm;
+
+doc["daySoilTemp4"] = String(tempParam4.daySoilTemp,2);
+doc["nightSoilTemp4"] = String(tempParam4.nightSoilTemp,2);
+doc["tempRange4"] = String(tempParam4.tempRange,2);
+doc["alarmRange4"] = String(tempParam4.alarmRange,2);
+doc["soilAlarm4"] = tempParam4.soilAlarm;
 //doc["targetAirTemp3"] = String(targetAirTemp3,2);
 //doc["airAlarm3"] = airAlarm3;
-doc["manualMosfet1"] = manualMosfet1;
-doc["manualFanspeed1"] = manualFanspeed1;
-doc["manualMosfet2"] = manualMosfet2;
-doc["manualFanspeed2"] = manualFanspeed2;
-doc["fan1NightSwitch"] = fan1NightSwitch;
-doc["fan2NightSwitch"] = fan2NightSwitch;
-doc["lights1"] = lights1;
-doc["heater1"] = heater1;
-doc["fan1"] = fan1;
-doc["humidifier1"] = humidifier1;
-doc["lights2"] = lights2;
-doc["heater2"] = heater2;
-doc["fan2"] = fan2;
-doc["humidifier2"] = humidifier2;
-doc["lights3"] = lights3;
-doc["heater3"] = heater3;
-doc["heater4"] = heater4;
+doc["fan1c"] = fan1.connected;
+doc["fan2c"] = fan2.connected;
+
+doc["fan1m"] = fan1.manual;
+doc["manualFanspeed1"] = fan1.manualSpeed;
+doc["fan2m"] = fan2.manual;
+doc["manualFanspeed2"] = fan2.manualSpeed;
+doc["fan1daySwitch"] = fan1.daySwitch;
+doc["fan2daySwitch"] = fan2.daySwitch;
+
+doc["lights1ON"] = climate1.lightsON;
+doc["lights1OFF"] = climate1.lightsOFF;
+doc["lights2ON"] = climate2.lightsON;
+doc["lights2OFF"] = climate2.lightsOFF;
+doc["lights3ON"] = climate3.lightsON;
+doc["lights3OFF"] = climate3.lightsOFF;
+
+doc["lights1"] = climate1.lights;
+doc["heater1"] = climate1.heater;
+doc["fan1"] = climate1.fan;
+doc["humidifier1"] = climate1.humidifier;
+
+doc["lights2"] = climate2.lights;
+doc["heater2"] = climate2.heater;
+doc["fan2"] = climate2.fan;
+doc["humidifier2"] = climate2.humidifier;
+
+doc["lights3"] = climate3.lights;
+doc["heater3"] = climate3.heater;
+
+doc["heater4"] = climate4.heater;
 //doc["fan3"] = fan3;
 //doc["humidifier3"] = humidifier3;
 doc["saveInEEPROM"] = saveInEEPROM;
@@ -344,9 +360,9 @@ doc["saveInEEPROM"] = saveInEEPROM;
 char data[2500]; // 2500
 size_t len = serializeJson(doc, data);
     //Serial.print("length: "); Serial.println(len);
-    for (int i = 0; i < len;  i++){
+    //for (int i = 0; i < len;  i++){
     //Serial.print(data[i]);
-}
+//}
 //Serial.println(" ");
 ws.textAll(data, len);
 return;
@@ -435,7 +451,7 @@ void sendHumidityToClient(){
 }
 
 void updateGraph (){
-    if (probeCountT > 2){
+    if (systemParam.probeCountT > 2){
         notifyClientsSingleObject("updateGraph", true);
     }
     else {

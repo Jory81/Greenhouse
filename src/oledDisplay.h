@@ -4,32 +4,32 @@ void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
   display.clearDisplay();
   display.setTextSize(1);
   char buffer[40];
-  if (probeCountT >= 1){
+  if (systemParam.probeCountT >= 1){
    display.setCursor(0,8);
-  sprintf(buffer, "T1: %2.1f   %2.1f", temp1, calibrationValue[0]);  
+  sprintf(buffer, "T1: %2.1f   %2.1f", temp1, calSettings.pt100sensor[0]);  
   display.print(buffer);
   }
-  if (probeCountT >= 2){
+  if (systemParam.probeCountT >= 2){
   display.setCursor(0,16);
-  sprintf(buffer, "T2: %2.1f   %2.1f", temp2, calibrationValue[1]);  
+  sprintf(buffer, "T2: %2.1f   %2.1f", temp2, calSettings.pt100sensor[1]);  
   display.print(buffer);
   }
-  if (probeCountT >= 3){
+  if (systemParam.probeCountT >= 3){
   display.setCursor(0,24);
-  sprintf(buffer, "T3: %2.1f   %2.1f", temp3, calibrationValue[2]);  
+  sprintf(buffer, "T3: %2.1f   %2.1f", temp3, calSettings.pt100sensor[2]);  
   display.print(buffer);
   }
-  if (probeCountT >= 4){
+  if (systemParam.probeCountT >= 4){
   display.setCursor(0,32);
-  sprintf(buffer, "T4: %2.1f   %2.1f", temp4, calibrationValue[3]);  
+  sprintf(buffer, "T4: %2.1f   %2.1f", temp4, calSettings.pt100sensor[3]);  
   display.print(buffer);
   }
-  if (probeCountH >= 1){
+  if (systemParam.probeCountH >= 1){
   display.setCursor(0,40);
   sprintf(buffer, "DHT1: %2.1f   %2.1f", dhtTemp[0], humidity[0]);  
   display.print(buffer);
   }
-  if (probeCountH >= 1){ 
+  if (systemParam.probeCountH >= 1){ 
   display.setCursor(0,48);
   sprintf(buffer, "DHT2: %2.1f   %2.1f", dhtTemp[1], humidity[1]);  
   display.print(buffer);
@@ -93,11 +93,11 @@ void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
     display.print(buffer);
     display.setCursor(0,10);
     //char buffer2[40];
-    sprintf(buffer, "light1 %u-%u: %u", minutesLights1On, minutesLights1Off, currentMinutes); 
+    sprintf(buffer, "light1 %u-%u: %u", schedule1.minutesLightsOn, schedule1.minutesLightsOff, currentMinutes); 
     display.print(buffer); 
     display.setCursor(0,18);
     //char buffer2[40];
-    sprintf(buffer, "light2 %u-%u: %u", minutesLights2On, minutesLights2Off, currentMinutes); 
+    sprintf(buffer, "light2 %u-%u: %u", schedule2.minutesLightsOn, schedule2.minutesLightsOff, currentMinutes); 
     display.print(buffer);
     display.setCursor(0,28);
     // Reads pin settings from register
