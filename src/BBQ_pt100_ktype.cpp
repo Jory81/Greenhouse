@@ -105,6 +105,7 @@ Adafruit_MAX31865 maxthermo[4] = {Adafruit_MAX31865(5), Adafruit_MAX31865(26), A
 
 pt100rtd PT100 = pt100rtd();
 
+
 /*
  * functions used in this script
  */
@@ -171,174 +172,15 @@ void setupFans();
 void setupRelays();
 
 #include "globalVariables.h"
+
+//input/output variables passed by reference, so they are updated automatically
+AutoPID myPID(&temperature, &setPoint, &outputVal1, OUTPUT_MIN1, OUTPUT_MAX1, KP, KI, KD);
+
 #include "readTemperature.h"
 #include "setupFunctions.h"
 #include "websocketMessages.h"
 #include "oledDisplay.h"
 //#include "relayFunctions.h"
-
-//input/output variables passed by reference, so they are updated automatically
-AutoPID myPID(&temperature, &setPoint, &outputVal1, OUTPUT_MIN1, OUTPUT_MAX1, KP, KI, KD);
-
-//#include <OneWire.h>
-
-void setup()
-{
-setupESP32();
-setupOledScreen();
-setupSPIFFS();
-setupEEPROM();
-setupWIFI();
-setupRTC();
-setupTempSensors();
-setupDHTSensors();
-setupFans();
-setupRelays();
-
-myPID.setBangBang(tempRange1);
-myPID.setTimeStep(100);
-}
-
-void loop(){
-    //ws.cleanupClients();
-
-    if (millis() - previousMillis1 >= tempUpdate){
-      timeControl();
-      samplingTemp();        
-      sendTempToClient();
-      if (relay1Connected){executeTask(funcRelay1, manualRelay1, RELAYPIN1);};
-      if (relay2Connected){executeTask(funcRelay2, manualRelay2, RELAYPIN2);}; 
-      if (relay3Connected){executeTask(funcRelay3, manualRelay3, RELAYPIN3);};
-      if (relay4Connected){executeTask(funcRelay4, manualRelay4, RELAYPIN4);};
-      if (relay5Connected){executeTask(funcRelay5, manualRelay5, RELAYPIN5);};
-      if (relay6Connected){executeTask(funcRelay6, manualRelay6, RELAYPIN6);};
-    previousMillis1 = millis();     
-    }
-
-    if (millis() - previousMillis2 >= updateHumidity){
-      samplingHumidity();
-      sendHumidityToClient();
-    previousMillis2 = millis();
-    }
-
-    if (millis() - previousMillis3 >= graphUpdate){
-      updateGraph();
-    previousMillis3 = millis();
-    }
-
-    if (millis() - previousMillis4 >= updateOledDisplay){
-      displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
-    previousMillis4 = millis();
-    }
-    
-    if (millis() - previousMillis5 >= updateFans){
-      if (fan1Connected){
-        fan1Control();
-        }
-      if (fan2Connected){
-        fan2Control();
-        }
-      previousMillis5 = millis();
-    }
-}
-
-void timeControl(){
-  DateTime now = rtc.now(); // see syncTimeRTC
-
-  dateHour = now.hour();
-  dateMinute = now.minute();
-
-  // Serial.println(dateHour);
-  // Serial.println(dateMinute);
-
-  currentMillis = millis();
-  seconds = currentMillis / 1000;
-  minutes = (seconds / 60);
-  // totalMinutes = minutes + minutesStart;
-  hours = (minutes / 60);
-  // totalHours = hours + hourStart;
-  days = hours / 24;
-  
-  currentMillis %= 1000;
-  seconds %= 60;
-  minutes %= 60;
-  // totalMinutes %= 60;
-  hours %= 24;
-  // boolean mismatch;
-  // if (minutes + minutesStart > 59){
-  //     mismatch = 1;
-  // }
-  // else {
-  //     mismatch = 0;
-  // }
-  // totalHours = totalHours + mismatch;
-  // totalHours %= 24;
-
-  // char buffer[40];
-  // sprintf(buffer, "%02d:%02d", hours, minutes);
-
-  currentMinutes = ((dateHour*60)+dateMinute);
-  
-  //Serial.println(buffer);
-}
-
-void samplingTemp(){
-  switch (probeTypeT){
-          case 1: {
-            for (int sensor = 0; sensor <probeCountT; sensor++){
-              uint16_t rtd = maxthermo[sensor].readRTD();
-              temp[sensor] = processRTD(rtd) - calibrationValue[sensor];              
-              tempTable[sensor][readIndex] = temp[sensor];
-              totalTemp[sensor]=0;
-              for (int n = 0; n < measurements; n++){
-                totalTemp[sensor] = totalTemp[sensor] + tempTable[sensor][n];
-              }
-              temp[sensor] = totalTemp[sensor]/measurements;
-              }
-              readIndex = readIndex + 1;
-                if (readIndex >= measurements) {
-                readIndex = 0;
-              }  
-          }
-          break;
-          case 2: {
-            for (int sensor = 0; sensor <probeCountT; sensor++){
-              temp[sensor] = thermocouple[sensor]->readCelsius();
-                 if ((temp[sensor] < 300 && temp[sensor] > oldtemp[sensor]-50 && temp[sensor] < oldtemp[sensor]+50 ) || oldtemp[sensor] == 0){
-                  oldtemp[sensor] = temp[sensor] - calibrationValue[sensor];;             
-                  }
-            }
-          }
-          break;
-        }    
-}
-
-void samplingHumidity(){
-    if (probeCountH > 0){
-        for (int sensor = 0; sensor < probeCountH; sensor++){
-        preHumidity[sensor] = dht[sensor].readHumidity();
-        predhtTemp[sensor] = dht[sensor].readTemperature();
-          if(!isnan(predhtTemp[sensor]) && !isnan(preHumidity[sensor])){
-            dhtTemp[sensor] = predhtTemp[sensor] - calibrationValue[sensor+4];
-            humidity[sensor] = preHumidity[sensor] - calibrationValue[sensor+6];
-            // Serial.printf("sensor %d humidity ", sensor); Serial.print(humidity[sensor]);
-            // Serial.printf(" temp "); Serial.println(dhtTemp[sensor]);
-          }
-          else {
-            humidityCounter++;
-            if (humidityCounter > 6){
-              resetHumidity = true;
-            }
-          }  
-        }
-    }
-}
-
-
-
-// RELAY FUNCTIONS not yet put in header file because of errors.
-
-//#include <Arduino.h>
 
 void executeTask(byte function, boolean manualRelay, const int relayPin){
   switch (function){
@@ -358,6 +200,7 @@ void executeTask(byte function, boolean manualRelay, const int relayPin){
     return;
 }
 }
+
 
 void noFunction (boolean manualRelay, const int relayPin){
   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
@@ -713,3 +556,163 @@ if (resetHumidity){
     resetCount = resetCount + 1;
 }
 }
+
+//#include <OneWire.h>
+
+void setup()
+{
+setupESP32();
+setupOledScreen();
+setupSPIFFS();
+setupEEPROM();
+setupWIFI();
+setupRTC();
+setupTempSensors();
+setupDHTSensors();
+setupFans();
+setupRelays();
+
+myPID.setBangBang(tempRange1);
+myPID.setTimeStep(100);
+}
+
+void loop(){
+    //ws.cleanupClients();
+
+    if (millis() - previousMillis1 >= tempUpdate){
+      timeControl();
+      samplingTemp();        
+      sendTempToClient();
+      if (relay1Connected){executeTask(funcRelay1, manualRelay1, RELAYPIN1);};
+      if (relay2Connected){executeTask(funcRelay2, manualRelay2, RELAYPIN2);}; 
+      if (relay3Connected){executeTask(funcRelay3, manualRelay3, RELAYPIN3);};
+      if (relay4Connected){executeTask(funcRelay4, manualRelay4, RELAYPIN4);};
+      if (relay5Connected){executeTask(funcRelay5, manualRelay5, RELAYPIN5);};
+      if (relay6Connected){executeTask(funcRelay6, manualRelay6, RELAYPIN6);};
+    previousMillis1 = millis();     
+    }
+
+    if (millis() - previousMillis2 >= updateHumidity){
+      samplingHumidity();
+      sendHumidityToClient();
+    previousMillis2 = millis();
+    }
+
+    if (millis() - previousMillis3 >= graphUpdate){
+      updateGraph();
+    previousMillis3 = millis();
+    }
+
+    if (millis() - previousMillis4 >= updateOledDisplay){
+      displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
+    previousMillis4 = millis();
+    }
+    
+    if (millis() - previousMillis5 >= updateFans){
+      if (fan1Connected){
+        fan1Control();
+        }
+      if (fan2Connected){
+        fan2Control();
+        }
+      previousMillis5 = millis();
+    }
+}
+
+void timeControl(){
+  DateTime now = rtc.now(); // see syncTimeRTC
+
+  dateHour = now.hour();
+  dateMinute = now.minute();
+
+  // Serial.println(dateHour);
+  // Serial.println(dateMinute);
+
+  currentMillis = millis();
+  seconds = currentMillis / 1000;
+  minutes = (seconds / 60);
+  // totalMinutes = minutes + minutesStart;
+  hours = (minutes / 60);
+  // totalHours = hours + hourStart;
+  days = hours / 24;
+  
+  currentMillis %= 1000;
+  seconds %= 60;
+  minutes %= 60;
+  // totalMinutes %= 60;
+  hours %= 24;
+  // boolean mismatch;
+  // if (minutes + minutesStart > 59){
+  //     mismatch = 1;
+  // }
+  // else {
+  //     mismatch = 0;
+  // }
+  // totalHours = totalHours + mismatch;
+  // totalHours %= 24;
+
+  // char buffer[40];
+  // sprintf(buffer, "%02d:%02d", hours, minutes);
+
+  currentMinutes = ((dateHour*60)+dateMinute);
+  
+  //Serial.println(buffer);
+}
+
+void samplingTemp(){
+  switch (probeTypeT){
+          case 1: {
+            for (int sensor = 0; sensor <probeCountT; sensor++){
+              uint16_t rtd = maxthermo[sensor].readRTD();
+              temp[sensor] = processRTD(rtd) - calibrationValue[sensor];              
+              tempTable[sensor][readIndex] = temp[sensor];
+              totalTemp[sensor]=0;
+              for (int n = 0; n < measurements; n++){
+                totalTemp[sensor] = totalTemp[sensor] + tempTable[sensor][n];
+              }
+              temp[sensor] = totalTemp[sensor]/measurements;
+              }
+              readIndex = readIndex + 1;
+                if (readIndex >= measurements) {
+                readIndex = 0;
+              }  
+          }
+          break;
+          case 2: {
+            for (int sensor = 0; sensor <probeCountT; sensor++){
+              temp[sensor] = thermocouple[sensor]->readCelsius();
+                 if ((temp[sensor] < 300 && temp[sensor] > oldtemp[sensor]-50 && temp[sensor] < oldtemp[sensor]+50 ) || oldtemp[sensor] == 0){
+                  oldtemp[sensor] = temp[sensor] - calibrationValue[sensor];;             
+                  }
+            }
+          }
+          break;
+        }    
+}
+
+void samplingHumidity(){
+    if (probeCountH > 0){
+        for (int sensor = 0; sensor < probeCountH; sensor++){
+        preHumidity[sensor] = dht[sensor].readHumidity();
+        predhtTemp[sensor] = dht[sensor].readTemperature();
+          if(!isnan(predhtTemp[sensor]) && !isnan(preHumidity[sensor])){
+            dhtTemp[sensor] = predhtTemp[sensor] - calibrationValue[sensor+4];
+            humidity[sensor] = preHumidity[sensor] - calibrationValue[sensor+6];
+            // Serial.printf("sensor %d humidity ", sensor); Serial.print(humidity[sensor]);
+            // Serial.printf(" temp "); Serial.println(dhtTemp[sensor]);
+          }
+          else {
+            humidityCounter++;
+            if (humidityCounter > 6){
+              resetHumidity = true;
+            }
+          }  
+        }
+    }
+}
+
+
+
+// RELAY FUNCTIONS not yet put in header file because of errors.
+
+//#include <Arduino.h>

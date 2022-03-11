@@ -124,15 +124,15 @@ void setupWIFI(){
 }
 
 void setupTempSensors(){
-  if (probeTypeT == 1){
-      for (int sensor = 0; sensor < probeCountT; sensor++){
+  if (systemParam.probeTypeT == 1){
+      for (int sensor = 0; sensor < systemParam.probeCountT; sensor++){
       maxthermo[sensor].begin(MAX31865_2WIRE);  // set to 3WIRE or 4WIRE as necessary
       //maxthermo[sensor].begin(MAX31865_3WIRE);  // set to 2WIRE or 4WIRE as necessary
       //maxthermo[sensor].begin(MAX31865_4WIRE);  // set to 2WIRE or 3WIRE as necessary
       }
   }
-  else if (probeTypeT == 2) {
-    for (int sensor = 0; sensor < probeCountT; sensor++){    
+  else if (systemParam.probeTypeT == 2) {
+    for (int sensor = 0; sensor < systemParam.probeCountT; sensor++){    
     thermocouple[0] = new MAX6675_Thermocouple(SCK_PIN, CS_PIN, SO_PIN); // sensor 1
     thermocouple[1] = new MAX6675_Thermocouple(SCK_PIN, CS2_PIN, SO_PIN); // sensor 2
     // requiers more inputs
@@ -141,8 +141,8 @@ void setupTempSensors(){
 }
 
 void setupDHTSensors(){
-  if (probeCountH > 0){
-    for (int sensor = 0; sensor < probeCountH; sensor++){
+  if (systemParam.probeCountH > 0){
+    for (int sensor = 0; sensor < systemParam.probeCountH; sensor++){
       dht[sensor].begin();
     }
   }
