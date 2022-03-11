@@ -91,7 +91,7 @@ struct storeEEPROM{
 int check; 
 SystemSettings systemParam;
 tempSettings tempClimate1, tempClimate2;
-humidSettings humidClimate1, humidClimate1;
+humidSettings humidClimate1, humidClimate2;
 Relay relay1, relay2, relay3, relay4, relay5, relay6;
 Fan FAN1, FAN2; 
 lightSettings LIGHTS1, LIGHTS2, LIGHTS3;

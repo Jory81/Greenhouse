@@ -165,39 +165,6 @@ void setupFans(){
 }
 
 void setupRelays(){
-  // pinMode(RELAYPINHEATER1,   OUTPUT);
-  // if (relay1Connected){digitalWrite(RELAYPINHEATER1, false);}  else {digitalWrite(RELAYPINHEATER1, true);}
-  // pinMode(RELAYPINHEATER2,   OUTPUT);
-  // if (relay2Connected){digitalWrite(RELAYPINHEATER2, false);}  else {digitalWrite(RELAYPINHEATER2, true);}
-  
-  // pinMode(RELAYPINLIGHTS1,   OUTPUT);
-  // if (relay3Connected){digitalWrite(RELAYPINLIGHTS1, false);}  else {digitalWrite(RELAYPINLIGHTS1, true);}
-  // pinMode(RELAYPINLIGHTS2,   OUTPUT);
-  // if (relay4Connected){digitalWrite(RELAYPINLIGHTS2, false);}  else {digitalWrite(RELAYPINLIGHTS2, true);}
-  
-  // pinMode(RELAYPINOPTIONAL1,   OUTPUT);
-  // if (relay5Connected){digitalWrite(RELAYPINOPTIONAL1, false);}  else {digitalWrite(RELAYPINOPTIONAL1, true);}
-  // pinMode(RELAYPINOPTIONAL2 ,   OUTPUT);
-  // if (relay6Connected){digitalWrite(RELAYPINOPTIONAL2, false);}  else {digitalWrite(RELAYPINOPTIONAL2, true);}
-
-
-
-  //   pinMode(RELAYPIN1,   OUTPUT);
-  // if (!relay1Connected){digitalWrite(RELAYPIN1, true);}
-  // pinMode(RELAYPIN2,   OUTPUT);
-  // if (!relay2Connected){digitalWrite(RELAYPIN2, true);}
-  
-  // pinMode(RELAYPIN3,   OUTPUT);
-  // if (!relay3Connected){digitalWrite(RELAYPIN3, true);}
-  // pinMode(RELAYPIN4,   OUTPUT);
-  // if (!relay4Connected){digitalWrite(RELAYPIN4, true);}
-  
-  // pinMode(RELAYPIN5,   OUTPUT);
-  // if (!relay5Connected){digitalWrite(RELAYPIN5, true);}
-  // pinMode(RELAYPIN6 ,   OUTPUT);
-  // if (!relay6Connected){digitalWrite(RELAYPIN6, true);}
-
-
   pinMode(RELAYPIN1,   OUTPUT);
   digitalWrite(RELAYPIN1, true);
   
@@ -502,4 +469,29 @@ void reInitializeTimeInts(){
  
     minutesLights3On = ((hoursOn2*60)+minutesOn3);
     minutesLights3Off = ((hoursOff2*60)+minutesOff3);    
+}
+
+void syncTimeRTC(){ // This function syncs RTC timer upon connection to wifi in case lostPower is true.
+
+      if (rtc.lostPower()) {
+        Serial.println("RTC lost power, lets set the time!");
+
+        configTime(3600, 3600, ntpServer);
+        // following line sets the RTC to the date &amp; time this sketch was compiled
+        //rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+
+        struct tm time;
+  
+        if(!getLocalTime(&time)){
+          Serial.println("Could not obtain time info");
+          return;
+        }
+      
+        Serial.println("\n---------TIME----------");
+        
+        Serial.println(asctime(&time));
+
+        rtc.adjust(DateTime(time.tm_year, time.tm_mon, time.tm_mday, time.tm_hour, time.tm_min, time.tm_sec));
+      }
+
 }

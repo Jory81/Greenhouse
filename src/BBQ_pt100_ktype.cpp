@@ -145,6 +145,7 @@ void heater3Control(boolean manualRelay, const int RELAYPIN);
 void heater4Control(boolean manualRelay, const int RELAYPIN);
 void humidity3Control(boolean manualRelay, const int RELAYPIN);
 
+void noFunction(boolean manualRelay, const int RELAYPIN);
 void DHTsensors(boolean manualRelay, const int RELAYPIN);
 
 void onRootRequest(AsyncWebServerRequest *request);
@@ -174,6 +175,7 @@ void setupRelays();
 #include "setupFunctions.h"
 #include "websocketMessages.h"
 #include "oledDisplay.h"
+//#include "relayFunctions.h"
 
 //input/output variables passed by reference, so they are updated automatically
 AutoPID myPID(&temperature, &setPoint, &outputVal1, OUTPUT_MIN1, OUTPUT_MAX1, KP, KI, KD);
@@ -240,9 +242,8 @@ void loop(){
     }
 }
 
-
 void timeControl(){
-  DateTime now = rtc.now();
+  DateTime now = rtc.now(); // see syncTimeRTC
 
   dateHour = now.hour();
   dateMinute = now.minute();
@@ -281,34 +282,67 @@ void timeControl(){
   //Serial.println(buffer);
 }
 
-void syncTimeRTC(){
-
-      if (rtc.lostPower()) {
-        Serial.println("RTC lost power, lets set the time!");
-
-        configTime(3600, 3600, ntpServer);
-        // following line sets the RTC to the date &amp; time this sketch was compiled
-        //rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
-
-        struct tm time;
-  
-        if(!getLocalTime(&time)){
-          Serial.println("Could not obtain time info");
-          return;
-        }
-      
-        Serial.println("\n---------TIME----------");
-        
-        Serial.println(asctime(&time));
-
-        rtc.adjust(DateTime(time.tm_year, time.tm_mon, time.tm_mday, time.tm_hour, time.tm_min, time.tm_sec));
-      }
-
+void samplingTemp(){
+  switch (probeTypeT){
+          case 1: {
+            for (int sensor = 0; sensor <probeCountT; sensor++){
+              uint16_t rtd = maxthermo[sensor].readRTD();
+              temp[sensor] = processRTD(rtd) - calibrationValue[sensor];              
+              tempTable[sensor][readIndex] = temp[sensor];
+              totalTemp[sensor]=0;
+              for (int n = 0; n < measurements; n++){
+                totalTemp[sensor] = totalTemp[sensor] + tempTable[sensor][n];
+              }
+              temp[sensor] = totalTemp[sensor]/measurements;
+              }
+              readIndex = readIndex + 1;
+                if (readIndex >= measurements) {
+                readIndex = 0;
+              }  
+          }
+          break;
+          case 2: {
+            for (int sensor = 0; sensor <probeCountT; sensor++){
+              temp[sensor] = thermocouple[sensor]->readCelsius();
+                 if ((temp[sensor] < 300 && temp[sensor] > oldtemp[sensor]-50 && temp[sensor] < oldtemp[sensor]+50 ) || oldtemp[sensor] == 0){
+                  oldtemp[sensor] = temp[sensor] - calibrationValue[sensor];;             
+                  }
+            }
+          }
+          break;
+        }    
 }
+
+void samplingHumidity(){
+    if (probeCountH > 0){
+        for (int sensor = 0; sensor < probeCountH; sensor++){
+        preHumidity[sensor] = dht[sensor].readHumidity();
+        predhtTemp[sensor] = dht[sensor].readTemperature();
+          if(!isnan(predhtTemp[sensor]) && !isnan(preHumidity[sensor])){
+            dhtTemp[sensor] = predhtTemp[sensor] - calibrationValue[sensor+4];
+            humidity[sensor] = preHumidity[sensor] - calibrationValue[sensor+6];
+            // Serial.printf("sensor %d humidity ", sensor); Serial.print(humidity[sensor]);
+            // Serial.printf(" temp "); Serial.println(dhtTemp[sensor]);
+          }
+          else {
+            humidityCounter++;
+            if (humidityCounter > 6){
+              resetHumidity = true;
+            }
+          }  
+        }
+    }
+}
+
+
+
+// RELAY FUNCTIONS not yet put in header file because of errors.
+
+//#include <Arduino.h>
 
 void executeTask(byte function, boolean manualRelay, const int relayPin){
   switch (function){
-    case 0: break; // do nothing - no function attached
+    case 0: noFunction(manualRelay, relayPin); break; // do nothing - no function attached
     case 1: heater1Control(manualRelay, relayPin); break;
     case 2: heater2Control(manualRelay, relayPin); break;
     case 3: heater3Control(manualRelay, relayPin); break;
@@ -320,10 +354,18 @@ void executeTask(byte function, boolean manualRelay, const int relayPin){
     case 9: humidity2Control(manualRelay, relayPin); break;
     case 10: DHTsensors(manualRelay, relayPin); break;
     // case 10: humidity3Control(manualRelay, relayPin); break;
-    default: break;
+    default:    break;
     return;
 }
 }
+
+void noFunction (boolean manualRelay, const int relayPin){
+  bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
+      if (manualRelay != relayReg){ // checks if manualRelay is not equal to relay output. If it's not: if manualRelay is true turn On Relay, if false, turn Off relay.
+        digitalWrite(relayPin, !manualRelay);
+      }
+}
+
 
 void light1Control(boolean manualRelay, const int relayPin){
   if (!manualRelay){
@@ -537,59 +579,6 @@ bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPin
 //   }
 //   return;
 // }
-
-void samplingTemp(){
-  switch (probeTypeT){
-          case 1: {
-            for (int sensor = 0; sensor <probeCountT; sensor++){
-              uint16_t rtd = maxthermo[sensor].readRTD();
-              temp[sensor] = processRTD(rtd) - calibrationValue[sensor];              
-              tempTable[sensor][readIndex] = temp[sensor];
-              totalTemp[sensor]=0;
-              for (int n = 0; n < measurements; n++){
-                totalTemp[sensor] = totalTemp[sensor] + tempTable[sensor][n];
-              }
-              temp[sensor] = totalTemp[sensor]/measurements;
-              }
-              readIndex = readIndex + 1;
-                if (readIndex >= measurements) {
-                readIndex = 0;
-              }  
-          }
-          break;
-          case 2: {
-            for (int sensor = 0; sensor <probeCountT; sensor++){
-              temp[sensor] = thermocouple[sensor]->readCelsius();
-                 if ((temp[sensor] < 300 && temp[sensor] > oldtemp[sensor]-50 && temp[sensor] < oldtemp[sensor]+50 ) || oldtemp[sensor] == 0){
-                  oldtemp[sensor] = temp[sensor] - calibrationValue[sensor];;             
-                  }
-            }
-          }
-          break;
-        }    
-}
-
-void samplingHumidity(){
-    if (probeCountH > 0){
-        for (int sensor = 0; sensor < probeCountH; sensor++){
-        preHumidity[sensor] = dht[sensor].readHumidity();
-        predhtTemp[sensor] = dht[sensor].readTemperature();
-          if(!isnan(predhtTemp[sensor]) && !isnan(preHumidity[sensor])){
-            dhtTemp[sensor] = predhtTemp[sensor] - calibrationValue[sensor+4];
-            humidity[sensor] = preHumidity[sensor] - calibrationValue[sensor+6];
-            // Serial.printf("sensor %d humidity ", sensor); Serial.print(humidity[sensor]);
-            // Serial.printf(" temp "); Serial.println(dhtTemp[sensor]);
-          }
-          else {
-            humidityCounter++;
-            if (humidityCounter > 6){
-              resetHumidity = true;
-            }
-          }  
-        }
-       //newHumidity = true; 
-    }
-}
 
 void fan1Control(){ // CLIMATE 1 based on TargetAirTemp1 and value from DHT22 sensor.
 if (manualMosfet1){
