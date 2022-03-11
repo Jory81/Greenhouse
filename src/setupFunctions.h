@@ -254,6 +254,9 @@ manualFanspeed2 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed2));
 manualMosfet1 = EEPROM.read(offsetof(storeInEEPROM, manualMosfet1));
 manualMosfet2 = EEPROM.read(offsetof(storeInEEPROM, manualMosfet2));
 
+fan1NightSwitch = EEPROM.read(offsetof(storeInEEPROM, fan1NightSwitch));
+fan2NightSwitch = EEPROM.read(offsetof(storeInEEPROM, fan2NightSwitch));
+
 #ifdef ESP8266  
 
 EEPROM.get(offsetof(storeInEEPROM, graphUpdate), graphUpdate;

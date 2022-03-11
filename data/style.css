@@ -377,3 +377,22 @@ width:100%;
 .inputcontainer{
 height: 25px;
 }
+
+
+.textinfo .tooltiptext {
+  visibility: hidden;
+  width: 500px;
+  background-color: white;
+  color: #000;
+  text-align: left;
+  border-radius: 6px;
+  padding: 5px 5px;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.textinfo:hover .tooltiptext {
+  visibility: visible;
+}

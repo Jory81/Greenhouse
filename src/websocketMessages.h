@@ -179,10 +179,12 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("heater3")){heater3 = json["heater3"]; }// heaterState2 = !heater2;// Serial.print("heaterState is now "); Serial.print(heaterState1); Serial.print(" And heater is: "); Serial.println(heater1);
         //else if (json.containsKey("humidifier3")){humidifier3 = json["humidifier3"]; } // humidifierState2 = !humidifier2;
 
-        else if (json.containsKey("manualMosfet1")){manualMosfet1 = json["manualMosfet1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualMosfet1), manualMosfet1);  EEPROM.commit(); };}
+        else if (json.containsKey("manualMosfet1")){manualMosfet1 = json["manualMosfet1"]; if (!manualMosfet1){manualFanspeed1 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed1));}; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualMosfet1), manualMosfet1);  EEPROM.commit(); };}
         else if (json.containsKey("manualFanspeed1")){manualFanspeed1 = json["manualFanspeed1"]; if (manualMosfet1){fan1 = true; fanState1 = !fan1;}; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualFanspeed1), manualFanspeed1);  EEPROM.commit(); };}
-        else if (json.containsKey("manualMosfet2")){manualMosfet2 = json["manualMosfet2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualMosfet2), manualMosfet2);  EEPROM.commit(); };}
+        else if (json.containsKey("manualMosfet2")){manualMosfet2 = json["manualMosfet2"]; if (!manualMosfet2){manualFanspeed2 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed2));}; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualMosfet2), manualMosfet2);  EEPROM.commit(); };}
         else if (json.containsKey("manualFanspeed2")){manualFanspeed2 = json["manualFanspeed2"]; if (manualMosfet2){fan2 = true; fanState2 = !fan2;}; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, manualFanspeed2), manualFanspeed2);  EEPROM.commit(); };}
+        else if (json.containsKey("fan1NightSwitch")){fan1NightSwitch = json[fan1NightSwitch]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, fan1NightSwitch), fan1NightSwitch);  EEPROM.commit(); };}
+        else if (json.containsKey("fan2NightSwitch")){fan2NightSwitch = json[fan2NightSwitch]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, fan2NightSwitch), fan2NightSwitch);  EEPROM.commit(); };}
 
         else if (json.containsKey("OUTPUT_MIN1")){OUTPUT_MIN1 = json["OUTPUT_MIN1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, OUTPUT_MIN1), OUTPUT_MIN1);  EEPROM.commit(); };}
         else if (json.containsKey("OUTPUT_MAX1")){OUTPUT_MAX1 = json["OUTPUT_MAX1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, OUTPUT_MAX1), OUTPUT_MAX1);  EEPROM.commit(); };}
@@ -322,6 +324,8 @@ doc["manualMosfet1"] = manualMosfet1;
 doc["manualFanspeed1"] = manualFanspeed1;
 doc["manualMosfet2"] = manualMosfet2;
 doc["manualFanspeed2"] = manualFanspeed2;
+doc["fan1NightSwitch"] = fan1NightSwitch;
+doc["fan2NightSwitch"] = fan2NightSwitch;
 doc["lights1"] = lights1;
 doc["heater1"] = heater1;
 doc["fan1"] = fan1;

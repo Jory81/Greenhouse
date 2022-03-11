@@ -1,3 +1,137 @@
+struct tempSettings
+{
+  float targetSoilTemp;
+  float dayTemp;
+  float nightTemp;
+  float tempRange;
+  float alarmRange;
+  boolean soilAlarm;
+  float targetAirTemp;
+  boolean airAlarm;
+};
+
+tempSettings tempClimate1 {27.0f, 27.0f, 25.0f, 0.5f, 5.0f, false, 24.0f, false}; // peppers
+tempSettings tempClimate2 {24.0f, 24.0f, 22.0f, 0.5f, 5.0f, false, 26.0f, false}; // tomatoes
+
+struct Relay
+{
+boolean connected;
+boolean manual;
+byte function;
+};
+
+Relay relay1 {false, false, 0}, relay2 {false, false, 0}, relay3 {false, false, 0}, relay4 {false, false, 0}, relay5 {false, false, 0}, relay6 {false, false, 0};
+
+struct Fan{
+boolean connected;
+boolean manual;
+byte speed;
+byte output_min;
+byte output_max;
+boolean fanState;
+};
+
+Fan FAN1 {false, false, 127, 0, 255, false};
+Fan FAN2 {false, false, 127, 0, 255, false};
+
+struct humidSettings{
+byte humidmin;
+byte humidmax;
+};
+
+humidSettings humidClimate1 {30, 80}, humidClimate2 {30, 80};
+
+struct Climate{
+float soilTemperature;
+float airTemperature;
+float humidity;
+boolean heater;
+boolean humidifier;
+boolean fan;
+boolean lights;
+String lightsON;
+String lightsOFF;
+};
+
+Climate climate1, climate2, climate3, climate4;
+
+struct lightSettings{
+char lightsOn[6];
+char lightsOff[6];
+};
+
+lightSettings LIGHTS1 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, LIGHTS2 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, LIGHTS3 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+struct Calibration{
+float pt100sensor[4];
+float dhtTemp[2];
+float dhtHumid[2];
+};
+
+Calibration calSettings {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+
+struct SystemSettings{
+uint8_t probeTypeT; //uint8_t sensorType = 1;
+uint8_t probeCountT; // uint8_t sensorAmount = 1;
+uint8_t probeTypeH; 
+uint8_t probeCountH; // uint8_t humiditySensorAmount = 0;
+uint32_t graphUpdate; //uint32_t updateTimeGraph = 5000;
+uint32_t tempUpdate; //uint32_t updateTimeGraph = 5000;
+char SSID[32]; // or char[100]; //!
+char PASS[32]; // or char[100]; //!
+};
+
+SystemSettings systemParam{
+1, 1, 1, 0, 5000, 1000,
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
+
+struct storeEEPROM{
+int check; 
+SystemSettings systemParam;
+tempSettings tempClimate1, tempClimate2;
+humidSettings humidClimate1, humidClimate1;
+Relay relay1, relay2, relay3, relay4, relay5, relay6;
+Fan FAN1, FAN2; 
+lightSettings LIGHTS1, LIGHTS2, LIGHTS3;
+Calibration calSettings;
+};
+
+storeEEPROM myVar{
+11221,
+1, 1, 1, 0, 5000, 1000,
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+27.0f, 27.0f, 25.0f, 0.5f, 5.0f, false, 24.0f, false,
+24.0f, 24.0f, 22.0f, 0.5f, 5.0f, false, 26.0f, false,
+30, 80, 
+30, 80,
+false, false, 0,
+false, false, 0,
+false, false, 0,
+false, false, 0,
+false, false, 0,
+false, false, 0,
+false, false, 127, 0, 255, false,
+false, false, 127, 0, 255, false,
+0, 0, 0, 0, 0, 0,
+0, 0, 0, 0, 0, 0,
+0, 0, 0, 0, 0, 0,
+0, 0, 0, 0, 0, 0,
+0, 0, 0, 0, 0, 0,
+0, 0, 0, 0, 0, 0,
+0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f
+};
+
+void initializeEEPROMvar(){
+systemParam.probeTypeT  = EEPROM.read(offsetof(storeEEPROM, systemParam.probeTypeT));
+}
+
+
+
+
+
 //TEMPERATURE SETTINGS
 float targetSoilTemp1 = 25.0f; //! float targetTemperature1=25.0f;
 float daySoilTemp1 = 26.0f;
@@ -59,6 +193,8 @@ boolean manualMosfet2 = false;
 uint8_t manualFanspeed2 = 127;
 boolean fan1Connected = false;
 boolean fan2Connected = false;
+boolean fan1NightSwitch = false;
+boolean fan2NightSwitch = false;
 
 double OUTPUT_MIN1 = 0;
 double OUTPUT_MAX1 = 255;
@@ -331,6 +467,9 @@ float daySoilTemp4;
 float nightSoilTemp4;
 float alarmRange4;
 float tempRange4;
+
+boolean fan1NightSwitch;
+boolean fan2NightSwitch;
 };
 
 storeInEEPROM customVar = {
@@ -395,7 +534,9 @@ storeInEEPROM customVar = {
       26.0f, // daySoilTemp4
       22.0f, // nightSoilTemp4
       5.0f, // alarmTemp4
-      1.5f // temprange4        
+      1.5f, // temprange4  
+      0, // fan1NightSwitch
+      0  // fan2NightSwitch   
     };
 
 char stringStorage[32];

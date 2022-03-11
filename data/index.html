@@ -105,7 +105,7 @@
 	<span><button onclick="updateNumber('tempRange1', tempRange1.value)" class="btnx btn-primary">_tempRange1</button> </span>
 	</div>
 	<div class="inputcontainer">
-	<span class="inputparam"> <input type="number" placeholder="alarm range 1" class="form-controlx input-sl" id="alarmRange1" value=""></span> <sup class="units">&deg;C</sup>
+	<span class="inputparam"> <input type="number" placeholder="alarm/ air range 1" class="form-controlx input-sl" id="alarmRange1" value=""></span> <sup class="units">&deg;C</sup>
 	<span><button onclick="updateNumber('alarmRange1', alarmRange1.value)" class="btnx btn-primary">_alarmRange1</button> </span>
 	<span id="checkbox1">
 	<input class="ckeckbox-element" type="checkbox" id="soilAlarm1" onclick="updateButton(this.id, this.checked)"/>  
@@ -136,7 +136,7 @@
 	<span><button onclick="updateNumber('tempRange2', tempRange2.value)" class="btnx btn-primary">_tempRange2</button> </span>
 	</div>
 	<div class="inputcontainer">
-	<span class="inputparam"> <input type="number" placeholder="alarm range 2" class="form-controlx input-sl" id="alarmRange2" value=""></span> <sup class="units">&deg;C</sup>
+	<span class="inputparam"> <input type="number" placeholder="alarm/ air range 2" class="form-controlx input-sl" id="alarmRange2" value=""></span> <sup class="units">&deg;C</sup>
 	<span><button onclick="updateNumber('alarmRange2', alarmRange2.value)" class="btnx btn-primary">_alarmRange2</button> </span>
 	<span id="checkbox1">
 	<input class="ckeckbox-element" type="checkbox" id="soilAlarm2" onclick="updateButton(this.id, this.checked)"/>  
@@ -204,7 +204,16 @@
 <div id="fancontrol" class="tabcontent">
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
 
-		<h4>fan</h4>
+		<h4>fan parameters &nbsp
+			<span class="textinfo">/Info (hover)
+				<span class="tooltiptext">Fanspeed when not manually controlled: manualFanspeed (the slider, which value can be saved to eeprom) is used when air_temperature is below target_air_temperature. Thus, when manualFanspeed is set to zero (and saved to eeprom) the fans will switch off when below a certain temperature.
+					If on_during_day is checked, manualFanspeed is Fan_minspeed during daytime and manualFanspeed (eeprom value) during night time - this allows to switch the fans on during day time, and run at minimum speed, and off during night time.</span>
+				</span>
+
+		</h4>
+
+
+
 			<div>
 			<span class="textinfo">fan1 connected:</span>
 			<input type="checkbox" id="fan1Connected" onclick="updateButton(this.id, this.checked)">
@@ -213,6 +222,11 @@
 			<div>
 			<span class="textinfo">manual mosfet control (1)</span>
 			<input type="checkbox" id="manualMosfet1" onclick="updateButton(this.id, this.checked)"> 
+			</div>
+
+			<div>
+			<span class="textinfo">On during day</span>
+			<input type="checkbox" id="fan1NightSwitch" onclick="updateButton(this.id, this.checked)"> 
 			</div>
 			
 			<div>
@@ -230,6 +244,11 @@
 			<span class="textinfo">manual mosfet control (2)</span>
 			<input type="checkbox" id="manualMosfet2" onclick="updateButton(this.id, this.checked)"> 
 			</div>
+
+			<div>
+			<span class="textinfo">On during day</span>
+			<input type="checkbox" id="fan2NightSwitch" onclick="updateButton(this.id, this.checked)"> 
+			</div>
 			
 			<div>
 			<label class="slidercontainerx">	
@@ -237,9 +256,9 @@
 			</label>
 			</div> 
 
-			<br><h4>FAN parameters</h4>	
+			<br>
 			<div class="inputcontainer">
-				<span class="inputparam"> <input type="number" placeholder="Fan1 min" class="form-controlx input-sl" id="OUTPUT_MIN1" value=""></span>
+				<span class="inputparam"> <input type="number" placeholder="Fan1 minspeed" class="form-controlx input-sl" id="OUTPUT_MIN1" value=""></span>
 				<span><button onclick="updateNumber('OUTPUT_MIN1', OUTPUT_MIN1.value)" class="btnx btn-primary">_Fan1 capped min</button> </span>
 			</div>
 			<div class="inputcontainer">
@@ -248,7 +267,7 @@
 			</div>
 			<br>
 			<div class="inputcontainer">
-				<span class="inputparam"> <input type="number" placeholder="Fan2 min" class="form-controlx input-sl" id="OUTPUT_MIN2" value=""></span>
+				<span class="inputparam"> <input type="number" placeholder="Fan2 minspeed" class="form-controlx input-sl" id="OUTPUT_MIN2" value=""></span>
 				<span><button onclick="updateNumber('OUTPUT_MIN2', OUTPUT_MIN2.value)" class="btnx btn-primary">_Fan2 capped min</button> </span>
 			</div>	
 			<div class="inputcontainer">
@@ -985,6 +1004,8 @@ let data = JSON.parse(event.data);
 	else if (variable == 'manualFanspeed1'){document.getElementById('manualFanspeed1').value = data.manualFanspeed1;}
 	else if (variable == 'manualMosfet2'){document.getElementById('manualMosfet2').checked = data.manualMosfet2;}
 	else if (variable == 'manualFanspeed2'){document.getElementById('manualFanspeed2').value = data.manualFanspeed2;}
+	else if (variable == 'fan1NightSwitch'){document.getElementById('fan1NightSwitch').checked = data.fan1NightSwitch;}
+	else if (variable == 'fan2NightSwitch'){document.getElementById('fan2NightSwitch').checked = data.fan2NightSwitch;}
 
 	else if (variable == 'manualRelay1'){document.getElementById('manualRelay1').checked = data.manualRelay1;}
 	else if (variable == 'manualRelay2'){document.getElementById('manualRelay2').checked = data.manualRelay2;}

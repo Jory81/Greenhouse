@@ -330,10 +330,17 @@ void light1Control(boolean manualRelay, const int relayPin){
     if (currentMinutes > minutesLights1On && currentMinutes < minutesLights1Off){
       lights1=true;
       targetSoilTemp1=daySoilTemp1;
+      if (fan1NightSwitch){
+        manualFanspeed1 = OUTPUT_MIN1;
+      }
+      else {
+        manualFanspeed1 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed1));
+      }
     }
     else if (currentMinutes < minutesLights1On || currentMinutes > minutesLights1On){
       lights1=false;
       targetSoilTemp1=nightSoilTemp1;
+      manualFanspeed1 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed1));
     }
   }
   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
@@ -350,11 +357,18 @@ void light2Control(boolean manualRelay, const int relayPin){
     if (currentMinutes > minutesLights2On && currentMinutes < minutesLights2Off){
       lights2=true;
       targetSoilTemp2=daySoilTemp2;
+      if (fan2NightSwitch){
+        manualFanspeed2 = OUTPUT_MIN2;
+      }
+      else {
+        manualFanspeed2 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed2));
+      }
       //Serial.println("LIGHTS2_ON");
     }
     else if (currentMinutes < minutesLights2On || currentMinutes > minutesLights2On){
       lights2=false;
       targetSoilTemp2=nightSoilTemp2;
+      manualFanspeed2 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed2));
       //Serial.println("LIGHTS2_OFF");
     }
   } 
