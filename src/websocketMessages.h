@@ -337,12 +337,12 @@ doc["manualFanspeed2"] = fan2.manualSpeed;
 doc["fan1daySwitch"] = fan1.daySwitch;
 doc["fan2daySwitch"] = fan2.daySwitch;
 
-doc["lights1ON"] = climate1.lightsON;
-doc["lights1OFF"] = climate1.lightsOFF;
-doc["lights2ON"] = climate2.lightsON;
-doc["lights2OFF"] = climate2.lightsOFF;
-doc["lights3ON"] = climate3.lightsON;
-doc["lights3OFF"] = climate3.lightsOFF;
+doc["lights1ON"] = schedule1.lightsON;
+doc["lights1OFF"] = schedule1.lightsOFF;
+doc["lights2ON"] = schedule2.lightsON;
+doc["lights2OFF"] = schedule2.lightsOFF;
+doc["lights3ON"] = schedule3.lightsON;
+doc["lights3OFF"] = schedule3.lightsOFF;
 
 doc["lights1"] = climate1.lights;
 doc["heater1"] = climate1.heater;

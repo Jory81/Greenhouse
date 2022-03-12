@@ -49,17 +49,15 @@ boolean heater;
 boolean humidifier;
 boolean fan;
 boolean lights;
-String lightsON;
-String lightsOFF;
 };
 Climate climate1, climate2, climate3, climate4;
 
-struct lightSettings
-{
-char lightsOn[6];
-char lightsOff[6];
-};
-lightSettings lights1 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, lights2 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, lights3 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+// struct lightSettings
+// {
+// char lightsOn[6];
+// char lightsOff[6];
+// };
+//lightSettings lights1 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, lights2 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, lights3 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 struct Sensors
 {
@@ -77,6 +75,15 @@ int hoursOff = 0;
 int minutesOff = 0;
 int minutesLightsOn = 0;
 int minutesLightsOff = 0;
+String lightsON;
+String lightsOFF;
+
+struct lightSettings
+{
+char lightsOn[6];
+char lightsOff[6];
+} lights;// {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, lights2 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, lights3 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
 };
 TimeKeeping schedule1, schedule2, schedule3;
 
@@ -108,7 +115,10 @@ tempSettings tempParam1, tempParam2, tempParam3, tempParam4;
 humidSettings humidParam1, humidParam2;
 Relay relay1, relay2, relay3, relay4, relay5, relay6;
 Fan fan1, fan2; 
-lightSettings lights1, lights2, lights3;
+TimeKeeping::lightSettings lights1, lights2, lights3;
+
+
+//lightSettings lights1, lights2, lights3;
 Sensors cal;
 };
 

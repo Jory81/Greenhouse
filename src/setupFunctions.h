@@ -353,44 +353,44 @@ Serial.print("wifiPASS "); Serial.println(wifiPASS);
 
 for (int m = 0; m < 6; m++){
 int offsetPosition = offsetof(storeEEPROM, lights1.lightsOn[0]);
-lights1.lightsOn[m]  = EEPROM.read(offsetPosition+m);
+schedule1.lights.lightsOn[m]  = EEPROM.read(offsetPosition+m);
 }
-climate1.lightsON = String(lights1.lightsOn);
+schedule1.lightsON = String(schedule1.lights.lightsOn);
 
 for (int m = 0; m < 6; m++){
 int offsetPosition = offsetof(storeEEPROM, lights1.lightsOff[0]);
-lights1.lightsOff[m]  = EEPROM.read(offsetPosition+m);
+schedule1.lights.lightsOff[m]  = EEPROM.read(offsetPosition+m);
 }
-climate1.lightsOFF = String(lights1.lightsOff);
+schedule1.lightsOFF = String(schedule1.lights.lightsOff);
 
 
 
 for (int m = 0; m < 6; m++){
 int offsetPosition = offsetof(storeEEPROM, lights2.lightsOn[0]);
-lights2.lightsOn[m]  = EEPROM.read(offsetPosition+m);
+schedule2.lights.lightsOn[m]  = EEPROM.read(offsetPosition+m);
 }
-climate2.lightsON = String(lights2.lightsOn);
+schedule2.lightsON = String(schedule2.lights.lightsOn);
 
 for (int m = 0; m < 6; m++){
 int offsetPosition = offsetof(storeEEPROM, lights2.lightsOff[0]);
-lights2.lightsOff[m]  = EEPROM.read(offsetPosition+m);
+schedule2.lights.lightsOff[m]  = EEPROM.read(offsetPosition+m);
 }
-climate2.lightsOFF = String(lights2.lightsOff);
+schedule2.lightsOFF = String(schedule2.lights.lightsOff);
 
 
 
 for (int m = 0; m < 6; m++){
 int offsetPosition = offsetof(storeEEPROM, lights3.lightsOn[0]);
-lights3.lightsOn[m]  = EEPROM.read(offsetPosition+m);
+schedule3.lights.lightsOn[m]  = EEPROM.read(offsetPosition+m);
 }
-climate3.lightsON = String(lights3.lightsOn);
+schedule3.lightsON = String(schedule3.lights.lightsOn);
 //Serial.print("lights2on "); Serial.println(lights2ON);
 
 for (int m = 0; m < 6; m++){
 int offsetPosition = offsetof(storeEEPROM, lights3.lightsOff[0]);
-lights3.lightsOff[m]  = EEPROM.read(offsetPosition+m);
+schedule3.lights.lightsOff[m]  = EEPROM.read(offsetPosition+m);
 }
-climate3.lightsOFF = String(lights3.lightsOff);    
+schedule3.lightsOFF = String(schedule3.lights.lightsOff);    
 
 reInitializeTimeInts();
 
@@ -423,44 +423,44 @@ int convertStringToInt(String str, int workflow){
 void reInitializeTimeStrings(){
     for (int m = 0; m < 6; m++){
     int offsetPosition = offsetof(storeEEPROM, lights1.lightsOn[0]);
-    lights1.lightsOn[m]  = EEPROM.read(offsetPosition+m);
+    schedule1.lights.lightsOn[m]  = EEPROM.read(offsetPosition+m);
     }
-    climate1.lightsON = String(lights1.lightsOn);
+    schedule1.lightsON = String(schedule1.lights.lightsOn);
 
     for (int m = 0; m < 6; m++){
     int offsetPosition = offsetof(storeEEPROM, lights1.lightsOff[0]);
-    lights1.lightsOff[m]  = EEPROM.read(offsetPosition+m);
+    schedule1.lights.lightsOff[m]  = EEPROM.read(offsetPosition+m);
     }
-    climate1.lightsOFF = String(lights1.lightsOff);
+    schedule1.lightsOFF = String(schedule1.lights.lightsOff);
 
 
 
     for (int m = 0; m < 6; m++){
     int offsetPosition = offsetof(storeEEPROM, lights2.lightsOn[0]);
-    lights2.lightsOn[m]  = EEPROM.read(offsetPosition+m);
+    schedule2.lights.lightsOn[m]  = EEPROM.read(offsetPosition+m);
     }
-    climate2.lightsON = String(lights2.lightsOn);
+    schedule2.lightsON = String(schedule2.lights.lightsOn);
 
     for (int m = 0; m < 6; m++){
     int offsetPosition = offsetof(storeEEPROM, lights2.lightsOff[0]);
-    lights2.lightsOff[m]  = EEPROM.read(offsetPosition+m);
+    schedule2.lights.lightsOff[m]  = EEPROM.read(offsetPosition+m);
     }
-    climate2.lightsOFF = String(lights2.lightsOff);
+    schedule2.lightsOFF = String(schedule2.lights.lightsOff);
 
 
 
     for (int m = 0; m < 6; m++){
     int offsetPosition = offsetof(storeEEPROM, lights3.lightsOn[0]);
-    lights3.lightsOn[m]  = EEPROM.read(offsetPosition+m);
+    schedule3.lights.lightsOn[m]  = EEPROM.read(offsetPosition+m);
     }
-    climate3.lightsON = String(lights3.lightsOn);
+    schedule3.lightsON = String(schedule3.lights.lightsOn);
     //Serial.print("lights2on "); Serial.println(lights2ON);
 
     for (int m = 0; m < 6; m++){
     int offsetPosition = offsetof(storeEEPROM, lights3.lightsOff[0]);
-    lights3.lightsOff[m]  = EEPROM.read(offsetPosition+m);
+    schedule3.lights.lightsOff[m]  = EEPROM.read(offsetPosition+m);
     }
-    climate3.lightsOFF = String(lights3.lightsOff);    
+    schedule3.lightsOFF = String(schedule3.lights.lightsOff);    
 
     reInitializeTimeInts();
 
@@ -468,27 +468,27 @@ void reInitializeTimeStrings(){
 }
 
 void reInitializeTimeInts(){
-    schedule1.hoursOn = convertStringToInt(climate1.lightsON, 0);
-    schedule1.minutesOn = convertStringToInt(climate1.lightsON, 1);
-    schedule1.hoursOff = convertStringToInt(climate1.lightsOFF, 0);
-    schedule1.minutesOff = convertStringToInt(climate1.lightsOFF, 1);
+    schedule1.hoursOn = convertStringToInt(schedule1.lightsON, 0);
+    schedule1.minutesOn = convertStringToInt(schedule1.lightsON, 1);
+    schedule1.hoursOff = convertStringToInt(schedule1.lightsOFF, 0);
+    schedule1.minutesOff = convertStringToInt(schedule1.lightsOFF, 1);
     currentMinutes = ((hours*60)+minutes);
 
     schedule1.minutesLightsOn = ((schedule1.hoursOn*60)+schedule1.minutesOn);
     schedule1.minutesLightsOff = ((schedule1.hoursOff*60)+schedule1.minutesOff);
 
-    schedule2.hoursOn = convertStringToInt(climate2.lightsON, 0);
-    schedule2.minutesOn = convertStringToInt(climate2.lightsON, 1);
-    schedule2.hoursOff = convertStringToInt(climate2.lightsOFF, 0);
-    schedule2.minutesOff = convertStringToInt(climate2.lightsOFF, 1);
+    schedule2.hoursOn = convertStringToInt(schedule2.lightsON, 0);
+    schedule2.minutesOn = convertStringToInt(schedule2.lightsON, 1);
+    schedule2.hoursOff = convertStringToInt(schedule2.lightsOFF, 0);
+    schedule2.minutesOff = convertStringToInt(schedule2.lightsOFF, 1);
 
     schedule2.minutesLightsOn = ((schedule2.hoursOn*60)+schedule2.minutesOn);
     schedule2.minutesLightsOff = ((schedule2.hoursOff*60)+schedule2.minutesOff);
 
-    schedule3.hoursOn = convertStringToInt(climate3.lightsON, 0);
-    schedule3.minutesOn = convertStringToInt(climate3.lightsON, 1);
-    schedule3.hoursOff = convertStringToInt(climate3.lightsOFF, 0);
-    schedule3.minutesOff = convertStringToInt(climate3.lightsOFF, 1);
+    schedule3.hoursOn = convertStringToInt(schedule3.lightsON, 0);
+    schedule3.minutesOn = convertStringToInt(schedule3.lightsON, 1);
+    schedule3.hoursOff = convertStringToInt(schedule3.lightsOFF, 0);
+    schedule3.minutesOff = convertStringToInt(schedule3.lightsOFF, 1);
  
     schedule3.minutesLightsOn = ((schedule3.hoursOn*60)+schedule3.minutesOn);
     schedule3.minutesLightsOff = ((schedule3.hoursOff*60)+schedule3.minutesOff);    
