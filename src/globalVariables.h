@@ -61,21 +61,13 @@ char lightsOff[6];
 };
 lightSettings lights1 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, lights2 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, lights3 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-struct Calibration
-{
-float pt100sensor[4];
-float dhtTemp[2];
-float dhtHumid[2];
-};
-Calibration calSettings {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
-
 struct SensorReadings
 {
 float pt100Temp[4];
 float dhtTemp[2];
 float dhtHumidity[2];
 };
-SensorReadings sensorReadings;
+SensorReadings sensorReading, conceptReading, calSettings {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
 
 struct TimeKeeping
 {
@@ -95,6 +87,8 @@ uint8_t probeCountT; // uint8_t sensorAmount = 1;
 uint8_t probeTypeH; 
 uint8_t probeCountH; // uint8_t humiditySensorAmount = 0;
 byte measurements;   
+boolean externalRTC;
+boolean resetRTC;
 uint32_t graphUpdate; //uint32_t updateTimeGraph = 5000;
 uint32_t tempUpdate; //uint32_t updateTimeGraph = 5000;
 char SSID[32]; // or char[100]; //!
@@ -102,7 +96,7 @@ char PASS[32]; // or char[100]; //!
 };
 
 SystemSettings systemParam{
-1, 1, 1, 0, 1, 5000, 1000,
+1, 1, 1, 0, 1, 0, 1, 5000, 1000,
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
@@ -115,12 +109,12 @@ humidSettings humidParam1, humidParam2;
 Relay relay1, relay2, relay3, relay4, relay5, relay6;
 Fan fan1, fan2; 
 lightSettings lights1, lights2, lights3;
-Calibration calSettings;
+SensorReadings calSettings;
 };
 
 storeEEPROM myVar{
-11321,
-1, 1, 1, 0, 1, 5000, 1000,
+12221,
+1, 1, 1, 0, 1, 0, 1, 5000, 1000,
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 27.0f, 27.0f, 25.0f, 0.5f, 5.0f, false, 24.0f, false,
@@ -159,14 +153,14 @@ int readIndex = 0;
 
 float totalTemp[4] = {0, 0, 0, 0};                  
 
-float preHumidity[3] = {0,0,0};
-float humidity[3] = {0,0,0};
+// float preHumidity[3] = {0,0,0};
+// float humidity[3] = {0,0,0};
 
-float predhtTemp[3] = {0,0,0};
-float dhtTemp[3] = {0,0,0};
+// float predhtTemp[3] = {0,0,0};
+// float dhtTemp[3] = {0,0,0};
 
-float temp[4] = {0,0,0,0}; 
-float oldtemp[4] = {0,0,0,0}; 
+// float temp[4] = {0,0,0,0}; 
+// float oldtemp[4] = {0,0,0,0}; 
 
 boolean Reboot = false;
 boolean saveInEEPROM = false;
@@ -200,13 +194,12 @@ int days = 0;
 
 int dateHour = 0;
 int dateMinute = 0;
-
-// int totalMinutes = 0;
-// int totalHours = 0;
 int currentMinutes = 0;
 
-// int minutesStart = 0;
-// int hourStart = 0;
+int totalMinutes = 0;
+int totalHours = 0;
+int minutesStart = 0;
+int hourStart = 0;
 
 uint16_t EEPROMposition = 0;
 uint16_t stringLength;

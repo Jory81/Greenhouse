@@ -512,21 +512,7 @@
 		<div class="inputcontainer">
 			<span class="inputparam"> <input type="number" placeholder="input cal. 8" class="form-controlx input-sl" id="calValue8" value=""></span><span class="units">(%)</span>
 			<span><button onclick="updateNumber('calValue8', calValue8.value)" class="btnx btn-primary">_DhtHumid2</button> </span>
-		</div>
-
-		<br><h4>PID parameters</h4>	
-		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input KP" class="form-controlx input-sl" id="KP" value=""></span>
-			<span><button onclick="updateNumber('calValue16', KP.value)" class="btnx btn-primary">_input KP</button> </span>
-		</div>
-		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input KI" class="form-controlx input-sl" id="KI" value=""></span>
-			<span><button onclick="updateNumber('calValue17', KI.value)" class="btnx btn-primary">_input KI</button> </span>
-		</div>
-		<div class="inputcontainer">
-			<span class="inputparam"> <input type="number" placeholder="input KD (-)" class="form-controlx input-sl" id="KD" value=""></span>
-			<span><button onclick="updateNumber('calValue18', KD.value)" class="btnx btn-primary">_input KD</button> </span>
-		</div>		
+		</div>	
 		<hr>
 </div>
 
@@ -621,10 +607,15 @@
 	</p>	
 
 	<div>
-		<span id="checkbox1">PID control (checked) or linear control
-		<input class="ckeckbox-element" type="checkbox" id="PIDcontrol" onclick="updateButton(this.id,this.checked)"/>  
-		<i class="glyphicon glyphicon-tasks"></i>
+		<span id="checkbox6">external RTC?
+		<input class="ckeckbox-element" type="checkbox" id="externalRTC" onclick="updateButton(this.id,this.checked)"/>  
+		<i class="glyphicon glyphicon-time"></i>
 		</span> 
+		<span id="checkbox6">reset RTC upon reboot?
+			<input class="ckeckbox-element" type="checkbox" id="resetRTC" onclick="updateButton(this.id,this.checked)"/>  
+			<i class="glyphicon glyphicon-refresh"></i>
+			</span> 
+		<br>
 	</div>		
 	<br>
 

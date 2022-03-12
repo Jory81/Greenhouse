@@ -231,7 +231,7 @@ void loop(){
     }
 
     if (millis() - previousMillis4 >= updateOledDisplay){
-      displayOledScreen(temp[0], temp[1], temp[2], temp[3]);
+      displayOledScreen(sensorReading.pt100Temp[0], sensorReading.pt100Temp[1], sensorReading.pt100Temp[2], sensorReading.pt100Temp[3]);
     previousMillis4 = millis();
     }
     
@@ -247,6 +247,7 @@ void loop(){
 }
 
 void timeControl(){
+  if (systemParam.externalRTC){
   DateTime now = rtc.now(); // see syncTimeRTC
 
   dateHour = now.hour();
@@ -258,30 +259,46 @@ void timeControl(){
   currentMillis = millis();
   seconds = currentMillis / 1000;
   minutes = (seconds / 60);
-  // totalMinutes = minutes + minutesStart;
   hours = (minutes / 60);
-  // totalHours = hours + hourStart;
   days = hours / 24;
   
   currentMillis %= 1000;
   seconds %= 60;
   minutes %= 60;
-  // totalMinutes %= 60;
   hours %= 24;
-  // boolean mismatch;
-  // if (minutes + minutesStart > 59){
-  //     mismatch = 1;
-  // }
-  // else {
-  //     mismatch = 0;
-  // }
-  // totalHours = totalHours + mismatch;
-  // totalHours %= 24;
-
-  // char buffer[40];
-  // sprintf(buffer, "%02d:%02d", hours, minutes);
 
   currentMinutes = ((dateHour*60)+dateMinute);
-  
-  //Serial.println(buffer);
+  }
+  else { // Maybe there's still a bug in this code - before testing it thoroughly I included an RTC - So the 'hour' might be off by 1.
+    currentMillis = millis();
+    seconds = currentMillis / 1000;
+    minutes = (seconds / 60);
+    totalMinutes = minutes + minutesStart;
+    hours = (minutes / 60);
+    totalHours = hours + hourStart;
+    days = hours / 24;
+    
+    currentMillis %= 1000;
+    seconds %= 60;
+    minutes %= 60;
+    totalMinutes %= 60;
+    hours %= 24;
+
+    uint8_t mismatch;
+    if (minutes + minutesStart > 59){
+        mismatch = 1;
+    }
+    else {
+        mismatch = 0;
+    }
+    totalHours = totalHours + mismatch;
+    totalHours %= 24;
+
+    // char buffer[40];
+    // sprintf(buffer, "%02d:%02d", hours, minutes);
+
+    currentMinutes = ((totalHours*60)+totalMinutes);
+    
+    //Serial.println(buffer);
+  }
 }

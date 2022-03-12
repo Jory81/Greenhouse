@@ -33,13 +33,13 @@ void samplingTemp(){
           case 1: {
             for (int sensor = 0; sensor <systemParam.probeCountT; sensor++){
               uint16_t rtd = maxthermo[sensor].readRTD();
-              sensorReadings.pt100Temp[sensor] = processRTD(rtd) - calSettings.pt100sensor[sensor];              
-              tempTable[sensor][readIndex] = sensorReadings.pt100Temp[sensor];
+              sensorReading.pt100Temp[sensor] = processRTD(rtd) - calSettings.pt100Temp[sensor];              
+              tempTable[sensor][readIndex] = sensorReading.pt100Temp[sensor];
               totalTemp[sensor]=0;
               for (int n = 0; n < systemParam.measurements; n++){
                 totalTemp[sensor] = totalTemp[sensor] + tempTable[sensor][n];
               }
-              sensorReadings.pt100Temp[sensor] = totalTemp[sensor]/systemParam.measurements;
+              sensorReading.pt100Temp[sensor] = totalTemp[sensor]/systemParam.measurements;
               }
               readIndex = readIndex + 1;
                 if (readIndex >= systemParam.measurements) {
@@ -62,11 +62,11 @@ void samplingTemp(){
 void samplingHumidity(){
     if (systemParam.probeCountH > 0){
         for (int sensor = 0; sensor < systemParam.probeCountH; sensor++){
-        preHumidity[sensor] = dht[sensor].readHumidity();
-        predhtTemp[sensor] = dht[sensor].readTemperature();
-          if(!isnan(predhtTemp[sensor]) && !isnan(preHumidity[sensor])){
-            sensorReadings.dhtTemp[sensor] = predhtTemp[sensor] - calSettings.dhtTemp[sensor];
-            sensorReadings.dhtHumidity[sensor] = preHumidity[sensor] - calSettings.dhtHumid[sensor];
+        conceptReading.dhtHumidity[sensor] = dht[sensor].readHumidity();
+        conceptReading.dhtTemp[sensor] = dht[sensor].readTemperature();
+          if(!isnan(conceptReading.dhtTemp[sensor]) && !isnan(conceptReading.dhtHumidity[sensor])){
+            sensorReading.dhtTemp[sensor] = conceptReading.dhtTemp[sensor] - calSettings.dhtTemp[sensor];
+            sensorReading.dhtHumidity[sensor] = conceptReading.dhtHumidity[sensor] - calSettings.dhtHumidity[sensor];
             // Serial.printf("sensor %d humidity ", sensor); Serial.print(humidity[sensor]);
             // Serial.printf(" temp "); Serial.println(dhtTemp[sensor]);
           }

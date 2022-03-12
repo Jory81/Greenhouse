@@ -112,7 +112,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         //Serial.println(numberOfArguments);
         //for (int i = 0; i < numberOfArguments; i++){
         if (json.containsKey("requestInfo")){sendProgramInfo();}
-        else if (json.containsKey("hours")){syncTimeRTC();} //
+        else if (json.containsKey("hours")){syncTimeRTC(); hourStart = json["hours"]; minutesStart = json["minutes"];} //
         else if (json.containsKey("saveInEEPROM")){saveInEEPROM = json["saveInEEPROM"];}   
         else if (json.containsKey("ssid")){String wifiID = json["ssid"]; Serial.println(wifiID); EEPROMposition = offsetof(storeEEPROM, systemParam.SSID[0]); writeStringToEEPROM(EEPROMposition, wifiID); notifyClientsSingleString("wifiID", wifiID);}
         else if (json.containsKey("pass")){String wifiPASS = json["pass"]; Serial.println(wifiPASS); EEPROMposition = offsetof(storeEEPROM, systemParam.PASS[0]); writeStringToEEPROM(EEPROMposition, wifiPASS); notifyClientsSingleString("wifiPASS", wifiPASS);}
@@ -150,14 +150,14 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("lights2ON")){String StoreLights2ON = json["lights2ON"]; String StoreLights2OFF = json["lights2OFF"]; EEPROMposition = offsetof(storeEEPROM, lights2.lightsOn[0]); writeStringToEEPROM(EEPROMposition, StoreLights2ON); EEPROMposition = offsetof(storeEEPROM, lights2.lightsOff[0]); writeStringToEEPROM(EEPROMposition, StoreLights2OFF); reInitializeTimeStrings();}
         else if (json.containsKey("lights3ON")){String StoreLights3ON = json["lights3ON"]; String StoreLights3OFF = json["lights3OFF"]; EEPROMposition = offsetof(storeEEPROM, lights3.lightsOn[0]); writeStringToEEPROM(EEPROMposition, StoreLights3ON); EEPROMposition = offsetof(storeEEPROM, lights3.lightsOff[0]); writeStringToEEPROM(EEPROMposition, StoreLights3OFF); reInitializeTimeStrings();}
         // THESE VALUES ARE ONLY PERMANENTLT SWITCHED WHEN EEPROM BUTTON IS CHECKED
-        else if (json.containsKey("calValue1")){calSettings.pt100sensor[0] = json["calValue1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.pt100sensor[0]), calSettings.pt100sensor[0]);  EEPROM.commit(); };}
-        else if (json.containsKey("calValue2")){calSettings.pt100sensor[1] = json["calValue2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.pt100sensor[1]), calSettings.pt100sensor[1]);  EEPROM.commit(); };}
-        else if (json.containsKey("calValue3")){calSettings.pt100sensor[2] = json["calValue3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.pt100sensor[2]), calSettings.pt100sensor[2]);  EEPROM.commit(); };}
-        else if (json.containsKey("calValue4")){calSettings.pt100sensor[3] = json["calValue4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.pt100sensor[3]), calSettings.pt100sensor[3]);  EEPROM.commit(); };}
+        else if (json.containsKey("calValue1")){calSettings.pt100Temp[0] = json["calValue1"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.pt100Temp[0]), calSettings.pt100Temp[0]);  EEPROM.commit(); };}
+        else if (json.containsKey("calValue2")){calSettings.pt100Temp[1] = json["calValue2"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.pt100Temp[1]), calSettings.pt100Temp[1]);  EEPROM.commit(); };}
+        else if (json.containsKey("calValue3")){calSettings.pt100Temp[2] = json["calValue3"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.pt100Temp[2]), calSettings.pt100Temp[2]);  EEPROM.commit(); };}
+        else if (json.containsKey("calValue4")){calSettings.pt100Temp[3] = json["calValue4"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.pt100Temp[3]), calSettings.pt100Temp[3]);  EEPROM.commit(); };}
         else if (json.containsKey("calValue5")){calSettings.dhtTemp[0] = json["calValue5"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.dhtTemp[0]), calSettings.dhtTemp[0]);  EEPROM.commit(); };}
         else if (json.containsKey("calValue6")){calSettings.dhtTemp[1] = json["calValue6"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.dhtTemp[1]), calSettings.dhtTemp[1]);  EEPROM.commit(); };}
-        else if (json.containsKey("calValue7")){calSettings.dhtHumid[0] = json["calValue7"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.dhtHumid[0]), calSettings.dhtHumid[0]);  EEPROM.commit(); };}
-        else if (json.containsKey("calValue8")){calSettings.dhtTemp[1] = json["calValue8"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.dhtHumid[1]), calSettings.dhtHumid[1]);  EEPROM.commit(); };}
+        else if (json.containsKey("calValue7")){calSettings.dhtHumidity[0] = json["calValue7"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.dhtHumidity[0]), calSettings.dhtHumidity[0]);  EEPROM.commit(); };}
+        else if (json.containsKey("calValue8")){calSettings.dhtHumidity[1] = json["calValue8"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, calSettings.dhtHumidity[1]), calSettings.dhtHumidity[1]);  EEPROM.commit(); };}
         // else if (json.containsKey("calValue9")){calibrationValue[8] = json["calValue9"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[8]), calibrationValue[8]);  EEPROM.commit(); };}
         // else if (json.containsKey("calValue10")){calibrationValue[9] = json["calValue10"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[9]), calibrationValue[9]);  EEPROM.commit(); };}
         // else if (json.containsKey("calValue11")){calibrationValue[10] = json["calValue11"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[10]), calibrationValue[10]);  EEPROM.commit(); };}
@@ -255,14 +255,14 @@ doc["resetRTC"] = systemParam.resetRTC;
 
 // doc["PIDcontrol"]   = PIDcontrol;
 
-doc["calV1"]   = String(calSettings.pt100sensor[0],2);
-doc["calV2"]   = String(calSettings.pt100sensor[1],2);
-doc["calV3"]   = String(calSettings.pt100sensor[2],2);
-doc["calV4"]   = String(calSettings.pt100sensor[3],2);
+doc["calV1"]   = String(calSettings.pt100Temp[0],2);
+doc["calV2"]   = String(calSettings.pt100Temp[1],2);
+doc["calV3"]   = String(calSettings.pt100Temp[2],2);
+doc["calV4"]   = String(calSettings.pt100Temp[3],2);
 doc["calV5"]   = String(calSettings.dhtTemp[0],2);
 doc["calV6"]   = String(calSettings.dhtTemp[1],2);
-doc["calV7"]   = String(calSettings.dhtHumid[0],2);
-doc["calV8"]   = String(calSettings.dhtHumid[1],2);
+doc["calV7"]   = String(calSettings.dhtHumidity[0],2);
+doc["calV8"]   = String(calSettings.dhtHumidity[1],2);
 
 doc["relay1c"]   = relay1.connected;
 doc["relay2c"]   = relay2.connected;
@@ -410,10 +410,10 @@ return;
 
 void sendTempToClient (){
     StaticJsonDocument<100> doc;
-    doc["temperature1"] = String(temp[0],2);
-    doc["temperature2"] = String(temp[1],2);
-    doc["temperature3"] = String(temp[2],2);
-    doc["temperature4"] = String(temp[3],2);
+    doc["temperature1"] = String(sensorReading.pt100Temp[0],2);
+    doc["temperature2"] = String(sensorReading.pt100Temp[1],2);
+    doc["temperature3"] = String(sensorReading.pt100Temp[2],2);
+    doc["temperature4"] = String(sensorReading.pt100Temp[3],2);
 
     char data[100];
     size_t len = serializeJson(doc, data);
@@ -438,11 +438,11 @@ void sendTempToClient (){
 
 void sendHumidityToClient(){
     StaticJsonDocument<200> doc;
-    doc["temperature6"] =  String(dhtTemp[0],2);
-    doc["temperature7"] =  String(dhtTemp[1],2);
+    doc["temperature6"] =  String(sensorReading.dhtTemp[0],2);
+    doc["temperature7"] =  String(sensorReading.dhtTemp[1],2);
     //doc["temperature8"] =  String(dhtTemp[2],2);
-    doc["humid1"] =  String(humidity[0],2);
-    doc["humid2"] =  String(humidity[1],2);
+    doc["humid1"] =  String(sensorReading.dhtHumidity[0],2);
+    doc["humid2"] =  String(sensorReading.dhtHumidity[1],2);
     //doc["humid3"] =  String(humidity[2],2);
 
     char data[200];

@@ -31,7 +31,7 @@ void setupEEPROM(){
   Serial.print("check is: "); Serial.println(check);
   #endif
   
-  if (check == 11321){
+  if (check == 12221){
   display.print(F("code: ")); display.println(check);
   display.println(F("EEPROM SET"));
   display.display();
@@ -39,7 +39,7 @@ void setupEEPROM(){
   delay(1000);
   }
   
-  else if (check != 11321){
+  else if (check != 12221){
   display.println(F("EEPROM not initialized"));
   display.println(F("Write to EEPROM"));
   display.display();
@@ -55,10 +55,14 @@ void setupEEPROM(){
 }
 
 void setupRTC(){
-
-   if (! rtc.begin()) {
-    Serial.println("Couldn't find RTC");
-    while (1);
+  if (systemParam.externalRTC){
+    if (! rtc.begin()) {
+      Serial.println("Couldn't find RTC");
+      systemParam.externalRTC = false;
+      EEPROM.put(offsetof(storeEEPROM, systemParam.externalRTC), (systemParam.externalRTC));
+      EEPROM.commit();
+      while (1);
+    }
   }
 //rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
 }
@@ -304,18 +308,18 @@ tempParam4.alarmRange = EEPROM.readFloat(offsetof(storeEEPROM, tempParam4.alarmR
 // OUTPUT_MIN2 = EEPROM.readDouble(offsetof(storeEEPROM, OUTPUT_MIN2));
 // OUTPUT_MAX2 = EEPROM.readDouble(offsetof(storeEEPROM, OUTPUT_MAX2));
 
-calSettings.pt100sensor[0] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.pt100sensor[0]));
-calSettings.pt100sensor[1] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.pt100sensor[1]));
-calSettings.pt100sensor[2] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.pt100sensor[2]));
-calSettings.pt100sensor[3] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.pt100sensor[3]));
+calSettings.pt100Temp[0] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.pt100Temp[0]));
+calSettings.pt100Temp[1] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.pt100Temp[1]));
+calSettings.pt100Temp[2] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.pt100Temp[2]));
+calSettings.pt100Temp[3] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.pt100Temp[3]));
 calSettings.dhtTemp[0] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.dhtTemp[0]));
 calSettings.dhtTemp[1] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.dhtTemp[1]));
-calSettings.dhtHumid[0] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.dhtHumid[0]));
-calSettings.dhtHumid[1] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.dhtHumid[1]));
+calSettings.dhtHumidity[0] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.dhtHumidity[0]));
+calSettings.dhtHumidity[1] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.dhtHumidity[1]));
 
 
 // for (int m = 0; m < 8; m++){
-// int offsetPosition = offsetof(storeEEPROM, calSettings.pt100sensor[0]);
+// int offsetPosition = offsetof(storeEEPROM, calSettings.pt100Temp[0]);
 // calibrationValue[m]  = EEPROM.readFloat(offsetPosition+4*m);
 // }
 #endif
@@ -491,8 +495,8 @@ void reInitializeTimeInts(){
 }
 
 void syncTimeRTC(){ // This function syncs RTC timer upon connection to wifi in case lostPower is true.
-
-      if (rtc.lostPower()) {
+if (systemParam.externalRTC){
+      if ((rtc.lostPower())  || (systemParam.resetRTC)) {
         Serial.println("RTC lost power, lets set the time!");
 
         configTime(3600, 3600, ntpServer);
@@ -511,6 +515,9 @@ void syncTimeRTC(){ // This function syncs RTC timer upon connection to wifi in 
         Serial.println(asctime(&time));
 
         rtc.adjust(DateTime(time.tm_year, time.tm_mon, time.tm_mday, time.tm_hour, time.tm_min, time.tm_sec));
+        systemParam.resetRTC = false;
+        EEPROM.put(offsetof(storeEEPROM, systemParam.resetRTC), (systemParam.resetRTC));
+        EEPROM.commit();
       }
-
+  }
 }
