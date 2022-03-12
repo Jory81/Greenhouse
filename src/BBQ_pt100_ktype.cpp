@@ -105,7 +105,6 @@ Adafruit_MAX31865 maxthermo[4] = {Adafruit_MAX31865(5), Adafruit_MAX31865(26), A
 
 pt100rtd PT100 = pt100rtd();
 
-
 /*
  * functions used in this script
  */

@@ -252,7 +252,6 @@ doc["measurements"] = systemParam.measurements;
 doc["externalRTC"] = systemParam.externalRTC;
 doc["resetRTC"] = systemParam.resetRTC;
 
-
 // doc["PIDcontrol"]   = PIDcontrol;
 
 doc["calV1"]   = String(cal.pt100[0],2);
@@ -285,10 +284,10 @@ doc["relay4f"] = relay4.function;
 doc["relay5f"] = relay5.function;
 doc["relay6f"] = relay6.function;
 
-doc["OUTPUT_MIN1"]   = String(fan1.output_min,2);
-doc["OUTPUT_MAX1"]   = String(fan1.output_max,2);
-doc["OUTPUT_MIN2"]   = String(fan2.output_min,2);
-doc["OUTPUT_MAX2"]   = String(fan2.output_max,2);
+doc["OUTPUT_MIN1"]   = fan1.output_min;
+doc["OUTPUT_MAX1"]   = fan1.output_max;
+doc["OUTPUT_MIN2"]   = fan2.output_min;
+doc["OUTPUT_MAX2"]   = fan2.output_max;
 // doc["KP"]   = String(KP,2); // may require more decimals
 // doc["KI"]   = String(KI,2); // may require more decimals
 // doc["KD"]   = String(KD,2); // may require more decimals
@@ -426,16 +425,6 @@ void sendTempToClient (){
     return;
 }
 
-    // if (dhtT[0] != 0){doc["temperature6"] =  dhtT[0];}
-    // if (dhtT[1] != 0){doc["temperature7"] =  dhtT[1];}
-    // if (humidity[0] != 0){doc["humid1"] =  humidity[0];}
-    // if (humidity[1] != 0){doc["humid2"] =  humidity[1];}
-
-    // if (temp[0] != 0){doc["temperature1"] = temp[0];}
-    // if (temp[1] != 0){doc["temperature2"] = temp[1];}
-    // if (temp[2] != 0){doc["temperature3"] = temp[2];}
-    // if (temp[3] != 0){doc["temperature4"] = temp[3];}
-
 void sendHumidityToClient(){
     StaticJsonDocument<200> doc;
     doc["temperature6"] =  String(valid.dhtT[0],2);
@@ -464,9 +453,3 @@ void updateGraph (){
         notifyClientsSingleObject("updateGraph", false);
     }                
 }
-
-
-// void updateGraph2 (float temp){
-//             String mergedString = "SD"+String(temp);
-//             ws.textAll(mergedString);                
-// }

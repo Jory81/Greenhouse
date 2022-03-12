@@ -17,14 +17,12 @@ void executeTask(byte function, boolean manualRelay, const int relayPin){
 }
 }
 
-
 void noFunction (boolean manualRelay, const int relayPin){
   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
       if (manualRelay != relayReg){ // checks if manualRelay is not equal to relay output. If it's not: if manualRelay is true turn On Relay, if false, turn Off relay.
         digitalWrite(relayPin, !manualRelay);
       }
 }
-
 
 void light1Control(boolean manualRelay, const int relayPin){
   if (!manualRelay){
@@ -80,39 +78,6 @@ void light2Control(boolean manualRelay, const int relayPin){
   return;
 }
 
-
-
-// void light2Control(boolean manualRelay, const int relayPin){
-//  if (!manualRelay){
-//     if (currentMinutes > minutesLights2On && currentMinutes < minutesLights2Off){
-//       lights2=true;
-//       targetSoilTemp2=daySoilTemp2;
-//       if (fan2NightSwitch){
-//         manualFanspeed2 = OUTPUT_MIN2;
-//       }
-//       else {
-//         manualFanspeed2 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed2));
-//       }
-//       //Serial.println("LIGHTS2_ON");
-//     }
-//     else if (currentMinutes < minutesLights2On || currentMinutes > minutesLights2On){
-//       lights2=false;
-//       targetSoilTemp2=nightSoilTemp2;
-//       manualFanspeed2 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed2));
-//       //Serial.println("LIGHTS2_OFF");
-//     }
-//   } 
-//   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
-
-//   if (lights2 != relayReg){
-//     //lightState2 = lights2;
-//     digitalWrite(relayPin, !lights2);
-//     //Serial.println("send lights message to client");
-//     notifyClientsSingleObject("lights2", lights2);
-//   }
-//   return;
-//   }
-
   void light3Control(boolean manualRelay, const int relayPin){
  if (!manualRelay){
     if (currentMinutes > schedule3.minutesLightsOn && currentMinutes < schedule3.minutesLightsOff){
@@ -124,7 +89,7 @@ void light2Control(boolean manualRelay, const int relayPin){
     else if (currentMinutes < schedule3.minutesLightsOn || currentMinutes > schedule3.minutesLightsOn){
       climate3.lights = false;
       tempParam3.targetSoilTemp = tempParam3.nightSoilTemp;
-      tempParam4.targetSoilTemp = tempParam4.daySoilTemp;
+      tempParam4.targetSoilTemp = tempParam4.nightSoilTemp;
       //Serial.println("LIGHTS2_OFF");
     }
   } 
@@ -249,25 +214,6 @@ bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPin
   }
   return;
 }
-
-// void humidity3Control(boolean manualRelay, const int relayPin){
-// if (!manualRelay){
-//   if (humidity[2] < humidMin3){
-//     humidifier3 = true;
-//   }
-//   else if (humidity[2] > humidMax3){
-//     humidifier3 = false;
-//   }
-// }
-// bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
-//   // if (humidifierState2 != humidifier2){
-//   //   humidifierState2 = humidifier2;
-//   if (humidifier3 != relayReg){
-//     digitalWrite(relayPin, humidifier3);
-//     notifyClientsSingleObject("humidifier3", humidifier3);
-//   }
-//   return;
-// }
 
 void fan1Control(){ // CLIMATE 1 based on TargetAirTemp1 and value from DHT22 sensor.
 if (fan1.manual){
