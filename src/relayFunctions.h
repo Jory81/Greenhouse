@@ -28,194 +28,224 @@ void noFunction (boolean manualRelay, const int relayPin){
 
 void light1Control(boolean manualRelay, const int relayPin){
   if (!manualRelay){
-    if (currentMinutes > minutesLights1On && currentMinutes < minutesLights1Off){
-      lights1=true;
-      targetSoilTemp1=daySoilTemp1;
-      if (fan1NightSwitch){
-        manualFanspeed1 = OUTPUT_MIN1;
+    if (currentMinutes > schedule1.minutesLightsOn && currentMinutes < schedule1.minutesLightsOff){
+      climate1.lights = true;
+      tempParam1.targetSoilTemp = tempParam1.daySoilTemp;
+      if (fan1.daySwitch){
+        fan1.manualSpeed = fan1.output_min;
       }
       else {
-        manualFanspeed1 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed1));
+        fan1.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan1.manualSpeed));
       }
     }
-    else if (currentMinutes < minutesLights1On || currentMinutes > minutesLights1On){
-      lights1=false;
-      targetSoilTemp1=nightSoilTemp1;
-      manualFanspeed1 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed1));
+    else if (currentMinutes < schedule1.minutesLightsOn || currentMinutes > schedule1.minutesLightsOn){
+      climate1.lights = false;
+      tempParam1.targetSoilTemp = tempParam1.nightSoilTemp;
+      fan1.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan1.manualSpeed));
     }
   }
   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
-      if (lights1 != relayReg){
-        digitalWrite(relayPin, !lights1);
+      if (climate1.lights != relayReg){
+        digitalWrite(relayPin, !climate1.lights);
         //Serial.println("send lights message to client");
-        notifyClientsSingleObject("lights1", lights1);
+        notifyClientsSingleObject("lights1", climate1.lights);
       }
   return;
 }
 
 void light2Control(boolean manualRelay, const int relayPin){
- if (!manualRelay){
-    if (currentMinutes > minutesLights2On && currentMinutes < minutesLights2Off){
-      lights2=true;
-      targetSoilTemp2=daySoilTemp2;
-      if (fan2NightSwitch){
-        manualFanspeed2 = OUTPUT_MIN2;
+  if (!manualRelay){
+    if (currentMinutes > schedule2.minutesLightsOn && currentMinutes < schedule2.minutesLightsOff){
+      climate2.lights = true;
+      tempParam2.targetSoilTemp = tempParam2.daySoilTemp;
+      if (fan2.daySwitch){
+        fan2.manualSpeed = fan2.output_min;
       }
       else {
-        manualFanspeed2 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed2));
+        fan2.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan2.manualSpeed));
       }
-      //Serial.println("LIGHTS2_ON");
     }
-    else if (currentMinutes < minutesLights2On || currentMinutes > minutesLights2On){
-      lights2=false;
-      targetSoilTemp2=nightSoilTemp2;
-      manualFanspeed2 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed2));
-      //Serial.println("LIGHTS2_OFF");
+    else if (currentMinutes < schedule2.minutesLightsOn || currentMinutes > schedule2.minutesLightsOn){
+      climate2.lights = false;
+      tempParam2.targetSoilTemp = tempParam2.nightSoilTemp;
+      fan2.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan2.manualSpeed));
     }
-  } 
+  }
   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
-
-  if (lights2 != relayReg){
-    //lightState2 = lights2;
-    digitalWrite(relayPin, !lights2);
-    //Serial.println("send lights message to client");
-    notifyClientsSingleObject("lights2", lights2);
-  }
+      if (climate2.lights != relayReg){
+        digitalWrite(relayPin, !climate2.lights);
+        //Serial.println("send lights message to client");
+        notifyClientsSingleObject("lights2", climate2.lights);
+      }
   return;
-  }
+}
+
+
+
+// void light2Control(boolean manualRelay, const int relayPin){
+//  if (!manualRelay){
+//     if (currentMinutes > minutesLights2On && currentMinutes < minutesLights2Off){
+//       lights2=true;
+//       targetSoilTemp2=daySoilTemp2;
+//       if (fan2NightSwitch){
+//         manualFanspeed2 = OUTPUT_MIN2;
+//       }
+//       else {
+//         manualFanspeed2 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed2));
+//       }
+//       //Serial.println("LIGHTS2_ON");
+//     }
+//     else if (currentMinutes < minutesLights2On || currentMinutes > minutesLights2On){
+//       lights2=false;
+//       targetSoilTemp2=nightSoilTemp2;
+//       manualFanspeed2 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed2));
+//       //Serial.println("LIGHTS2_OFF");
+//     }
+//   } 
+//   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
+
+//   if (lights2 != relayReg){
+//     //lightState2 = lights2;
+//     digitalWrite(relayPin, !lights2);
+//     //Serial.println("send lights message to client");
+//     notifyClientsSingleObject("lights2", lights2);
+//   }
+//   return;
+//   }
 
   void light3Control(boolean manualRelay, const int relayPin){
  if (!manualRelay){
-    if (currentMinutes > minutesLights3On && currentMinutes < minutesLights3Off){
-      lights3=true;
-      targetSoilTemp3=daySoilTemp3;
-      targetSoilTemp4=daySoilTemp4;
+    if (currentMinutes > schedule3.minutesLightsOn && currentMinutes < schedule3.minutesLightsOff){
+      climate3.lights = true;
+      tempParam3.targetSoilTemp = tempParam3.daySoilTemp;
+      tempParam4.targetSoilTemp = tempParam4.daySoilTemp;
       //Serial.println("LIGHTS2_ON");
     }
-    else if (currentMinutes < minutesLights3On || currentMinutes > minutesLights3On){
-      lights3=false;
-      targetSoilTemp3=nightSoilTemp3;
-      targetSoilTemp4=daySoilTemp4;
+    else if (currentMinutes < schedule3.minutesLightsOn || currentMinutes > schedule3.minutesLightsOn){
+      climate3.lights = false;
+      tempParam3.targetSoilTemp = tempParam3.nightSoilTemp;
+      tempParam4.targetSoilTemp = tempParam4.daySoilTemp;
       //Serial.println("LIGHTS2_OFF");
     }
   } 
   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
 
-  if (lights3 != relayReg){
+  if (climate3.lights != relayReg){
     //lightState2 = lights2;
-    digitalWrite(relayPin, !lights3);
+    digitalWrite(relayPin, !climate3.lights);
     //Serial.println("send lights message to client");
-    notifyClientsSingleObject("lights3", lights3);
+    notifyClientsSingleObject("lights3", climate3.lights);
   }
   return;
   }
 
   void heater1Control(boolean manualRelay, const int relayPin){
   if (!manualRelay){
-    if (temp[0] < targetSoilTemp1 - tempRange1){
-      heater1 = true;
+    if (temp[0] < tempParam1.targetSoilTemp - tempParam1.tempRange){
+      climate1.heater = true;
     }
-    else if (temp[0] > targetSoilTemp1 + tempRange1){
-      heater1 = false;
+    else if (temp[0] > tempParam1.targetSoilTemp + tempParam1.tempRange){
+      climate1.heater = false;
     }
   }
   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
-  if (heater1 != relayReg){
+  if (climate1.heater != relayReg){
     //heaterState1 = heater1;
-    digitalWrite(relayPin, !heater1);
-    notifyClientsSingleObject("heater1", heater1);
+    digitalWrite(relayPin, !climate1.heater);
+    notifyClientsSingleObject("heater1", climate1.heater);
   }
   return;
 }
 
+
 void heater2Control(boolean manualRelay, const int relayPin){
   if (!manualRelay){
-    if (temp[1] < targetSoilTemp2 - tempRange2){
-      heater2 = true;
+    if (temp[1] < tempParam2.targetSoilTemp - tempParam2.tempRange){
+      climate2.heater = true;
     }
-    else if (temp[1] > targetSoilTemp2 + tempRange2){
-      heater2 = false;
+    else if (temp[1] > tempParam2.targetSoilTemp + tempParam2.tempRange){
+      climate2.heater = false;
     }
   }
   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
-  if (heater2 != relayReg){
+  if (climate2.heater != relayReg){
     //heaterState2 = heater2;
-    digitalWrite(relayPin, !heater2);
-    notifyClientsSingleObject("heater2", heater2);
+    digitalWrite(relayPin, !climate2.heater);
+    notifyClientsSingleObject("heater2", climate2.heater);
   }
   return;
 }
 
 void heater3Control(boolean manualRelay, const int relayPin){
   if (!manualRelay){
-    if (temp[2] < targetSoilTemp3 - tempRange3){
-      heater3 = true;
+    if (temp[2] < tempParam3.targetSoilTemp - tempParam3.tempRange){
+      climate3.heater = true;
     }
-    else if (temp[2] > targetSoilTemp3 + tempRange3){
-      heater3 = false;
+    else if (temp[2] > tempParam3.targetSoilTemp + tempParam3.tempRange){
+      climate3.heater = false;
     }
   }
   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
-  if (heater3 != relayReg){
+  if (climate3.heater != relayReg){
     //heaterState2 = heater2;
-    digitalWrite(relayPin, !heater3);
-    notifyClientsSingleObject("heater3", heater3);
+    digitalWrite(relayPin, !climate3.heater);
+    notifyClientsSingleObject("heater3", climate3.heater);
   }
   return;
 }
 
 void heater4Control(boolean manualRelay, const int relayPin){
   if (!manualRelay){
-    if (temp[3] < targetSoilTemp4 - tempRange4){
-      heater4 = true;
+    if (temp[3] < tempParam4.targetSoilTemp - tempParam4.tempRange){
+      climate4.heater = true;
     }
-    else if (temp[3] > targetSoilTemp4 + tempRange4){
-      heater4 = false;
+    else if (temp[3] > tempParam4.targetSoilTemp + tempParam4.tempRange){
+      climate4.heater = false;
     }
   }
   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
-  if (heater4 != relayReg){
+  if (climate4.heater != relayReg){
     //heaterState2 = heater2;
-    digitalWrite(relayPin, !heater4);
-    notifyClientsSingleObject("heater4", heater4);
+    digitalWrite(relayPin, !climate4.heater);
+    notifyClientsSingleObject("heater4", climate4.heater);
   }
   return;
 }
 
 void humidity1Control(boolean manualRelay, const int relayPin){
   if (!manualRelay){
-    if (humidity[0] < humidMin1){
-      humidifier1 = true;
+    if (humidity[0] < humidParam1.humidmin){
+      climate1.humidifier = true;
     }
-    else if (humidity[0] > humidMax1){
-      humidifier1 = false;
+    else if (humidity[0] > humidParam1.humidmax){
+      climate1.humidifier = false;
     }
   }
   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
     //if (humidifierState1 != humidifier1){
-    if (humidifier1 != relayReg){
+    if (climate1.humidifier != relayReg){
       //humidifierState1 = humidifier1;
-      digitalWrite(relayPin, !humidifier1);
-      notifyClientsSingleObject("humidifier1", humidifier1);
+      digitalWrite(relayPin, !climate1.humidifier);
+      notifyClientsSingleObject("humidifier1", climate1.humidifier);
     }
     return;
 }
 
 void humidity2Control(boolean manualRelay, const int relayPin){
 if (!manualRelay){
-  if (humidity[1] < humidMin2){
-    humidifier2 = true;
+  if (humidity[1] < humidParam2.humidmin){
+    climate2.humidifier = true;
   }
-  else if (humidity[1] > humidMax2){
-    humidifier2 = false;
+  else if (humidity[1] > humidParam1.humidmax){
+    climate2.humidifier = false;
   }
 }
 bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
   // if (humidifierState2 != humidifier2){
   //   humidifierState2 = humidifier2;
-  if (humidifier2 != relayReg){
-    digitalWrite(relayPin, !humidifier2);
-    notifyClientsSingleObject("humidifier2", humidifier2);
+  if (climate2.humidifier != relayReg){
+    digitalWrite(relayPin, !climate2.humidifier);
+    notifyClientsSingleObject("humidifier2", climate2.humidifier);
   }
   return;
 }
@@ -240,120 +270,120 @@ bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPin
 // }
 
 void fan1Control(){ // CLIMATE 1 based on TargetAirTemp1 and value from DHT22 sensor.
-if (manualMosfet1){
-  if (fan1){
-    outputVal1 = manualFanspeed1;
+if (fan1.manual){
+  if (climate1.fan){
+    fan1.speed = fan1.manualSpeed;
     }
-  else {outputVal1 = 0;
+  else {fan1.speed = 0;
   }
   if (msgFanState1){
     messageFanState1();
   }
 }
-else if (!manualMosfet1){
-  fan1 = true;
-  if (!PIDcontrol){
-    if (humidifier1){
-      outputVal1 = OUTPUT_MIN1;
+else if (!fan1.manual){
+  climate1.fan = true;
+  // if (!PIDcontrol){
+    if (climate1.humidifier){
+      fan1.speed = fan1.output_min;
     }
     else {
-      if (dhtTemp[0] > targetAirTemp1 + alarmRange1){
-        outputVal1 = OUTPUT_MAX1;
+      if (dhtTemp[0] > tempParam1.targetAirTemp + tempParam1.alarmRange){
+        fan1.speed = fan1.output_max;
       }
-      else if (dhtTemp[0] < targetAirTemp1){ //  - tempRange1
-        outputVal1 = manualFanspeed1; // OUTPUT_MIN1
+      else if (dhtTemp[0] < tempParam1.targetAirTemp){ //  - tempRange1
+        fan1.speed = fan1.manualSpeed; // OUTPUT_MIN1
       }
       // else if (dhtTemp[0] > targetAirTemp1 - tempRange1 && dhtTemp[0] < targetAirTemp1 + tempRange1){
       //   outputVal1 = manualFanspeed1;
       // }
-      else if (dhtTemp[0] > targetAirTemp1 && dhtTemp[0] < targetAirTemp1 + alarmRange1){
-        outputVal1 = modifiedMap((dhtTemp[0]-targetAirTemp1), 0, alarmRange1, OUTPUT_MIN1, OUTPUT_MAX1);
+      else if (dhtTemp[0] > tempParam1.targetAirTemp && dhtTemp[0] < tempParam1.targetAirTemp + tempParam1.alarmRange){
+        fan1.speed = modifiedMap((dhtTemp[0]-tempParam1.targetAirTemp), 0, tempParam1.alarmRange, fan1.output_min, fan1.output_max);
       }
       }
+  //}
+  // else {
+  //     temperature=dhtTemp[0];
+  //     myPID.run(); //call every loop, updates automatically at certain time interval
+  // }
+  if (fan1.speed == 0){
+    climate1.fan = false;
   }
   else {
-      temperature=dhtTemp[0];
-      myPID.run(); //call every loop, updates automatically at certain time interval
-  }
-  if (outputVal1 == 0){
-    fan1 = false;
-  }
-  else {
-    fan1 = true;
+    climate1.fan = true;
   }
 }
 
-if (fanState1 != fan1 || msgFanState1 == true){
-  fanState1 = fan1;
+if (fan1.fanState != climate1.fan || msgFanState1 == true){
+  fan1.fanState = climate1.fan;
   messageFanState1();
 }   
 //Serial.println(outputVal1);
-ledcWrite(ledChannel1, outputVal1);
-fanspeed1 = map(outputVal1, 0, 255, 0, 100);
+ledcWrite(ledChannel1, fan1.speed);
+//fanspeed1 = map(outputVal1, 0, 255, 0, 100);
 //Serial.println(fanspeed1);
-notifyClientsSingleObjectByte("fanspeed1", fanspeed1);   
+notifyClientsSingleObjectByte("fanspeed1", fan1.speed);   
 }
 
 void messageFanState1(){
 //digitalWrite(ONBOARD_LED, fan1);
 msgFanState1 = false;
-notifyClientsSingleObject("fan1", fan1);
+notifyClientsSingleObject("fan1", climate1.fan);
 return;
 }
 
 void fan2Control(){ // CLIMATE 1 based on TargetAirTemp1 and value from DHT22 sensor.
-if (manualMosfet2){
-  if (fan2){
-    outputVal2 = manualFanspeed2;
+if (fan2.manual){
+  if (climate2.fan){
+    fan2.speed = fan2.manualSpeed;
     }
   else {
-    outputVal2 = 0;
+    fan2.speed = 0;
     }
   if (msgFanState2){
     messageFanState2();
   }
 }
-else if (!manualMosfet2){
-    fan2 = true;
-    if (humidifier2){
-      outputVal2 = OUTPUT_MIN2;
+else if (!fan2.manual){
+    climate2.fan = true;
+    if (climate2.humidifier){
+      fan2.speed = fan2.output_min;
     }
     else {
-      if (dhtTemp[1] > targetAirTemp2 + alarmRange2){
-        outputVal2 = OUTPUT_MAX2;
+      if (dhtTemp[1] > tempParam2.targetAirTemp + tempParam2.alarmRange){
+        fan2.speed = fan2.output_max;
       }
-      else if (dhtTemp[1] < targetAirTemp2){ //  - tempRange2
-        outputVal2 = manualFanspeed2; // OUTPUT_MIN2
+      else if (dhtTemp[1] < tempParam2.targetAirTemp){ //  - tempRange2
+        fan2.speed = fan2.manualSpeed; // OUTPUT_MIN2
       }
       // else if (dhtTemp[1] > targetAirTemp2 - tempRange2 && dhtTemp[1] < targetAirTemp2 + tempRange2){
       //   outputVal2 = manualFanspeed2;
       // }
-      else if (dhtTemp[1] > targetAirTemp2 && dhtTemp[1] < targetAirTemp2 + alarmRange2){
-        outputVal2 = modifiedMap((dhtTemp[1]-targetAirTemp2), 0, alarmRange2, OUTPUT_MIN2, OUTPUT_MAX2);
+      else if (dhtTemp[1] > tempParam2.targetAirTemp && dhtTemp[1] < tempParam2.targetAirTemp + tempParam2.alarmRange){
+        fan2.speed = modifiedMap((dhtTemp[1]-tempParam2.targetAirTemp), 0, tempParam2.alarmRange, fan2.output_min, fan2.output_max);
       }
-    if (outputVal2 == 0){
-      fan2 = false;
+    if (fan2.speed == 0){
+      climate2.fan = false;
     }
     else{
-      fan2 = true;
+      climate2.fan = true;
     }   
   }
 }
 
-if (fanState2 != fan2 || msgFanState2 == true){
-fanState2 = fan2;
+if (fan2.fanState != climate2.fan || msgFanState2 == true){
+fan2.fanState = climate2.fan;
 messageFanState2();
 }
 
 //Serial.println(outputVal);
-ledcWrite(ledChannel2, outputVal2);
-fanspeed2 = map(outputVal2, 0, 255, 0, 100);
-notifyClientsSingleObjectByte("fanspeed2", fanspeed2);   
+ledcWrite(ledChannel2, fan2.speed);
+//fanspeed2 = map(outputVal2, 0, 255, 0, 100);
+notifyClientsSingleObjectByte("fanspeed2", fan2.speed);   
 }
 
 void messageFanState2(){
 msgFanState2 = false;
-notifyClientsSingleObject("fan2", fan2);
+notifyClientsSingleObject("fan2", climate2.fan);
 return;
 }
 

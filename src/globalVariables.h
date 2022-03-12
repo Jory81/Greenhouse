@@ -9,10 +9,10 @@ struct tempSettings
   float targetAirTemp;
   boolean airAlarm;
 };
-tempSettings tempClimate1 {27.0f, 27.0f, 25.0f, 0.5f, 5.0f, false, 24.0f, false}; // peppers
-tempSettings tempClimate2 {24.0f, 24.0f, 22.0f, 0.5f, 5.0f, false, 26.0f, false}; // tomatoes
-tempSettings tempClimate3 {28.0f, 27.0f, 22.0f, 0.5f, 5.0f, false, 26.0f, false}; // seedlings
-tempSettings tempClimate4 {28.0f, 27.0f, 22.0f, 0.5f, 5.0f, false, 26.0f, false}; // seedlings
+tempSettings tempParam1 {27.0f, 27.0f, 25.0f, 0.5f, 5.0f, false, 24.0f, false}; // peppers
+tempSettings tempParam2 {24.0f, 24.0f, 22.0f, 0.5f, 5.0f, false, 26.0f, false}; // tomatoes
+tempSettings tempParam3 {28.0f, 27.0f, 22.0f, 0.5f, 5.0f, false, 26.0f, false}; // seedlings
+tempSettings tempParam4 {28.0f, 27.0f, 22.0f, 0.5f, 5.0f, false, 26.0f, false}; // seedlings
 
 struct Relay
 {
@@ -41,7 +41,7 @@ struct humidSettings
 byte humidmin;
 byte humidmax;
 };
-humidSettings humidClimate1 {30, 80}, humidClimate2 {30, 80};
+humidSettings humidParam1 {30, 80}, humidParam2 {30, 80};
 
 struct Climate
 {
@@ -110,8 +110,8 @@ SystemSettings systemParam{
 struct storeEEPROM{
 int check; 
 SystemSettings systemParam;
-tempSettings tempClimate1, tempClimate2, tempClimate3, tempClimate4;
-humidSettings humidClimate1, humidClimate2;
+tempSettings tempParam1, tempParam2, tempParam3, tempParam4;
+humidSettings humidParam1, humidParam2;
 Relay relay1, relay2, relay3, relay4, relay5, relay6;
 Fan fan1, fan2; 
 lightSettings lights1, lights2, lights3;
@@ -119,8 +119,8 @@ Calibration calSettings;
 };
 
 storeEEPROM myVar{
-11221,
-1, 1, 1, 0, 5000, 1000,
+11321,
+1, 1, 1, 0, 1, 5000, 1000,
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 27.0f, 27.0f, 25.0f, 0.5f, 5.0f, false, 24.0f, false,
@@ -175,8 +175,8 @@ const char *WIFI_SSID_AP = "ESP32-AP";
 const char *WIFI_PASS_AP =  "";
 String wifiID;
 String wifiPASS;
-char ssidStorage[32];
-char passStorage[32];
+// char SSID[32];
+// char PASS[32];
 boolean wifiStationMode=false;
 
 boolean resetHumidity = false;

@@ -31,7 +31,7 @@ void setupEEPROM(){
   Serial.print("check is: "); Serial.println(check);
   #endif
   
-  if (check == 11221){
+  if (check == 11321){
   display.print(F("code: ")); display.println(check);
   display.println(F("EEPROM SET"));
   display.display();
@@ -39,12 +39,12 @@ void setupEEPROM(){
   delay(1000);
   }
   
-  else if (check != 11221){
+  else if (check != 11321){
   display.println(F("EEPROM not initialized"));
   display.println(F("Write to EEPROM"));
   display.display();
   int eeAddress=0;
-  EEPROM.put(eeAddress, customVar);
+  EEPROM.put(eeAddress, myVar);
   EEPROM.commit();
   display.println(F("EEPROM is initialized"));
   display.display();
@@ -156,10 +156,10 @@ void setupFans(){
   ledcSetup(ledChannel2, freq, resolution);
   ledcAttachPin(OUTPUT_PIN1, ledChannel1);
   ledcAttachPin(OUTPUT_PIN2, ledChannel2);
-  if (!fan1Connected){
+  if (!fan1.connected){
       ledcWrite(ledChannel1, 0);
   }
-  if (!fan2Connected){
+  if (!fan2.connected){
         ledcWrite(ledChannel2, 0);
   }
 }
@@ -186,135 +186,146 @@ void setupRelays(){
 
 void initializeEEPROMvariables(){
 
+//systemParam.probeTypeT  = EEPROM.read(offsetof(storeEEPROM, systemParam.probeTypeT));
+
 systemParam.probeTypeT  = EEPROM.read(offsetof(storeEEPROM, systemParam.probeTypeT));
+systemParam.probeCountT = EEPROM.read(offsetof(storeEEPROM, systemParam.probeCountT));
+systemParam.probeTypeH  = EEPROM.read(offsetof(storeEEPROM, systemParam.probeTypeH));
+systemParam.probeCountH = EEPROM.read(offsetof(storeEEPROM, systemParam.probeCountH));
+systemParam.measurements = EEPROM.read(offsetof(storeEEPROM, systemParam.measurements));
 
-probeTypeT  = EEPROM.read(offsetof(storeInEEPROM, probeTypeT));
-probeCountT = EEPROM.read(offsetof(storeInEEPROM, probeCountT));
-probeTypeH  = EEPROM.read(offsetof(storeInEEPROM, probeTypeH));
-probeCountH = EEPROM.read(offsetof(storeInEEPROM, probeCountH));
-relay1Connected = EEPROM.read(offsetof(storeInEEPROM, relay1Connected));
-relay2Connected = EEPROM.read(offsetof(storeInEEPROM, relay2Connected));
-relay3Connected = EEPROM.read(offsetof(storeInEEPROM, relay3Connected));
-relay4Connected = EEPROM.read(offsetof(storeInEEPROM, relay4Connected));
-relay5Connected = EEPROM.read(offsetof(storeInEEPROM, relay5Connected));
-relay6Connected = EEPROM.read(offsetof(storeInEEPROM, relay6Connected));
-funcRelay1 = EEPROM.read(offsetof(storeInEEPROM, funcRelay1));
-funcRelay2 = EEPROM.read(offsetof(storeInEEPROM, funcRelay2));
-funcRelay3 = EEPROM.read(offsetof(storeInEEPROM, funcRelay3));
-funcRelay4 = EEPROM.read(offsetof(storeInEEPROM, funcRelay4));
-funcRelay5 = EEPROM.read(offsetof(storeInEEPROM, funcRelay5));
-funcRelay6 = EEPROM.read(offsetof(storeInEEPROM, funcRelay6));
-fan1Connected = EEPROM.read(offsetof(storeInEEPROM, fan1Connected));
-fan2Connected = EEPROM.read(offsetof(storeInEEPROM, fan2Connected));
+relay1.connected = EEPROM.read(offsetof(storeEEPROM, relay1.connected));
+relay2.connected = EEPROM.read(offsetof(storeEEPROM, relay2.connected));
+relay3.connected = EEPROM.read(offsetof(storeEEPROM, relay3.connected));
+relay4.connected = EEPROM.read(offsetof(storeEEPROM, relay4.connected));
+relay5.connected = EEPROM.read(offsetof(storeEEPROM, relay5.connected));
+relay6.connected = EEPROM.read(offsetof(storeEEPROM, relay6.connected));
+relay1.function = EEPROM.read(offsetof(storeEEPROM, relay1.function));
+relay2.function = EEPROM.read(offsetof(storeEEPROM, relay2.function));
+relay3.function = EEPROM.read(offsetof(storeEEPROM, relay3.function));
+relay4.function = EEPROM.read(offsetof(storeEEPROM, relay4.function));
+relay5.function = EEPROM.read(offsetof(storeEEPROM, relay5.function));
+relay6.function = EEPROM.read(offsetof(storeEEPROM, relay6.function));
 
-PIDcontrol = EEPROM.read(offsetof(storeInEEPROM, PIDcontrol));
+fan1.connected = EEPROM.read(offsetof(storeEEPROM, fan1.connected));
+fan2.connected = EEPROM.read(offsetof(storeEEPROM, fan2.connected));
+fan1.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan1.manualSpeed));
+fan2.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan2.manualSpeed));
+fan1.manual = EEPROM.read(offsetof(storeEEPROM, fan1.manual));
+fan2.manual = EEPROM.read(offsetof(storeEEPROM, fan2.manual));
+fan1.daySwitch = EEPROM.read(offsetof(storeEEPROM, fan1.daySwitch));
+fan2.daySwitch = EEPROM.read(offsetof(storeEEPROM, fan2.daySwitch));
+fan1.output_min = EEPROM.read(offsetof(storeEEPROM, fan1.output_min));
+fan1.output_max = EEPROM.read(offsetof(storeEEPROM, fan1.output_max));
+fan2.output_min = EEPROM.read(offsetof(storeEEPROM, fan2.output_min));
+fan2.output_max = EEPROM.read(offsetof(storeEEPROM, fan2.output_max));
 
-measurements = EEPROM.read(offsetof(storeInEEPROM, measurements));
+humidParam1.humidmin = EEPROM.read(offsetof(storeEEPROM, humidParam1.humidmin));
+humidParam1.humidmax =  EEPROM.read(offsetof(storeEEPROM, humidParam1.humidmax));
+humidParam2.humidmin = EEPROM.read(offsetof(storeEEPROM, humidParam2.humidmin));
+humidParam2.humidmax =  EEPROM.read(offsetof(storeEEPROM, humidParam2.humidmax));
+// humidMin3 = EEPROM.read(offsetof(storeEEPROM, humidMin3));
+// humidMax3 =  EEPROM.read(offsetof(storeEEPROM, humidMax3));
 
-humidMin1 = EEPROM.read(offsetof(storeInEEPROM, humidMin1));
-humidMax1 =  EEPROM.read(offsetof(storeInEEPROM, humidMax1));
-humidMin2 = EEPROM.read(offsetof(storeInEEPROM, humidMin2));
-humidMax2 =  EEPROM.read(offsetof(storeInEEPROM, humidMax2));
-// humidMin3 = EEPROM.read(offsetof(storeInEEPROM, humidMin3));
-// humidMax3 =  EEPROM.read(offsetof(storeInEEPROM, humidMax3));
-
-manualFanspeed1 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed1));
-manualFanspeed2 = EEPROM.read(offsetof(storeInEEPROM, manualFanspeed2));
-
-manualMosfet1 = EEPROM.read(offsetof(storeInEEPROM, manualMosfet1));
-manualMosfet2 = EEPROM.read(offsetof(storeInEEPROM, manualMosfet2));
-
-fan1NightSwitch = EEPROM.read(offsetof(storeInEEPROM, fan1NightSwitch));
-fan2NightSwitch = EEPROM.read(offsetof(storeInEEPROM, fan2NightSwitch));
 
 #ifdef ESP8266  
 
-EEPROM.get(offsetof(storeInEEPROM, graphUpdate), graphUpdate;
-EEPROM.get(offsetof(storeInEEPROM, tempUodate), tempUpdate;
+EEPROM.get(offsetof(storeEEPROM, systemParam.graphUpdate), systemParam.graphUpdate;
+EEPROM.get(offsetof(storeEEPROM, systemParam.tempUodate), systemParam.tempUpdate;
 
-EEPROM.get(offsetof(storeInEEPROM, KP, KP);
-EEPROM.get(offsetof(storeInEEPROM, KI), KI);
-EEPROM.get(offsetof(storeInEEPROM, KD), KD);
+// EEPROM.get(offsetof(storeEEPROM, KP, KP);
+// EEPROM.get(offsetof(storeEEPROM, KI), KI);
+// EEPROM.get(offsetof(storeEEPROM, KD), KD);
 
-EEPROM.get(offsetof(storeInEEPROM, OUTPUT_MIN1), OUTPUT_MIN1);
-EEPROM.get(offsetof(storeInEEPROM, OUTPUT_MAX1), OUTPUT_MAX1);
-EEPROM.get(offsetof(storeInEEPROM, OUTPUT_MIN2), OUTPUT_MIN2);
-EEPROM.get(offsetof(storeInEEPROM, OUTPUT_MAX2), OUTPUT_MAX2);
+// EEPROM.get(offsetof(storeEEPROM, OUTPUT_MIN1), OUTPUT_MIN1);
+// EEPROM.get(offsetof(storeEEPROM, OUTPUT_MAX1), OUTPUT_MAX1);
+// EEPROM.get(offsetof(storeEEPROM, OUTPUT_MIN2), OUTPUT_MIN2);
+// EEPROM.get(offsetof(storeEEPROM, OUTPUT_MAX2), OUTPUT_MAX2);
 
-EEPROM.get(offsetof(storeInEEPROM, daySoilTemp1), daySoilTemp1;
-EEPROM.get(offsetof(storeInEEPROM, nightSoilTemp1), nightSoilTemp1;
-EEPROM.get(offsetof(storeInEEPROM, targetAirTemp1), targetAirTemp1;
-EEPROM.get(offsetof(storeInEEPROM, tempRange1), tempRange1;
-EEPROM.get(offsetof(storeInEEPROM, alarmRange1), alarmRange1;
+EEPROM.get(offsetof(storeEEPROM, daySoilTemp1), daySoilTemp1;
+EEPROM.get(offsetof(storeEEPROM, nightSoilTemp1), nightSoilTemp1;
+EEPROM.get(offsetof(storeEEPROM, targetAirTemp1), targetAirTemp1;
+EEPROM.get(offsetof(storeEEPROM, tempRange1), tempRange1;
+EEPROM.get(offsetof(storeEEPROM, alarmRange1), alarmRange1;
 
-EEPROM.get(offsetof(storeInEEPROM, daySoilTemp2), daySoilTemp2;
-EEPROM.get(offsetof(storeInEEPROM, nightSoilTemp2), nightSoilTemp2;
-EEPROM.get(offsetof(storeInEEPROM, targetAirTemp2, targetAirTemp2;
-EEPROM.get(offsetof(storeInEEPROM, tempRange2), tempRange2;
-EEPROM.get(offsetof(storeInEEPROM, alarmRange2), alarmRange2;
+EEPROM.get(offsetof(storeEEPROM, daySoilTemp2), daySoilTemp2;
+EEPROM.get(offsetof(storeEEPROM, nightSoilTemp2), nightSoilTemp2;
+EEPROM.get(offsetof(storeEEPROM, targetAirTemp2, targetAirTemp2;
+EEPROM.get(offsetof(storeEEPROM, tempRange2), tempRange2;
+EEPROM.get(offsetof(storeEEPROM, alarmRange2), alarmRange2;
 
-EEPROM.get(offsetof(storeInEEPROM, daySoilTemp3), daySoilTemp3;
-EEPROM.get(offsetof(storeInEEPROM, nightSoilTemp3), nightSoilTemp3;
-EEPROM.get(offsetof(storeInEEPROM, tempRange3), tempRange3;
-EEPROM.get(offsetof(storeInEEPROM, alarmRange3), alarmRange3;
+EEPROM.get(offsetof(storeEEPROM, daySoilTemp3), daySoilTemp3;
+EEPROM.get(offsetof(storeEEPROM, nightSoilTemp3), nightSoilTemp3;
+EEPROM.get(offsetof(storeEEPROM, tempRange3), tempRange3;
+EEPROM.get(offsetof(storeEEPROM, alarmRange3), alarmRange3;
 
-EEPROM.get(offsetof(storeInEEPROM, daySoilTemp4), daySoilTemp4;
-EEPROM.get(offsetof(storeInEEPROM, nightSoilTemp4), nightSoilTemp4;
-EEPROM.get(offsetof(storeInEEPROM, tempRange4), tempRange4;
-EEPROM.get(offsetof(storeInEEPROM, alarmRange4), alarmRange4;
+EEPROM.get(offsetof(storeEEPROM, daySoilTemp4), daySoilTemp4;
+EEPROM.get(offsetof(storeEEPROM, nightSoilTemp4), nightSoilTemp4;
+EEPROM.get(offsetof(storeEEPROM, tempRange4), tempRange4;
+EEPROM.get(offsetof(storeEEPROM, alarmRange4), alarmRange4;
 
 for (int m = 0; m < 8; m++){
-int offsetPosition = offsetof(storeInEEPROM, calibrationValue[0]);
+int offsetPosition = offsetof(storeEEPROM, calibrationValue[0]);
 EEPROM.get(offsetPosition+(4*m), calibrationValue[m]);
 }
 
 #else
-graphUpdate = EEPROM.readInt(offsetof(storeInEEPROM, graphUpdate));
-tempUpdate = EEPROM.readInt(offsetof(storeInEEPROM, tempUpdate));
+systemParam.graphUpdate = EEPROM.readInt(offsetof(storeEEPROM, systemParam.graphUpdate));
+systemParam.tempUpdate = EEPROM.readInt(offsetof(storeEEPROM, systemParam.tempUpdate));
 
-daySoilTemp1 = EEPROM.readFloat(offsetof(storeInEEPROM, daySoilTemp1));
-nightSoilTemp1 = EEPROM.readFloat(offsetof(storeInEEPROM, nightSoilTemp1));
-targetAirTemp1 = EEPROM.readFloat(offsetof(storeInEEPROM, targetAirTemp1));
-tempRange1 = EEPROM.readFloat(offsetof(storeInEEPROM, tempRange1));
-alarmRange1 = EEPROM.readFloat(offsetof(storeInEEPROM, alarmRange1));
+tempParam1.daySoilTemp = EEPROM.readFloat(offsetof(storeEEPROM, tempParam1.daySoilTemp));
+tempParam1.nightSoilTemp = EEPROM.readFloat(offsetof(storeEEPROM, tempParam1.nightSoilTemp));
+tempParam1.targetAirTemp = EEPROM.readFloat(offsetof(storeEEPROM, tempParam1.targetAirTemp));
+tempParam1.tempRange = EEPROM.readFloat(offsetof(storeEEPROM, tempParam1.tempRange));
+tempParam1.alarmRange = EEPROM.readFloat(offsetof(storeEEPROM, tempParam1.alarmRange));
 
-daySoilTemp2 = EEPROM.readFloat(offsetof(storeInEEPROM, daySoilTemp2));
-nightSoilTemp2 = EEPROM.readFloat(offsetof(storeInEEPROM, nightSoilTemp2));
-targetAirTemp2 = EEPROM.readFloat(offsetof(storeInEEPROM, targetAirTemp2));
-tempRange2 = EEPROM.readFloat(offsetof(storeInEEPROM, tempRange2));
-alarmRange2 = EEPROM.readFloat(offsetof(storeInEEPROM, alarmRange2));
+tempParam2.daySoilTemp = EEPROM.readFloat(offsetof(storeEEPROM, tempParam2.daySoilTemp));
+tempParam2.nightSoilTemp = EEPROM.readFloat(offsetof(storeEEPROM, tempParam2.nightSoilTemp));
+tempParam2.targetAirTemp = EEPROM.readFloat(offsetof(storeEEPROM, tempParam2.targetAirTemp));
+tempParam2.tempRange = EEPROM.readFloat(offsetof(storeEEPROM, tempParam2.tempRange));
+tempParam2.alarmRange = EEPROM.readFloat(offsetof(storeEEPROM, tempParam2.alarmRange));
 
-daySoilTemp3 = EEPROM.readFloat(offsetof(storeInEEPROM, daySoilTemp3));
-nightSoilTemp3 = EEPROM.readFloat(offsetof(storeInEEPROM, nightSoilTemp3));
-tempRange3 = EEPROM.readFloat(offsetof(storeInEEPROM, tempRange3));
-alarmRange3 = EEPROM.readFloat(offsetof(storeInEEPROM, alarmRange3));
+tempParam3.daySoilTemp = EEPROM.readFloat(offsetof(storeEEPROM, tempParam3.daySoilTemp));
+tempParam3.nightSoilTemp = EEPROM.readFloat(offsetof(storeEEPROM, tempParam3.nightSoilTemp));
+tempParam3.tempRange = EEPROM.readFloat(offsetof(storeEEPROM, tempParam3.tempRange));
+tempParam3.alarmRange = EEPROM.readFloat(offsetof(storeEEPROM, tempParam3.alarmRange));
 
-daySoilTemp4 = EEPROM.readFloat(offsetof(storeInEEPROM, daySoilTemp4));
-nightSoilTemp4 = EEPROM.readFloat(offsetof(storeInEEPROM, nightSoilTemp4));
-tempRange4 = EEPROM.readFloat(offsetof(storeInEEPROM, tempRange4));
-alarmRange4 = EEPROM.readFloat(offsetof(storeInEEPROM, alarmRange4));
+tempParam4.daySoilTemp = EEPROM.readFloat(offsetof(storeEEPROM, tempParam4.daySoilTemp));
+tempParam4.nightSoilTemp = EEPROM.readFloat(offsetof(storeEEPROM, tempParam4.nightSoilTemp));
+tempParam4.tempRange = EEPROM.readFloat(offsetof(storeEEPROM, tempParam4.tempRange));
+tempParam4.alarmRange = EEPROM.readFloat(offsetof(storeEEPROM, tempParam4.alarmRange));
 
-KP = EEPROM.readDouble(offsetof(storeInEEPROM, KP));
-KI = EEPROM.readDouble(offsetof(storeInEEPROM, KI));
-KD = EEPROM.readDouble(offsetof(storeInEEPROM, KD));
+// KP = EEPROM.readDouble(offsetof(storeEEPROM, KP));
+// KI = EEPROM.readDouble(offsetof(storeEEPROM, KI));
+// KD = EEPROM.readDouble(offsetof(storeEEPROM, KD));
 
-OUTPUT_MIN1 = EEPROM.readDouble(offsetof(storeInEEPROM, OUTPUT_MIN1));
-OUTPUT_MAX1 = EEPROM.readDouble(offsetof(storeInEEPROM, OUTPUT_MAX1));
-OUTPUT_MIN2 = EEPROM.readDouble(offsetof(storeInEEPROM, OUTPUT_MIN2));
-OUTPUT_MAX2 = EEPROM.readDouble(offsetof(storeInEEPROM, OUTPUT_MAX2));
+// OUTPUT_MIN1 = EEPROM.readDouble(offsetof(storeEEPROM, OUTPUT_MIN1));
+// OUTPUT_MAX1 = EEPROM.readDouble(offsetof(storeEEPROM, OUTPUT_MAX1));
+// OUTPUT_MIN2 = EEPROM.readDouble(offsetof(storeEEPROM, OUTPUT_MIN2));
+// OUTPUT_MAX2 = EEPROM.readDouble(offsetof(storeEEPROM, OUTPUT_MAX2));
 
-for (int m = 0; m < 8; m++){
-int offsetPosition = offsetof(storeInEEPROM, calibrationValue[0]);
-calibrationValue[m]  = EEPROM.readFloat(offsetPosition+4*m);
-}
+calSettings.pt100sensor[0] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.pt100sensor[0]));
+calSettings.pt100sensor[1] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.pt100sensor[1]));
+calSettings.pt100sensor[2] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.pt100sensor[2]));
+calSettings.pt100sensor[3] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.pt100sensor[3]));
+calSettings.dhtTemp[0] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.dhtTemp[0]));
+calSettings.dhtTemp[1] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.dhtTemp[1]));
+calSettings.dhtHumid[0] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.dhtHumid[0]));
+calSettings.dhtHumid[1] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.dhtHumid[1]));
+
+
+// for (int m = 0; m < 8; m++){
+// int offsetPosition = offsetof(storeEEPROM, calSettings.pt100sensor[0]);
+// calibrationValue[m]  = EEPROM.readFloat(offsetPosition+4*m);
+// }
 #endif
 
-targetSoilTemp1 = daySoilTemp1;
-targetSoilTemp2 = daySoilTemp2;
-targetSoilTemp3 = daySoilTemp3;
-targetSoilTemp4 = daySoilTemp4;
+tempParam1.targetSoilTemp = tempParam1.daySoilTemp;
+tempParam2.targetSoilTemp = tempParam2.daySoilTemp;
+tempParam3.targetSoilTemp = tempParam3.daySoilTemp;
+tempParam4.targetSoilTemp = tempParam4.daySoilTemp;
 // for (int m = 0; m < 8; m++){
-// int offsetPosition = offsetof(storeInEEPROM, lightSchedule[0]);
+// int offsetPosition = offsetof(storeEEPROM, lightSchedule[0]);
 // lightSchedule[m]  = EEPROM.readChar(offsetPosition+m);
 // // Serial.println(lightSchedule[m]);
 // }
@@ -322,59 +333,60 @@ targetSoilTemp4 = daySoilTemp4;
 //Serial.print("position: "); Serial.print(offsetPosition+4*m); Serial.print(" cal. value: "); Serial.println(calibrationValue[m]);
 
 for (int m = 0; m < 32; m++){
-int offsetPosition = offsetof(storeInEEPROM, ssidStorage[0]);
-ssidStorage[m]  = EEPROM.read(offsetPosition+m);
+int offsetPosition = offsetof(storeEEPROM, systemParam.SSID[0]);
+systemParam.SSID[m]  = EEPROM.read(offsetPosition+m);
 }
-wifiID = String(ssidStorage);
+wifiID = String(systemParam.SSID);
 Serial.print("wifiID "); Serial.println(wifiID);
 
 for (int m = 0; m < 32; m++){  
-int offsetPosition = offsetof(storeInEEPROM, passStorage[0]);
-passStorage[m]  = EEPROM.read(offsetPosition+m);
+int offsetPosition = offsetof(storeEEPROM, systemParam.PASS[0]);
+systemParam.PASS[m]  = EEPROM.read(offsetPosition+m);
 }
-wifiPASS = String(passStorage);
+wifiPASS = String(systemParam.PASS);
 Serial.print("wifiPASS "); Serial.println(wifiPASS);
 
-for (int m = 0; m < 6; m++){
-int offsetPosition = offsetof(storeInEEPROM, lights1on[0]);
-lights1on[m]  = EEPROM.read(offsetPosition+m);
-}
-lights1ON = String(lights1on);
-//Serial.print("lights1on "); Serial.println(lights1ON);
 
 for (int m = 0; m < 6; m++){
-int offsetPosition = offsetof(storeInEEPROM, lights1off[0]);
-lights1off[m]  = EEPROM.read(offsetPosition+m);
+int offsetPosition = offsetof(storeEEPROM, lights1.lightsOn[0]);
+lights1.lightsOn[m]  = EEPROM.read(offsetPosition+m);
 }
-lights1OFF = String(lights1off);
-//Serial.print("lights1off "); Serial.println(lights1OFF);
+climate1.lightsON = String(lights1.lightsOn);
 
 for (int m = 0; m < 6; m++){
-int offsetPosition = offsetof(storeInEEPROM, lights2on[0]);
-lights2on[m]  = EEPROM.read(offsetPosition+m);
+int offsetPosition = offsetof(storeEEPROM, lights1.lightsOff[0]);
+lights1.lightsOff[m]  = EEPROM.read(offsetPosition+m);
 }
-lights2ON = String(lights2on);
+climate1.lightsOFF = String(lights1.lightsOff);
+
+
+
+for (int m = 0; m < 6; m++){
+int offsetPosition = offsetof(storeEEPROM, lights2.lightsOn[0]);
+lights2.lightsOn[m]  = EEPROM.read(offsetPosition+m);
+}
+climate2.lightsON = String(lights2.lightsOn);
+
+for (int m = 0; m < 6; m++){
+int offsetPosition = offsetof(storeEEPROM, lights2.lightsOff[0]);
+lights2.lightsOff[m]  = EEPROM.read(offsetPosition+m);
+}
+climate2.lightsOFF = String(lights2.lightsOff);
+
+
+
+for (int m = 0; m < 6; m++){
+int offsetPosition = offsetof(storeEEPROM, lights3.lightsOn[0]);
+lights3.lightsOn[m]  = EEPROM.read(offsetPosition+m);
+}
+climate3.lightsON = String(lights3.lightsOn);
 //Serial.print("lights2on "); Serial.println(lights2ON);
 
 for (int m = 0; m < 6; m++){
-int offsetPosition = offsetof(storeInEEPROM, lights2off[0]);
-lights2off[m]  = EEPROM.read(offsetPosition+m);
+int offsetPosition = offsetof(storeEEPROM, lights3.lightsOff[0]);
+lights3.lightsOff[m]  = EEPROM.read(offsetPosition+m);
 }
-lights2OFF = String(lights2off);
-//Serial.print("lights2off "); Serial.println(lights2OFF);
-
-for (int m = 0; m < 6; m++){
-int offsetPosition = offsetof(storeInEEPROM, lights3on[0]);
-lights3on[m]  = EEPROM.read(offsetPosition+m);
-}
-lights3ON = String(lights3on);
-//Serial.print("lights2on "); Serial.println(lights2ON);
-
-for (int m = 0; m < 6; m++){
-int offsetPosition = offsetof(storeInEEPROM, lights3off[0]);
-lights3off[m]  = EEPROM.read(offsetPosition+m);
-}
-lights3OFF = String(lights3off);
+climate3.lightsOFF = String(lights3.lightsOff);    
 
 reInitializeTimeInts();
 
@@ -406,41 +418,45 @@ int convertStringToInt(String str, int workflow){
 
 void reInitializeTimeStrings(){
     for (int m = 0; m < 6; m++){
-    int offsetPosition = offsetof(storeInEEPROM, lights1on[0]);
-    lights1on[m]  = EEPROM.read(offsetPosition+m);
+    int offsetPosition = offsetof(storeEEPROM, lights1.lightsOn[0]);
+    lights1.lightsOn[m]  = EEPROM.read(offsetPosition+m);
     }
-    lights1ON = String(lights1on);
+    climate1.lightsON = String(lights1.lightsOn);
 
     for (int m = 0; m < 6; m++){
-    int offsetPosition = offsetof(storeInEEPROM, lights1off[0]);
-    lights1off[m]  = EEPROM.read(offsetPosition+m);
+    int offsetPosition = offsetof(storeEEPROM, lights1.lightsOff[0]);
+    lights1.lightsOff[m]  = EEPROM.read(offsetPosition+m);
     }
-    lights1OFF = String(lights1off);
+    climate1.lightsOFF = String(lights1.lightsOff);
+
+
 
     for (int m = 0; m < 6; m++){
-    int offsetPosition = offsetof(storeInEEPROM, lights2on[0]);
-    lights2on[m]  = EEPROM.read(offsetPosition+m);
+    int offsetPosition = offsetof(storeEEPROM, lights2.lightsOn[0]);
+    lights2.lightsOn[m]  = EEPROM.read(offsetPosition+m);
     }
-    lights2ON = String(lights2on);
+    climate2.lightsON = String(lights2.lightsOn);
 
     for (int m = 0; m < 6; m++){
-    int offsetPosition = offsetof(storeInEEPROM, lights2off[0]);
-    lights2off[m]  = EEPROM.read(offsetPosition+m);
+    int offsetPosition = offsetof(storeEEPROM, lights2.lightsOff[0]);
+    lights2.lightsOff[m]  = EEPROM.read(offsetPosition+m);
     }
-    lights2OFF = String(lights2off);
+    climate2.lightsOFF = String(lights2.lightsOff);
+
+
 
     for (int m = 0; m < 6; m++){
-    int offsetPosition = offsetof(storeInEEPROM, lights3on[0]);
-    lights3on[m]  = EEPROM.read(offsetPosition+m);
+    int offsetPosition = offsetof(storeEEPROM, lights3.lightsOn[0]);
+    lights3.lightsOn[m]  = EEPROM.read(offsetPosition+m);
     }
-    lights3ON = String(lights3on);
+    climate3.lightsON = String(lights3.lightsOn);
     //Serial.print("lights2on "); Serial.println(lights2ON);
 
     for (int m = 0; m < 6; m++){
-    int offsetPosition = offsetof(storeInEEPROM, lights3off[0]);
-    lights3off[m]  = EEPROM.read(offsetPosition+m);
+    int offsetPosition = offsetof(storeEEPROM, lights3.lightsOff[0]);
+    lights3.lightsOff[m]  = EEPROM.read(offsetPosition+m);
     }
-    lights3OFF = String(lights3off);    
+    climate3.lightsOFF = String(lights3.lightsOff);    
 
     reInitializeTimeInts();
 
@@ -448,30 +464,30 @@ void reInitializeTimeStrings(){
 }
 
 void reInitializeTimeInts(){
-    hoursOn1 = convertStringToInt(lights1ON, 0);
-    minutesOn1 = convertStringToInt(lights1ON, 1);
-    hoursOff1 = convertStringToInt(lights1OFF, 0);
-    minutesOff1 = convertStringToInt(lights1OFF, 1);
+    schedule1.hoursOn = convertStringToInt(climate1.lightsON, 0);
+    schedule1.minutesOn = convertStringToInt(climate1.lightsON, 1);
+    schedule1.hoursOff = convertStringToInt(climate1.lightsOFF, 0);
+    schedule1.minutesOff = convertStringToInt(climate1.lightsOFF, 1);
     currentMinutes = ((hours*60)+minutes);
 
-    minutesLights1On = ((hoursOn1*60)+minutesOn1);
-    minutesLights1Off = ((hoursOff1*60)+minutesOff1);
+    schedule1.minutesLightsOn = ((schedule1.hoursOn*60)+schedule1.minutesOn);
+    schedule1.minutesLightsOff = ((schedule1.hoursOff*60)+schedule1.minutesOff);
 
-    hoursOn2 = convertStringToInt(lights2ON, 0);
-    minutesOn2 = convertStringToInt(lights2ON, 1);
-    hoursOff2 = convertStringToInt(lights2OFF, 0);
-    minutesOff2 = convertStringToInt(lights2OFF, 1);
- 
-    minutesLights2On = ((hoursOn2*60)+minutesOn2);
-    minutesLights2Off = ((hoursOff2*60)+minutesOff2);
+    schedule2.hoursOn = convertStringToInt(climate2.lightsON, 0);
+    schedule2.minutesOn = convertStringToInt(climate2.lightsON, 1);
+    schedule2.hoursOff = convertStringToInt(climate2.lightsOFF, 0);
+    schedule2.minutesOff = convertStringToInt(climate2.lightsOFF, 1);
 
-    hoursOn3 = convertStringToInt(lights3ON, 0);
-    minutesOn3 = convertStringToInt(lights3ON, 1);
-    hoursOff3 = convertStringToInt(lights3OFF, 0);
-    minutesOff3 = convertStringToInt(lights3OFF, 1);
+    schedule2.minutesLightsOn = ((schedule2.hoursOn*60)+schedule2.minutesOn);
+    schedule2.minutesLightsOff = ((schedule2.hoursOff*60)+schedule2.minutesOff);
+
+    schedule3.hoursOn = convertStringToInt(climate3.lightsON, 0);
+    schedule3.minutesOn = convertStringToInt(climate3.lightsON, 1);
+    schedule3.hoursOff = convertStringToInt(climate3.lightsOFF, 0);
+    schedule3.minutesOff = convertStringToInt(climate3.lightsOFF, 1);
  
-    minutesLights3On = ((hoursOn2*60)+minutesOn3);
-    minutesLights3Off = ((hoursOff2*60)+minutesOff3);    
+    schedule3.minutesLightsOn = ((schedule3.hoursOn*60)+schedule3.minutesOn);
+    schedule3.minutesLightsOff = ((schedule3.hoursOff*60)+schedule3.minutesOff);    
 }
 
 void syncTimeRTC(){ // This function syncs RTC timer upon connection to wifi in case lostPower is true.

@@ -4,6 +4,7 @@
 
 void onRootRequest(AsyncWebServerRequest *request) {
   request->send(SPIFFS, "/index.html", "text/html");    // , false, processor
+  //request->send(SPIFFS, "/index.js", "text/javascript");
 }
 
 void initWebServer() {
@@ -134,6 +135,8 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("tempUpdate")){systemParam.tempUpdate = json["tempUpdate"]; systemParam.tempUpdate = systemParam.tempUpdate*1000; EEPROM.put(offsetof(storeEEPROM, systemParam.tempUpdate), (systemParam.tempUpdate));  EEPROM.commit();}
        
         else if (json.containsKey("measurements")){systemParam.measurements = json["measurements"];  EEPROM.put(offsetof(storeEEPROM, systemParam.measurements), (systemParam.measurements));  EEPROM.commit();}
+        else if (json.containsKey("externalRTC")){systemParam.externalRTC = json["externalRTC"];  EEPROM.put(offsetof(storeEEPROM, systemParam.externalRTC), (systemParam.externalRTC));  EEPROM.commit(); ESP.restart();}
+        else if (json.containsKey("resetRTC")){systemParam.resetRTC = json["measurements"];  EEPROM.put(offsetof(storeEEPROM, systemParam.resetRTC), (systemParam.resetRTC));  EEPROM.commit();}
         //else if (json.containsKey("PIDcontrol")){PIDcontrol = json["PIDcontrol"]; EEPROM.put(offsetof(storeInEEPROM, PIDcontrol), PIDcontrol);  EEPROM.commit();}
 
         else if (json.containsKey("funcRelay1")){relay1.function = json["funcRelay1"]; EEPROM.put(offsetof(storeEEPROM, relay1.function), relay1.function);  EEPROM.commit();}
@@ -246,6 +249,9 @@ doc["probeCountH"]   = systemParam.probeCountH;
 doc["graphUpdate"]   = systemParam.graphUpdate/1000;
 doc["tempUpdate"]   = systemParam.tempUpdate/1000;
 doc["measurements"] = systemParam.measurements;
+doc["externalRTC"] = systemParam.externalRTC;
+doc["resetRTC"] = systemParam.resetRTC;
+
 
 // doc["PIDcontrol"]   = PIDcontrol;
 
