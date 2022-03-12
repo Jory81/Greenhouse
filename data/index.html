@@ -206,13 +206,14 @@
 
 		<h4>fan parameters &nbsp
 			<span class="textinfo">/Info (hover)
-				<span class="tooltiptext">Fanspeed when not manually controlled: manualFanspeed (the slider, which value can be saved to eeprom) is used when air_temperature is below target_air_temperature. Thus, when manualFanspeed is set to zero (and saved to eeprom) the fans will switch off when below a certain temperature.
-					If on_during_day is checked, manualFanspeed is Fan_minspeed during daytime and manualFanspeed (eeprom value) during night time - this allows to switch the fans on during day time, and run at minimum speed, and off during night time.</span>
+				<span class="tooltiptext">When fanspeed is not manually controlled:
+					<br>
+					manualFanspeed (the slider) is used to set fanSpeed if air_temperature is below target_air_temperature. Thus, when manualFanspeed is set to 0 (and saved to eeprom) the fan -fanSpeed 0- will switch off if air_temp is below target_air_temp.
+					<br>
+					However, if on_during_day is checked, manualFanspeed is set to Fan_minspeed during daytime and the manualFanspeed (EEPROM value) during night time - this allows to switch the fans on during day time, and run at minimum speed, and off during night time.</span>
 				</span>
 
 		</h4>
-
-
 
 			<div>
 			<span class="textinfo">fan1 connected:</span>
@@ -518,7 +519,22 @@
 
 <div id="systemsettings" class="tabcontent">
   <span onclick="toggleoff(this.parentElement)" class="topright">&times</span>
-	<h4>system settings: (system settings are always saved to EEPROM)</h4>	
+	<h4>system settings &nbsp
+			<span class="textinfo">/Info (hover)
+				<span class="tooltiptext">First: system settings and relay settings are always saved to EEPROM. For other settings to retain their values after power loss, check 'EEPROM' to true and then adjust values.
+					<br>
+					<br>
+					PIN INFO: wemos D1 mini esp32: Temp pins: [5, 26, 27, 32]. Relay pins: [14, 13, 25, 33, 2, 15]. DHT pins: [17, 16]. Fan pins: [4, 0].
+					<br>
+					IMPORTANT: disconnect pin 2 when flashing otherwise flash will FAIL - reconect after flashing.
+					<br>
+					IMPORTANT: disconnect pin 2, 0 and 4 when using Serial Monitor otherwise errors might appear.
+				</span>
+			</span>
+		</h4>
+
+
+	</h4>	
 	<p>	
 	<span class="inputparam">
 	<select name="selectProbeType" id="probeTypeT" onchange="updateNumber(this.id, this.value)">
@@ -603,20 +619,20 @@
 	</select>	
 	</span>
 	<br>
-	<br>
 	</p>	
 
 	<div>
-		<span id="checkbox6">external RTC?
-		<input class="ckeckbox-element" type="checkbox" id="externalRTC" onclick="updateButton(this.id,this.checked)"/>  
-		<i class="glyphicon glyphicon-time"></i>
+	<span id="checkbox6"><span class="textinfo">external RTC:</span>
+	<input class="ckeckbox-element" type="checkbox" id="externalRTC" onclick="updateButton(this.id,this.checked)"/>  
+	<i class="glyphicon glyphicon-time"></i>
+	</span> 
+	</div>
+	<div>
+	<span id="checkbox6"><span class="textinfo">reset RTC (at boot):</span>
+		<input class="ckeckbox-element" type="checkbox" id="resetRTC" onclick="updateButton(this.id,this.checked)"/>  
+		<i class="glyphicon glyphicon-refresh"></i>
 		</span> 
-		<span id="checkbox6">reset RTC upon reboot?
-			<input class="ckeckbox-element" type="checkbox" id="resetRTC" onclick="updateButton(this.id,this.checked)"/>  
-			<i class="glyphicon glyphicon-refresh"></i>
-			</span> 
-		<br>
-	</div>		
+	</div>	
 	<br>
 
 	<div class="inputcontainer">
@@ -637,13 +653,6 @@
 	</span> 
 	</div>
 	<br>
-	<div>
-		<span class="textinfo">PIN INFO: wemos D1 mini esp32: Temp pins: [5, 26, 27, 32]. Relay: [14, 13, 25, 33, 2, 15]. DHT: [17, 16]. Fan: [4, 0].</span>
-		<br>
-		<span class="textinfo">IMPORTANT: disattach pin 2 when flashing otherwise flash will FAIL - reconect after flashing</span>
-		<br>
-		<span class="textinfo">IMPORTANT: disconnect pin 2, 0 and 4 when using Serial monitor otherwise errors will appear</span>
-	</div>
 	<hr>
 </div>
 

@@ -308,18 +308,18 @@ tempParam4.alarmRange = EEPROM.readFloat(offsetof(storeEEPROM, tempParam4.alarmR
 // OUTPUT_MIN2 = EEPROM.readDouble(offsetof(storeEEPROM, OUTPUT_MIN2));
 // OUTPUT_MAX2 = EEPROM.readDouble(offsetof(storeEEPROM, OUTPUT_MAX2));
 
-calSettings.pt100Temp[0] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.pt100Temp[0]));
-calSettings.pt100Temp[1] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.pt100Temp[1]));
-calSettings.pt100Temp[2] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.pt100Temp[2]));
-calSettings.pt100Temp[3] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.pt100Temp[3]));
-calSettings.dhtTemp[0] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.dhtTemp[0]));
-calSettings.dhtTemp[1] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.dhtTemp[1]));
-calSettings.dhtHumidity[0] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.dhtHumidity[0]));
-calSettings.dhtHumidity[1] = EEPROM.readFloat(offsetof(storeEEPROM, calSettings.dhtHumidity[1]));
+cal.pt100[0] = EEPROM.readFloat(offsetof(storeEEPROM, cal.pt100[0]));
+cal.pt100[1] = EEPROM.readFloat(offsetof(storeEEPROM, cal.pt100[1]));
+cal.pt100[2] = EEPROM.readFloat(offsetof(storeEEPROM, cal.pt100[2]));
+cal.pt100[3] = EEPROM.readFloat(offsetof(storeEEPROM, cal.pt100[3]));
+cal.dhtT[0] = EEPROM.readFloat(offsetof(storeEEPROM, cal.dhtT[0]));
+cal.dhtT[1] = EEPROM.readFloat(offsetof(storeEEPROM, cal.dhtT[1]));
+cal.dhtH[0] = EEPROM.readFloat(offsetof(storeEEPROM, cal.dhtH[0]));
+cal.dhtH[1] = EEPROM.readFloat(offsetof(storeEEPROM, cal.dhtH[1]));
 
 
 // for (int m = 0; m < 8; m++){
-// int offsetPosition = offsetof(storeEEPROM, calSettings.pt100Temp[0]);
+// int offsetPosition = offsetof(storeEEPROM, cal.pt100[0]);
 // calibrationValue[m]  = EEPROM.readFloat(offsetPosition+4*m);
 // }
 #endif

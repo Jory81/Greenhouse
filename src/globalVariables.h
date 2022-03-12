@@ -61,13 +61,13 @@ char lightsOff[6];
 };
 lightSettings lights1 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, lights2 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, lights3 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-struct SensorReadings
+struct Sensors
 {
-float pt100Temp[4];
-float dhtTemp[2];
-float dhtHumidity[2];
+float pt100[4];
+float dhtT[2];
+float dhtH[2];
 };
-SensorReadings sensorReading, conceptReading, calSettings {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+Sensors concept, valid, cal {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
 
 struct TimeKeeping
 {
@@ -109,7 +109,7 @@ humidSettings humidParam1, humidParam2;
 Relay relay1, relay2, relay3, relay4, relay5, relay6;
 Fan fan1, fan2; 
 lightSettings lights1, lights2, lights3;
-SensorReadings calSettings;
+Sensors cal;
 };
 
 storeEEPROM myVar{

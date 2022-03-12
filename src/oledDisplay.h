@@ -6,32 +6,32 @@ void displayOledScreen(float temp1, float temp2, float temp3, float temp4){
   char buffer[40];
   if (systemParam.probeCountT >= 1){
    display.setCursor(0,8);
-  sprintf(buffer, "T1: %2.1f   %2.1f", temp1, calSettings.pt100sensor[0]);  
+  sprintf(buffer, "T1: %2.1f   %2.1f", temp1, cal.pt100[0]);  
   display.print(buffer);
   }
   if (systemParam.probeCountT >= 2){
   display.setCursor(0,16);
-  sprintf(buffer, "T2: %2.1f   %2.1f", temp2, calSettings.pt100sensor[1]);  
+  sprintf(buffer, "T2: %2.1f   %2.1f", temp2, cal.pt100[1]);  
   display.print(buffer);
   }
   if (systemParam.probeCountT >= 3){
   display.setCursor(0,24);
-  sprintf(buffer, "T3: %2.1f   %2.1f", temp3, calSettings.pt100sensor[2]);  
+  sprintf(buffer, "T3: %2.1f   %2.1f", temp3, cal.pt100[2]);  
   display.print(buffer);
   }
   if (systemParam.probeCountT >= 4){
   display.setCursor(0,32);
-  sprintf(buffer, "T4: %2.1f   %2.1f", temp4, calSettings.pt100sensor[3]);  
+  sprintf(buffer, "T4: %2.1f   %2.1f", temp4, cal.pt100[3]);  
   display.print(buffer);
   }
   if (systemParam.probeCountH >= 1){
   display.setCursor(0,40);
-  sprintf(buffer, "DHT1: %2.1f   %2.1f", dhtTemp[0], humidity[0]);  
+  sprintf(buffer, "DHT1: %2.1f   %2.1f", valid.dhtT[0], valid.dhtH[0]);  
   display.print(buffer);
   }
   if (systemParam.probeCountH >= 1){ 
   display.setCursor(0,48);
-  sprintf(buffer, "DHT2: %2.1f   %2.1f", dhtTemp[1], humidity[1]);  
+  sprintf(buffer, "DHT2: %2.1f   %2.1f", valid.dhtT[1], valid.dhtH[1]);  
   display.print(buffer);
   }
 

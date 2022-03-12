@@ -33,13 +33,13 @@ void samplingTemp(){
           case 1: {
             for (int sensor = 0; sensor <systemParam.probeCountT; sensor++){
               uint16_t rtd = maxthermo[sensor].readRTD();
-              sensorReading.pt100Temp[sensor] = processRTD(rtd) - calSettings.pt100Temp[sensor];              
-              tempTable[sensor][readIndex] = sensorReading.pt100Temp[sensor];
+              valid.pt100[sensor] = processRTD(rtd) - cal.pt100[sensor];              
+              tempTable[sensor][readIndex] = valid.pt100[sensor];
               totalTemp[sensor]=0;
               for (int n = 0; n < systemParam.measurements; n++){
                 totalTemp[sensor] = totalTemp[sensor] + tempTable[sensor][n];
               }
-              sensorReading.pt100Temp[sensor] = totalTemp[sensor]/systemParam.measurements;
+              valid.pt100[sensor] = totalTemp[sensor]/systemParam.measurements;
               }
               readIndex = readIndex + 1;
                 if (readIndex >= systemParam.measurements) {
@@ -51,7 +51,7 @@ void samplingTemp(){
             // for (int sensor = 0; sensor <systemParam.probeCountT; sensor++){
             //   temp[sensor] = thermocouple[sensor]->readCelsius();
             //      if ((temp[sensor] < 300 && temp[sensor] > oldtemp[sensor]-50 && temp[sensor] < oldtemp[sensor]+50 ) || oldtemp[sensor] == 0){
-            //       oldtemp[sensor] = temp[sensor] - calSettings.pt100sensor[sensor];;             
+            //       oldtemp[sensor] = temp[sensor] - cal.pt100sensor[sensor];;             
             //       }
             // }
           }
@@ -62,13 +62,13 @@ void samplingTemp(){
 void samplingHumidity(){
     if (systemParam.probeCountH > 0){
         for (int sensor = 0; sensor < systemParam.probeCountH; sensor++){
-        conceptReading.dhtHumidity[sensor] = dht[sensor].readHumidity();
-        conceptReading.dhtTemp[sensor] = dht[sensor].readTemperature();
-          if(!isnan(conceptReading.dhtTemp[sensor]) && !isnan(conceptReading.dhtHumidity[sensor])){
-            sensorReading.dhtTemp[sensor] = conceptReading.dhtTemp[sensor] - calSettings.dhtTemp[sensor];
-            sensorReading.dhtHumidity[sensor] = conceptReading.dhtHumidity[sensor] - calSettings.dhtHumidity[sensor];
+        concept.dhtH[sensor] = dht[sensor].readHumidity();
+        concept.dhtT[sensor] = dht[sensor].readTemperature();
+          if(!isnan(concept.dhtT[sensor]) && !isnan(concept.dhtH[sensor])){
+            valid.dhtT[sensor] = concept.dhtT[sensor] - cal.dhtT[sensor];
+            valid.dhtH[sensor] = concept.dhtH[sensor] - cal.dhtH[sensor];
             // Serial.printf("sensor %d humidity ", sensor); Serial.print(humidity[sensor]);
-            // Serial.printf(" temp "); Serial.println(dhtTemp[sensor]);
+            // Serial.printf(" temp "); Serial.println(dhtT[sensor]);
           }
           else {
             humidityCounter++;

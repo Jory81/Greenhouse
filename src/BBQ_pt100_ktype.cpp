@@ -231,7 +231,7 @@ void loop(){
     }
 
     if (millis() - previousMillis4 >= updateOledDisplay){
-      displayOledScreen(sensorReading.pt100Temp[0], sensorReading.pt100Temp[1], sensorReading.pt100Temp[2], sensorReading.pt100Temp[3]);
+      displayOledScreen(valid.pt100[0], valid.pt100[1], valid.pt100[2], valid.pt100[3]);
     previousMillis4 = millis();
     }
     

@@ -141,10 +141,10 @@ void light2Control(boolean manualRelay, const int relayPin){
 
   void heater1Control(boolean manualRelay, const int relayPin){
   if (!manualRelay){
-    if (temp[0] < tempParam1.targetSoilTemp - tempParam1.tempRange){
+    if (valid.pt100[0] < tempParam1.targetSoilTemp - tempParam1.tempRange){
       climate1.heater = true;
     }
-    else if (temp[0] > tempParam1.targetSoilTemp + tempParam1.tempRange){
+    else if (valid.pt100[0] > tempParam1.targetSoilTemp + tempParam1.tempRange){
       climate1.heater = false;
     }
   }
@@ -160,10 +160,10 @@ void light2Control(boolean manualRelay, const int relayPin){
 
 void heater2Control(boolean manualRelay, const int relayPin){
   if (!manualRelay){
-    if (temp[1] < tempParam2.targetSoilTemp - tempParam2.tempRange){
+    if (valid.pt100[1] < tempParam2.targetSoilTemp - tempParam2.tempRange){
       climate2.heater = true;
     }
-    else if (temp[1] > tempParam2.targetSoilTemp + tempParam2.tempRange){
+    else if (valid.pt100[1] > tempParam2.targetSoilTemp + tempParam2.tempRange){
       climate2.heater = false;
     }
   }
@@ -178,10 +178,10 @@ void heater2Control(boolean manualRelay, const int relayPin){
 
 void heater3Control(boolean manualRelay, const int relayPin){
   if (!manualRelay){
-    if (temp[2] < tempParam3.targetSoilTemp - tempParam3.tempRange){
+    if (valid.pt100[2] < tempParam3.targetSoilTemp - tempParam3.tempRange){
       climate3.heater = true;
     }
-    else if (temp[2] > tempParam3.targetSoilTemp + tempParam3.tempRange){
+    else if (valid.pt100[2] > tempParam3.targetSoilTemp + tempParam3.tempRange){
       climate3.heater = false;
     }
   }
@@ -196,10 +196,10 @@ void heater3Control(boolean manualRelay, const int relayPin){
 
 void heater4Control(boolean manualRelay, const int relayPin){
   if (!manualRelay){
-    if (temp[3] < tempParam4.targetSoilTemp - tempParam4.tempRange){
+    if (valid.pt100[3] < tempParam4.targetSoilTemp - tempParam4.tempRange){
       climate4.heater = true;
     }
-    else if (temp[3] > tempParam4.targetSoilTemp + tempParam4.tempRange){
+    else if (valid.pt100[3] > tempParam4.targetSoilTemp + tempParam4.tempRange){
       climate4.heater = false;
     }
   }
@@ -214,10 +214,10 @@ void heater4Control(boolean manualRelay, const int relayPin){
 
 void humidity1Control(boolean manualRelay, const int relayPin){
   if (!manualRelay){
-    if (humidity[0] < humidParam1.humidmin){
+    if (valid.dhtH[0] < humidParam1.humidmin){
       climate1.humidifier = true;
     }
-    else if (humidity[0] > humidParam1.humidmax){
+    else if (valid.dhtH[0] > humidParam1.humidmax){
       climate1.humidifier = false;
     }
   }
@@ -233,10 +233,10 @@ void humidity1Control(boolean manualRelay, const int relayPin){
 
 void humidity2Control(boolean manualRelay, const int relayPin){
 if (!manualRelay){
-  if (humidity[1] < humidParam2.humidmin){
+  if (valid.dhtH[1] < humidParam2.humidmin){
     climate2.humidifier = true;
   }
-  else if (humidity[1] > humidParam1.humidmax){
+  else if (valid.dhtH[1] > humidParam1.humidmax){
     climate2.humidifier = false;
   }
 }
@@ -287,17 +287,17 @@ else if (!fan1.manual){
       fan1.speed = fan1.output_min;
     }
     else {
-      if (dhtTemp[0] > tempParam1.targetAirTemp + tempParam1.alarmRange){
+      if (valid.dhtT[0] > tempParam1.targetAirTemp + tempParam1.alarmRange){
         fan1.speed = fan1.output_max;
       }
-      else if (dhtTemp[0] < tempParam1.targetAirTemp){ //  - tempRange1
+      else if (valid.dhtT[0] < tempParam1.targetAirTemp){ //  - tempRange1
         fan1.speed = fan1.manualSpeed; // OUTPUT_MIN1
       }
       // else if (dhtTemp[0] > targetAirTemp1 - tempRange1 && dhtTemp[0] < targetAirTemp1 + tempRange1){
       //   outputVal1 = manualFanspeed1;
       // }
-      else if (dhtTemp[0] > tempParam1.targetAirTemp && dhtTemp[0] < tempParam1.targetAirTemp + tempParam1.alarmRange){
-        fan1.speed = modifiedMap((dhtTemp[0]-tempParam1.targetAirTemp), 0, tempParam1.alarmRange, fan1.output_min, fan1.output_max);
+      else if (valid.dhtT[0] > tempParam1.targetAirTemp && valid.dhtT[0] < tempParam1.targetAirTemp + tempParam1.alarmRange){
+        fan1.speed = modifiedMap((valid.dhtT[0]-tempParam1.targetAirTemp), 0, tempParam1.alarmRange, fan1.output_min, fan1.output_max);
       }
       }
   //}
@@ -349,17 +349,17 @@ else if (!fan2.manual){
       fan2.speed = fan2.output_min;
     }
     else {
-      if (dhtTemp[1] > tempParam2.targetAirTemp + tempParam2.alarmRange){
+      if (valid.dhtT[1] > tempParam2.targetAirTemp + tempParam2.alarmRange){
         fan2.speed = fan2.output_max;
       }
-      else if (dhtTemp[1] < tempParam2.targetAirTemp){ //  - tempRange2
+      else if (valid.dhtT[1] < tempParam2.targetAirTemp){ //  - tempRange2
         fan2.speed = fan2.manualSpeed; // OUTPUT_MIN2
       }
       // else if (dhtTemp[1] > targetAirTemp2 - tempRange2 && dhtTemp[1] < targetAirTemp2 + tempRange2){
       //   outputVal2 = manualFanspeed2;
       // }
-      else if (dhtTemp[1] > tempParam2.targetAirTemp && dhtTemp[1] < tempParam2.targetAirTemp + tempParam2.alarmRange){
-        fan2.speed = modifiedMap((dhtTemp[1]-tempParam2.targetAirTemp), 0, tempParam2.alarmRange, fan2.output_min, fan2.output_max);
+      else if (valid.dhtT[1] > tempParam2.targetAirTemp && valid.dhtT[1] < tempParam2.targetAirTemp + tempParam2.alarmRange){
+        fan2.speed = modifiedMap((valid.dhtT[1]-tempParam2.targetAirTemp), 0, tempParam2.alarmRange, fan2.output_min, fan2.output_max);
       }
     if (fan2.speed == 0){
       climate2.fan = false;
