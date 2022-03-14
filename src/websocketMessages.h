@@ -158,9 +158,6 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("calValue6")){cal.dhtT[1] = json["calValue6"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, cal.dhtT[1]), cal.dhtT[1]);  EEPROM.commit(); };}
         else if (json.containsKey("calValue7")){cal.dhtH[0] = json["calValue7"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, cal.dhtH[0]), cal.dhtH[0]);  EEPROM.commit(); };}
         else if (json.containsKey("calValue8")){cal.dhtH[1] = json["calValue8"]; if (saveInEEPROM){EEPROM.put(offsetof(storeEEPROM, cal.dhtH[1]), cal.dhtH[1]);  EEPROM.commit(); };}
-        // else if (json.containsKey("calValue9")){calibrationValue[8] = json["calValue9"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[8]), calibrationValue[8]);  EEPROM.commit(); };}
-        // else if (json.containsKey("calValue10")){calibrationValue[9] = json["calValue10"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[9]), calibrationValue[9]);  EEPROM.commit(); };}
-        // else if (json.containsKey("calValue11")){calibrationValue[10] = json["calValue11"]; if (saveInEEPROM){EEPROM.put(offsetof(storeInEEPROM, calibrationValue[10]), calibrationValue[10]);  EEPROM.commit(); };}
 
         else if (json.containsKey("manualRelay1")){relay1.manual = json["manualRelay1"];}
         else if (json.containsKey("manualRelay2")){relay2.manual = json["manualRelay2"];}
