@@ -217,7 +217,7 @@
 
 			<div>
 			<span class="textinfo">fan1 connected:</span>
-			<input type="checkbox" id="fan1Connected" onclick="updateButton(this.id, this.checked)">
+			<input type="checkbox" id="fan1c" onclick="updateButton(this.id, this.checked)">
 			</div>
 			
 			<div>
@@ -239,7 +239,7 @@
 			<br>
 			<div>
 			<span class="textinfo">fan2 connected:</span>
-			<input type="checkbox" id="fan2Connected" onclick="updateButton(this.id, this.checked)">
+			<input type="checkbox" id="fan2c" onclick="updateButton(this.id, this.checked)">
 			</div>
 			<div>
 			<span class="textinfo">manual mosfet control (2)</span>
@@ -908,11 +908,12 @@
 		else if (variable == 'relay5f'){document.getElementById('funcRelay5').value = data.relay5f;}
 		else if (variable == 'relay6f'){document.getElementById('funcRelay6').value = data.relay6f;}
 	
-		else if (variable == 'fan1Connected'){document.getElementById('fan1Connected').checked = data.fan1Connected;}
-		else if (variable == 'fan2Connected'){document.getElementById('fan2Connected').checked = data.fan2Connected;}
+		else if (variable == 'fan1c'){document.getElementById('fan1c').checked = data.fan1c;}
+		else if (variable == 'fan2c'){document.getElementById('fan2c').checked = data.fan2c;}
 		else if (variable == 'graphUpdate'){document.getElementById('graphUpdate').value = data.graphUpdate;}
 		else if (variable == 'tempUpdate'){document.getElementById('tempUpdate').value = data.tempUpdate;}
 		else if (variable == 'measurements'){document.getElementById('measurements').value = data.measurements;}
+		else if (variable == 'externalRTC'){document.getElementById('externalRTC').checked = data.externalRTC;}
 		//else if (variable == 'PIDcontrol'){document.getElementById('PIDcontrol').checked = data.PIDcontrol;}
 	
 		else if (variable == 'calV1'){document.getElementById('calValue1').value = data.calV1;}

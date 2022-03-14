@@ -265,9 +265,9 @@ if (fan1.fanState != climate1.fan || msgFanState1 == true){
 }   
 //Serial.println(outputVal1);
 ledcWrite(ledChannel1, fan1.speed);
-//fanspeed1 = map(outputVal1, 0, 255, 0, 100);
+byte fanspeed1 = map(fan1.speed, 0, 255, 0, 100);
 //Serial.println(fanspeed1);
-notifyClientsSingleObjectByte("fanspeed1", fan1.speed);   
+notifyClientsSingleObjectByte("fanspeed1", fanspeed1);   
 }
 
 void messageFanState1(){
@@ -323,8 +323,8 @@ messageFanState2();
 
 //Serial.println(outputVal);
 ledcWrite(ledChannel2, fan2.speed);
-//fanspeed2 = map(outputVal2, 0, 255, 0, 100);
-notifyClientsSingleObjectByte("fanspeed2", fan2.speed);   
+byte fanspeed2 = map(fan2.speed, 0, 255, 0, 100);
+notifyClientsSingleObjectByte("fanspeed2", fanspeed2);   
 }
 
 void messageFanState2(){

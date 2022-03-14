@@ -123,11 +123,11 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("probeTypeH")){systemParam.probeTypeH = json["probeTypeH"]; EEPROM.put(offsetof(storeEEPROM, systemParam.probeTypeH), systemParam.probeTypeH);  EEPROM.commit();}
         else if (json.containsKey("probeCountH")){systemParam.probeCountH = json["probeCountH"]; EEPROM.put(offsetof(storeEEPROM, systemParam.probeCountH), systemParam.probeCountH);  EEPROM.commit();}
         else if (json.containsKey("relay1Connected")){relay1.connected = json["relay1Connected"]; EEPROM.put(offsetof(storeEEPROM, relay1.connected), relay1.connected);  EEPROM.commit();}
-        else if (json.containsKey("relay2Connected")){relay2.connected = json["relay2Connected"]; EEPROM.put(offsetof(storeEEPROM, relay1.connected), relay1.connected);  EEPROM.commit();}
-        else if (json.containsKey("relay3Connected")){relay3.connected = json["relay3Connected"]; EEPROM.put(offsetof(storeEEPROM, relay1.connected), relay1.connected);  EEPROM.commit();}
-        else if (json.containsKey("relay4Connected")){relay4.connected = json["relay4Connected"]; EEPROM.put(offsetof(storeEEPROM, relay1.connected), relay1.connected);  EEPROM.commit();}
-        else if (json.containsKey("relay5Connected")){relay5.connected = json["relay5Connected"]; EEPROM.put(offsetof(storeEEPROM, relay1.connected), relay1.connected);  EEPROM.commit();}
-        else if (json.containsKey("relay6Connected")){relay6.connected = json["relay6Connected"]; EEPROM.put(offsetof(storeEEPROM, relay1.connected), relay1.connected);  EEPROM.commit();}
+        else if (json.containsKey("relay2Connected")){relay2.connected = json["relay2Connected"]; EEPROM.put(offsetof(storeEEPROM, relay2.connected), relay2.connected);  EEPROM.commit();}
+        else if (json.containsKey("relay3Connected")){relay3.connected = json["relay3Connected"]; EEPROM.put(offsetof(storeEEPROM, relay3.connected), relay3.connected);  EEPROM.commit();}
+        else if (json.containsKey("relay4Connected")){relay4.connected = json["relay4Connected"]; EEPROM.put(offsetof(storeEEPROM, relay4.connected), relay4.connected);  EEPROM.commit();}
+        else if (json.containsKey("relay5Connected")){relay5.connected = json["relay5Connected"]; EEPROM.put(offsetof(storeEEPROM, relay5.connected), relay5.connected);  EEPROM.commit();}
+        else if (json.containsKey("relay6Connected")){relay6.connected = json["relay6Connected"]; EEPROM.put(offsetof(storeEEPROM, relay6.connected), relay6.connected);  EEPROM.commit();}
         
         else if (json.containsKey("fan1Connected")){fan1.connected = json["fan1Connected"]; EEPROM.put(offsetof(storeEEPROM, fan1.connected), fan1.connected);  EEPROM.commit();}
         else if (json.containsKey("fan2Connected")){fan2.connected = json["fan2Connected"]; EEPROM.put(offsetof(storeEEPROM, fan2.connected), fan2.connected);  EEPROM.commit();}
@@ -135,7 +135,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         else if (json.containsKey("tempUpdate")){systemParam.tempUpdate = json["tempUpdate"]; systemParam.tempUpdate = systemParam.tempUpdate*1000; EEPROM.put(offsetof(storeEEPROM, systemParam.tempUpdate), (systemParam.tempUpdate));  EEPROM.commit();}
        
         else if (json.containsKey("measurements")){systemParam.measurements = json["measurements"];  EEPROM.put(offsetof(storeEEPROM, systemParam.measurements), (systemParam.measurements));  EEPROM.commit();}
-        else if (json.containsKey("externalRTC")){systemParam.externalRTC = json["externalRTC"];  EEPROM.put(offsetof(storeEEPROM, systemParam.externalRTC), (systemParam.externalRTC));  EEPROM.commit(); ESP.restart();}
+        else if (json.containsKey("externalRTC")){systemParam.externalRTC = json["externalRTC"];  EEPROM.put(offsetof(storeEEPROM, systemParam.externalRTC), (systemParam.externalRTC));  EEPROM.commit(); ESP.restart();} // 
         else if (json.containsKey("resetRTC")){systemParam.resetRTC = json["measurements"];  EEPROM.put(offsetof(storeEEPROM, systemParam.resetRTC), (systemParam.resetRTC));  EEPROM.commit();}
         //else if (json.containsKey("PIDcontrol")){PIDcontrol = json["PIDcontrol"]; EEPROM.put(offsetof(storeInEEPROM, PIDcontrol), PIDcontrol);  EEPROM.commit();}
 

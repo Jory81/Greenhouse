@@ -56,7 +56,7 @@ void setupEEPROM(){
 
 void setupRTC(){
   if (systemParam.externalRTC){
-    if (! rtc.begin()) {
+    if (!rtc.begin()) {
       Serial.println("Couldn't find RTC");
       systemParam.externalRTC = false;
       EEPROM.put(offsetof(storeEEPROM, systemParam.externalRTC), (systemParam.externalRTC));
@@ -197,6 +197,8 @@ systemParam.probeCountT = EEPROM.read(offsetof(storeEEPROM, systemParam.probeCou
 systemParam.probeTypeH  = EEPROM.read(offsetof(storeEEPROM, systemParam.probeTypeH));
 systemParam.probeCountH = EEPROM.read(offsetof(storeEEPROM, systemParam.probeCountH));
 systemParam.measurements = EEPROM.read(offsetof(storeEEPROM, systemParam.measurements));
+systemParam.externalRTC = EEPROM.read(offsetof(storeEEPROM, systemParam.externalRTC));
+systemParam.resetRTC = EEPROM.read(offsetof(storeEEPROM, systemParam.resetRTC));
 
 relay1.connected = EEPROM.read(offsetof(storeEEPROM, relay1.connected));
 relay2.connected = EEPROM.read(offsetof(storeEEPROM, relay2.connected));

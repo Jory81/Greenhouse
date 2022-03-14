@@ -52,13 +52,6 @@ boolean lights;
 };
 Climate climate1, climate2, climate3, climate4;
 
-// struct lightSettings
-// {
-// char lightsOn[6];
-// char lightsOff[6];
-// };
-//lightSettings lights1 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, lights2 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, lights3 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
 struct Sensors
 {
 float pt100[4];
@@ -82,7 +75,7 @@ struct lightSettings
 {
 char lightsOn[6];
 char lightsOff[6];
-} lights;// {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, lights2 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, lights3 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+} lights;
 
 };
 TimeKeeping schedule1, schedule2, schedule3;
@@ -116,9 +109,6 @@ humidSettings humidParam1, humidParam2;
 Relay relay1, relay2, relay3, relay4, relay5, relay6;
 Fan fan1, fan2; 
 TimeKeeping::lightSettings lights1, lights2, lights3;
-
-
-//lightSettings lights1, lights2, lights3;
 Sensors cal;
 };
 
