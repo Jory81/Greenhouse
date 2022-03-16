@@ -117,10 +117,10 @@ storeEEPROM myVar{
 1, 1, 1, 0, 1, 0, 1, 5000, 1000, // systemParameters
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // SSID
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // PASS
-27.0f, 27.0f, 25.0f, 0.5f, 5.0f, false, 24.0f, false, // Temp parameters climate 1
-24.0f, 24.0f, 22.0f, 0.5f, 5.0f, false, 26.0f, false, // Temp parameters climate 2
-28.0f, 27.0f, 22.0f, 0.5f, 5.0f, false, 26.0f, false, // Temp parameters climate 3
-28.0f, 27.0f, 22.0f, 0.5f, 5.0f, false, 26.0f, false, // Temp parameters climate 4
+27.0f, 27.0f, 25.0f, 0.5f, 5.0f, false, 25.0f, false, // Temp parameters climate 1
+24.0f, 24.0f, 22.0f, 0.5f, 5.0f, false, 25.0f, false, // Temp parameters climate 2
+28.0f, 27.0f, 22.0f, 0.5f, 5.0f, false, 25.0f, false, // Temp parameters climate 3
+28.0f, 27.0f, 22.0f, 0.5f, 5.0f, false, 25.0f, false, // Temp parameters climate 4
 30, 80, // humid parameters climate 1
 30, 80, // humid parameters climate 2
 false, false, 0, // relay settings relay 1
