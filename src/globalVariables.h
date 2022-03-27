@@ -186,8 +186,8 @@ int dateHour = 0;
 int dateMinute = 0;
 int currentMinutes = 0;
 
-int totalMinutes = 0;
-int totalHours = 0;
+// int totalMinutes = 0;
+// int totalHours = 0;
 int minutesStart = 0;
 int hourStart = 0;
 
