@@ -112,7 +112,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         //Serial.println(numberOfArguments);
         //for (int i = 0; i < numberOfArguments; i++){
         if (json.containsKey("requestInfo")){sendProgramInfo();}
-        else if (json.containsKey("hours")){syncTimeRTC(); hourStart = json["hours"]; minutesStart = json["minutes"];} //
+        else if (json.containsKey("hours")){hourStart = json["hours"]; minutesStart = json["minutes"]; syncTimeRTC(); } //
         else if (json.containsKey("saveInEEPROM")){saveInEEPROM = json["saveInEEPROM"];}   
         else if (json.containsKey("ssid")){String wifiID = json["ssid"]; Serial.println(wifiID); EEPROMposition = offsetof(storeEEPROM, systemParam.SSID[0]); writeStringToEEPROM(EEPROMposition, wifiID); notifyClientsSingleString("wifiID", wifiID);}
         else if (json.containsKey("pass")){String wifiPASS = json["pass"]; Serial.println(wifiPASS); EEPROMposition = offsetof(storeEEPROM, systemParam.PASS[0]); writeStringToEEPROM(EEPROMposition, wifiPASS); notifyClientsSingleString("wifiPASS", wifiPASS);}
@@ -136,7 +136,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
        
         else if (json.containsKey("measurements")){systemParam.measurements = json["measurements"];  EEPROM.put(offsetof(storeEEPROM, systemParam.measurements), (systemParam.measurements));  EEPROM.commit();}
         else if (json.containsKey("externalRTC")){systemParam.externalRTC = json["externalRTC"];  EEPROM.put(offsetof(storeEEPROM, systemParam.externalRTC), (systemParam.externalRTC));  EEPROM.commit(); ESP.restart();} // 
-        else if (json.containsKey("resetRTC")){systemParam.resetRTC = json["measurements"];  EEPROM.put(offsetof(storeEEPROM, systemParam.resetRTC), (systemParam.resetRTC));  EEPROM.commit();}
+        else if (json.containsKey("resetRTC")){systemParam.resetRTC = json["resetRTC"]; syncTimeRTC();}//  EEPROM.put(offsetof(storeEEPROM, systemParam.resetRTC), (systemParam.resetRTC));  EEPROM.commit();}
         //else if (json.containsKey("PIDcontrol")){PIDcontrol = json["PIDcontrol"]; EEPROM.put(offsetof(storeInEEPROM, PIDcontrol), PIDcontrol);  EEPROM.commit();}
 
         else if (json.containsKey("funcRelay1")){relay1.function = json["funcRelay1"]; EEPROM.put(offsetof(storeEEPROM, relay1.function), relay1.function);  EEPROM.commit();}

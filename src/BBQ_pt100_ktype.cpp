@@ -246,58 +246,37 @@ void loop(){
 }
 
 void timeControl(){
-  if (systemParam.externalRTC){
-  DateTime now = rtc.now(); // see syncTimeRTC
-
-  dateHour = now.hour();
-  dateMinute = now.minute();
-
-  // Serial.println(dateHour);
-  // Serial.println(dateMinute);
-
   currentMillis = millis();
   seconds = currentMillis / 1000;
   minutes = (seconds / 60);
   hours = (minutes / 60);
   days = hours / 24;
-  
+
   currentMillis %= 1000;
   seconds %= 60;
   minutes %= 60;
   hours %= 24;
 
-  currentMinutes = ((dateHour*60)+dateMinute);
+  if (systemParam.externalRTC){
+    DateTime now = rtc.now(); // see syncTimeRTC
+    dateHour = now.hour();
+    dateMinute = now.minute();
+    currentMinutes = ((dateHour*60)+dateMinute);
   }
-  else { // Maybe there's still a bug in this code - before testing it thoroughly I included an RTC - So the 'hour' might be off by 1.
-    currentMillis = millis();
-    seconds = currentMillis / 1000;
-    minutes = (seconds / 60);
-    totalMinutes = minutes + minutesStart;
-    hours = (minutes / 60);
-    totalHours = hours + hourStart;
-    days = hours / 24;
-    
-    currentMillis %= 1000;
-    seconds %= 60;
-    minutes %= 60;
-    totalMinutes %= 60;
-    hours %= 24;
 
+  else if (!systemParam.externalRTC) { // Maybe there's still a bug in this code - before testing it thoroughly I included an RTC - So the 'hour' might be off by 1.
     uint8_t mismatch;
     if (minutes + minutesStart > 59){
         mismatch = 1;
-    }
+        }
     else {
         mismatch = 0;
-    }
-    totalHours = totalHours + mismatch;
-    totalHours %= 24;
+        }
 
-    // char buffer[40];
-    // sprintf(buffer, "%02d:%02d", hours, minutes);
-
-    currentMinutes = ((totalHours*60)+totalMinutes);
-    
-    //Serial.println(buffer);
+    dateMinute = minutes + minutesStart;
+    dateHour = hours + hourStart + mismatch;
+    dateMinute %= 60;
+    dateHour %= 24;
+    currentMinutes = ((dateHour*60)+dateMinute);
   }
 }

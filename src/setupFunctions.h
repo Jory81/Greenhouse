@@ -198,7 +198,7 @@ systemParam.probeTypeH  = EEPROM.read(offsetof(storeEEPROM, systemParam.probeTyp
 systemParam.probeCountH = EEPROM.read(offsetof(storeEEPROM, systemParam.probeCountH));
 systemParam.measurements = EEPROM.read(offsetof(storeEEPROM, systemParam.measurements));
 systemParam.externalRTC = EEPROM.read(offsetof(storeEEPROM, systemParam.externalRTC));
-systemParam.resetRTC = EEPROM.read(offsetof(storeEEPROM, systemParam.resetRTC));
+//systemParam.resetRTC = EEPROM.read(offsetof(storeEEPROM, systemParam.resetRTC));
 
 relay1.connected = EEPROM.read(offsetof(storeEEPROM, relay1.connected));
 relay2.connected = EEPROM.read(offsetof(storeEEPROM, relay2.connected));
@@ -518,8 +518,9 @@ if (systemParam.externalRTC){
 
         rtc.adjust(DateTime(time.tm_year, time.tm_mon, time.tm_mday, time.tm_hour, time.tm_min, time.tm_sec));
         systemParam.resetRTC = false;
-        EEPROM.put(offsetof(storeEEPROM, systemParam.resetRTC), (systemParam.resetRTC));
-        EEPROM.commit();
+        notifyClientsSingleObject("resetRTC", systemParam.resetRTC);
+//        EEPROM.put(offsetof(storeEEPROM, systemParam.resetRTC), (systemParam.resetRTC));
+//        EEPROM.commit();
       }
   }
 }
