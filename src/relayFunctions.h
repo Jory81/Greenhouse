@@ -29,17 +29,21 @@ void light1Control(boolean manualRelay, const int relayPin){
     if (currentMinutes > schedule1.minutesLightsOn && currentMinutes < schedule1.minutesLightsOff){
       climate1.lights = true;
       tempParam1.targetSoilTemp = tempParam1.daySoilTemp;
-      if (fan1.daySwitch){
-        fan1.manualSpeed = fan1.output_min;
-      }
-      else {
-        fan1.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan1.manualSpeed));
+      if (!fan1.manual){
+        if (fan1.daySwitch){
+          fan1.manualSpeed = fan1.output_min;
+        }
+        else {
+          fan1.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan1.manualSpeed));
+        }
       }
     }
     else if (currentMinutes < schedule1.minutesLightsOn || currentMinutes > schedule1.minutesLightsOn){
       climate1.lights = false;
       tempParam1.targetSoilTemp = tempParam1.nightSoilTemp;
+      if (!fan1.manual){
       fan1.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan1.manualSpeed));
+      }
     }
   }
   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
@@ -56,17 +60,21 @@ void light2Control(boolean manualRelay, const int relayPin){
     if (currentMinutes > schedule2.minutesLightsOn && currentMinutes < schedule2.minutesLightsOff){
       climate2.lights = true;
       tempParam2.targetSoilTemp = tempParam2.daySoilTemp;
-      if (fan2.daySwitch){
-        fan2.manualSpeed = fan2.output_min;
-      }
-      else {
-        fan2.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan2.manualSpeed));
+      if (!fan2.manual){
+        if (fan2.daySwitch){
+          fan2.manualSpeed = fan2.output_min;
+        }
+        else {
+          fan2.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan2.manualSpeed));
+        }
       }
     }
     else if (currentMinutes < schedule2.minutesLightsOn || currentMinutes > schedule2.minutesLightsOn){
       climate2.lights = false;
       tempParam2.targetSoilTemp = tempParam2.nightSoilTemp;
+      if (!fan2.manual){
       fan2.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan2.manualSpeed));
+      }
     }
   }
   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
