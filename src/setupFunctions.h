@@ -31,7 +31,7 @@ void setupEEPROM(){
   Serial.print("check is: "); Serial.println(check);
   #endif
   
-  if (check == 12221){
+  if (check == 13211){
   display.print(F("code: ")); display.println(check);
   display.println(F("EEPROM SET"));
   display.display();
@@ -39,7 +39,7 @@ void setupEEPROM(){
   delay(1000);
   }
   
-  else if (check != 12221){
+  else if (check != 13211){
   display.println(F("EEPROM not initialized"));
   display.println(F("Write to EEPROM"));
   display.display();

@@ -29,12 +29,13 @@ boolean manual;
 boolean daySwitch;
 byte manualSpeed;
 byte speed;
+byte oldSpeed;
 byte output_min;
 byte output_max;
 boolean fanState;
 };
-Fan fan1 {false, false, true, 0, 0, 165, 255, false};
-Fan fan2 {false, false, true, 0, 0, 165, 255, false};
+Fan fan1 {false, false, true, 0, 0, 0, 165, 255, false};
+Fan fan2 {false, false, true, 0, 0, 0, 165, 255, false};
 
 struct humidSettings
 {
@@ -113,7 +114,7 @@ Sensors cal;
 };
 
 storeEEPROM myVar{
-12221, // check
+13211, // check
 1, 1, 1, 0, 1, 0, 1, 5000, 1000, // systemParameters
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // SSID
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // PASS

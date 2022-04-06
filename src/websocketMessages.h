@@ -238,7 +238,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
 }  
 
 void sendProgramInfo(){
-StaticJsonDocument<2500> doc; // 2500
+StaticJsonDocument<2000> doc; // 2500
 doc["probeTypeT"] = systemParam.probeTypeT;
 doc["probeCountT"]   = systemParam.probeCountT;
 doc["probeTypeH"]   = systemParam.probeTypeH;
@@ -359,7 +359,7 @@ doc["heater4"] = climate4.heater;
 //doc["humidifier3"] = humidifier3;
 doc["saveInEEPROM"] = saveInEEPROM;
 
-char data[2500]; // 2500
+char data[2000]; // 2500
 size_t len = serializeJson(doc, data);
 
     //Serial.print("length: "); Serial.println(len);
@@ -408,10 +408,10 @@ return;
 
 void sendTempToClient (){
     StaticJsonDocument<100> doc;
-    doc["temperature1"] = String(valid.pt100[0],2);
-    doc["temperature2"] = String(valid.pt100[1],2);
-    doc["temperature3"] = String(valid.pt100[2],2);
-    doc["temperature4"] = String(valid.pt100[3],2);
+    doc["temp1"] = String(valid.pt100[0],2);
+    doc["temp2"] = String(valid.pt100[1],2);
+    doc["temp3"] = String(valid.pt100[2],2);
+    doc["temp4"] = String(valid.pt100[3],2);
 
     char data[100];
     size_t len = serializeJson(doc, data);
@@ -428,8 +428,8 @@ void sendTempToClient (){
 
 void sendHumidityToClient(){
     StaticJsonDocument<200> doc;
-    doc["temperature6"] =  String(valid.dhtT[0],2);
-    doc["temperature7"] =  String(valid.dhtT[1],2);
+    doc["temp6"] =  String(valid.dhtT[0],2);
+    doc["temp7"] =  String(valid.dhtT[1],2);
     //doc["temperature8"] =  String(dhtT[2],2);
     doc["humid1"] =  String(valid.dhtH[0],2);
     doc["humid2"] =  String(valid.dhtH[1],2);

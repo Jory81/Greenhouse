@@ -660,13 +660,13 @@
 		<h3>Peppers (1)</h3>
 		
 		<p>
-		<span class="dht-labels">Soil temp:</span>&nbsp<span id="temperature1"></span><sup class="units">&deg;C</sup><span id="checkbox4">
+		<span class="dht-labels">Soil temp:</span>&nbsp<span id="temp1"></span><sup class="units">&deg;C</sup><span id="checkbox4">
 		<input class="ckeckbox-element" type="checkbox" id="heater1" onclick="updateButton(this.id, this.checked)" />  &nbsp;
 		<i class="fas fa-thermometer-half"></i>
 		</span> 
 		</p>	
 		<p>
-		<span class="dht-labels">Air temp:</span>&nbsp<span id="temperature6"></span><sup class="units">&deg;C</sup>	
+		<span class="dht-labels">Air temp:</span>&nbsp<span id="temp6"></span><sup class="units">&deg;C</sup>	
 		</p>
 		<p>		
 		<span class="dht-labels">Fanspeed:</span>&nbsp<span id="fanspeed1"></span><span class="dht-labels">%</span> 	
@@ -695,14 +695,14 @@
 		<h3>Tomatoes (2)</h3>
 		
 		<p>
-		<span class="dht-labels">Soil temp:</span>&nbsp<span id="temperature2"></span><sup class="units">&deg;C</sup>
+		<span class="dht-labels">Soil temp:</span>&nbsp<span id="temp2"></span><sup class="units">&deg;C</sup>
 		<span id="checkbox4"><input class="ckeckbox-element" type="checkbox" id="heater2" onclick="updateButton(this.id, this.checked)"/>  &nbsp;
 		<i class="fas fa-thermometer-half"></i>
 		</span> 
 		</p>	
 		
 		<p>
-		<span class="dht-labels">Air temp:</span>&nbsp<span id="temperature7"></span><sup class="units">&deg;C</sup>
+		<span class="dht-labels">Air temp:</span>&nbsp<span id="temp7"></span><sup class="units">&deg;C</sup>
 			
 		</p>
 		<p>		
@@ -732,14 +732,14 @@
 		<h3>Seeds (3/4)</h3>
 		
 		<p>
-		<span class="dht-labels">Soil temp:</span>&nbsp<span id="temperature3"></span><sup class="units">&deg;C</sup><span id="checkbox4">
+		<span class="dht-labels">Soil temp:</span>&nbsp<span id="temp3"></span><sup class="units">&deg;C</sup><span id="checkbox4">
 		<input class="ckeckbox-element" type="checkbox" id="heater3" onclick="updateButton(this.id, this.checked)" />  &nbsp;
 		<i class="fas fa-thermometer-half"></i>
 		</span> 
 		</p>
 		
 		<p>
-			<span class="dht-labels">Soil temp:</span>&nbsp<span id="temperature4"></span><sup class="units">&deg;C</sup><span id="checkbox4">
+			<span class="dht-labels">Soil temp:</span>&nbsp<span id="temp4"></span><sup class="units">&deg;C</sup><span id="checkbox4">
 			<input class="ckeckbox-element" type="checkbox" id="heater4" onclick="updateButton(this.id, this.checked)" />  &nbsp;
 			<i class="fas fa-thermometer-half"></i>
 			</span> 
@@ -1011,12 +1011,12 @@
 	
 		else if (variable == 'saveInEEPROM'){document.getElementById('saveInEEPROM').checked = data.saveInEEPROM;}
 	
-		else if (variable == 'temperature1'){document.getElementById('temperature1').innerHTML = data.temperature1; soiltemp1 = data.temperature1; updateTime();}
-		else if (variable == 'temperature2'){document.getElementById('temperature2').innerHTML = data.temperature2; soiltemp2 = data.temperature2;}
-		else if (variable == 'temperature3'){document.getElementById('temperature3').innerHTML = data.temperature3;}
-		else if (variable == 'temperature4'){document.getElementById('temperature4').innerHTML = data.temperature4;}
-		else if (variable == 'temperature6'){document.getElementById('temperature6').innerHTML = data.temperature6; airtemp1 = data.temperature6;}
-		else if (variable == 'temperature7'){document.getElementById('temperature7').innerHTML = data.temperature7; airtemp2 = data.temperature7;}
+		else if (variable == 'temp1'){document.getElementById('temp1').innerHTML = data.temp1; soiltemp1 = data.temp1; updateTime();}
+		else if (variable == 'temp2'){document.getElementById('temp2').innerHTML = data.temp2; soiltemp2 = data.temp2;}
+		else if (variable == 'temp3'){document.getElementById('temp3').innerHTML = data.temp3;}
+		else if (variable == 'temp4'){document.getElementById('temp4').innerHTML = data.temp4;}
+		else if (variable == 'temp6'){document.getElementById('temp6').innerHTML = data.temp6; airtemp1 = data.temp6;}
+		else if (variable == 'temp7'){document.getElementById('temp7').innerHTML = data.temp7; airtemp2 = data.temp7;}
 		//else if (variable == 'temperature8'){document.getElementById('temperature8').innerHTML = data.temperature8; airtemp3 = data.temperature8;}
 	
 		else if (variable == 'humid1'){document.getElementById('humid1').innerHTML = data.humid1; humidity1 = data.humid1;}
