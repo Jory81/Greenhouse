@@ -130,8 +130,8 @@ false, false, 0, // relay settings relay 3
 false, false, 0, // relay settings relay 4
 false, false, 0, // relay settings relay 5
 false, false, 0, // relay settings relay 6
-false, false, true, 0, 0, 165, 255, false, // fan settings climate 1
-false, false, true, 0, 0, 165, 255, false, // fan settings climate 2
+false, false, true, 0, 0, 0, 165, 255, false, // fan settings climate 1
+false, false, true, 0, 0, 0, 165, 255, false, // fan settings climate 2
 0, 0, 0, 0, 0, 0, // lights1 ON
 0, 0, 0, 0, 0, 0, // lights1 OFF
 0, 0, 0, 0, 0, 0, // lights2 ON
@@ -196,4 +196,6 @@ uint16_t EEPROMposition = 0;
 uint16_t stringLength;
 boolean msgFanState1= true;
 boolean msgFanState2= true;
+byte fanspeed1 = 0;
+byte fanspeed2 = 0;
 boolean displayTime;

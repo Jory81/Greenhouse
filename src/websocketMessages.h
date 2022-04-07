@@ -333,6 +333,8 @@ doc["fan2m"] = fan2.manual;
 doc["manualFanspeed2"] = fan2.manualSpeed;
 doc["fan1daySwitch"] = fan1.daySwitch;
 doc["fan2daySwitch"] = fan2.daySwitch;
+doc["fanspeed1"] = fanspeed1;
+doc["fanspeed2"] = fanspeed2;
 
 doc["lights1ON"] = schedule1.lightsON;
 doc["lights1OFF"] = schedule1.lightsOFF;
