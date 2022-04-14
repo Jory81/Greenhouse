@@ -35,7 +35,7 @@
 #include "RTClib.h"
 #include "time.h"
 
-//#define DEBUG_OUTPUT
+//#define DEBUG_OUTPUT // comment out for debugging mode (mainly for checking memory issues and JSON communication)
 
 #ifdef DEBUG_OUTPUT
   #define DEBUG_PRINT(x) Serial.print(x)
