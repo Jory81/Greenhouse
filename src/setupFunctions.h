@@ -75,7 +75,7 @@ void setupWIFI(){
   WiFi.begin(WIFI_SSID, WIFI_PASS);
   Serial.printf("Trying to connect [%s] ", WiFi.macAddress().c_str());
   while (WiFi.status() != WL_CONNECTED) {
-      Serial.println(".");
+      Serial.print(".");
       display.clearDisplay();
       display.setCursor(0,0);
       display.println(F("connecting to wifi..."));
@@ -343,14 +343,14 @@ int offsetPosition = offsetof(storeEEPROM, systemParam.SSID[0]);
 systemParam.SSID[m]  = EEPROM.read(offsetPosition+m);
 }
 wifiID = String(systemParam.SSID);
-Serial.print("wifiID "); Serial.println(wifiID);
+DEBUG_PRINT(F("wifiID ")); DEBUG_PRINTLN(wifiID);
 
 for (int m = 0; m < 32; m++){  
 int offsetPosition = offsetof(storeEEPROM, systemParam.PASS[0]);
 systemParam.PASS[m]  = EEPROM.read(offsetPosition+m);
 }
 wifiPASS = String(systemParam.PASS);
-Serial.print("wifiPASS "); Serial.println(wifiPASS);
+DEBUG_PRINT(F("wifiPASS ")); DEBUG_PRINTLN(wifiPASS);
 
 
 for (int m = 0; m < 6; m++){

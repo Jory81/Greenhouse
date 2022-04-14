@@ -52,10 +52,11 @@ void notifyClientsSingleString(String object, String &message) {
 
     char data[50];
     size_t len = serializeJson(doc, data);
-        //for (int i = 0; i < len;  i++){
-        //Serial.print(data[i]);
-        //}
-        //Serial.println(" ");
+    DEBUG_PRINTLN(F("sending JSON string: "));
+        for (int i = 0; i < len;  i++){
+        DEBUG_PRINT(data[i]);
+        }
+        DEBUG_PRINTLN(F(" "));
     ws.textAll(data, len); 
 
 }
@@ -68,8 +69,11 @@ void notifyClientsSingleObject(String object, boolean value) {
 
     char data[50];
     size_t len = serializeJson(doc, data);
-    //    for (int i = 0; i < len;  i++){
-    //}
+    DEBUG_PRINTLN(F("sending JSON boolean: "));
+        for (int i = 0; i < len;  i++){
+        DEBUG_PRINT(data[i]);
+        }
+        DEBUG_PRINTLN(F(" "));
     ws.textAll(data, len); 
 }
 
@@ -81,10 +85,11 @@ void notifyClientsSingleObjectByte(String object, byte value) {
 
     char data[50];
     size_t len = serializeJson(doc, data);
-        //Serial.print("length: "); Serial.println(len);
-        //for (int i = 0; i < len;  i++){
-        //Serial.print(data[i]);
-        //}
+        DEBUG_PRINTLN(F("sending JSON byte: "));
+        for (int i = 0; i < len;  i++){
+        DEBUG_PRINT(data[i]);
+        }
+        DEBUG_PRINTLN(F(" "));
     ws.textAll(data, len); 
 }
 
@@ -92,25 +97,22 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
     AwsFrameInfo *info = (AwsFrameInfo*)arg;
     if (info->final && info->index == 0 && info->len == len && info->opcode == WS_TEXT) {
 
-        // Serial.println("received text ");
-        // for (int i = 0; i < len; i++){
-        // strval[i]=(char)data[i];    
-        // Serial.print((char)data[i]);
-        // }
-        // Serial.println(" ");
+        DEBUG_PRINTLN(F("received JSON message: "));
+        for (int i = 0; i < len; i++){
+        //strval[i]=(char)data[i];    
+        DEBUG_PRINT((char)data[i]);
+        }
+        DEBUG_PRINTLN(" ");
 
         //const uint8_t size = JSON_OBJECT_SIZE(1);
         StaticJsonDocument<200> json;
         DeserializationError err = deserializeJson(json, data);
         if (err) {
-            Serial.print(F("deserializeJson() failed with code "));
-            Serial.println(err.c_str());
+            DEBUG_PRINT(F("deserializeJson() failed with code "));
+            DEBUG_PRINTLN(err.c_str());
             return;
         }
-        //serializeJson(json, Serial);
-        //uint8_t numberOfArguments = json.size();
-        //Serial.println(numberOfArguments);
-        //for (int i = 0; i < numberOfArguments; i++){
+
         if (json.containsKey("requestInfo")){sendProgramInfo();}
         else if (json.containsKey("hours")){hourStart = json["hours"]; minutesStart = json["minutes"]; syncTimeRTC(); } //
         else if (json.containsKey("saveInEEPROM")){saveInEEPROM = json["saveInEEPROM"];}   
@@ -365,11 +367,11 @@ doc["saveInEEPROM"] = saveInEEPROM;
 char data[2000]; // 2500
 size_t len = serializeJson(doc, data);
 
-    //Serial.print("length: "); Serial.println(len);
-    //for (int i = 0; i < len;  i++){
-    //Serial.print(data[i]);
-    //}
-    //Serial.println(" ");
+    DEBUG_PRINT(F("sending JSON message: ")); DEBUG_PRINTLN(len);
+    for (int i = 0; i < len;  i++){
+    DEBUG_PRINT(data[i]);
+    }
+    DEBUG_PRINTLN(" ");
 
 ws.textAll(data, len);
 return;
@@ -387,7 +389,7 @@ void writeStringToEEPROM(int addrOffset, const String &strToWrite){
     for (int i = 0; i < length; i++){
         //EEPROM.write(addrOffset + 1 + i, strToWrite[i]);
         EEPROM.write(addrOffset + i, strToWrite[i]);
-        //Serial.println(strToWrite[i]);
+        DEBUG_PRINTLN(strToWrite[i]);
     }
     EEPROM.write((length+addrOffset),'\0');
     //EEPROM.write((length+addrOffset),NULL);
@@ -419,11 +421,11 @@ void sendTempToClient (){
     char data[100];
     size_t len = serializeJson(doc, data);
 
-    //Serial.print("length: "); Serial.println(len);
-    //for (int i = 0; i < len;  i++){
-    //Serial.print(data[i]);
-    //}
-    //Serial.println(" ");
+    DEBUG_PRINT(F("length temp string: ")); DEBUG_PRINTLN(len);
+    for (int i = 0; i < len;  i++){
+    DEBUG_PRINT(data[i]);
+    }
+    DEBUG_PRINTLN(" ");
 
     ws.textAll(data, len);
     return;
@@ -441,11 +443,11 @@ void sendHumidityToClient(){
     char data[200];
     size_t len = serializeJson(doc, data);
 
-    //Serial.print("length: "); Serial.println(len);
-    //for (int i = 0; i < len;  i++){
-    //Serial.print(data[i]);
-    //}
-    //Serial.println(" ");
+    DEBUG_PRINT(F("length humidity string: ")); DEBUG_PRINTLN(len);
+    for (int i = 0; i < len;  i++){
+    DEBUG_PRINT(data[i]);
+    }
+    DEBUG_PRINTLN(F(" "));
 
     ws.textAll(data, len);
     return;
