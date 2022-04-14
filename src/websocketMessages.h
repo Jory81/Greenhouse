@@ -238,7 +238,8 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
 }  
 
 void sendProgramInfo(){
-StaticJsonDocument<2000> doc; // 2500
+//StaticJsonDocument<2000> doc; // 2500
+DynamicJsonDocument doc(2000);
 doc["probeTypeT"] = systemParam.probeTypeT;
 doc["probeCountT"]   = systemParam.probeCountT;
 doc["probeTypeH"]   = systemParam.probeTypeH;
@@ -388,8 +389,8 @@ void writeStringToEEPROM(int addrOffset, const String &strToWrite){
         EEPROM.write(addrOffset + i, strToWrite[i]);
         //Serial.println(strToWrite[i]);
     }
-    EEPROM.write((length+addrOffset),NULL);
-    //EEPROM.write((length+addrOffset),'\0');
+    EEPROM.write((length+addrOffset),'\0');
+    //EEPROM.write((length+addrOffset),NULL);
     EEPROM.commit();
   }
 return;

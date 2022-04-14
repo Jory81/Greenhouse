@@ -199,3 +199,5 @@ boolean msgFanState2= true;
 byte fanspeed1 = 0;
 byte fanspeed2 = 0;
 boolean displayTime;
+uint8_t oledPage = 0;
+uint8_t oledMaxPage = 3;

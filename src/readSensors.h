@@ -3,7 +3,7 @@ float processRTD(uint16_t rtd){
   uint16_t ohmsx100 ;
   uint32_t dummy ;
   float ohms, Tlut ;  
-  float Tcvd, Tcube, Tpoly, Trpoly ;    
+  //float Tcvd, Tcube, Tpoly, Trpoly ;    
 
   dummy = ((uint32_t)(rtd << 1)) * 100 * ((uint32_t) floor(RREF)) ;
   dummy >>= 16 ;
