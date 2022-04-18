@@ -29,21 +29,23 @@ void light1Control(boolean manualRelay, const int relayPin){
     if (currentMinutes > schedule1.minutesLightsOn && currentMinutes < schedule1.minutesLightsOff){
       climate1.lights = true;
       tempParam1.targetSoilTemp = tempParam1.daySoilTemp;
-      if (!fan1.manual){
-        if (fan1.daySwitch){
-          fan1.manualSpeed = fan1.output_min;
-        }
-        else {
-          fan1.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan1.manualSpeed));
-        }
-      }
+      // if (!fan1.manual){
+      //   if (fan1.daySwitch){
+      //     fan1.manualSpeed = fan1.output_min;
+      //   }
+      //   else {
+      //     //fan1.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan1.manualSpeed));
+      //     fan1.manualSpeed = storedFanSpeed1;
+      //   }
+      // }
     }
     else if (currentMinutes < schedule1.minutesLightsOn || currentMinutes > schedule1.minutesLightsOn){
       climate1.lights = false;
       tempParam1.targetSoilTemp = tempParam1.nightSoilTemp;
-      if (!fan1.manual){
-      fan1.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan1.manualSpeed));
-      }
+      // if (!fan1.manual){
+      // //fan1.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan1.manualSpeed));
+      // fan1.manualSpeed = storedFanSpeed1;
+      // }
     }
   }
   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
@@ -60,21 +62,23 @@ void light2Control(boolean manualRelay, const int relayPin){
     if (currentMinutes > schedule2.minutesLightsOn && currentMinutes < schedule2.minutesLightsOff){
       climate2.lights = true;
       tempParam2.targetSoilTemp = tempParam2.daySoilTemp;
-      if (!fan2.manual){
-        if (fan2.daySwitch){
-          fan2.manualSpeed = fan2.output_min;
-        }
-        else {
-          fan2.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan2.manualSpeed));
-        }
-      }
+      // if (!fan2.manual){
+      //   if (fan2.daySwitch){
+      //     fan2.manualSpeed = fan2.output_min;
+      //   }
+      //   else {
+      //     //fan2.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan2.manualSpeed));
+      //     fan2.manualSpeed = storedFanSpeed2;
+      //   }
+      // }
     }
     else if (currentMinutes < schedule2.minutesLightsOn || currentMinutes > schedule2.minutesLightsOn){
       climate2.lights = false;
       tempParam2.targetSoilTemp = tempParam2.nightSoilTemp;
-      if (!fan2.manual){
-      fan2.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan2.manualSpeed));
-      }
+      // if (!fan2.manual){
+      // //fan2.manualSpeed = EEPROM.read(offsetof(storeEEPROM, fan2.manualSpeed));
+      // fan2.manualSpeed = storedFanSpeed2;
+      // }
     }
   }
   bool relayReg = !(*portOutputRegister( digitalPinToPort(relayPin) ) & digitalPinToBitMask(relayPin));
@@ -245,7 +249,12 @@ else if (!fan1.manual){
         fan1.speed = fan1.output_max;
       }
       else if (valid.dhtT[0] < tempParam1.targetAirTemp){ //  - tempRange1
-        fan1.speed = fan1.manualSpeed; // OUTPUT_MIN1
+        if ((climate1.lights) && (fan1.daySwitch)){
+          fan1.speed = fan1.output_min; // OUTPUT_MIN1
+        }
+        else {
+          fan1.speed = fan1.manualSpeed;
+        }
       }
       // else if (dhtTemp[0] > targetAirTemp1 - tempRange1 && dhtTemp[0] < targetAirTemp1 + tempRange1){
       //   outputVal1 = manualFanspeed1;
@@ -311,7 +320,12 @@ else if (!fan2.manual){
         fan2.speed = fan2.output_max;
       }
       else if (valid.dhtT[1] < tempParam2.targetAirTemp){ //  - tempRange2
-        fan2.speed = fan2.manualSpeed; // OUTPUT_MIN2
+        if ((climate2.lights) && (fan2.daySwitch)){
+          fan2.speed = fan2.output_min; // OUTPUT_MIN1
+        }
+        else {
+          fan2.speed = fan2.manualSpeed;
+        }
       }
       // else if (dhtTemp[1] > targetAirTemp2 - tempRange2 && dhtTemp[1] < targetAirTemp2 + tempRange2){
       //   outputVal2 = manualFanspeed2;

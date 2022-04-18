@@ -21,26 +21,30 @@ void setupSPIFFS(){
   }  
 }
 void setupEEPROM(){
-  EEPROM.begin(750);
+  const int EEPROM_size = 512;
+  EEPROM.begin(EEPROM_size);
+  DEBUG_PRINT(F("dedicated EEPROM memory capacity: ")); DEBUG_PRINTLN(EEPROM_size);
+  DEBUG_PRINT(F("EEPROM memory in use: ")); DEBUG_PRINTLN(sizeof(myVar));
   
   #ifdef ESP8266
   int check;
   EEPROM.get(0, check);
   #else
   int check  = EEPROM.readInt(0);
-  Serial.print("check is: "); Serial.println(check);
   #endif
   
-  if (check == 13211){
+  if (check == 10001){
   display.print(F("code: ")); display.println(check);
-  display.println(F("EEPROM SET"));
+  DEBUG_PRINT(F("check number is: ")); DEBUG_PRINTLN(check);
+  //display.println(F("EEPROM SET"));
   display.display();
   initializeEEPROMvariables(); // functio in global_variables.h at the bottom.    
   delay(1000);
   }
   
-  else if (check != 13211){
+  else if (check != 10001){
   display.println(F("EEPROM not initialized"));
+  DEBUG_PRINTLN(F("EEPROM not initialized"));
   display.println(F("Write to EEPROM"));
   display.display();
   int eeAddress=0;
@@ -57,11 +61,11 @@ void setupEEPROM(){
 void setupRTC(){
   if (systemParam.externalRTC){
     if (!rtc.begin()) {
-      Serial.println("Couldn't find RTC");
+      DEBUG_PRINTLN(F("Couldn't find RTC"));
       systemParam.externalRTC = false;
       EEPROM.put(offsetof(storeEEPROM, systemParam.externalRTC), (systemParam.externalRTC));
       EEPROM.commit();
-      while (1);
+      //while (1);
     }
   }
 //rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));

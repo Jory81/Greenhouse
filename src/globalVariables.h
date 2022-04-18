@@ -114,7 +114,7 @@ Sensors cal;
 };
 
 storeEEPROM myVar{
-13211, // check
+10001, // check
 1, 1, 1, 0, 1, 0, 1, 5000, 1000, // systemParameters
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // SSID
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // PASS
@@ -200,4 +200,9 @@ byte fanspeed1 = 0;
 byte fanspeed2 = 0;
 boolean displayTime;
 uint8_t oledPage = 0;
+
+#ifdef DEBUG_OUTPUT
 uint8_t oledMaxPage = 3;
+#else
+uint8_t oledMaxPage = 2;
+#endif

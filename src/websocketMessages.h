@@ -116,8 +116,8 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
         if (json.containsKey("requestInfo")){sendProgramInfo();}
         else if (json.containsKey("hours")){hourStart = json["hours"]; minutesStart = json["minutes"]; syncTimeRTC(); } //
         else if (json.containsKey("saveInEEPROM")){saveInEEPROM = json["saveInEEPROM"];}   
-        else if (json.containsKey("ssid")){String wifiID = json["ssid"]; Serial.println(wifiID); EEPROMposition = offsetof(storeEEPROM, systemParam.SSID[0]); writeStringToEEPROM(EEPROMposition, wifiID); notifyClientsSingleString("wifiID", wifiID);}
-        else if (json.containsKey("pass")){String wifiPASS = json["pass"]; Serial.println(wifiPASS); EEPROMposition = offsetof(storeEEPROM, systemParam.PASS[0]); writeStringToEEPROM(EEPROMposition, wifiPASS); notifyClientsSingleString("wifiPASS", wifiPASS);}
+        else if (json.containsKey("ssid")){String wifiID = json["ssid"]; EEPROMposition = offsetof(storeEEPROM, systemParam.SSID[0]); writeStringToEEPROM(EEPROMposition, wifiID); notifyClientsSingleString("wifiID", wifiID);}
+        else if (json.containsKey("pass")){String wifiPASS = json["pass"]; EEPROMposition = offsetof(storeEEPROM, systemParam.PASS[0]); writeStringToEEPROM(EEPROMposition, wifiPASS); notifyClientsSingleString("wifiPASS", wifiPASS);}
         
         // THESE SYSTEM VALUES ARE ALWAYS SAVED TO EEPROM
         else if (json.containsKey("probeTypeT")){systemParam.probeTypeT = json["probeTypeT"]; EEPROM.put(offsetof(storeEEPROM, systemParam.probeTypeT), systemParam.probeTypeT);  EEPROM.commit(); }
@@ -389,8 +389,9 @@ void writeStringToEEPROM(int addrOffset, const String &strToWrite){
     for (int i = 0; i < length; i++){
         //EEPROM.write(addrOffset + 1 + i, strToWrite[i]);
         EEPROM.write(addrOffset + i, strToWrite[i]);
-        DEBUG_PRINTLN(strToWrite[i]);
+        DEBUG_PRINT(strToWrite[i]);
     }
+    DEBUG_PRINTLN(" ");
     EEPROM.write((length+addrOffset),'\0');
     //EEPROM.write((length+addrOffset),NULL);
     EEPROM.commit();
@@ -423,9 +424,9 @@ void sendTempToClient (){
 
     DEBUG_PRINT(F("length temp string: ")); DEBUG_PRINTLN(len);
     for (int i = 0; i < len;  i++){
-    DEBUG_PRINT(data[i]);
+    //DEBUG_PRINT(data[i]);
     }
-    DEBUG_PRINTLN(" ");
+    //DEBUG_PRINTLN(" ");
 
     ws.textAll(data, len);
     return;
@@ -445,9 +446,9 @@ void sendHumidityToClient(){
 
     DEBUG_PRINT(F("length humidity string: ")); DEBUG_PRINTLN(len);
     for (int i = 0; i < len;  i++){
-    DEBUG_PRINT(data[i]);
+    //DEBUG_PRINT(data[i]);
     }
-    DEBUG_PRINTLN(F(" "));
+    //DEBUG_PRINTLN(F(" "));
 
     ws.textAll(data, len);
     return;
